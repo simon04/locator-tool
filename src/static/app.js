@@ -16,14 +16,6 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     }
   });
 
-});
-
-angular.module('app').controller('Ctrl', function($scope, $http) {
-  $http.get('/locator-tool/query', {params: {
-    prop: 'coordinates',
-    titles: 'File:Axams Theaterbrunnen.jpg'
-  }}).then(function(d) {
-    $scope.y = d.data;
   });
 });
 
