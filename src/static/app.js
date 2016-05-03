@@ -6,17 +6,31 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     url: '/input',
     templateUrl: 'partials/input.html',
     controllerAs: '$ctrl',
-    controller: function(ltData) {
+    controller: function(ltData, $state) {
       var vm = this;
       vm.getFilesForCategory = function() {
         ltData.getFilesForCategory(vm.category).then(function(files) {
           vm.titles = files && files.join('\n');
         });
       }
+      vm.next = function() {
+        $state.go('list', {titles: vm.titles.split('\n').join('|')});
+      };
     }
   });
 
+  $stateProvider.state('list',{
+    url: '/list?titles',
+    templateUrl: 'partials/list.html',
+    controllerAs: '$ctrl',
+    controller: function(ltData, $stateParams) {
+      var vm = this;
+      ltData.getCoordinates($stateParams.titles).then(function(d) {
+        vm.titles = d && d.query && d.query.pages;
+      });
+    }
   });
+
 });
 
 angular.module('app').factory('ltData', function($http) {
@@ -26,9 +40,16 @@ angular.module('app').factory('ltData', function($http) {
         return d.data && d.data.user;
       });
     },
+    getCoordinates: function(titles) {
+      return $http.get('/locator-tool/query', {params: {prop: 'coordinates', titles: titles}}).then(function(d) {
+        return d.data;
+      });
+    },
     getFilesForCategory: function(cat) {
       return $http.get('/cats-php/', {params: {lang: 'commons', type: 6, cat: cat}}).then(function(d) {
-        return d.data;
+        return d.data.map(function(i) {
+          return 'File:' + i;
+        });
       });
     }
   };
