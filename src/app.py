@@ -26,7 +26,13 @@ def user():
 
 @app.route("/query")
 def query():
-    q = {'action': 'query', 'prop': request.args.get('prop'), 'titles': request.args.get('titles')}
+    q = {
+        'action': 'query',
+        'prop': request.args.get('prop'),
+        'titles': request.args.get('titles'),
+        'iiprop': request.args.get('iiprop'),
+        'iiextmetadatafilter': request.args.get('iiextmetadatafilter'),
+    }
     r = mwoauth.request(q)
     return jsonify(r)
 

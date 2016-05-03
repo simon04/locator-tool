@@ -41,7 +41,12 @@ angular.module('app').factory('ltData', function($http) {
       });
     },
     getCoordinates: function(titles) {
-      return $http.get('/locator-tool/query', {params: {prop: 'coordinates', titles: titles}}).then(function(d) {
+      return $http.get('/locator-tool/query', {params: {
+	  prop: 'coordinates|imageinfo',
+          titles: titles,
+          iiprop: 'extmetadata',
+          iiextmetadatafilter: 'ImageDescription'
+        }}).then(function(d) {
         return d.data;
       });
     },
