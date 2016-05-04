@@ -8,14 +8,6 @@
   </div>
 
   <div class="col-md-8 col-lg-9" ng-if="$ctrl.title">
-    <h2>
-      {{$ctrl.title.title}}
-      <a href="https://commons.wikimedia.org/wiki/{{$ctrl.title.title}}" target="_blank">
-        <span class="glyphicon glyphicon-new-window"></span>
-      </a>
-    </h2>
-    <blockquote>{{$ctrl.title.imageinfo[0].extmetadata.ImageDescription.value}}</blockquote>
-
-    <img class="img-responsive" ng-src="{{$ctrl.title.imageinfo[0].thumburl}}">
+    <ng-include src="'partials/file.html'"></ng-include>
   </div>
 </div>
