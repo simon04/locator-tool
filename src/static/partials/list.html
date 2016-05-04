@@ -1,7 +1,21 @@
 <div class="row">
   <div class="col-md-4 col-lg-3">
     <ul class="list-group">
-      <li ng-repeat="(k, v) in $ctrl.titles" class="list-group-item" ng-attr-title="{{v.imageinfo[0].extmetadata.ImageDescription.value}}" ng-class="{'list-group-item-success': v.coordinates}">{{v.title}}</li>
+      <li ng-repeat="(k, v) in $ctrl.titles" ng-click="$ctrl.title = v" class="list-group-item" ng-attr-title="{{v.imageinfo[0].extmetadata.ImageDescription.value}}" ng-class="{'list-group-item-success': v.coordinates}">
+        {{v.title}}
+      </li>
     </ul>
+  </div>
+
+  <div class="col-md-8 col-lg-9" ng-if="$ctrl.title">
+    <h2>
+      {{$ctrl.title.title}}
+      <a href="https://commons.wikimedia.org/wiki/{{$ctrl.title.title}}" target="_blank">
+        <span class="glyphicon glyphicon-new-window"></span>
+      </a>
+    </h2>
+    <blockquote>{{$ctrl.title.imageinfo[0].extmetadata.ImageDescription.value}}</blockquote>
+
+    <img class="img-responsive" ng-src="{{$ctrl.title.imageinfo[0].thumburl}}">
   </div>
 </div>
