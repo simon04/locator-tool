@@ -29,6 +29,8 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
       });
     }
   });
+
+  $urlRouterProvider.otherwise('/input');
 });
 
 angular.module('app').factory('ltDataAuth', function($http) {
