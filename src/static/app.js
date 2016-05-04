@@ -50,7 +50,7 @@ angular.module('app').factory('ltData', function($http) {
         iiprop: 'extmetadata',
         iiextmetadatafilter: 'ImageDescription'
       };
-      return $http.get('/locator-tool/query', {params: params}).then(function(d) {
+      return $query(params).then(function(d) {
         return d.data;
       });
     },
@@ -67,6 +67,15 @@ angular.module('app').factory('ltData', function($http) {
       });
     }
   };
+
+  function $query(params) {
+    params = angular.extend({
+      action: 'query',
+      format: 'json',
+      callback: 'JSON_CALLBACK'
+    }, params);
+    return $http.jsonp('https://commons.wikimedia.org/w/api.php', {params: params});
+  }
 });
 
 angular.module('app').component('ltUserInfo', {

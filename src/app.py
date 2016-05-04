@@ -24,17 +24,5 @@ def user():
     r = jsonify(user=mwoauth.get_current_user(False))
     return r
 
-@app.route("/query")
-def query():
-    q = {
-        'action': 'query',
-        'prop': request.args.get('prop'),
-        'titles': request.args.get('titles'),
-        'iiprop': request.args.get('iiprop'),
-        'iiextmetadatafilter': request.args.get('iiextmetadatafilter'),
-    }
-    r = mwoauth.request(q)
-    return jsonify(r)
-
 if __name__ == "__main__":
     app.run(debug=True)
