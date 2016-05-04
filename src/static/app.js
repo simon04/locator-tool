@@ -31,13 +31,18 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
   });
 });
 
-angular.module('app').factory('ltData', function($http) {
+angular.module('app').factory('ltDataAuth', function($http) {
   return {
     getUserInfo: function() {
       return $http.get('/locator-tool/user').then(function(d) {
         return d.data && d.data.user;
       });
-    },
+    }
+  };
+});
+
+angular.module('app').factory('ltData', function($http) {
+  return {
     getCoordinates: function(titles) {
       var params = {
         prop: 'coordinates|imageinfo',
@@ -68,9 +73,9 @@ angular.module('app').component('ltUserInfo', {
   template: [
     '<a ng-hide="$ctrl.user" class="btn btn-default navbar-btn">Sign in</a>',
     '<p ng-show="$ctrl.user" class="navbar-text">Signed in as {{$ctrl.user}}</p>'].join(''),
-  controller: function(ltData) {
+  controller: function(ltDataAuth) {
     var vm = this;
-    ltData.getUserInfo().then(function(user) {
+    ltDataAuth.getUserInfo().then(function(user) {
       vm.user = user;
     });
   }
