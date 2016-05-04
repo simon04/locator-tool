@@ -14,13 +14,15 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="">
+          <a class="navbar-brand" ui-sref="input">
             <span class="glyphicon glyphicon-map-marker"></span>
             locator-tool
           </a>
         </div>
         <div class="navbar-collapse">
           <ul class="nav navbar-nav">
+            <li ui-sref-active="active"><a ui-sref="input">Input</a></li>
+            <li ui-sref-active="active"><a ui-sref="list">List</a></li>
           </ul>
           <lt-user-info class="navbar-right"></lt-user-info>
         </div>
