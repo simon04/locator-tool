@@ -24,13 +24,13 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     controllerAs: '$ctrl',
     controller: function(ltData, $scope, $stateParams) {
       var vm = this;
-      ltData.getCoordinates($stateParams.titles).then(function(d) {
-        vm.titles = d && d.query && d.query.pages;
+      ltData.getCoordinates($stateParams.titles).then(function(titles) {
+        vm.titles = titles;
       });
 
-      $scope.$watch('$ctrl.title.coordinates[0]', function(coords) {
+      $scope.$watch('$ctrl.title.coordinates', function(coords) {
         var lat = coords && coords.lat;
-        var lng = coords && coords.lon;
+        var lng = coords && coords.lng;
         if (lat && lng) {
           vm.mapView.lat = lat;
           vm.mapView.lng = lng;
@@ -74,7 +74,7 @@ angular.module('app').factory('ltDataAuth', function($http) {
   };
 });
 
-angular.module('app').factory('ltData', function($http) {
+angular.module('app').factory('ltData', function($http, $parse) {
   return {
     getCoordinates: function(titles) {
       var params = {
@@ -85,7 +85,21 @@ angular.module('app').factory('ltData', function($http) {
         iiextmetadatafilter: 'ImageDescription'
       };
       return $query(params).then(function(d) {
-        return d.data;
+        var pages = d.data && d.data.query && d.data.query.pages || {};
+        var descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
+        var thumbnailGetter = $parse('imageinfo[0].thumburl');
+        var urlGetter = $parse('imageinfo[0].descriptionurl');
+        var coordsGetter = $parse('{lat: coordinates[0].lat, lng: coordinates[0].lon}');
+        return Object.keys(pages).map(function(pageid) {
+          var page = pages[pageid];
+          return {
+            file: page.title,
+            description: descriptionGetter(page),
+            thumbnail: thumbnailGetter(page),
+            url: urlGetter(page),
+            coordinates: coordsGetter(page)
+          };
+        });
       });
     },
     getFilesForCategory: function(cat) {

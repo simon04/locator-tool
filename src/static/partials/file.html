@@ -1,15 +1,15 @@
 <h2>
-  {{$ctrl.title.title}}
-  <a href="https://commons.wikimedia.org/wiki/{{$ctrl.title.title}}" target="_blank">
+  {{$ctrl.title.file}}
+  <a href="{{$ctrl.title.url}}" target="_blank">
     <span class="glyphicon glyphicon-new-window"></span>
   </a>
 </h2>
-<blockquote>{{$ctrl.title.imageinfo[0].extmetadata.ImageDescription.value}}</blockquote>
+<blockquote>{{$ctrl.title.description}}</blockquote>
 
 <dl class="dl-horizontal">
-  <dt ng-if="$ctrl.title.coordinates[0]">Existing coordinates</dt>
-  <dd ng-if="$ctrl.title.coordinates[0]">
-    <code>{{$ctrl.title.coordinates[0].lat}}, {{$ctrl.title.coordinates[0].lon}}</code>
+  <dt ng-if="$ctrl.title.coordinates.lat">Existing coordinates</dt>
+  <dd ng-if="$ctrl.title.coordinates.lat">
+    <code>{{$ctrl.title.coordinates.lat}}, {{$ctrl.title.coordinates.lng}}</code>
   </dd>
   <dt ng-if="$ctrl.mapMarker.lat">New coordinates</dt>
   <dd ng-if="$ctrl.mapMarker.lat">
