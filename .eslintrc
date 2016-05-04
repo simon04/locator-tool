@@ -1,0 +1,9 @@
+---
+  extends:
+    - eslint:recommended
+    - google
+  globals:
+    angular: false
+  rules:
+    require-jsdoc: 0
+    max-len: [2, 100, 2]

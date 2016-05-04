@@ -1,8 +1,7 @@
 angular.module('app', ['ui.router']);
 
 angular.module('app').config(function($stateProvider, $urlRouterProvider) {
-
-  $stateProvider.state('input',{
+  $stateProvider.state('input', {
     url: '/input',
     templateUrl: 'partials/input.html',
     controllerAs: '$ctrl',
@@ -12,14 +11,14 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
         ltData.getFilesForCategory(vm.category).then(function(files) {
           vm.titles = files && files.join('\n');
         });
-      }
+      };
       vm.next = function() {
         $state.go('list', {titles: vm.titles.split('\n').join('|')});
       };
     }
   });
 
-  $stateProvider.state('list',{
+  $stateProvider.state('list', {
     url: '/list?titles',
     templateUrl: 'partials/list.html',
     controllerAs: '$ctrl',
@@ -30,7 +29,6 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
       });
     }
   });
-
 });
 
 angular.module('app').factory('ltData', function($http) {
@@ -41,17 +39,23 @@ angular.module('app').factory('ltData', function($http) {
       });
     },
     getCoordinates: function(titles) {
-      return $http.get('/locator-tool/query', {params: {
-	  prop: 'coordinates|imageinfo',
-          titles: titles,
-          iiprop: 'extmetadata',
-          iiextmetadatafilter: 'ImageDescription'
-        }}).then(function(d) {
+      var params = {
+        prop: 'coordinates|imageinfo',
+        titles: titles,
+        iiprop: 'extmetadata',
+        iiextmetadatafilter: 'ImageDescription'
+      };
+      return $http.get('/locator-tool/query', {params: params}).then(function(d) {
         return d.data;
       });
     },
     getFilesForCategory: function(cat) {
-      return $http.get('/cats-php/', {params: {lang: 'commons', type: 6, cat: cat}}).then(function(d) {
+      var params = {
+        lang: 'commons',
+        type: 6,
+        cat: cat
+      };
+      return $http.get('/cats-php/', {params: params}).then(function(d) {
         return d.data.map(function(i) {
           return 'File:' + i;
         });
