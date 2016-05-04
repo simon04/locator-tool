@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router']);
+angular.module('app', ['ui.router', 'll-leaflet']);
 
 angular.module('app').config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('input', {
@@ -22,11 +22,42 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     url: '/list?titles',
     templateUrl: 'partials/list.html',
     controllerAs: '$ctrl',
-    controller: function(ltData, $stateParams) {
+    controller: function(ltData, $scope, $stateParams) {
       var vm = this;
       ltData.getCoordinates($stateParams.titles).then(function(d) {
         vm.titles = d && d.query && d.query.pages;
       });
+
+      $scope.$watch('$ctrl.title.coordinates[0]', function(coords) {
+        var lat = coords && coords.lat;
+        var lng = coords && coords.lon;
+        if (lat && lng) {
+          vm.mapView.lat = lat;
+          vm.mapView.lng = lng;
+        }
+        vm.mapMarker.lat = lat;
+        vm.mapMarker.lng = lng;
+      });
+
+      /* global L */
+      vm.mapOptions = {
+        layers: [
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">' +
+                'OpenStreetMap</a> contributors'
+          })
+        ]
+      };
+      vm.mapView = {
+        lat: 51.505,
+        lng: -0.09,
+        zoom: 13
+      };
+      vm.mapClick = function($event) {
+        vm.mapMarker.lat = $event.latlng.lat;
+        vm.mapMarker.lng = $event.latlng.lng;
+      };
+      vm.mapMarker = {};
     }
   });
 

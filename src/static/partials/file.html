@@ -6,4 +6,20 @@
 </h2>
 <blockquote>{{$ctrl.title.imageinfo[0].extmetadata.ImageDescription.value}}</blockquote>
 
-<img class="img-responsive" ng-src="{{$ctrl.title.imageinfo[0].thumburl}}">
+<dl class="dl-horizontal">
+  <dt ng-if="$ctrl.title.coordinates[0]">Existing coordinates</dt>
+  <dd ng-if="$ctrl.title.coordinates[0]">
+    <code>{{$ctrl.title.coordinates[0].lat}}, {{$ctrl.title.coordinates[0].lon}}</code>
+  </dd>
+  <dt ng-if="$ctrl.mapMarker.lat">New coordinates</dt>
+  <dd ng-if="$ctrl.mapMarker.lat">
+    <code>{{$ctrl.mapMarker.lat}}, {{$ctrl.mapMarker.lng}}</code>
+  </dd>
+</dl>
+
+<div ll-map="$ctrl.mapOptions" style="height: 400px" ll-click="$ctrl.mapClick($event)">
+  <ll-view ll-view="$ctrl.mapView"></ll-view>
+  <ll-marker ll-lat-lng="$ctrl.mapMarker" ll-marker="{draggable: true}" ng-if="$ctrl.mapMarker.lat">
+</div>
+
+<img class="img-responsive thumbnail" ng-src="{{$ctrl.title.imageinfo[0].thumburl}}">
