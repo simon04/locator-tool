@@ -47,7 +47,8 @@ angular.module('app').factory('ltData', function($http) {
       var params = {
         prop: 'coordinates|imageinfo',
         titles: titles,
-        iiprop: 'extmetadata',
+        iiprop: 'url|extmetadata',
+        iiurlwidth: 1024,
         iiextmetadatafilter: 'ImageDescription'
       };
       return $query(params).then(function(d) {
