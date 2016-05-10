@@ -17,6 +17,19 @@
   </dd>
 </dl>
 
+<div class="form-group form-inline" ng-if="$ctrl.mapMarker.lat">
+  <button ng-click="$ctrl.editLocation($ctrl.mapMarker.lat, $ctrl.mapMarker.lng, $ctrl.title.pageid)" class="btn btn-default">
+    Add <code>
+      &#123;&#123;Location
+      |
+      <span ng-bind="$ctrl.mapMarker.lat"></span>
+      |
+      <span ng-bind="$ctrl.mapMarker.lng"></span>
+      &#125;&#125;
+    </code>
+  </button>
+</div>
+
 <div ll-map="$ctrl.mapOptions" style="height: 400px" ll-click="$ctrl.mapClick($event)">
   <ll-view ll-view="$ctrl.mapView"></ll-view>
   <ll-marker ll-lat-lng="$ctrl.mapMarker" ll-marker="{draggable: true}" ng-if="$ctrl.mapMarker.lat">

@@ -22,8 +22,9 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     url: '/list?titles',
     templateUrl: 'partials/list.html',
     controllerAs: '$ctrl',
-    controller: function(ltData, $scope, $stateParams) {
+    controller: function(ltData, $scope, $stateParams, ltDataAuth) {
       var vm = this;
+      vm.editLocation = ltDataAuth.editLocation;
       ltData.getCoordinates($stateParams.titles).then(function(titles) {
         vm.titles = titles;
       });
@@ -64,11 +65,23 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/input');
 });
 
-angular.module('app').factory('ltDataAuth', function($http) {
+angular.module('app').factory('ltDataAuth', function($http, $httpParamSerializer) {
   return {
     getUserInfo: function() {
       return $http.get('/locator-tool/user').then(function(d) {
         return d.data && d.data.user;
+      });
+    },
+    editLocation: function(lat, lng, pageid) {
+      return $http({
+        method: 'POST',
+        url: '/locator-tool/edit',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        data: $httpParamSerializer({
+          lat: lat,
+          lng: lng,
+          pageid: pageid
+        })
       });
     }
   };
@@ -93,6 +106,7 @@ angular.module('app').factory('ltData', function($http, $parse) {
         return Object.keys(pages).map(function(pageid) {
           var page = pages[pageid];
           return {
+            pageid: pageid,
             file: page.title,
             description: descriptionGetter(page),
             thumbnail: thumbnailGetter(page),
