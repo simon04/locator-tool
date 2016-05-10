@@ -87,7 +87,7 @@ angular.module('app').factory('ltDataAuth', function($http, $httpParamSerializer
   };
 });
 
-angular.module('app').factory('ltData', function($http, $parse) {
+angular.module('app').factory('ltData', function($http, $parse, $filter) {
   return {
     getCoordinates: function(titles) {
       var params = {
@@ -123,9 +123,9 @@ angular.module('app').factory('ltData', function($http, $parse) {
         cat: cat
       };
       return $http.get('/cats-php/', {params: params}).then(function(d) {
-        return d.data.map(function(i) {
+        return $filter('orderBy')(d.data.map(function(i) {
           return 'File:' + i;
-        });
+        }));
       });
     }
   };
