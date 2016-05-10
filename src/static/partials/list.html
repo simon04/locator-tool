@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col-md-4 col-lg-3">
     <ul class="list-group">
-      <li ng-repeat="title in $ctrl.titles" ng-click="$ctrl.title = title" class="list-group-item" ng-attr-title="{{title.description}}" ng-class="{'list-group-item-success': title.coordinates.lat}">
+      <li ng-repeat="title in $ctrl.titles" ng-click="$ctrl.title = title" class="list-group-item" ng-attr-title="{{title.description}}" ng-class="{'list-group-item-info': title === $ctrl.title}">
+        <span ng-if="title.coordinates.lat" class="glyphicon glyphicon-check"></span>
         {{title.file}}
       </li>
     </ul>
