@@ -6,4 +6,4 @@
     angular: false
   rules:
     require-jsdoc: 0
-    max-len: [2, 100, 2]
+    max-len: [2, 110, 2]
