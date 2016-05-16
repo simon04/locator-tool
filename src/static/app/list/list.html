@@ -1,7 +1,19 @@
 <div class="row">
   <div class="col-md-4 col-lg-3">
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <input ng-model="$ctrl.showGeolocated" type="checkbox">
+        Also show geolocated files
+      </label>
+    </div>
+  </div>
+    <div class="input-group">
+      <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+      <input class="form-control" ng-model="$ctrl.filter" type="text">
+    </div>
     <ul class="list-group">
-      <li ng-repeat="title in $ctrl.titles" ng-click="$ctrl.title = title" class="list-group-item" ng-attr-title="{{title.description}}" ng-class="{'list-group-item-info': title === $ctrl.title}">
+      <li ng-repeat="title in $ctrl.titles | filter:$ctrl.filter" ng-show="$ctrl.showGeolocated || !title.coordinates.lat" ng-click="$ctrl.title = title" class="list-group-item" ng-attr-title="{{title.description}}" ng-class="{'list-group-item-info': title === $ctrl.title}">
         <span ng-if="title.coordinates.lat" class="glyphicon glyphicon-check"></span>
         {{title.file}}
       </li>
