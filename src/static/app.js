@@ -24,7 +24,7 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     controllerAs: '$ctrl',
     controller: function(ltData, $scope, $stateParams, ltDataAuth) {
       var vm = this;
-      vm.editLocation = ltDataAuth.editLocation;
+      vm.editLocation = editLocation;
       ltData.getCoordinates($stateParams.titles).then(function(titles) {
         vm.titles = titles;
       });
@@ -59,6 +59,14 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
         vm.mapMarker.lng = $event.latlng.lng;
       };
       vm.mapMarker = {};
+
+      function editLocation(title) {
+        var latlng = {lat: vm.mapMarker.lat, lng: vm.mapMarker.lng};
+        return ltDataAuth.editLocation(latlng.lat, latlng.lng, title.pageid)
+        .then(function() {
+          title.coordinates = angular.extend(title.coordinates || {}, latlng);
+        });
+      }
     }
   });
 
