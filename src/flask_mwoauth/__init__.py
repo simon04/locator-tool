@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # MediaWiki OAuth connector for Flask
 #
-# Requires flask-oauthlib
+# Requires flask-oauth
 #
 # (C) 2013 Merlijn van Deen <valhallasw@arctus.nl>
 # Licensed under the MIT License // http://opensource.org/licenses/MIT
@@ -117,7 +117,7 @@ class MWOAuth(object):
 
         return Request(url=url, files=partlist).prepare()
 
-    def request(self, api_query, url=None):
+    def request(self, api_query, url=None, force_multipart=False):
         """ e.g. {'action': 'query', 'meta': 'userinfo'}. format=json not required
             function returns a python dict that resembles the api's json response
         """
@@ -126,7 +126,7 @@ class MWOAuth(object):
 
         size = sum([sys.getsizeof(v) for k, v in iteritems(api_query)])
 
-        if size > (1024 * 8):
+        if force_multipart or size > (1024 * 8):
             # if request is bigger than 8 kB (the limit is somewhat arbitrary,
             # see https://www.mediawiki.org/wiki/API:Edit#Large_texts) then
             # transmit as multipart message
