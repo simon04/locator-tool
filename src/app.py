@@ -1,6 +1,7 @@
 import configparser
 from flask import Flask, jsonify, request
 from flask_mwoauth import MWOAuth
+from oauthlib.common import to_unicode
 
 config = configparser.ConfigParser()
 config.read('../config.ini')
@@ -32,7 +33,7 @@ def edit():
     lng = float(request.form['lng'])
     app.logger.info('Received request pageid=%d, lat=%f, lng=%f', pageid, lat, lng)
 
-    r1 = mwoauth.request({
+    r1 = mwoauth_request({
         'action': 'query',
         'pageids': pageid,
         'prop': 'revisions',
@@ -40,21 +41,26 @@ def edit():
         'meta': 'tokens'
     })
     wikitext = r1['query']['pages'][str(pageid)]['revisions'][0]['*']
+    wikitext = to_unicode(wikitext)
     token = r1['query']['tokens']['csrftoken']
     app.logger.info('Obtained token=%s for pageid=%d', token, pageid)
 
     from location_to_wikitext import add_location_to_wikitext
     new_wikitext = add_location_to_wikitext(lat, lng, wikitext)
 
-    r2 = mwoauth.request({
+    r2 = mwoauth_request({
         'action': 'edit',
         'pageid': str(pageid),
         'summary': '{{Location}}',
         'text': new_wikitext,
         'token': token
-    }, force_multipart=True)
+    })
 
     return jsonify(result=r2)
+
+def mwoauth_request(api_query):
+    api_query['format'] = 'json'
+    return mwoauth.mwoauth.post(mwoauth.base_url + "/api.php?", data=api_query).data
 
 if __name__ == "__main__":
     app.run()
