@@ -1,6 +1,11 @@
 angular.module('app', ['ui.router', 'll-leaflet', 'LocalStorageModule']);
 
 angular.module('app').config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider.state('about', {
+    url: '/',
+    templateUrl: 'app/about/about.html'
+  });
+
   $stateProvider.state('input', {
     url: '/input',
     templateUrl: 'app/input/input.html',
@@ -15,5 +20,5 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     controller: 'ListController'
   });
 
-  $urlRouterProvider.otherwise('/input');
+  $urlRouterProvider.otherwise('/');
 });
