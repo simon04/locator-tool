@@ -43,7 +43,8 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
       /* global L */
       vm.mapOptions = {
         layers: [
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          L.tileLayer('https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png', {
+            maxZoom: 19,
             attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">' +
                 'OpenStreetMap</a> contributors'
           })
