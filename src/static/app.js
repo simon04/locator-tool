@@ -75,69 +75,74 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
 
 angular.module('app').factory('ltDataAuth', function($http, $httpParamSerializer) {
   return {
-    getUserInfo: function() {
-      return $http.get('/locator-tool/user').then(function(d) {
-        return d.data && d.data.user;
-      });
-    },
-    editLocation: function(lat, lng, pageid) {
-      return $http({
-        method: 'POST',
-        url: '/locator-tool/edit',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        data: $httpParamSerializer({
-          lat: lat,
-          lng: lng,
-          pageid: pageid
-        })
-      });
-    }
+    getUserInfo: getUserInfo,
+    editLocation: editLocation
   };
+
+  function getUserInfo() {
+    return $http.get('/locator-tool/user').then(function(d) {
+      return d.data && d.data.user;
+    });
+  }
+  function editLocation(lat, lng, pageid) {
+    return $http({
+      method: 'POST',
+      url: '/locator-tool/edit',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      data: $httpParamSerializer({
+        lat: lat,
+        lng: lng,
+        pageid: pageid
+      })
+    });
+  }
 });
 
 angular.module('app').factory('ltData', function($http, $parse, $filter, $sce) {
   return {
-    getCoordinates: function(titles) {
-      var params = {
-        prop: 'coordinates|imageinfo',
-        titles: titles,
-        iiprop: 'url|extmetadata',
-        iiurlwidth: 1024,
-        iiextmetadatafilter: 'ImageDescription'
-      };
-      return $query(params).then(function(d) {
-        var pages = d.data && d.data.query && d.data.query.pages || {};
-        var descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
-        var thumbnailGetter = $parse('imageinfo[0].thumburl');
-        var urlGetter = $parse('imageinfo[0].descriptionurl');
-        var coordsGetter = $parse('{lat: coordinates[0].lat, lng: coordinates[0].lon}');
-        return Object.keys(pages).map(function(pageid) {
-          var page = pages[pageid];
-          return {
-            pageid: pageid,
-            file: page.title,
-            description: $sce.trustAsHtml(descriptionGetter(page)),
-            thumbnail: thumbnailGetter(page),
-            url: urlGetter(page),
-            coordinates: coordsGetter(page)
-          };
-        });
-      });
-    },
-    getFilesForCategory: function(cat) {
-      var params = {
-        lang: 'commons',
-        type: 6,
-        cat: cat
-      };
-      return $http.get('/cats-php/', {params: params}).then(function(d) {
-        return $filter('orderBy')(d.data.map(function(i) {
-          return 'File:' + i;
-        }));
-      });
-    }
+    getCoordinates: getCoordinates,
+    getFilesForCategory: getFilesForCategory
   };
 
+  function getCoordinates(titles) {
+    var params = {
+      prop: 'coordinates|imageinfo',
+      titles: titles,
+      iiprop: 'url|extmetadata',
+      iiurlwidth: 1024,
+      iiextmetadatafilter: 'ImageDescription'
+    };
+    return $query(params).then(function(d) {
+      var pages = d.data && d.data.query && d.data.query.pages || {};
+      var descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
+      var thumbnailGetter = $parse('imageinfo[0].thumburl');
+      var urlGetter = $parse('imageinfo[0].descriptionurl');
+      var coordsGetter = $parse('{lat: coordinates[0].lat, lng: coordinates[0].lon}');
+      return Object.keys(pages).map(function(pageid) {
+        var page = pages[pageid];
+        return {
+          pageid: pageid,
+          file: page.title,
+          description: $sce.trustAsHtml(descriptionGetter(page)),
+          thumbnail: thumbnailGetter(page),
+          url: urlGetter(page),
+          coordinates: coordsGetter(page)
+        };
+      });
+    });
+  }
+  function getFilesForCategory(cat) {
+    var params = {
+      lang: 'commons',
+      type: 6,
+      cat: cat
+    };
+    return $http.get('/cats-php/', {params: params}).then(function(d) {
+      return $filter('orderBy')(d.data.map(function(i) {
+        return 'File:' + i;
+      }));
+    });
+  }
   function $query(params) {
     params = angular.extend({
       action: 'query',
