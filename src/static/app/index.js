@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'll-leaflet']);
+angular.module('app', ['ui.router', 'll-leaflet', 'LocalStorageModule']);
 
 angular.module('app').config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('input', {

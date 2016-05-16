@@ -1,5 +1,5 @@
 angular.module('app').controller('ListController', function(
-    ltData, $scope, $stateParams, ltDataAuth, $filter) {
+    ltData, $scope, $stateParams, ltDataAuth, $filter, localStorageService) {
   var vm = this;
   vm.editLocation = editLocation;
   ltData.getCoordinates($stateParams.titles).then(function(titles) {
@@ -27,11 +27,16 @@ angular.module('app').controller('ListController', function(
       })
     ]
   };
-  vm.mapView = {
+
+  vm.mapView = localStorageService.get('mapView') || {
     lat: 51.505,
     lng: -0.09,
     zoom: 13
   };
+  $scope.$watch('$ctrl.mapView', function(mapView) {
+    localStorageService.set('mapView', mapView);
+  }, true);
+
   vm.mapClick = function($event) {
     vm.mapMarker.lat = $event.latlng.lat;
     vm.mapMarker.lng = $event.latlng.lng;
