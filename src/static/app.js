@@ -87,7 +87,7 @@ angular.module('app').factory('ltDataAuth', function($http, $httpParamSerializer
   };
 });
 
-angular.module('app').factory('ltData', function($http, $parse, $filter) {
+angular.module('app').factory('ltData', function($http, $parse, $filter, $sce) {
   return {
     getCoordinates: function(titles) {
       var params = {
@@ -108,7 +108,7 @@ angular.module('app').factory('ltData', function($http, $parse, $filter) {
           return {
             pageid: pageid,
             file: page.title,
-            description: descriptionGetter(page),
+            description: $sce.trustAsHtml(descriptionGetter(page)),
             thumbnail: thumbnailGetter(page),
             url: urlGetter(page),
             coordinates: coordsGetter(page)
