@@ -22,11 +22,11 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
     url: '/list?titles',
     templateUrl: 'partials/list.html',
     controllerAs: '$ctrl',
-    controller: function(ltData, $scope, $stateParams, ltDataAuth) {
+    controller: function(ltData, $scope, $stateParams, ltDataAuth, $filter) {
       var vm = this;
       vm.editLocation = editLocation;
       ltData.getCoordinates($stateParams.titles).then(function(titles) {
-        vm.titles = titles;
+        vm.titles = $filter('orderBy')(titles, 'file');
       });
 
       $scope.$watch('$ctrl.title.coordinates', function(coords) {
