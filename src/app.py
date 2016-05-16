@@ -18,7 +18,7 @@ app.register_blueprint(mwoauth.bp)
 
 @app.route("/")
 def index():
-    redirect('index.html')
+    return redirect('index.html')
 
 @app.route("/user")
 def user():
