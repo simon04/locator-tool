@@ -99,16 +99,23 @@ angular.module('app').factory('ltDataAuth', function($http, $httpParamSerializer
   }
 });
 
-angular.module('app').factory('ltData', function($http, $parse, $filter, $sce) {
+angular.module('app').factory('ltData', function($http, $parse, $filter, $sce, $q) {
+  var maxTitlesPerRequest = 10;
   return {
     getCoordinates: getCoordinates,
     getFilesForCategory: getFilesForCategory
   };
 
   function getCoordinates(titles) {
+    if (angular.isString(titles)) {
+      titles = titles.split('|');
+    }
+    if (titles.length > maxTitlesPerRequest) {
+      return getCoordinatesChunkByChunk(titles);
+    }
     var params = {
       prop: 'coordinates|imageinfo',
-      titles: titles,
+      titles: titles.join('|'),
       iiprop: 'url|extmetadata',
       iiurlwidth: 1024,
       iiextmetadatafilter: 'ImageDescription'
@@ -131,6 +138,21 @@ angular.module('app').factory('ltData', function($http, $parse, $filter, $sce) {
         };
       });
     });
+  }
+  function getCoordinatesChunkByChunk(titles) {
+    var t = angular.extend([], titles);
+    var requests = [];
+    while (t.length) {
+      requests.push(t.splice(0, Math.min(maxTitlesPerRequest, t.length)));
+    }
+    var coordinatesPromises = requests.map(getCoordinates);
+    return $q.all(coordinatesPromises).then(flatten);
+
+    function flatten(array) {
+      return array.reduce(function(a, b) {
+        return a.concat(b);
+      }, []);
+    }
   }
   function getFilesForCategory(cat) {
     var params = {
