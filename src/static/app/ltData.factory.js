@@ -55,14 +55,20 @@ angular.module('app').factory('ltData', function($http, $parse, $filter, $sce, $
   }
   function getFilesForCategory(cat) {
     var params = {
-      lang: 'commons',
-      type: 6,
-      cat: cat
+      'language': 'commons',
+      'project': 'wikimedia',
+      'categories': cat,
+      'negcats': 'Location_not_applicable',
+      'ns[6]': 1, // File:
+      'depth': 3,
+      'output_compatability': 'catscan',
+      'sparse': 'on',
+      'sortby': 'title',
+      'format': 'json',
+      'doit': 1
     };
-    return $http.get('/cats-php/', {params: params}).then(function(d) {
-      return $filter('orderBy')(d.data.map(function(i) {
-        return 'File:' + i;
-      }));
+    return $http.get('https://petscan.wmflabs.org/', {params: params}).then(function(d) {
+      return d.data['*'][0].a['*'];
     });
   }
   function $query(params) {
