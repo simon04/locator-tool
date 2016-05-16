@@ -1,5 +1,5 @@
 import configparser
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect
 from flask_mwoauth import MWOAuth
 from oauthlib.common import to_unicode
 
@@ -18,8 +18,7 @@ app.register_blueprint(mwoauth.bp)
 
 @app.route("/")
 def index():
-    return "logged in as: " + repr(mwoauth.get_current_user(False)) + "<br>" + \
-           "<a href=login>login</a> / <a href=logout>logout</a>"
+    redirect('index.html')
 
 @app.route("/user")
 def user():
