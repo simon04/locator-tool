@@ -1,5 +1,5 @@
 import configparser
-from flask import Flask, jsonify, request, redirect
+from flask import Flask, jsonify, request, redirect, abort
 from flask_mwoauth import MWOAuth
 from oauthlib.common import to_unicode
 import logging
@@ -35,6 +35,10 @@ def user():
 
 @app.route("/edit", methods=['POST'])
 def edit():
+    if not mwoauth.get_current_user():
+        abort(401)
+    if 'pageid' not in request.form or 'lat' not in request.form or 'lng' not in request.form:
+        abort(400)
     pageid = int(request.form['pageid'])
     lat = float(request.form['lat'])
     lng = float(request.form['lng'])
@@ -47,9 +51,15 @@ def edit():
         'rvprop': 'content',
         'meta': 'tokens'
     })
-    wikitext = r1['query']['pages'][str(pageid)]['revisions'][0]['*']
-    wikitext = to_unicode(wikitext)
-    token = r1['query']['tokens']['csrftoken']
+    try:
+        wikitext = r1['query']['pages'][str(pageid)]['revisions'][0]['*']
+        wikitext = to_unicode(wikitext)
+    except KeyError:
+        abort(404)
+    try:
+        token = r1['query']['tokens']['csrftoken']
+    except KeyError:
+        abort(401)
     app.logger.info('Obtained token=%s for pageid=%d', token, pageid)
 
     from location_to_wikitext import add_location_to_wikitext
