@@ -1,18 +1,18 @@
-<div class="row">
-  <div class="col-md-4 col-lg-3">
-  <div class="form-group">
-    <div class="checkbox">
-      <label>
-        <input ng-model="$ctrl.showGeolocated" type="checkbox">
-        Also show geolocated files
-      </label>
+<div class="row fill">
+  <div class="col-md-3 col-lg-2 fill col-md-h40" style="position:relative">
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input ng-model="$ctrl.showGeolocated" type="checkbox">
+          Also show geolocated files
+        </label>
+      </div>
     </div>
-  </div>
     <div class="input-group">
       <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
       <input class="form-control" ng-model="$ctrl.filter" type="text">
     </div>
-    <ul class="list-group">
+    <ul class="list-group fill-absolute" style="top: 110px">
       <li ng-repeat="title in $ctrl.titles | filter:$ctrl.filter" ng-show="$ctrl.showGeolocated || !title.coordinates.lat" ng-click="$ctrl.title = title" class="list-group-item" ng-attr-title="{{title.description}}" ng-class="{'list-group-item-info': title === $ctrl.title}">
         <span ng-if="title.coordinates.lat" class="glyphicon glyphicon-check"></span>
         {{title.file}}
@@ -20,9 +20,19 @@
     </ul>
   </div>
 
-  <div class="col-md-8 col-lg-9" ng-if="$ctrl.title">
-    <ng-include src="'app/list/file.html'"></ng-include>
-    <ng-include src="'app/list/map.html'"></ng-include>
-    <img class="img-responsive thumbnail" ng-src="{{$ctrl.title.thumbnail}}">
+  <div class="col-md-9 col-lg-3 fill col-md-h40" ng-if="$ctrl.title" style="overflow-y: auto">
+    <div class="row">
+      <div class="col-md-5 col-lg-12">
+        <ng-include src="'app/list/file.html'"></ng-include>
+      </div>
+      <div class="col-md-7 col-lg-12">
+        <img class="img-responsive thumbnail" ng-src="{{$ctrl.title.thumbnail}}" style="max-height: 100%">
+      </div>
+    </div>
   </div>
+
+  <div class="col-md-12 col-lg-7 fill col-md-h60" ng-if="$ctrl.title">
+    <ng-include src="'app/list/map.html'" class="fill"></ng-include>
+  </div>
+
 </div>

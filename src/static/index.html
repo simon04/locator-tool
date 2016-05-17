@@ -25,6 +25,29 @@
     *[ng-click] {
       cursor: pointer;
     }
+    html, body {
+      height: 100%;
+    }
+    .fill {
+      display: block;
+      height: 100%;
+    }
+    .fill-absolute {
+      position: absolute;
+      top:0;
+      bottom: 0;
+      left: 15px;
+      right: 15px;
+      overflow-y: auto;
+    }
+    @media (min-width: 768px) and (max-width: 1199px) {
+      .col-md-h40 {
+        height: 40%;
+      }
+      .col-md-h60 {
+        height: 60%;
+      }
+    }
     </style>
   </head>
   <body>
@@ -46,8 +69,8 @@
         </div>
       </div>
     </nav>
-    <div class="container-fluid">
-      <ui-view></ui-view>
+    <div class="container-fluid" style="height: calc(100% - 53px - 20px)">
+      <ui-view class="fill"></ui-view>
     </div>
   </body>
 </html>
