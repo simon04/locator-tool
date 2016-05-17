@@ -1,0 +1,3 @@
+[submodule "src/static/angular-ll-leaflet"]
+	path = src/static/angular-ll-leaflet
+	url = git://github.com/simon04/angular-ll-leaflet.git
