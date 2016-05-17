@@ -24,16 +24,19 @@ mwoauth = MWOAuth(base_url='https://commons.wikimedia.org/w',
                   consumer_secret=config.get('auth', 'consumer_secret'))
 app.register_blueprint(mwoauth.bp)
 
-@app.route("/")
+
+@app.route('/')
 def index():
     return redirect('index.html')
 
-@app.route("/user")
+
+@app.route('/user')
 def user():
     r = jsonify(user=mwoauth.get_current_user(False))
     return r
 
-@app.route("/edit", methods=['POST'])
+
+@app.route('/edit', methods=['POST'])
 def edit():
     if not mwoauth.get_current_user():
         abort(401)
@@ -75,9 +78,10 @@ def edit():
 
     return jsonify(result=r2)
 
+
 def mwoauth_request(api_query):
     api_query['format'] = 'json'
-    return mwoauth.mwoauth.post(mwoauth.base_url + "/api.php?", data=api_query).data
+    return mwoauth.mwoauth.post(mwoauth.base_url + '/api.php?', data=api_query).data
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run()
