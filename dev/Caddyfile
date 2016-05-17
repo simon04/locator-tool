@@ -1,0 +1,8 @@
+# openssl req -new -x509 -nodes -newkey rsa:4096 -keyout server.key -out server.crt
+# Common Name (e.g. server FQDN or YOUR name) []: tools.wmflabs.org
+https://tools.wmflabs.org
+tls server.crt server.key
+proxy / http://208.80.155.131/ {
+  insecure_skip_verify
+  except /locator-tool/index.html /locator-tool/app/ /locator-tool/angular-ll-leaflet/
+}
