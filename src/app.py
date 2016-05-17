@@ -2,6 +2,8 @@ import configparser
 from flask import Flask, jsonify, request, redirect
 from flask_mwoauth import MWOAuth
 from oauthlib.common import to_unicode
+import logging
+from logging.handlers import TimedRotatingFileHandler
 
 config = configparser.ConfigParser()
 config.read('../config.ini')
@@ -9,6 +11,12 @@ config.read('../config.ini')
 app = Flask(__name__)
 app.secret_key = config.get('auth', 'secret_key')
 app.config.update(PROPAGATE_EXCEPTIONS=True)
+
+logfile = TimedRotatingFileHandler(filename='locator-tool.log', when='midnight')
+logfile.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+logfile.setLevel(logging.INFO)
+app.logger.addHandler(logfile)
+logging.getLogger('werkzeug').addHandler(logfile)
 
 mwoauth = MWOAuth(base_url='https://commons.wikimedia.org/w',
                   clean_url='https://commons.wikimedia.org/wiki',
