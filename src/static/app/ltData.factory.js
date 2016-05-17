@@ -2,6 +2,7 @@ angular.module('app').factory('ltData', function($http, $parse, $filter, $sce, $
   var maxTitlesPerRequest = 10;
   return {
     getCoordinates: getCoordinates,
+    getCategoriesForPrefix: getCategoriesForPrefix,
     getFilesForCategory: getFilesForCategory
   };
 
@@ -52,6 +53,20 @@ angular.module('app').factory('ltData', function($http, $parse, $filter, $sce, $
         return a.concat(b);
       }, []);
     }
+  }
+  function getCategoriesForPrefix(prefix) {
+    var params = {
+      list: 'allpages',
+      apnamespace: 14,
+      aplimit: 30,
+      apfrom: prefix,
+      apprefix: prefix
+    };
+    return $query(params).then(function(d) {
+      return d.data.query.allpages.map(function(i) {
+        return i.title.replace(/^Category:/, '');
+      });
+    });
   }
   function getFilesForCategory(cat) {
     var params = {

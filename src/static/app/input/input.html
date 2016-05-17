@@ -1,7 +1,10 @@
 <div class="form-group form-inline">
   <label for="inputCategory">Category</label>
-  <input id="inputCategory" class="form-control" ng-model="$ctrl.category" placeholder="Category:…" style="width:24em">
+  <input id="inputCategory" list="datalistCategory" class="form-control" ng-model="$ctrl.category" ng-model-options"{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="$ctrl.getCategoriesForPrefix()" placeholder="Category:…" style="width:24em">
   <button ng-disabled="!$ctrl.category" ng-click="$ctrl.getFilesForCategory()" class="btn btn-default">Fetch Category</button>
+  <datalist id="datalistCategory">
+    <option ng-repeat="i in $ctrl.categorySuggestions" ng-value="i"/>
+  </datalist>
 </div>
 
 
