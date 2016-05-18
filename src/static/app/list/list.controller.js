@@ -16,6 +16,15 @@ angular.module('app').controller('ListController', function(
     vm.mapMarker.lat = lat;
     vm.mapMarker.lng = lng;
   });
+  $scope.$watchGroup(['$ctrl.mapMarker.lat', '$ctrl.mapMarker.lng'], function roundToPrecision() {
+    var precision = 10e7;
+    if ((vm.mapMarker.lat * precision) % 1) {
+      vm.mapMarker.lat = Math.round(vm.mapMarker.lat * precision) / precision;
+    }
+    if ((vm.mapMarker.lng * precision) % 1) {
+      vm.mapMarker.lng = Math.round(vm.mapMarker.lng * precision) / precision;
+    }
+  });
 
   /* global L */
   vm.mapOptions = {
