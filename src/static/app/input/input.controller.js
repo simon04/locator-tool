@@ -5,6 +5,11 @@ angular.module('app').controller('InputController', function(ltData, $state) {
       vm.categorySuggestions = categories;
     });
   };
+  vm.getFilesForUser = function() {
+    ltData.getFilesForUser(vm.user).then(function(files) {
+      vm.titles = files && files.join('\n');
+    });
+  };
   vm.getFilesForCategory = function() {
     ltData.getFilesForCategory(vm.category).then(function(files) {
       vm.titles = files && files.join('\n');

@@ -3,6 +3,7 @@ angular.module('app').factory('ltData', function($http, $parse, $filter, $sce, $
   return {
     getCoordinates: getCoordinates,
     getCategoriesForPrefix: getCategoriesForPrefix,
+    getFilesForUser: getFilesForUser,
     getFilesForCategory: getFilesForCategory
   };
 
@@ -65,6 +66,21 @@ angular.module('app').factory('ltData', function($http, $parse, $filter, $sce, $
     return $query(params).then(function(d) {
       return d.data.query.allpages.map(function(i) {
         return i.title.replace(/^Category:/, '');
+      });
+    });
+  }
+  function getFilesForUser(user) {
+    var params = {
+      list: 'usercontribs',
+      ucuser: user,
+      ucnamespace: 6,
+      ucshow: 'new',
+      uclimit: 'max',
+      ucprop: 'title'
+    };
+    return $query(params).then(function(d) {
+      return d.data.query.usercontribs.map(function(i) {
+        return i.title;
       });
     });
   }
