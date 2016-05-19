@@ -44,10 +44,6 @@ msgstr ""
 msgid "Geolocate files"
 msgstr ""
 
-#: node_modules/angular-gettext-cli/test/example.html:1
-msgid "Hello {{name}}"
-msgstr ""
-
 #: app/about/about.html:27
 msgid "Its source code is available on <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> and <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
 msgstr ""

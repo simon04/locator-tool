@@ -4,7 +4,7 @@
   "description": "Add {{Location}} to images on Wikimedia Commons",
   "main": "app/index.js",
   "scripts": {
-    "pot": "node_modules/.bin/angular-gettext-cli --files **/*.html --dest po/locator-tool.pot"
+    "pot": "node_modules/.bin/angular-gettext-cli --files '{,app/**/}*.html' --dest po/locator-tool.pot"
   },
   "repository": {
     "type": "git",
