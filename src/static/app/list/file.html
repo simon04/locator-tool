@@ -7,11 +7,11 @@
 <div ng-bind-html="$ctrl.title.description" class="well well-sm"></div>
 
 <dl class="dl-horizontal">
-  <dt ng-if="$ctrl.title.coordinates.lat">Existing coordinates</dt>
+  <dt ng-if="$ctrl.title.coordinates.lat" translate>Existing coordinates</dt>
   <dd ng-if="$ctrl.title.coordinates.lat">
     <code>{{$ctrl.title.coordinates.lat}}, {{$ctrl.title.coordinates.lng}}</code>
   </dd>
-  <dt ng-if="$ctrl.mapMarker.lat">New coordinates</dt>
+  <dt ng-if="$ctrl.mapMarker.lat" translate>New coordinates</dt>
   <dd ng-if="$ctrl.mapMarker.lat">
     <code>{{$ctrl.mapMarker.lat}}, {{$ctrl.mapMarker.lng}}</code>
   </dd>

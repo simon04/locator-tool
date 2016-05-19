@@ -1,0 +1,102 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: app/about/about.html:19
+msgid "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-tool\">Commons:Locator-tool</a>"
+msgstr ""
+
+#: app/about/about.html:23
+msgid "About"
+msgstr ""
+
+#: index.html:66
+msgid "About locator-tool"
+msgstr ""
+
+#: app/list/list.html:7
+msgid "Also show geolocated files"
+msgstr ""
+
+#: app/input/input.html:8
+msgid "Category"
+msgstr ""
+
+#: app/list/file.html:10
+msgid "Existing coordinates"
+msgstr ""
+
+#: app/input/input.html:10
+msgid "Fetch files for Category"
+msgstr ""
+
+#: app/input/input.html:4
+msgid "Fetch files for User"
+msgstr ""
+
+#: app/about/about.html:14
+msgid "From the list of files provided, select one and click its location on an interactive map."
+msgstr ""
+
+#: index.html:65
+msgid "Geolocate files"
+msgstr ""
+
+#: node_modules/angular-gettext-cli/test/example.html:1
+msgid "Hello {{name}}"
+msgstr ""
+
+#: app/about/about.html:27
+msgid "Its source code is available on <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> and <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
+msgstr ""
+
+#: app/input/input.html:23
+msgid "Locate Files"
+msgstr ""
+
+#: app/about/about.html:3
+#: index.html:59
+msgid "locator-tool"
+msgstr ""
+
+#: app/input/input.html:19
+msgid "Media Files"
+msgstr ""
+
+#: app/list/file.html:14
+msgid "New coordinates"
+msgstr ""
+
+#: app/about/about.html:15
+msgid "Repeat …"
+msgstr ""
+
+#: index.html:64
+msgid "Select files to geolocate"
+msgstr ""
+
+#: app/about/about.html:12
+msgid "Sign in using the button on the upper right corner"
+msgstr ""
+
+#: app/about/about.html:24
+msgid "This tool has been created by <a href=\"https://github.com/simon04/\">simon04</a>."
+msgstr ""
+
+#: app/about/about.html:6
+msgid "This tool helps to add <code>{{<span>Location</span>}}</code> information to images on <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgstr ""
+
+#: app/about/about.html:18
+msgid "Tutorial"
+msgstr ""
+
+#: app/about/about.html:10
+msgid "Usage"
+msgstr ""
+
+#: app/input/input.html:2
+msgid "User"
+msgstr ""

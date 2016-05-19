@@ -1,0 +1,22 @@
+{
+  "name": "locator-tool",
+  "version": "2.1.0",
+  "description": "Add {{Location}} to images on Wikimedia Commons",
+  "main": "app/index.js",
+  "scripts": {
+    "pot": "node_modules/.bin/angular-gettext-cli --files **/*.html --dest po/locator-tool.pot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simon04/locator-tool.git"
+  },
+  "author": "Simon Legner <Simon.Legner@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/simon04/locator-tool/issues"
+  },
+  "homepage": "https://tools.wmflabs.org/locator-tool/",
+  "devDependencies": {
+    "angular-gettext-cli": "^1.0.7"
+  }
+}
