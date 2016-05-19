@@ -6,6 +6,9 @@ angular.module('app').controller('ListController', function(
     vm.titles = $filter('orderBy')(titles, 'file');
   });
 
+  $scope.$watch('$ctrl.title', function() {
+    vm.error = undefined;
+  });
   $scope.$watch('$ctrl.title.coordinates', function(coords) {
     var lat = coords && coords.lat;
     var lng = coords && coords.lng;
@@ -54,10 +57,13 @@ angular.module('app').controller('ListController', function(
   vm.mapMarker = {};
 
   function editLocation(title) {
+    vm.error = undefined;
     var latlng = {lat: vm.mapMarker.lat, lng: vm.mapMarker.lng};
     return ltDataAuth.editLocation(latlng.lat, latlng.lng, title.pageid)
     .then(function() {
       title.coordinates = angular.extend(title.coordinates || {}, latlng);
+    }, function(error) {
+      vm.error = error;
     });
   }
 });

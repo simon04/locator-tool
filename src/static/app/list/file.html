@@ -22,3 +22,8 @@
     Add <lt-location lat-lng="$ctrl.mapMarker"></lt-location>
   </button>
 </div>
+
+<div class="alert alert-danger" ng-if="$ctrl.error">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span translate>Failed to save <lt-location></lt-location>!</span>
+</div>
