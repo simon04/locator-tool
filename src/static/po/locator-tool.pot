@@ -36,6 +36,10 @@ msgstr ""
 msgid "Fetch files for User"
 msgstr ""
 
+#: app/input/input.html:19
+msgid "Files"
+msgstr ""
+
 #: app/about/about.html:14
 msgid "From the list of files provided, select one and click its location on an interactive map."
 msgstr ""
@@ -68,10 +72,6 @@ msgstr ""
 
 #: app/components/ltUserInfo/ltUserInfo.html:2
 msgid "Logged in as {{$ctrl.user}}"
-msgstr ""
-
-#: app/input/input.html:19
-msgid "Media Files"
 msgstr ""
 
 #: app/list/file.html:14
