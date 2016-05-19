@@ -18,14 +18,7 @@
 </dl>
 
 <div class="form-group form-inline" ng-if="$ctrl.mapMarker.lat">
-  <button ng-click="$ctrl.editLocation($ctrl.title)" ng-disabled="$ctrl.title.coordinates.lat === $ctrl.mapMarker.lat && $ctrl.title.coordinates.lng === $ctrl.mapMarker.lng" class="btn btn-default" style="white-space: normal">
-    Add <code>
-      &#123;&#123;Location
-      |
-      <span ng-bind="$ctrl.mapMarker.lat"></span>
-      |
-      <span ng-bind="$ctrl.mapMarker.lng"></span>
-      &#125;&#125;
-    </code>
+  <button ng-click="$ctrl.editLocation($ctrl.title)" ng-disabled="$ctrl.title.coordinates.lat === $ctrl.mapMarker.lat && $ctrl.title.coordinates.lng === $ctrl.mapMarker.lng" class="btn btn-default" style="white-space: normal" translate>
+    Add <lt-location lat-lng="$ctrl.mapMarker"></lt-location>
   </button>
 </div>

@@ -12,8 +12,12 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: index.html:66
+#: index.html:67
 msgid "About locator-tool"
+msgstr ""
+
+#: app/list/file.html:21
+msgid "Add <lt-location lat-lng=\"$ctrl.mapMarker\"></lt-location>"
 msgstr ""
 
 #: app/list/list.html:7
@@ -45,7 +49,7 @@ msgid "From the list of files provided, select one and click its location on an 
 msgstr ""
 
 #: app/input/input.html:23
-#: index.html:65
+#: index.html:66
 msgid "Geolocate files"
 msgstr ""
 
@@ -54,7 +58,7 @@ msgid "Its source code is available on <a href=\"https://github.com/simon04/loca
 msgstr ""
 
 #: app/about/about.html:3
-#: index.html:59
+#: index.html:60
 msgid "locator-tool"
 msgstr ""
 
@@ -82,7 +86,7 @@ msgstr ""
 msgid "Repeat …"
 msgstr ""
 
-#: index.html:64
+#: index.html:65
 msgid "Select files to geolocate"
 msgstr ""
 
@@ -91,7 +95,7 @@ msgid "This tool has been created by <a href=\"https://github.com/simon04/\">sim
 msgstr ""
 
 #: app/about/about.html:6
-msgid "This tool helps to add <code>{{<span>Location</span>}}</code> information to images on <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgid "This tool helps to add <lt-location></lt-location> information to images on <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
 msgstr ""
 
 #: app/about/about.html:18
