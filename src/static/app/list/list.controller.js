@@ -26,15 +26,16 @@ angular.module('app').controller('ListController', function(
     }
   });
 
-  /* global L */
-  vm.mapOptions = {
-    layers: [
-      L.tileLayer('https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">' +
-            'OpenStreetMap</a> contributors'
-      })
-    ]
+  vm.mapInit = function(L, map) {
+    L.tileLayer('https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">' +
+          'OpenStreetMap</a> contributors'
+    }).addTo(map);
+    new L.Control.GeoSearch({
+      provider: new L.GeoSearch.Provider.OpenStreetMap(),
+      showMarker: false
+    }).addTo(map);
   };
 
   vm.mapView = localStorageService.get('mapView') || {

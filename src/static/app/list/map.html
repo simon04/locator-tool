@@ -1,4 +1,4 @@
-<div ll-map="$ctrl.mapOptions" class="fill" ll-click="$ctrl.mapClick($event)">
+<div ll-map ll-init="$ctrl.mapInit" class="fill" ll-click="$ctrl.mapClick($event)">
   <ll-view ll-view="$ctrl.mapView"></ll-view>
   <ll-marker ll-lat-lng="$ctrl.mapMarker" ll-marker="{draggable: true}" ng-if="$ctrl.mapMarker.lat">
 </div>
