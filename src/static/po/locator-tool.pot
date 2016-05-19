@@ -54,6 +54,22 @@ msgstr ""
 msgid "locator-tool"
 msgstr ""
 
+#: app/components/ltUserInfo/ltUserInfo.html:1
+msgid "Log in"
+msgstr ""
+
+#: app/about/about.html:12
+msgid "Log in using the button on the upper right corner"
+msgstr ""
+
+#: app/components/ltUserInfo/ltUserInfo.html:3
+msgid "Log out"
+msgstr ""
+
+#: app/components/ltUserInfo/ltUserInfo.html:2
+msgid "Logged in as {{$ctrl.user}}"
+msgstr ""
+
 #: app/input/input.html:19
 msgid "Media Files"
 msgstr ""
@@ -68,10 +84,6 @@ msgstr ""
 
 #: index.html:64
 msgid "Select files to geolocate"
-msgstr ""
-
-#: app/about/about.html:12
-msgid "Sign in using the button on the upper right corner"
 msgstr ""
 
 #: app/about/about.html:24
