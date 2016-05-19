@@ -16,6 +16,12 @@ angular.module('app').controller('InputController', function(ltData, $state) {
     });
   };
   vm.next = function() {
-    $state.go('list', {titles: vm.titles.split('\n').join('|')});
+    $state.go('list', {titles: getTitles().join('|')});
   };
+
+  function getTitles() {
+    return vm.titles.split('\n').map(function(file) {
+      return file && file.split('|')[0];
+    });
+  }
 });
