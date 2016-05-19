@@ -40,16 +40,13 @@ msgstr ""
 msgid "From the list of files provided, select one and click its location on an interactive map."
 msgstr ""
 
+#: app/input/input.html:23
 #: index.html:65
 msgid "Geolocate files"
 msgstr ""
 
 #: app/about/about.html:27
 msgid "Its source code is available on <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> and <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
-msgstr ""
-
-#: app/input/input.html:23
-msgid "Locate Files"
 msgstr ""
 
 #: app/about/about.html:3
