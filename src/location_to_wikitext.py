@@ -10,13 +10,15 @@ def add_location_to_wikitext(lat, lng, wikitext):
     '{{Information}}{{Location|12.3|45.6|region:XY}}'
     >>> add_location_to_wikitext(12.3, 45.6, "Foo\n{{Information|foo={{de|sdf}}|bar={{lic}}}}Bar")
     'Foo\n{{Information|foo={{de|sdf}}|bar={{lic}}}}\n{{Location|12.3|45.6}}\nBar'
+    >>> add_location_to_wikitext(12.3, 45.6, "X\n{{Location dec|50.917385|13.342268}}\nX")
+    'X\n{{Location|12.3|45.6}}\nX'
     """
     location = "{{Location|%s|%s}}" % (lat, lng)
     numericArg = r'(\|\s*[-+.0-9]+\s*)'
     pattern = re.compile(r'\{\{\s*Location\s*(' + numericArg + '{3}\|\s*[NESW]\s*){2}')
     if pattern.search(wikitext):
         return pattern.sub(location[:-2], wikitext, count=1)
-    pattern = re.compile(r'\{\{\s*Location\s*' + numericArg + numericArg)
+    pattern = re.compile(r'\{\{\s*Location( dec)?\s*' + numericArg + numericArg)
     if pattern.search(wikitext):
         return pattern.sub(location[:-2], wikitext, count=1)
     pattern = re.compile(r'\{\{\s*Information')
