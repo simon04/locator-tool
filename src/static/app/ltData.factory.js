@@ -3,6 +3,7 @@ angular.module('app').factory('ltData', function($http, $parse, $filter, $sce, $
   return {
     getCoordinates: getCoordinates,
     getCategoriesForPrefix: getCategoriesForPrefix,
+    getObjectLocation: getObjectLocation,
     getFilesForUser: getFilesForUser,
     getFilesForCategory: getFilesForCategory
   };
@@ -54,6 +55,25 @@ angular.module('app').factory('ltData', function($http, $parse, $filter, $sce, $
         return a.concat(b);
       }, []);
     }
+  }
+  function getObjectLocation(pageid) {
+    var params = {
+      prop: 'revisions',
+      pageids: pageid,
+      rvprop: 'content'
+    };
+    return $query(params).then(function(d) {
+      try {
+        var wikitext = d.data.query.pages[pageid].revisions[0]['*'];
+        var loc = wikitext.match(/\{\{Object location( dec)?\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)/);
+        return {
+          lat: parseFloat(loc[2]),
+          lng: parseFloat(loc[3])
+        };
+      } catch (e) {
+        return undefined;
+      }
+    });
   }
   function getCategoriesForPrefix(prefix) {
     var params = {

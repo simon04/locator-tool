@@ -1,23 +1,29 @@
 angular.module('app').controller('ListController', function(
     ltData, $scope, $stateParams, ltDataAuth, $filter, localStorageService) {
   var vm = this;
+  vm.mapMarker = {};
+  vm.mapObjectLocation = {};
   vm.editLocation = editLocation;
   ltData.getCoordinates($stateParams.titles).then(function(titles) {
     vm.titles = $filter('orderBy')(titles, 'file');
   });
 
-  $scope.$watch('$ctrl.title', function() {
+  $scope.$watch('$ctrl.title', function(title) {
     vm.error = undefined;
+    if (title && title.pageid) {
+      ltData.getObjectLocation(title.pageid).then(function(objectLocation) {
+        setLatLng(vm.mapObjectLocation, objectLocation || {lat: undefined, lng: undefined});
+        if (!title.coordinates || !title.coordinates.lat) {
+          setLatLng(vm.mapView, objectLocation);
+        }
+      });
+    }
   });
   $scope.$watch('$ctrl.title.coordinates', function(coords) {
-    var lat = coords && coords.lat;
-    var lng = coords && coords.lng;
-    if (lat && lng) {
-      vm.mapView.lat = lat;
-      vm.mapView.lng = lng;
+    if (coords && coords.lat) {
+      setLatLng(vm.mapView, coords);
     }
-    vm.mapMarker.lat = lat;
-    vm.mapMarker.lng = lng;
+    setLatLng(vm.mapMarker, coords);
   });
   $scope.$watchGroup(['$ctrl.mapMarker.lat', '$ctrl.mapMarker.lng'], function roundToPrecision() {
     var precision = 10e7;
@@ -51,10 +57,8 @@ angular.module('app').controller('ListController', function(
   }, true);
 
   vm.mapClick = function($event) {
-    vm.mapMarker.lat = $event.latlng.lat;
-    vm.mapMarker.lng = $event.latlng.lng;
+    setLatLng(vm.mapMarker, $event.latlng);
   };
-  vm.mapMarker = {};
 
   function editLocation(title) {
     vm.error = undefined;
@@ -65,5 +69,12 @@ angular.module('app').controller('ListController', function(
     }, function(error) {
       vm.error = error;
     });
+  }
+
+  function setLatLng(from, to) {
+    if (from && to) {
+      from.lat = to.lat;
+      from.lng = to.lng;
+    }
   }
 });
