@@ -1,0 +1,11 @@
+[
+    {
+      "name" : "locator-tool",
+      "title" : "locator-tool",
+      "description" : "Helps to add {{Location}} information to images on Wikimedia Commons.",
+      "url" : "https://tools.wmflabs.org/locator-tool/",
+      "keywords" : "geolocation, coordinates, map, Commons",
+      "author" : "Simon04",
+      "repository" : "https://github.com/simon04/locator-tool"
+    }
+]
