@@ -20,4 +20,6 @@
   <textarea id="inputTitles" class="form-control" rows="10" ng-model="$ctrl.titles" placeholder="File:…"></textarea>
 </div>
 
-<button ng-disabled="!$ctrl.titles" ng-click="$ctrl.next()" class="btn btn-default" translate>Geolocate files</button>
+<button ng-disabled="!$ctrl.titleList.length" ng-click="$ctrl.next()" class="btn btn-default" translate>
+  Geolocate {{$ctrl.titleList.length}} files
+</button>
