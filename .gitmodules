@@ -1,5 +1,5 @@
 [submodule "src/static/angular-ll-leaflet"]
-	path = src/static/angular-ll-leaflet
+	path = src/static/libs/angular-ll-leaflet
 	url = git://github.com/simon04/angular-ll-leaflet.git
 [submodule "src/static/lib/L.GeoSearch"]
 	path = src/static/libs/L.GeoSearch
