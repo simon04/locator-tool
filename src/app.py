@@ -1,5 +1,5 @@
 import configparser
-from flask import Flask, jsonify, request, redirect, abort
+from flask import Flask, jsonify, request, abort
 from flask_mwoauth import MWOAuth
 from oauthlib.common import to_unicode
 import logging
@@ -8,7 +8,7 @@ from logging.handlers import TimedRotatingFileHandler
 config = configparser.ConfigParser()
 config.read('../config.ini')
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 app.secret_key = config.get('auth', 'secret_key')
 app.config.update(PROPAGATE_EXCEPTIONS=True)
 
@@ -27,7 +27,7 @@ app.register_blueprint(mwoauth.bp)
 
 @app.route('/')
 def index():
-    return redirect('index.html')
+    return app.send_static_file('index.html')
 
 
 @app.route('/user')
