@@ -1,3 +1,5 @@
 flask
 flask-mwoauth>=0.1.14
 werkzeug>=0.9
+flask-SeaSurf==0.2.2
+talisman==0.1.0

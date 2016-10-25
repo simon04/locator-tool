@@ -1,6 +1,8 @@
 import configparser
 from flask import Flask, jsonify, request, abort
 from flask_mwoauth import MWOAuth
+from talisman import Talisman
+from flask_seasurf import SeaSurf
 from oauthlib.common import to_unicode
 import logging
 from logging.handlers import TimedRotatingFileHandler
@@ -11,6 +13,14 @@ config.read('../config.ini')
 app = Flask(__name__, static_url_path='')
 app.secret_key = config.get('auth', 'secret_key')
 app.config.update(PROPAGATE_EXCEPTIONS=True)
+
+# HTTP security headers
+Talisman(app, content_security_policy={})
+
+# CSRF protection. settings fitting Angular $httpProvider
+app.config['CSRF_COOKIE_NAME'] = 'XSRF-TOKEN'
+app.config['CSRF_HEADER_NAME'] = 'X-XSRF-TOKEN'
+SeaSurf(app)
 
 logfile = TimedRotatingFileHandler(filename='locator-tool.log', when='midnight')
 logfile.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
