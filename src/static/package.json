@@ -4,7 +4,8 @@
   "description": "Add {{Location}} to images on Wikimedia Commons",
   "main": "app/index.js",
   "scripts": {
-    "pot": "node_modules/.bin/angular-gettext-cli --files '{,app/**/}*.html' --dest po/locator-tool.pot"
+    "lint": "eslint app/",
+    "pot": "angular-gettext-cli --files '{,app/**/}*.html' --dest po/locator-tool.pot"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   },
   "homepage": "https://tools.wmflabs.org/locator-tool/",
   "devDependencies": {
-    "angular-gettext-cli": "^1.0.7"
+    "angular-gettext-cli": "^1.0.7",
+    "eslint": "^3.12.2",
+    "eslint-config-google": "^0.6.0"
   }
 }
