@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2016-12-19 21:08+0000\n"
+"PO-Revision-Date: 2016-12-20 23:03+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/locator-tool/locator-tool/language/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,11 +12,17 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/about/about.html:28
+#: app/about/about.html:13
+msgid ""
+"<a ui-sref=\"input\">Select files to geolocate</a> by querying a category or"
+" inputting a list of <code>File:</code>s."
+msgstr "<a ui-sref=\"input\">Dateien zum Georeferenzieren auswählen</a> via Kategorie oder <code>Datei:</code>-Liste."
+
+#: app/about/about.html:33
 msgid "About"
 msgstr "Über"
 
-#: index.html:71
+#: index.html:74
 msgid "About locator-tool"
 msgstr "Über locator-tool"
 
@@ -31,6 +37,10 @@ msgstr "Auch georeferenzierte Dateien anzeigen"
 #: app/input/input.html:8
 msgid "Category"
 msgstr "Kategorie"
+
+#: app/about/about.html:23 app/about/about.html:25
+msgid "Edits using locator-tool"
+msgstr "Bearbeitungen mit locator-tool"
 
 #: app/list/file.html:10
 msgid "Existing coordinates"
@@ -58,7 +68,7 @@ msgid ""
 "interactive map."
 msgstr "Eine Datei in der Dateiliste auswählen und deren Position durch Klick auf die interaktive Karte auswählen."
 
-#: index.html:70
+#: index.html:73
 msgid "Geolocate files"
 msgstr "Dateien georeferenzieren"
 
@@ -66,7 +76,7 @@ msgstr "Dateien georeferenzieren"
 msgid "Geolocate {{$ctrl.titleList.length}} files"
 msgstr "{{$ctrl.titleList.length}} Dateien georeferenzieren"
 
-#: app/about/about.html:32
+#: app/about/about.html:37
 msgid ""
 "Its source code is available on <a href=\"https://github.com/simon04"
 "/locator-tool\">GitHub</a> and <a "
@@ -93,19 +103,15 @@ msgstr "Angemeldet als {{$ctrl.user}}"
 msgid "New coordinates"
 msgstr "Neue Koordinaten"
 
-#: app/about/about.html:23
-msgid "Recent edits"
-msgstr "Bearbeitungen mit locator-tool"
-
 #: app/about/about.html:15
 msgid "Repeat …"
 msgstr "Wiederhole …"
 
-#: index.html:69
+#: index.html:72
 msgid "Select files to geolocate"
 msgstr "Dateien zum Georeferenzieren auswählen"
 
-#: app/about/about.html:29
+#: app/about/about.html:34
 msgid ""
 "This tool has been created by <a "
 "href=\"https://github.com/simon04/\">simon04</a>."
@@ -116,6 +122,14 @@ msgid ""
 "This tool helps to add <lt-location></lt-location> information to images on "
 "<a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
 msgstr "Dieses Werkzeug hilft <lt-location></lt-location> zu bestehenden Dateien auf <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a> hinzuzufügen."
+
+#: app/about/about.html:28
+msgid "Translate"
+msgstr "Übersetzen"
+
+#: app/about/about.html:30
+msgid "Translate locator-tool on Transifex"
+msgstr "Übersetze locator-tool auf Transifex"
 
 #: app/about/about.html:18
 msgid "Tutorial"
@@ -129,16 +143,9 @@ msgstr "Verwendung"
 msgid "User"
 msgstr "Benutzer"
 
-#: app/about/about.html:3 index.html:64
+#: app/about/about.html:3 index.html:67
 msgid "locator-tool"
 msgstr "locator-tool"
-
-#: app/about/about.html:24
-msgid ""
-"→ <a "
-"href=\"https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&amp;tagfilter=OAuth+CID%3A+496\">Edits"
-" using locator-tool</a>"
-msgstr "→ <a href=\"https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&amp;tagfilter=OAuth+CID%3A+496\">Bearbeitungen mit locator-tool</a>"
 
 #: app/about/about.html:19
 msgid ""
