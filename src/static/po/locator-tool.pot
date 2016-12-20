@@ -4,11 +4,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
-#: app/about/about.html:28
+#: app/about/about.html:13
+msgid "<a ui-sref=\"input\">Select files to geolocate</a> by querying a category or inputting a list of <code>File:</code>s."
+msgstr ""
+
+#: app/about/about.html:33
 msgid "About"
 msgstr ""
 
-#: index.html:71
+#: index.html:74
 msgid "About locator-tool"
 msgstr ""
 
@@ -22,6 +26,11 @@ msgstr ""
 
 #: app/input/input.html:8
 msgid "Category"
+msgstr ""
+
+#: app/about/about.html:23
+#: app/about/about.html:25
+msgid "Edits using locator-tool"
 msgstr ""
 
 #: app/list/file.html:10
@@ -48,7 +57,7 @@ msgstr ""
 msgid "From the list of files provided, select one and click its location on an interactive map."
 msgstr ""
 
-#: index.html:70
+#: index.html:73
 msgid "Geolocate files"
 msgstr ""
 
@@ -56,7 +65,7 @@ msgstr ""
 msgid "Geolocate {{$ctrl.titleList.length}} files"
 msgstr ""
 
-#: app/about/about.html:32
+#: app/about/about.html:37
 msgid "Its source code is available on <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> and <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
 msgstr ""
 
@@ -80,24 +89,28 @@ msgstr ""
 msgid "New coordinates"
 msgstr ""
 
-#: app/about/about.html:23
-msgid "Recent edits"
-msgstr ""
-
 #: app/about/about.html:15
 msgid "Repeat …"
 msgstr ""
 
-#: index.html:69
+#: index.html:72
 msgid "Select files to geolocate"
 msgstr ""
 
-#: app/about/about.html:29
+#: app/about/about.html:34
 msgid "This tool has been created by <a href=\"https://github.com/simon04/\">simon04</a>."
 msgstr ""
 
 #: app/about/about.html:6
 msgid "This tool helps to add <lt-location></lt-location> information to images on <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgstr ""
+
+#: app/about/about.html:28
+msgid "Translate"
+msgstr ""
+
+#: app/about/about.html:30
+msgid "Translate locator-tool on Transifex"
 msgstr ""
 
 #: app/about/about.html:18
@@ -113,12 +126,8 @@ msgid "User"
 msgstr ""
 
 #: app/about/about.html:3
-#: index.html:64
+#: index.html:67
 msgid "locator-tool"
-msgstr ""
-
-#: app/about/about.html:24
-msgid "→ <a href=\"https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&amp;tagfilter=OAuth+CID%3A+496\">Edits using locator-tool</a>"
 msgstr ""
 
 #: app/about/about.html:19
