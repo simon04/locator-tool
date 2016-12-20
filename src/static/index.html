@@ -10,7 +10,8 @@
     <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
     <script src="libs/L.GeoSearch/src/js/l.control.geosearch.js"></script>
     <script src="libs/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js"></script>
-    <link rel="stylesheet" type="text/css" href="//tools-static.wmflabs.org/cdnjs/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//tools-static.wmflabs.org/cdnjs/ajax/libs/pure/0.6.0/pure.css">
+    <link rel="stylesheet" type="text/css" href="//tools-static.wmflabs.org/cdnjs/ajax/libs/pure/0.6.0/grids-responsive.css">
     <link rel="stylesheet" type="text/css" href="//tools-static.wmflabs.org/cdnjs/ajax/libs/leaflet/0.7.7/leaflet.css">
     <link rel="stylesheet" type="text/css" href="libs/L.GeoSearch/src/css/l.geosearch.css">
     <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/angular-local-storage/0.2.7/angular-local-storage.min.js"></script>
@@ -19,6 +20,7 @@
     <script src="libs/angular-ll-leaflet/src/directives/marker.js"></script>
     <script src="libs/angular-ll-leaflet/src/directives/view.js"></script>
     <script src="libs/angular-ll-leaflet/src/directives/divIcon.js"></script>
+    <link rel="stylesheet" href="app/style.css">
     <script src="app/index.js"></script>
     <script src="app/ltData.factory.js"></script>
     <script src="app/ltDataAuth.factory.js"></script>
@@ -34,7 +36,7 @@
       height: 100%;
     }
     .fill {
-      display: block;
+      /*display: block;*/
       height: 100%;
     }
     .fill-absolute {
@@ -56,26 +58,23 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" ui-sref="about">
-            <span class="glyphicon glyphicon-map-marker"></span>
-            <span translate>locator-tool</span>
-          </a>
-        </div>
-        <div class="navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li ui-sref-active="active"><a ui-sref="input" translate>Select files to geolocate</a></li>
-            <li ui-sref-active="active"><a ui-sref="list" class="hidden"></a><a translate>Geolocate files</a></li>
-            <li ui-sref-active="active"><a ui-sref="about" translate>About locator-tool</a></li>
-          </ul>
-          <lt-user-info class="navbar-right"></lt-user-info>
+    <nav class="header">
+      <div class="home-menu pure-menu pure-menu-horizontal">
+        <a class="pure-menu-heading" ui-sref="about">
+          &#127760;
+          <span translate>locator-tool</span>
+        </a>
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item" ui-sref-active="pure-menu-selected"><a class="pure-menu-link" ui-sref="input" translate>Select files to geolocate</a></li>
+          <li class="pure-menu-item" ui-sref-active="pure-menu-selected"><a class="pure-menu-link hidden" ui-sref="list"></a><a translate>Geolocate files</a></li>
+          <li class="pure-menu-item" ui-sref-active="pure-menu-selected"><a class="pure-menu-link" ui-sref="about" translate>About locator-tool</a></li>
+        </ul class="pure-menu-list" style="float: right">
+          <lt-user-info></lt-user-info>
         </div>
       </div>
     </nav>
-    <div class="container-fluid" style="height: calc(100% - 53px - 20px)">
-      <ui-view class="fill"></ui-view>
+    <div class="pure-g" style="height: calc(100% - 53px - 20px)">
+      <ui-view class="pure-u-1 fill"></ui-view>
     </div>
   </body>
 </html>

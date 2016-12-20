@@ -1,7 +1,7 @@
 <h2>
   {{$ctrl.title.file}}
   <small><a href="{{$ctrl.title.url}}" target="_blank">
-    <span class="glyphicon glyphicon-new-window"></span>
+    &#x1f5d4;
   </a></small>
 </h2>
 <div ng-bind-html="$ctrl.title.description" class="well well-sm"></div>
@@ -24,6 +24,6 @@
 </div>
 
 <div class="alert alert-danger" ng-if="$ctrl.error">
-  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  &#9888;
   <span translate>Failed to save <lt-location></lt-location>!</span>
 </div>

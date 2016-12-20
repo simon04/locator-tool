@@ -1,37 +1,38 @@
-<div class="row fill">
-  <div class="col-md-3 col-lg-2 fill col-md-h40" style="position:relative">
-    <div class="form-group">
-      <div class="checkbox">
-        <label>
+<div class="pure-g fill">
+  <div class="pure-u-md-1-4 pure-u-xl-1-6 fill col-md-h40" style="position:relative">
+    <form class="pure-form">
+      <fieldset>
+        <label class="pure-checkbox">
           <input ng-model="$ctrl.showGeolocated" type="checkbox">
           <span translate>Also show geolocated files</span>
         </label>
-      </div>
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-      <input class="form-control" ng-model="$ctrl.filter" type="text">
-    </div>
-    <ul class="list-group fill-absolute" style="top: 110px">
-      <li ng-repeat="title in $ctrl.titles | filter:$ctrl.filter" ng-show="$ctrl.showGeolocated || !title.coordinates.lat" ng-click="$ctrl.title = title" class="list-group-item" ng-class="{'list-group-item-info': title === $ctrl.title}">
-        <span ng-if="title.coordinates.lat" class="glyphicon glyphicon-check"></span>
-        {{title.file}}
+      </fieldset>
+      <input class="pure-input-1" ng-model="$ctrl.filter" type="text" placeholder="&#x1f50d;">
+    </form>
+    <div class="fill-absolute" style="top: 110px">
+    <ul class="pure-menu-list">
+      <li ng-repeat="title in $ctrl.titles | filter:$ctrl.filter" ng-show="$ctrl.showGeolocated || !title.coordinates.lat" class="pure-menu-item" ng-class="{'pure-menu-selected': title === $ctrl.title}" style="border-bottom: 1px solid #cbcbcb;">
+        <a ng-click="$ctrl.title = title" class="pure-menu-link">
+          <span ng-if="title.coordinates.lat">&#x2714;</span>
+          {{title.file}}
+        </a>
       </li>
     </ul>
+    </div>
   </div>
 
-  <div class="col-md-9 col-lg-3 fill col-md-h40" ng-if="$ctrl.title" style="overflow-y: auto">
-    <div class="row">
-      <div class="col-md-5 col-lg-12">
+  <div class="pure-u-md-3-4 pure-u-xl-1-4 fill col-md-h40" ng-if="$ctrl.title" style="overflow-y: auto">
+    <div class="pure-g">
+      <div class="pure-u-md-5-12 pure-u-xl-1-1">
         <ng-include src="'app/list/file.html'"></ng-include>
       </div>
-      <div class="col-md-7 col-lg-12">
-        <img class="img-responsive thumbnail" ng-src="{{$ctrl.title.thumbnail}}" style="max-height: 100%">
+      <div class="pure-u-md-7-12 pure-u-xl-1-1">
+        <img class="pure-img" ng-src="{{$ctrl.title.thumbnail}}" style="max-height: 100%">
       </div>
     </div>
   </div>
 
-  <div class="col-md-12 col-lg-7 fill col-md-h60" ng-if="$ctrl.title">
+  <div class="pure-u-1-1 pure-u-xl-7-12 fill col-md-h60" ng-if="$ctrl.title">
     <ng-include src="'app/list/map.html'" class="fill"></ng-include>
   </div>
 

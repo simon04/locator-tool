@@ -1,25 +1,29 @@
-<div class="form-group form-inline">
+<div class="pure-form pure-form-aligned"><fieldset>
+
+<div class="pure-control-group">
   <label for="inputUser" translate>User</label>
-  <input id="inputUser" class="form-control" ng-model="$ctrl.user" placeholder="User:…" style="width:24em">
-  <button ng-disabled="!$ctrl.user" ng-click="$ctrl.getFilesForUser()" class="btn btn-default" translate>Fetch files for User</button>
+  <input id="inputUser" ng-model="$ctrl.user" placeholder="User:…" style="width:24em">
+  <button ng-disabled="!$ctrl.user" ng-click="$ctrl.getFilesForUser()" class="pure-button" translate>Fetch files for User</button>
 </div>
 
-<div class="form-group form-inline">
+<div class="pure-control-group">
   <label for="inputCategory" translate>Category</label>
-  <input id="inputCategory" list="datalistCategory" class="form-control" ng-model="$ctrl.category" ng-model-options"{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="$ctrl.getCategoriesForPrefix()" placeholder="Category:…" style="width:24em">
-  <button ng-disabled="!$ctrl.category" ng-click="$ctrl.getFilesForCategory()" class="btn btn-default" translate>Fetch files for Category</button>
+  <input id="inputCategory" list="datalistCategory" ng-model="$ctrl.category" ng-model-options"{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="$ctrl.getCategoriesForPrefix()" placeholder="Category:…" style="width:24em">
+  <button ng-disabled="!$ctrl.category" ng-click="$ctrl.getFilesForCategory()" class="pure-button" translate>Fetch files for Category</button>
   <datalist id="datalistCategory">
     <option ng-repeat="i in $ctrl.categorySuggestions" ng-value="i"/>
   </datalist>
 </div>
 
+</fieldset></div>
+
 <hr>
 
-<div class="form-group">
+<div class="pure-form pure-form-stacked"><fieldset>
   <label for="inputTitles" translate>Files</label>
-  <textarea id="inputTitles" class="form-control" rows="10" ng-model="$ctrl.titles" placeholder="File:…"></textarea>
-</div>
+  <textarea id="inputTitles" class="pure-input-1" rows="10" ng-model="$ctrl.titles" placeholder="File:…"></textarea>
+</fieldset></div>
 
-<button ng-disabled="!$ctrl.titleList.length" ng-click="$ctrl.next()" class="btn btn-default" translate>
+<button ng-disabled="!$ctrl.titles" ng-click="$ctrl.next()" class="pure-button pure-button-primary" translate>
   Geolocate {{$ctrl.titleList.length}} files
 </button>

@@ -1,0 +1,37 @@
+.home-menu {
+  background: #f6f6f6;
+  border-bottom: 1px solid #eee;
+}
+.home-menu .pure-menu-link {
+  padding: 1em 1em;
+}
+
+ui-view a:hover,
+ui-view a:focus {
+  text-decoration: underline;
+}
+a, a:visited {
+  text-decoration: none;
+  color: #0645ad;
+  background: none;
+}
+
+ui-view {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+code {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}
+
+.pure-g > div {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.l-box {
+  padding: 1em;
+}
