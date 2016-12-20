@@ -7,6 +7,7 @@
     <title>locator-tool</title>
     <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
     <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+    <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/angular-gettext/2.3.4/angular-gettext.min.js"></script>
     <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
     <script src="libs/L.GeoSearch/src/js/l.control.geosearch.js"></script>
     <script src="libs/L.GeoSearch/src/js/l.geosearch.provider.openstreetmap.js"></script>
@@ -20,10 +21,12 @@
     <script src="libs/angular-ll-leaflet/src/directives/view.js"></script>
     <script src="libs/angular-ll-leaflet/src/directives/divIcon.js"></script>
     <script src="app/index.js"></script>
+    <script src="app/i18n.js"></script>
     <script src="app/ltData.factory.js"></script>
     <script src="app/ltDataAuth.factory.js"></script>
     <script src="app/input/input.controller.js"></script>
     <script src="app/list/list.controller.js"></script>
+    <script src="app/components/ltLanguageSelector/ltLanguageSelector.component.js"></script>
     <script src="app/components/ltLocation/ltLocation.component.js"></script>
     <script src="app/components/ltUserInfo/ltUserInfo.component.js"></script>
     <style>
@@ -71,6 +74,7 @@
             <li ui-sref-active="active"><a ui-sref="about" translate>About locator-tool</a></li>
           </ul>
           <lt-user-info class="navbar-right"></lt-user-info>
+          <lt-language-selector class="navbar-form navbar-right"></lt-language-selector>
         </div>
       </div>
     </nav>

@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'll-leaflet', 'LocalStorageModule']);
+angular.module('app', ['ui.router', 'll-leaflet', 'LocalStorageModule', 'gettext']);
 
 angular.module('app').config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('about', {

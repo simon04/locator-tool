@@ -1,0 +1,147 @@
+# 
+# Translators:
+# simon04 <simon.legner@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: locator-tool\n"
+"PO-Revision-Date: 2016-12-19 21:08+0000\n"
+"Last-Translator: simon04 <simon.legner@gmail.com>\n"
+"Language-Team: German (http://www.transifex.com/locator-tool/locator-tool/language/de/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app/about/about.html:28
+msgid "About"
+msgstr "Über"
+
+#: index.html:71
+msgid "About locator-tool"
+msgstr "Über locator-tool"
+
+#: app/list/file.html:21
+msgid "Add <lt-location lat-lng=\"$ctrl.mapMarker\"></lt-location>"
+msgstr "<lt-location lat-lng=\"$ctrl.mapMarker\"></lt-location> einfügen"
+
+#: app/list/list.html:7
+msgid "Also show geolocated files"
+msgstr "Auch georeferenzierte Dateien anzeigen"
+
+#: app/input/input.html:8
+msgid "Category"
+msgstr "Kategorie"
+
+#: app/list/file.html:10
+msgid "Existing coordinates"
+msgstr "Existierende Koordinaten"
+
+#: app/list/file.html:28
+msgid "Failed to save <lt-location></lt-location>!"
+msgstr "<lt-location></lt-location> konnte nicht gespeichert werden!"
+
+#: app/input/input.html:10
+msgid "Fetch files for Category"
+msgstr "Dateien der Kategorie laden"
+
+#: app/input/input.html:4
+msgid "Fetch files for User"
+msgstr "Dateien des Benutzers laden"
+
+#: app/input/input.html:19
+msgid "Files"
+msgstr "Dateien"
+
+#: app/about/about.html:14
+msgid ""
+"From the list of files provided, select one and click its location on an "
+"interactive map."
+msgstr "Eine Datei in der Dateiliste auswählen und deren Position durch Klick auf die interaktive Karte auswählen."
+
+#: index.html:70
+msgid "Geolocate files"
+msgstr "Dateien georeferenzieren"
+
+#: app/input/input.html:23
+msgid "Geolocate {{$ctrl.titleList.length}} files"
+msgstr "{{$ctrl.titleList.length}} Dateien georeferenzieren"
+
+#: app/about/about.html:32
+msgid ""
+"Its source code is available on <a href=\"https://github.com/simon04"
+"/locator-tool\">GitHub</a> and <a "
+"href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
+msgstr "Der Quellcode ist auf <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> verfügbar steht unter der Lizenz <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>."
+
+#: app/components/ltUserInfo/ltUserInfo.html:1
+msgid "Log in"
+msgstr "Anmelden"
+
+#: app/about/about.html:12
+msgid "Log in using the button on the upper right corner"
+msgstr "Anmelden mittels Button im rechten oberen Eck"
+
+#: app/components/ltUserInfo/ltUserInfo.html:3
+msgid "Log out"
+msgstr "Abmelden"
+
+#: app/components/ltUserInfo/ltUserInfo.html:2
+msgid "Logged in as {{$ctrl.user}}"
+msgstr "Angemeldet als {{$ctrl.user}}"
+
+#: app/list/file.html:14
+msgid "New coordinates"
+msgstr "Neue Koordinaten"
+
+#: app/about/about.html:23
+msgid "Recent edits"
+msgstr "Bearbeitungen mit locator-tool"
+
+#: app/about/about.html:15
+msgid "Repeat …"
+msgstr "Wiederhole …"
+
+#: index.html:69
+msgid "Select files to geolocate"
+msgstr "Dateien zum Georeferenzieren auswählen"
+
+#: app/about/about.html:29
+msgid ""
+"This tool has been created by <a "
+"href=\"https://github.com/simon04/\">simon04</a>."
+msgstr "Dieses Werkzeug wurde von <a href=\"https://github.com/simon04/\">simon04</a> entwickelt."
+
+#: app/about/about.html:6
+msgid ""
+"This tool helps to add <lt-location></lt-location> information to images on "
+"<a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgstr "Dieses Werkzeug hilft <lt-location></lt-location> zu bestehenden Dateien auf <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a> hinzuzufügen."
+
+#: app/about/about.html:18
+msgid "Tutorial"
+msgstr "Einführung"
+
+#: app/about/about.html:10
+msgid "Usage"
+msgstr "Verwendung"
+
+#: app/input/input.html:2
+msgid "User"
+msgstr "Benutzer"
+
+#: app/about/about.html:3 index.html:64
+msgid "locator-tool"
+msgstr "locator-tool"
+
+#: app/about/about.html:24
+msgid ""
+"→ <a "
+"href=\"https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&amp;tagfilter=OAuth+CID%3A+496\">Edits"
+" using locator-tool</a>"
+msgstr "→ <a href=\"https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&amp;tagfilter=OAuth+CID%3A+496\">Bearbeitungen mit locator-tool</a>"
+
+#: app/about/about.html:19
+msgid ""
+"→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
+"tool\">Commons:Locator-tool</a>"
+msgstr "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-tool\">Commons:Locator-tool</a>"
