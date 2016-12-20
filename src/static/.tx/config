@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[locator-tool.frontend]
+source_file = po/locator-tool.pot
+source_lang = en
+type = PO
+file_filter = po/<lang>.po
