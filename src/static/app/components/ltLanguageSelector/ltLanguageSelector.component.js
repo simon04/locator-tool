@@ -4,6 +4,7 @@ angular.module('app').component('ltLanguageSelector', {
     var vm = this;
     vm.languages = {
       en: 'English',
+      fr: 'French',
       de: 'German'
     };
     init();
