@@ -21,8 +21,14 @@ function ltMap() {
       attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">' +
           'OpenStreetMap</a> contributors'
     });
+    var osmOrg = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">' +
+          'OpenStreetMap</a> contributors'
+    });
     L.control.layers({
-      'OSM': osm,
+      'OSM': osmOrg,
+      'OSM @wmflabs.org': osm,
       'Wikimedia maps': wm
     }).addTo(map);
     osm.addTo(map);
