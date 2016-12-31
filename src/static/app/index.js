@@ -8,9 +8,7 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('input', {
     url: '/input',
-    templateUrl: 'app/input/input.html',
-    controllerAs: '$ctrl',
-    controller: 'InputController'
+    component: 'ltFilesSelector'
   });
 
   $stateProvider.state('list', {

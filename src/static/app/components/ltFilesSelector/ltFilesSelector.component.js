@@ -1,4 +1,9 @@
-angular.module('app').controller('InputController', function(ltData, $state) {
+angular.module('app').component('ltFilesSelector', {
+  templateUrl: 'app/components/ltFilesSelector/ltFilesSelector.html',
+  controller: ltFilesSelector
+});
+
+function ltFilesSelector(ltData, $state) {
   var vm = this;
   vm.titles = '';
   vm.getCategoriesForPrefix = function() {
@@ -31,4 +36,4 @@ angular.module('app').controller('InputController', function(ltData, $state) {
   function setTitles(files) {
     vm.titleList = files;
   }
-});
+}
