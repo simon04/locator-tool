@@ -13,9 +13,7 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('list', {
     url: '/list?titles',
-    templateUrl: 'app/list/list.html',
-    controllerAs: '$ctrl',
-    controller: 'ListController'
+    component: 'ltMain'
   });
 
   $urlRouterProvider.otherwise('/');

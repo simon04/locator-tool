@@ -1,5 +1,9 @@
-angular.module('app').controller('ListController', function(
-    ltData, $scope, $stateParams, ltDataAuth, $filter, localStorageService) {
+angular.module('app').component('ltMain', {
+  templateUrl: 'app/components/ltMain/ltMain.html',
+  controller: ltMain
+});
+
+function ltMain(ltData, $scope, $stateParams, ltDataAuth, $filter, localStorageService) {
   var vm = this;
   vm.mapMarker = {};
   vm.mapObjectLocation = {};
@@ -35,18 +39,6 @@ angular.module('app').controller('ListController', function(
     }
   });
 
-  vm.mapInit = function(L, map) {
-    L.tileLayer('https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">' +
-          'OpenStreetMap</a> contributors'
-    }).addTo(map);
-    new L.Control.GeoSearch({
-      provider: new L.GeoSearch.Provider.OpenStreetMap(),
-      showMarker: false
-    }).addTo(map);
-  };
-
   vm.mapView = localStorageService.get('mapView') || {
     lat: 51.505,
     lng: -0.09,
@@ -55,10 +47,6 @@ angular.module('app').controller('ListController', function(
   $scope.$watch('$ctrl.mapView', function(mapView) {
     localStorageService.set('mapView', mapView);
   }, true);
-
-  vm.mapClick = function($event) {
-    setLatLng(vm.mapMarker, $event.latlng);
-  };
 
   function editLocation(title) {
     vm.error = undefined;
@@ -77,4 +65,4 @@ angular.module('app').controller('ListController', function(
       from.lng = to.lng;
     }
   }
-});
+}

@@ -23,7 +23,7 @@
   <div class="col-md-9 col-lg-3 fill col-md-h40" ng-if="$ctrl.title" style="overflow-y: auto">
     <div class="row">
       <div class="col-md-5 col-lg-12">
-        <ng-include src="'app/list/file.html'"></ng-include>
+        <lt-file-list title="$ctrl.title" map-marker="$ctrl.mapMarker" edit-location="$ctrl.editLocation"></lt-file-location>
       </div>
       <div class="col-md-7 col-lg-12">
         <img class="img-responsive thumbnail" ng-src="{{$ctrl.title.thumbnail}}" style="max-height: 100%">
@@ -32,7 +32,7 @@
   </div>
 
   <div class="col-md-12 col-lg-7 fill col-md-h60" ng-if="$ctrl.title">
-    <ng-include src="'app/list/map.html'" class="fill"></ng-include>
+    <lt-map class="fill" map-view="$ctrl.mapView" map-marker="$ctrl.mapMarker" map-object-location="$ctrl.mapObjectLocation"></lt-map>
   </div>
 
 </div>
