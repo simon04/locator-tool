@@ -11,11 +11,21 @@ angular.module('app').component('ltMap', {
 function ltMap() {
   var vm = this;
   vm.mapInit = function(L, map) {
-    L.tileLayer('https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png', {
-      maxZoom: 19,
+    var wm = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: 'Wikimedia maps | Map data &copy; ' +
+          '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+    var osm = L.tileLayer('https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png', {
+      maxZoom: 18,
       attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">' +
           'OpenStreetMap</a> contributors'
+    });
+    L.control.layers({
+      'OSM': osm,
+      'Wikimedia maps': wm
     }).addTo(map);
+    osm.addTo(map);
     new L.Control.GeoSearch({
       provider: new L.GeoSearch.Provider.OpenStreetMap(),
       showMarker: false
