@@ -17,6 +17,10 @@ $ cp config-example.ini config.ini
 # generate random string for secret_key
 # for consumer_key+consumer_secret see below
 
+$ cd static/
+$ npm install # or yarn
+$ npm run dist
+
 $ webservice2 uwsgi-python start
 ```
 
