@@ -1,7 +1,5 @@
 import template from './ltMap.html';
 
-import {GeoSearchControl, OpenStreetMapProvider} from 'leaflet-geosearch';
-
 export default {
   bindings: {
     mapView: '<',
@@ -36,8 +34,8 @@ function ltMap() {
       'Wikimedia maps': wm
     }).addTo(map);
     osm.addTo(map);
-    new GeoSearchControl({
-      provider: new OpenStreetMapProvider(),
+    new L.Control.GeoSearch({
+      provider: new L.GeoSearch.Provider.OpenStreetMap(),
       showMarker: false
     }).addTo(map);
   };

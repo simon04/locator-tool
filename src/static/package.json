@@ -28,7 +28,7 @@
     "angular-ui-router": "1.0.0-beta.3",
     "bootstrap": "^3.3.7",
     "leaflet": "^1.0.2",
-    "leaflet-geosearch": "^2.0.0"
+    "leaflet-geosearch": "1.0.0"
   },
   "devDependencies": {
     "angular-gettext-cli": "^1.0.7",
