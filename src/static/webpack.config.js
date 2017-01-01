@@ -40,14 +40,10 @@ module.exports = {
 };
 
 if (process.env.NODE_ENV === 'DIST') {
+  module.exports.output.path = './dist';
   module.exports.plugins = module.exports.plugins.concat([
     new CleanWebpackPlugin(['dist']),
-    new webpack.optimize.UglifyJsPlugin({
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
-    })
+    new webpack.optimize.UglifyJsPlugin()
   ]);
 } else {
   module.exports.devServer = {
