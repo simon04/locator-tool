@@ -23,7 +23,7 @@
   <div class="col-md-9 col-lg-3 fill col-md-h40" ng-if="$ctrl.title" style="overflow-y: auto">
     <div class="row">
       <div class="col-md-5 col-lg-12">
-        <lt-file-details title="$ctrl.title" map-marker="$ctrl.mapMarker" edit-location="$ctrl.editLocation"></lt-file-details>
+        <lt-file-details title="$ctrl.title" map-marker="$ctrl.mapMarker" edit-location="$ctrl.editLocation($ctrl.title)"></lt-file-details>
       </div>
       <div class="col-md-7 col-lg-12">
         <img class="img-responsive thumbnail" ng-src="{{$ctrl.title.thumbnail}}" style="max-height: 100%">
