@@ -10,7 +10,7 @@ from logging.handlers import TimedRotatingFileHandler
 config = configparser.ConfigParser()
 config.read('../config.ini')
 
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__, static_url_path='', static_folder='static/dist')
 app.secret_key = config.get('auth', 'secret_key')
 app.config.update(PROPAGATE_EXCEPTIONS=True)
 
