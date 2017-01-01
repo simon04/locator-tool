@@ -5,38 +5,41 @@ import frStrings from 'json-loader!angular-gettext-loader?format=json!../../../p
 
 export default {
   template,
-  controller: function($window, localStorageService, gettextCatalog) {
-    var vm = this;
-    vm.languages = {
-      en: 'English',
-      fr: 'French',
-      de: 'German'
-    };
-    init();
-    Object.defineProperty(vm, 'language', {
-      get: function() {
-        return gettextCatalog.getCurrentLanguage();
-      },
-      set: function(lang) {
-        localStorageService.set('language', lang);
-        gettextCatalog.setCurrentLanguage(lang);
-      }
-    });
+  controller: ltLanguageSelector
+};
 
-    function init() {
-      gettextCatalog.setStrings('de', deStrings.de);
-      gettextCatalog.setStrings('fr', frStrings.fr);
-      var language = localStorageService.get('language');
-      if (language) {
-        gettextCatalog.setCurrentLanguage(language);
-      } else if ($window.navigator && $window.navigator.languages) {
-        var langs = $window.navigator.languages.filter(function(lang) {
-          return vm.languages[lang];
-        });
-        if (langs.length) {
-          gettextCatalog.setCurrentLanguage(langs[0]);
-        }
+ltLanguageSelector.$inject = ['$window', 'localStorageService', 'gettextCatalog'];
+function ltLanguageSelector($window, localStorageService, gettextCatalog) {
+  var vm = this;
+  vm.languages = {
+    en: 'English',
+    fr: 'French',
+    de: 'German'
+  };
+  init();
+  Object.defineProperty(vm, 'language', {
+    get: function() {
+      return gettextCatalog.getCurrentLanguage();
+    },
+    set: function(lang) {
+      localStorageService.set('language', lang);
+      gettextCatalog.setCurrentLanguage(lang);
+    }
+  });
+
+  function init() {
+    gettextCatalog.setStrings('de', deStrings.de);
+    gettextCatalog.setStrings('fr', frStrings.fr);
+    var language = localStorageService.get('language');
+    if (language) {
+      gettextCatalog.setCurrentLanguage(language);
+    } else if ($window.navigator && $window.navigator.languages) {
+      var langs = $window.navigator.languages.filter(function(lang) {
+        return vm.languages[lang];
+      });
+      if (langs.length) {
+        gettextCatalog.setCurrentLanguage(langs[0]);
       }
     }
   }
-};
+}

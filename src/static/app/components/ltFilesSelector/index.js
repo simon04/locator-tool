@@ -5,6 +5,7 @@ export default {
   controller: ltFilesSelector
 };
 
+ltFilesSelector.$inject = ['ltData', '$state'];
 function ltFilesSelector(ltData, $state) {
   var vm = this;
   vm.titles = '';

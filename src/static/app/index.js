@@ -8,7 +8,10 @@ import appComponents from './components';
 
 angular.module('app', [uiRouter, localStorage, gettext, appApi, appComponents]);
 
-angular.module('app').config(function($stateProvider, $urlRouterProvider) {
+angular.module('app').config(routes);
+
+routes.$inject = ['$stateProvider', '$urlRouterProvider'];
+function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state('about', {
     url: '/',
     component: 'ltAbout'
@@ -25,9 +28,9 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
   });
 
   $urlRouterProvider.otherwise('/');
-});
+}
 
 /* eslint-env browser */
 angular.element(document).ready(() => {
-  angular.bootstrap(document, ['app'], {strictDi: false});
+  angular.bootstrap(document, ['app'], {strictDi: true});
 });

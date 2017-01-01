@@ -1,4 +1,5 @@
-export default function($http, $httpParamSerializer) {
+dataAuth.$inject = ['$http', '$httpParamSerializer'];
+export default function dataAuth($http, $httpParamSerializer) {
   return {
     getUserInfo: getUserInfo,
     editLocation: editLocation

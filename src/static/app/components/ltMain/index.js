@@ -7,6 +7,8 @@ export default {
   controller: ltMain
 };
 
+ltMain.$inject = [
+  'ltData', '$scope', '$stateParams', 'ltDataAuth', '$filter', 'localStorageService'];
 function ltMain(ltData, $scope, $stateParams, ltDataAuth, $filter, localStorageService) {
   var vm = this;
   vm.mapMarker = {};
