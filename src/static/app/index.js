@@ -1,4 +1,12 @@
-angular.module('app', ['ui.router', 'll-leaflet', 'LocalStorageModule', 'gettext']);
+import angular from 'angular';
+import localStorage from 'angular-local-storage';
+import uiRouter from 'angular-ui-router';
+import gettext from 'angular-gettext';
+
+import appApi from './api';
+import appComponents from './components';
+
+angular.module('app', [uiRouter, localStorage, gettext, appApi, appComponents]);
 
 angular.module('app').config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('about', {
@@ -17,4 +25,9 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider) {
   });
 
   $urlRouterProvider.otherwise('/');
+});
+
+/* eslint-env browser */
+angular.element(document).ready(() => {
+  angular.bootstrap(document, ['app'], {strictDi: false});
 });

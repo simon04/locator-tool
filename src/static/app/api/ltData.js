@@ -1,4 +1,6 @@
-angular.module('app').factory('ltData', function($http, $parse, $filter, $sce, $q) {
+import angular from 'angular';
+
+export default function($http, $parse, $filter, $sce, $q) {
   var maxTitlesPerRequest = 10;
   return {
     getCoordinates: getCoordinates,
@@ -130,4 +132,4 @@ angular.module('app').factory('ltData', function($http, $parse, $filter, $sce, $
     }, params);
     return $http.jsonp('https://commons.wikimedia.org/w/api.php', {params: params});
   }
-});
+}

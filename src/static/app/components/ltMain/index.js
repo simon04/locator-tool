@@ -1,7 +1,11 @@
-angular.module('app').component('ltMain', {
-  templateUrl: 'app/components/ltMain/ltMain.html',
+import angular from 'angular';
+
+import template from './ltMain.html';
+
+export default {
+  template,
   controller: ltMain
-});
+};
 
 function ltMain(ltData, $scope, $stateParams, ltDataAuth, $filter, localStorageService) {
   var vm = this;

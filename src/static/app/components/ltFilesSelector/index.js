@@ -1,7 +1,9 @@
-angular.module('app').component('ltFilesSelector', {
-  templateUrl: 'app/components/ltFilesSelector/ltFilesSelector.html',
+import template from './ltFilesSelector.html';
+
+export default {
+  template,
   controller: ltFilesSelector
-});
+};
 
 function ltFilesSelector(ltData, $state) {
   var vm = this;
@@ -25,7 +27,7 @@ function ltFilesSelector(ltData, $state) {
     get: function() {
       return vm.titles.split('\n').map(function(file) {
         return file && file.split('|')[0];
-      }).filter(angular.identity);
+      }).filter(x => x);
     },
     set: function(files) {
       vm.titles = files && files.join('\n');

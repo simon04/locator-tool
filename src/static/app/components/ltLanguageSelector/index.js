@@ -1,5 +1,10 @@
-angular.module('app').component('ltLanguageSelector', {
-  templateUrl: 'app/components/ltLanguageSelector/ltLanguageSelector.html',
+import template from './ltLanguageSelector.html';
+
+import deStrings from 'json-loader!angular-gettext-loader?format=json!../../../po/de.po';
+import frStrings from 'json-loader!angular-gettext-loader?format=json!../../../po/fr.po';
+
+export default {
+  template,
   controller: function($window, localStorageService, gettextCatalog) {
     var vm = this;
     vm.languages = {
@@ -19,6 +24,8 @@ angular.module('app').component('ltLanguageSelector', {
     });
 
     function init() {
+      gettextCatalog.setStrings('de', deStrings.de);
+      gettextCatalog.setStrings('fr', frStrings.fr);
       var language = localStorageService.get('language');
       if (language) {
         gettextCatalog.setCurrentLanguage(language);
@@ -32,4 +39,4 @@ angular.module('app').component('ltLanguageSelector', {
       }
     }
   }
-});
+};

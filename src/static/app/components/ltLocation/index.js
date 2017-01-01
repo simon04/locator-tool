@@ -1,4 +1,4 @@
-angular.module('app').component('ltLocation', {
+export default {
   bindings: {
     latLng: '<'
   },
@@ -7,4 +7,4 @@ angular.module('app').component('ltLocation', {
     '<span ng-if="$ctrl.latLng"> | {{$ctrl.latLng.lat}} | {{$ctrl.latLng.lng}}</span>',
     '}}</code>'
   ].join('')
-});
+};

@@ -1,12 +1,16 @@
-angular.module('app').component('ltMap', {
+import template from './ltMap.html';
+
+import {GeoSearchControl, OpenStreetMapProvider} from 'leaflet-geosearch';
+
+export default {
   bindings: {
     mapView: '<',
     mapMarker: '<',
     mapObjectLocation: '<'
   },
-  templateUrl: 'app/components/ltMap/ltMap.html',
+  template,
   controller: ltMap
-});
+};
 
 function ltMap() {
   var vm = this;
@@ -32,8 +36,8 @@ function ltMap() {
       'Wikimedia maps': wm
     }).addTo(map);
     osm.addTo(map);
-    new L.Control.GeoSearch({
-      provider: new L.GeoSearch.Provider.OpenStreetMap(),
+    new GeoSearchControl({
+      provider: new OpenStreetMapProvider(),
       showMarker: false
     }).addTo(map);
   };

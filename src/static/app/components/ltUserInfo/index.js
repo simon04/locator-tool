@@ -1,10 +1,11 @@
-angular.module('app').component('ltUserInfo', {
-  /* eslint max-len: 0 */
-  templateUrl: 'app/components/ltUserInfo/ltUserInfo.html',
+import template from './ltUserInfo.html';
+
+export default {
+  template,
   controller: function(ltDataAuth) {
     var vm = this;
     ltDataAuth.getUserInfo().then(function(user) {
       vm.user = user;
     });
   }
-});
+};

@@ -1,4 +1,4 @@
-angular.module('app').factory('ltDataAuth', function($http, $httpParamSerializer) {
+export default function($http, $httpParamSerializer) {
   return {
     getUserInfo: getUserInfo,
     editLocation: editLocation
@@ -26,4 +26,4 @@ angular.module('app').factory('ltDataAuth', function($http, $httpParamSerializer
       }
     });
   }
-});
+}
