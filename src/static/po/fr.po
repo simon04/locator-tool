@@ -1,93 +1,100 @@
 # 
 # Translators:
 # Pierre Choffet <peuc@wanadoo.fr>, 2016
+# simon04 <simon.legner@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2016-12-25 15:45+0000\n"
-"Last-Translator: Pierre Choffet <peuc@wanadoo.fr>\n"
+"PO-Revision-Date: 2017-01-02 12:58+0000\n"
+"Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/locator-tool/locator-tool/language/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: app/about/about.html:13
+#: app/components/ltAbout/ltAbout.html:13
 msgid ""
 "<a ui-sref=\"input\">Select files to geolocate</a> by querying a category or"
 " inputting a list of <code>File:</code>s."
 msgstr "<a ui-sref=\"input\">Sélectionnez les fichiers à géolocaliser</a> par catégorie ou en entrant une liste de <code>Fichiers:</code>s."
 
-#: app/about/about.html:33
+#: app/components/ltAbout/ltAbout.html:33
 msgid "About"
 msgstr "À propos"
 
-#: index.html:74
+#: index.html:50
 msgid "About locator-tool"
 msgstr "À propos du locator-tool"
 
-#: app/list/file.html:21
+#: app/components/ltFileDetails/ltFileDetails.html:21
 msgid "Add <lt-location lat-lng=\"$ctrl.mapMarker\"></lt-location>"
 msgstr "Ajouter <lt-location lat-lng=\"$ctrl.mapMarker\"></lt-location>"
 
-#: app/list/list.html:7
+#: app/components/ltMain/ltMain.html:7
 msgid "Also show geolocated files"
 msgstr "Afficher aussi les fichiers géolocalisés"
 
-#: app/input/input.html:8
+#: app/components/ltFilesSelector/ltFilesSelector.html:9
 msgid "Category"
 msgstr "Catégorie"
 
-#: app/about/about.html:23 app/about/about.html:25
+#: app/components/ltAbout/ltAbout.html:23
+#: app/components/ltAbout/ltAbout.html:25
 msgid "Edits using locator-tool"
 msgstr "Modifications utilisant locator-tool"
 
-#: app/list/file.html:10
+#: app/components/ltFileDetails/ltFileDetails.html:10
 msgid "Existing coordinates"
 msgstr "Coordonnées existantes"
 
-#: app/list/file.html:28
+#: app/components/ltFileDetails/ltFileDetails.html:28
 msgid "Failed to save <lt-location></lt-location>!"
 msgstr "Impossible de sauvegarder <lt-location></lt-location> !"
 
-#: app/input/input.html:10
+#: app/components/ltFilesSelector/ltFilesSelector.html:11
 msgid "Fetch files for Category"
 msgstr "Récupérer par catégorie"
 
-#: app/input/input.html:4
+#: app/components/ltFilesSelector/ltFilesSelector.html:4
 msgid "Fetch files for User"
 msgstr "Récupérer par utilisateur"
 
-#: app/input/input.html:19
+#: app/components/ltFilesSelector/ltFilesSelector.html:19
 msgid "Files"
 msgstr "Fichiers"
 
-#: app/about/about.html:14
+#: app/components/ltAbout/ltAbout.html:14
 msgid ""
 "From the list of files provided, select one and click its location on an "
 "interactive map."
 msgstr "Sélectionnez un fichier dans la liste, et cliquez sur son emplacement sur la carte."
 
-#: index.html:73
+#: index.html:49
 msgid "Geolocate files"
 msgstr "Géolocaliser les fichiers"
 
-#: app/input/input.html:23
+#: app/components/ltFilesSelector/ltFilesSelector.html:21
 msgid "Geolocate {{$ctrl.titleList.length}} files"
 msgstr "Géolocaliser {{$ctrl.titleList.length}} fichiers"
 
-#: app/about/about.html:37
+#: app/components/ltAbout/ltAbout.html:37
 msgid ""
 "Its source code is available on <a href=\"https://github.com/simon04"
 "/locator-tool\">GitHub</a> and <a "
 "href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
 msgstr "Le code source est sous licence <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> et disponible sur <a href=\"https://github.com/simon04/locator-tool\">GitHub</a>."
 
+#. Your language in your language
+#: app/components/ltLanguageSelector/index.js:49
+msgid "LANGUAGE"
+msgstr "Français"
+
 #: app/components/ltUserInfo/ltUserInfo.html:1
 msgid "Log in"
 msgstr "Se connecter"
 
-#: app/about/about.html:12
+#: app/components/ltAbout/ltAbout.html:12
 msgid "Log in using the button on the upper right corner"
 msgstr "Identifiez-vous en utilisant le bouton en haut à droite"
 
@@ -99,55 +106,55 @@ msgstr "Se déconnecter"
 msgid "Logged in as {{$ctrl.user}}"
 msgstr "Identifié en tant que {{$ctrl.user}}"
 
-#: app/list/file.html:14
+#: app/components/ltFileDetails/ltFileDetails.html:14
 msgid "New coordinates"
 msgstr "Nouvelles coordonnées"
 
-#: app/about/about.html:15
+#: app/components/ltAbout/ltAbout.html:15
 msgid "Repeat …"
 msgstr "Répéter…"
 
-#: index.html:72
+#: index.html:48
 msgid "Select files to geolocate"
 msgstr "Sélection des fichiers à géolocaliser"
 
-#: app/about/about.html:34
+#: app/components/ltAbout/ltAbout.html:34
 msgid ""
 "This tool has been created by <a "
 "href=\"https://github.com/simon04/\">simon04</a>."
 msgstr "Cet outil a été créé par <a href=\"https://github.com/simon04/\">simon04</a>."
 
-#: app/about/about.html:6
+#: app/components/ltAbout/ltAbout.html:6
 msgid ""
 "This tool helps to add <lt-location></lt-location> information to images on "
 "<a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
 msgstr "Cet outil permet d'ajouter l'iformation <lt-location></lt-location> aux images présentes sur <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
 
-#: app/about/about.html:28
+#: app/components/ltAbout/ltAbout.html:28
 msgid "Translate"
 msgstr "Traduire"
 
-#: app/about/about.html:30
+#: app/components/ltAbout/ltAbout.html:30
 msgid "Translate locator-tool on Transifex"
 msgstr "Traduire le locator-tool sur Transifex"
 
-#: app/about/about.html:18
+#: app/components/ltAbout/ltAbout.html:18
 msgid "Tutorial"
 msgstr "Didacticiel"
 
-#: app/about/about.html:10
+#: app/components/ltAbout/ltAbout.html:10
 msgid "Usage"
 msgstr "Utilisation"
 
-#: app/input/input.html:2
+#: app/components/ltFilesSelector/ltFilesSelector.html:2
 msgid "User"
 msgstr "Utilisateur"
 
-#: app/about/about.html:3 index.html:67
+#: app/components/ltAbout/ltAbout.html:3 index.html:43
 msgid "locator-tool"
 msgstr "locator-tool"
 
-#: app/about/about.html:19
+#: app/components/ltAbout/ltAbout.html:19
 msgid ""
 "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
 "tool\">Commons:Locator-tool</a>"
