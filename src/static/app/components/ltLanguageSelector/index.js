@@ -12,9 +12,9 @@ ltLanguageSelector.$inject = ['$window', 'localStorageService', 'gettextCatalog'
 function ltLanguageSelector($window, localStorageService, gettextCatalog) {
   var vm = this;
   vm.languages = {
+    de: 'Deutsch',
     en: 'English',
-    fr: 'French',
-    de: 'German'
+    fr: 'Français'
   };
   init();
   Object.defineProperty(vm, 'language', {
