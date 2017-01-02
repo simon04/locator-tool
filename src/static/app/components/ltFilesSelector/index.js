@@ -15,10 +15,10 @@ function ltFilesSelector(ltData, $state) {
     });
   };
   vm.getFilesForUser = function() {
-    ltData.getFilesForUser(vm.user).then(setTitles);
+    vm.getFilesForUser$q = ltData.getFilesForUser(vm.user).then(setTitles);
   };
   vm.getFilesForCategory = function() {
-    ltData.getFilesForCategory(vm.category).then(setTitles);
+    vm.getFilesForCategory$q = ltData.getFilesForCategory(vm.category).then(setTitles);
   };
   vm.next = function() {
     $state.go('list', {titles: vm.titleList.join('|')});
