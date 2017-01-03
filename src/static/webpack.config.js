@@ -10,7 +10,7 @@ module.exports = {
     vendor: './app/vendor.js'
   },
   output: {
-    path: './dist',
+    path: process.env.npm_lifecycle_script === 'webpack-dev-server' ? undefined : './dist',
     filename: '[name].[chunkhash].js',
     sourceMapFilename: '[name].[chunkhash].map'
   },
