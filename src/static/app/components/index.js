@@ -1,4 +1,5 @@
 import angular from 'angular';
+import llLeaflet from 'angular-ll-leaflet';
 
 import ltAbout from './ltAbout';
 import ltFileDetails from './ltFileDetails';
@@ -11,7 +12,7 @@ import ltSpinner from './ltSpinner';
 import ltUserInfo from './ltUserInfo';
 
 export default angular
-  .module('app.components', ['ll-leaflet'])
+  .module('app.components', [llLeaflet])
   .component('ltAbout', ltAbout)
   .component('ltFileDetails', ltFileDetails)
   .component('ltFilesSelector', ltFilesSelector)

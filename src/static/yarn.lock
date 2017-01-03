@@ -89,9 +89,12 @@ angular-gettext@^2.3.8:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/angular-gettext/-/angular-gettext-2.3.8.tgz#f5aa77e3e12c8774d2996160d66e7592e149ea48"
 
-angular-ll-leaflet@simon04/angular-ll-leaflet:
-  version "0.1.0"
-  resolved "https://codeload.github.com/simon04/angular-ll-leaflet/tar.gz/29986a6f899da9be19809b93b650e73e69eafc12"
+angular-ll-leaflet@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/angular-ll-leaflet/-/angular-ll-leaflet-0.2.1.tgz#fba7ddeb43b978e470a77ed0073259563e98f0ad"
+  dependencies:
+    angular "1.x"
+    leaflet "0.7.x || 1.x"
 
 angular-local-storage@^0.5.0:
   version "0.5.0"
@@ -101,7 +104,7 @@ angular-ui-router@1.0.0-beta.3:
   version "1.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/angular-ui-router/-/angular-ui-router-1.0.0-beta.3.tgz#18d5b4af4662cdc282d1e1d7df29cb7085df9d28"
 
-angular@1.5.9:
+angular@1.5.9, angular@1.x:
   version "1.5.9"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.5.9.tgz#b7aeff42dad87881e06be16b6690fe766d868b51"
 
@@ -2462,7 +2465,7 @@ leaflet-geosearch@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/leaflet-geosearch/-/leaflet-geosearch-1.0.0.tgz#7cf5c36f87e278a49ea8a4898be9d925ed848cc8"
 
-leaflet@^1.0.2:
+"leaflet@0.7.x || 1.x", leaflet@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.0.2.tgz#fa4fbcb7844944fc2bfb0bcf9ca0dea13463ca21"
 
