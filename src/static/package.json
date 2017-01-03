@@ -4,8 +4,8 @@
   "description": "Add {{Location}} to images on Wikimedia Commons",
   "main": "app/index.js",
   "scripts": {
-    "start": "NODE_ENV=DEV webpack-dev-server",
-    "dist": "NODE_ENV=DIST webpack",
+    "start": "webpack-dev-server",
+    "dist": "webpack -p",
     "lint": "eslint app/",
     "po": "angular-gettext-cli --compile --files 'po/*.po' --dest app/i18n.js --module app",
     "pot": "angular-gettext-cli --files '{,app/**/}*.{js,html}' --dest po/locator-tool.pot"

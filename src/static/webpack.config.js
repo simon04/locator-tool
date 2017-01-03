@@ -10,6 +10,7 @@ module.exports = {
     vendor: './app/vendor.js'
   },
   output: {
+    path: './dist',
     filename: '[name].[chunkhash].js',
     sourceMapFilename: '[name].[chunkhash].map'
   },
@@ -29,6 +30,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(['./dist']),
     new HtmlWebpackPlugin({
       template: './index.html',
       inject: 'body'
@@ -36,17 +38,8 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest']
     })
-  ]
-};
-
-if (process.env.NODE_ENV === 'DIST') {
-  module.exports.output.path = './dist';
-  module.exports.plugins = module.exports.plugins.concat([
-    new CleanWebpackPlugin(['dist']),
-    new webpack.optimize.UglifyJsPlugin()
-  ]);
-} else {
-  module.exports.devServer = {
+  ],
+  devServer: {
     port: 8184
-  };
-}
+  }
+};
