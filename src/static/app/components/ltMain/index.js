@@ -16,6 +16,7 @@ function ltMain(ltData, $scope, $stateParams, ltDataAuth, $filter, localStorageS
   vm.editLocation = editLocation;
   ltData.getCoordinates($stateParams.titles).then(function(titles) {
     vm.titles = $filter('orderBy')(titles, 'file');
+    vm.showGeolocated = vm.titles.length <= 5;
   });
 
   $scope.$watch('$ctrl.title', function(title) {
