@@ -1,7 +1,7 @@
 import template from './ltLanguageSelector.html';
 
-import deStrings from 'json-loader!angular-gettext-loader?format=json!../../../po/de.po';
-import frStrings from 'json-loader!angular-gettext-loader?format=json!../../../po/fr.po';
+import 'angular-gettext-loader!../../../po/de.po';
+import 'angular-gettext-loader!../../../po/fr.po';
 
 export default {
   template,
@@ -24,8 +24,6 @@ function ltLanguageSelector($window, localStorageService, gettext, gettextCatalo
   });
 
   function init() {
-    gettextCatalog.setStrings('de', deStrings.de);
-    gettextCatalog.setStrings('fr', frStrings.fr);
     vm.languages = {
       de: getDisplayString('de'),
       en: 'English',
