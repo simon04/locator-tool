@@ -1,11 +1,15 @@
 import template from './ltUserInfo.html';
 
+class ltUserInfo {
+  constructor(ltDataAuth) {
+    ltDataAuth.getUserInfo().then((user) => {
+      this.user = user;
+    });
+  }
+}
+ltUserInfo.$inject = ['ltDataAuth'];
+
 export default {
   template,
-  controller: ['ltDataAuth', function(ltDataAuth) {
-    const vm = this;
-    ltDataAuth.getUserInfo().then(function(user) {
-      vm.user = user;
-    });
-  }]
+  controller: ltUserInfo
 };

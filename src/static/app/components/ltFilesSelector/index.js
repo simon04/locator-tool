@@ -1,42 +1,52 @@
 import template from './ltFilesSelector.html';
 
+class ltFilesSelector {
+  constructor(ltData, $state) {
+    Object.assign(this, {ltData, $state, titles: ''});
+  }
+
+  getCategoriesForPrefix() {
+    this.ltData
+      .getCategoriesForPrefix(this.category)
+      .then((categories) => {
+        this.categorySuggestions = categories;
+      });
+  }
+
+  getFilesForUser() {
+    this.getFilesForUser$q = this.ltData
+      .getFilesForUser(this.user)
+      .then((titles) => {
+        this.titleList = titles;
+      });
+  }
+
+  getFilesForCategory() {
+    this.getFilesForCategory$q = this.ltData
+      .getFilesForCategory(this.category)
+      .then((titles) => {
+        this.titleList = titles;
+      });
+  }
+
+  next() {
+    const titles = this.titleList.join('|');
+    this.$state.go('list', {titles});
+  }
+
+  get titleList() {
+    return this.titles.split('\n')
+      .map((file) => file && file.split('|')[0])
+      .filter((x) => x);
+  }
+
+  set titleList(files) {
+    this.titles = files && files.join('\n');
+  }
+}
+ltFilesSelector.$inject = ['ltData', '$state'];
+
 export default {
   template,
   controller: ltFilesSelector
 };
-
-ltFilesSelector.$inject = ['ltData', '$state'];
-function ltFilesSelector(ltData, $state) {
-  const vm = this;
-  vm.titles = '';
-  vm.getCategoriesForPrefix = function() {
-    ltData.getCategoriesForPrefix(vm.category).then(function(categories) {
-      vm.categorySuggestions = categories;
-    });
-  };
-  vm.getFilesForUser = function() {
-    vm.getFilesForUser$q = ltData.getFilesForUser(vm.user).then(setTitles);
-  };
-  vm.getFilesForCategory = function() {
-    vm.getFilesForCategory$q = ltData.getFilesForCategory(vm.category).then(setTitles);
-  };
-  vm.next = function() {
-    $state.go('list', {titles: vm.titleList.join('|')});
-  };
-
-  Object.defineProperty(vm, 'titleList', {
-    get: function() {
-      return vm.titles.split('\n').map(function(file) {
-        return file && file.split('|')[0];
-      }).filter(x => x);
-    },
-    set: function(files) {
-      vm.titles = files && files.join('\n');
-    },
-    enumerable: true,
-    configurable: true
-  });
-  function setTitles(files) {
-    vm.titleList = files;
-  }
-}
