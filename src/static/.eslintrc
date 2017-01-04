@@ -4,4 +4,5 @@
     - google
   rules:
     require-jsdoc: 0
-    max-len: [2, 100, 2]
+    max-len: ['error', 100, 2]
+    no-unused-vars: ['error', {args: 'all', argsIgnorePattern: '^_'}]

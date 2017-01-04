@@ -1,7 +1,7 @@
 import angular from 'angular';
 
-data.$inject = ['$http', '$parse', '$filter', '$sce', '$q'];
-export default function data($http, $parse, $filter, $sce, $q) {
+data.$inject = ['$http', '$parse', '$sce', '$q'];
+export default function data($http, $parse, $sce, $q) {
   var maxTitlesPerRequest = 10;
   return {
     getCoordinates: getCoordinates,
