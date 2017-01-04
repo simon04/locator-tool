@@ -31,7 +31,7 @@ class ltMap {
   mapClick($event) {
     const {latlng: {lat, lng}} = $event;
     if (lat && lng) {
-      Object.assign(this.mapMarker, {lat, lng});
+      Object.assign(this.mapMarker, {lat: roundToPrecision(lat), lng: roundToPrecision(lng)});
     }
   }
 }
@@ -45,3 +45,7 @@ export default {
   template,
   controller: ltMap
 };
+
+function roundToPrecision(value, precision = 10e7) {
+  return (value * precision) % 1 ? Math.round(value * precision) / precision : value;
+}
