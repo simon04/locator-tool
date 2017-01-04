@@ -7,7 +7,7 @@ export default {
 
 ltFilesSelector.$inject = ['ltData', '$state'];
 function ltFilesSelector(ltData, $state) {
-  var vm = this;
+  const vm = this;
   vm.titles = '';
   vm.getCategoriesForPrefix = function() {
     ltData.getCategoriesForPrefix(vm.category).then(function(categories) {

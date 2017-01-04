@@ -2,7 +2,7 @@ import angular from 'angular';
 
 data.$inject = ['$http', '$parse', '$sce', '$q'];
 export default function data($http, $parse, $sce, $q) {
-  var maxTitlesPerRequest = 10;
+  const maxTitlesPerRequest = 10;
   return {
     getCoordinates: getCoordinates,
     getCategoriesForPrefix: getCategoriesForPrefix,
@@ -18,7 +18,7 @@ export default function data($http, $parse, $sce, $q) {
     if (titles.length > maxTitlesPerRequest) {
       return getCoordinatesChunkByChunk(titles);
     }
-    var params = {
+    const params = {
       prop: 'coordinates|imageinfo',
       titles: titles.join('|'),
       iiprop: 'url|extmetadata',
@@ -26,13 +26,13 @@ export default function data($http, $parse, $sce, $q) {
       iiextmetadatafilter: 'ImageDescription'
     };
     return $query(params).then(function(d) {
-      var pages = d.data && d.data.query && d.data.query.pages || {};
-      var descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
-      var thumbnailGetter = $parse('imageinfo[0].thumburl');
-      var urlGetter = $parse('imageinfo[0].descriptionurl');
-      var coordsGetter = $parse('{lat: coordinates[0].lat, lng: coordinates[0].lon}');
+      const pages = d.data && d.data.query && d.data.query.pages || {};
+      const descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
+      const thumbnailGetter = $parse('imageinfo[0].thumburl');
+      const urlGetter = $parse('imageinfo[0].descriptionurl');
+      const coordsGetter = $parse('{lat: coordinates[0].lat, lng: coordinates[0].lon}');
       return Object.keys(pages).map(function(pageid) {
-        var page = pages[pageid];
+        const page = pages[pageid];
         return {
           pageid: pageid,
           file: page.title,
@@ -45,12 +45,12 @@ export default function data($http, $parse, $sce, $q) {
     });
   }
   function getCoordinatesChunkByChunk(titles) {
-    var t = angular.extend([], titles);
-    var requests = [];
+    const t = angular.extend([], titles);
+    const requests = [];
     while (t.length) {
       requests.push(t.splice(0, Math.min(maxTitlesPerRequest, t.length)));
     }
-    var coordinatesPromises = requests.map(getCoordinates);
+    const coordinatesPromises = requests.map(getCoordinates);
     return $q.all(coordinatesPromises).then(flatten);
 
     function flatten(array) {
@@ -60,15 +60,15 @@ export default function data($http, $parse, $sce, $q) {
     }
   }
   function getObjectLocation(pageid) {
-    var params = {
+    const params = {
       prop: 'revisions',
       pageids: pageid,
       rvprop: 'content'
     };
     return $query(params).then(function(d) {
       try {
-        var wikitext = d.data.query.pages[pageid].revisions[0]['*'];
-        var loc = wikitext.match(/\{\{Object location( dec)?\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)/);
+        const wikitext = d.data.query.pages[pageid].revisions[0]['*'];
+        const loc = wikitext.match(/\{\{Object location( dec)?\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)/);
         return {
           lat: parseFloat(loc[2]),
           lng: parseFloat(loc[3])
@@ -79,7 +79,7 @@ export default function data($http, $parse, $sce, $q) {
     });
   }
   function getCategoriesForPrefix(prefix) {
-    var params = {
+    const params = {
       list: 'allpages',
       apnamespace: 14,
       aplimit: 30,
@@ -93,7 +93,7 @@ export default function data($http, $parse, $sce, $q) {
     });
   }
   function getFilesForUser(user) {
-    var params = {
+    const params = {
       list: 'usercontribs',
       ucuser: user,
       ucnamespace: 6,
@@ -108,7 +108,7 @@ export default function data($http, $parse, $sce, $q) {
     });
   }
   function getFilesForCategory(cat) {
-    var params = {
+    const params = {
       'language': 'commons',
       'project': 'wikimedia',
       'categories': cat,

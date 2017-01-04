@@ -10,7 +10,7 @@ export default {
 
 ltLanguageSelector.$inject = ['$window', 'localStorageService', 'gettext', 'gettextCatalog'];
 function ltLanguageSelector($window, localStorageService, gettext, gettextCatalog) {
-  var vm = this;
+  const vm = this;
   init();
 
   Object.defineProperty(vm, 'language', {
@@ -29,11 +29,11 @@ function ltLanguageSelector($window, localStorageService, gettext, gettextCatalo
       en: 'English',
       fr: getDisplayString('fr')
     };
-    var language = localStorageService.get('language');
+    const language = localStorageService.get('language');
     if (language) {
       gettextCatalog.setCurrentLanguage(language);
     } else if ($window.navigator && $window.navigator.languages) {
-      var langs = $window.navigator.languages.filter(function(lang) {
+      const langs = $window.navigator.languages.filter(function(lang) {
         return vm.languages[lang];
       });
       if (langs.length) {
@@ -45,7 +45,7 @@ function ltLanguageSelector($window, localStorageService, gettext, gettextCatalo
   function getDisplayString(language) {
     /* eslint spaced-comment: 0 */
     /// Your language in your language (e.g. 'English', 'Deutsch')
-    var key = gettext('LANGUAGE');
+    const key = gettext('LANGUAGE');
     return gettextCatalog.getStringFormFor(language, key, 1) || language;
   }
 }

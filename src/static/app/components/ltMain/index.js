@@ -10,7 +10,7 @@ export default {
 ltMain.$inject = [
   'ltData', '$scope', '$stateParams', 'ltDataAuth', '$filter', 'localStorageService'];
 function ltMain(ltData, $scope, $stateParams, ltDataAuth, $filter, localStorageService) {
-  var vm = this;
+  const vm = this;
   vm.mapMarker = {};
   vm.mapObjectLocation = {};
   vm.editLocation = editLocation;
@@ -39,7 +39,7 @@ function ltMain(ltData, $scope, $stateParams, ltDataAuth, $filter, localStorageS
     setLatLng(vm.mapMarker, coords);
   });
   $scope.$watchGroup(['$ctrl.mapMarker.lat', '$ctrl.mapMarker.lng'], function roundToPrecision() {
-    var precision = 10e7;
+    const precision = 10e7;
     if ((vm.mapMarker.lat * precision) % 1) {
       vm.mapMarker.lat = Math.round(vm.mapMarker.lat * precision) / precision;
     }
@@ -59,7 +59,7 @@ function ltMain(ltData, $scope, $stateParams, ltDataAuth, $filter, localStorageS
 
   function editLocation(title) {
     vm.error = undefined;
-    var latlng = {lat: vm.mapMarker.lat, lng: vm.mapMarker.lng};
+    const latlng = {lat: vm.mapMarker.lat, lng: vm.mapMarker.lng};
     return ltDataAuth.editLocation(latlng.lat, latlng.lng, title.pageid)
     .then(function() {
       title.coordinates = angular.extend(title.coordinates || {}, latlng);

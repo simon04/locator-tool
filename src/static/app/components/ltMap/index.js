@@ -11,19 +11,19 @@ export default {
 };
 
 function ltMap() {
-  var vm = this;
+  const vm = this;
   vm.mapInit = function(L, map) {
-    var wm = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
+    const wm = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: 'Wikimedia maps | Map data &copy; ' +
           '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
-    var osm = L.tileLayer('https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png', {
+    const osm = L.tileLayer('https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">' +
           'OpenStreetMap</a> contributors'
     });
-    var osmOrg = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    const osmOrg = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">' +
           'OpenStreetMap</a> contributors'

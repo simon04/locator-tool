@@ -3,6 +3,8 @@
     - eslint:recommended
     - google
   rules:
-    require-jsdoc: 0
+    require-jsdoc: 'off'
     max-len: ['error', 100, 2]
     no-unused-vars: ['error', {args: 'all', argsIgnorePattern: '^_'}]
+    no-var: 'error'
+    prefer-const: 'error'

@@ -21,7 +21,7 @@ export default function dataAuth($http, $httpParamSerializer) {
         pageid: pageid
       })
     }).then(function(response) {
-      var data = response.data;
+      const data = response.data;
       if (!data.result || !data.result.edit || data.result.edit.result !== 'Success') {
         throw data;
       }
