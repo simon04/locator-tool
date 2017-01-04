@@ -39,6 +39,9 @@ module.exports = {
       names: ['vendor', 'manifest']
     })
   ],
+  performance: {
+    hints: false
+  },
   devServer: {
     port: 8184
   }
