@@ -45,7 +45,7 @@ export default function data($http, $parse, $sce, $q) {
     });
   }
   function getCoordinatesChunkByChunk(titles) {
-    const t = angular.extend([], titles);
+    const t = Object.assign([], titles);
     const requests = [];
     while (t.length) {
       requests.push(t.splice(0, Math.min(maxTitlesPerRequest, t.length)));
@@ -126,7 +126,7 @@ export default function data($http, $parse, $sce, $q) {
     });
   }
   function $query(params) {
-    params = angular.extend({
+    params = Object.assign({
       action: 'query',
       format: 'json',
       callback: 'JSON_CALLBACK'
