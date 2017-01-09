@@ -29,9 +29,11 @@ class ltMap {
   }
 
   mapClick($event) {
-    const {latlng: {lat, lng}} = $event;
+    // http://leafletjs.com/reference.html#mouse-event
+    const {latlng: {lat, lng}, originalEvent: {shiftKey}} = $event;
     if (lat && lng) {
-      Object.assign(this.mapMarker, {lat: roundToPrecision(lat), lng: roundToPrecision(lng)});
+      const target = shiftKey ? this.mapObjectLocation : this.mapMarker;
+      Object.assign(target, {lat: roundToPrecision(lat), lng: roundToPrecision(lng)});
     }
   }
 }

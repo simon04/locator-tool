@@ -9,7 +9,6 @@ const DEFAULT_MAP_VIEW = {
 class ltMain {
   constructor(ltData, $scope, $stateParams, ltDataAuth, $filter, $q, localStorageService) {
     Object.assign(this, {ltData, ltDataAuth, localStorageService});
-    this.mapObjectLocation = {};
     this.mapView = localStorageService.get('mapView') || DEFAULT_MAP_VIEW;
 
     const files$q = $q((resolve, reject) => {
@@ -42,9 +41,9 @@ class ltMain {
       this.updateMapView(title.coordinates);
     }
     if (title && title.pageid) {
-      this.ltData.getObjectLocation(title.pageid).then((objectLocation = {}) => {
+      this.ltData.getObjectLocation(title.pageid).then((objectLocation) => {
         const {lat, lng} = objectLocation;
-        Object.assign(this.mapObjectLocation, {lat, lng});
+        title.objectLocation = objectLocation;
         if (!(title.coordinates && title.coordinates.lat)) {
           this.updateMapView({lat, lng});
         }

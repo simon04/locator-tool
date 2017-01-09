@@ -8,10 +8,20 @@
 
 <div class="form-group">
   <label>
-    <lt-location type="Location"></lt-location>
+    <lt-location type="{{$ctrl.title.coordinates.type}}"></lt-location>
   </label>
   <lt-location-input lat-lng="$ctrl.title.coordinates" edit-location="$ctrl.editLocation($ctrl.title, $ctrl.title.coordinates)">
   </lt-location-input>
+  <p translate class="help-block">Left click on map to set the location.</p>
+</div>
+
+<div class="form-group">
+  <label>
+    <lt-location type="{{$ctrl.title.objectLocation.type}}"></lt-location>
+  </label>
+  <lt-location-input lat-lng="$ctrl.title.objectLocation" edit-location="$ctrl.editLocation($ctrl.title, $ctrl.title.objectLocation)">
+  </lt-location-input>
+  <p translate class="help-block">Press shift and click on map to set the object location.</p>
 </div>
 
 <div class="alert alert-danger" ng-if="$ctrl.error">
