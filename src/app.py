@@ -76,7 +76,7 @@ def edit():
     app.logger.info('Obtained token=%s for pageid=%d', token, pageid)
 
     from location_to_wikitext import add_location_to_wikitext
-    new_wikitext = add_location_to_wikitext(lat, lng, wikitext)
+    new_wikitext = add_location_to_wikitext('Location', lat, lng, wikitext)
 
     r2 = mwoauth_request({
         'action': 'edit',
