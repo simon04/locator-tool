@@ -84,7 +84,7 @@ def edit():
     r2 = mwoauth_request({
         'action': 'edit',
         'pageid': str(pageid),
-        'summary': '{{Location}}',
+        'summary': '{{%s}}' % type,
         'text': new_wikitext,
         'token': token
     })
