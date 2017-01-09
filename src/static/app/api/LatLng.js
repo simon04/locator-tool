@@ -9,8 +9,14 @@ export default class LatLng {
     });
   }
 
-  setLatLng({lat, lng}) {
+  setLatLng({lat, lng}, overwriteOriginal) {
     Object.assign(this, {lat, lng});
+    if (overwriteOriginal) {
+      Object.assign(this, {
+        _latOriginal: lat,
+        _lngOriginal: lng
+      });
+    }
   }
 
   discard() {
