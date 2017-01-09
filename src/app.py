@@ -55,7 +55,7 @@ def edit():
         or 'lat' not in data or 'lng' not in data:
         abort(400)
     pageid = int(data['pageid'])
-    type = float(data['type'])
+    type = data['type']
     lat = float(data['lat'])
     lng = float(data['lng'])
     app.logger.info('Received request %s', str(data))
