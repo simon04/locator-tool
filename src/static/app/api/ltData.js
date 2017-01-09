@@ -36,7 +36,7 @@ export default function data($http, $parse, $sce, $q) {
       return Object.keys(pages).map(function(pageid) {
         const page = pages[pageid];
         return {
-          pageid: pageid,
+          pageid: parseInt(pageid),
           file: page.title,
           description: $sce.trustAsHtml(descriptionGetter(page)),
           thumbnail: thumbnailGetter(page),
