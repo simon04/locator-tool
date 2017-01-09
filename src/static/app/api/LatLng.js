@@ -1,6 +1,7 @@
 export default class LatLng {
-  constructor({lat, lng}) {
+  constructor(type, {lat, lng}) {
     Object.assign(this, {
+      type,
       lat,
       lng,
       _latOriginal: lat,

@@ -41,7 +41,8 @@ export default function data($http, $parse, $sce, $q) {
           description: $sce.trustAsHtml(descriptionGetter(page)),
           thumbnail: thumbnailGetter(page),
           url: urlGetter(page),
-          coordinates: new LatLng(coordsGetter(page))
+          coordinates: new LatLng('Location', coordsGetter(page)),
+          objectLocation: new LatLng('Object location', {})
         };
       });
     });
@@ -71,12 +72,12 @@ export default function data($http, $parse, $sce, $q) {
       try {
         const wikitext = d.data.query.pages[pageid].revisions[0]['*'];
         const loc = wikitext.match(/\{\{Object location( dec)?\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)/);
-        return new LatLng({
+        return new LatLng('Object location', {
           lat: parseFloat(loc[2]),
           lng: parseFloat(loc[3])
         });
       } catch (e) {
-        return undefined;
+        return new LatLng('Object location', {});
       }
     });
   }
