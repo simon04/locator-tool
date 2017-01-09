@@ -1,76 +1,87 @@
 import template from './ltMain.html';
 
+const DEFAULT_MAP_VIEW = {
+  lat: 51.505,
+  lng: -0.09,
+  zoom: 13
+};
+
+class ltMain {
+  constructor(ltData, $scope, $stateParams, ltDataAuth, $filter, $q, localStorageService) {
+    Object.assign(this, {ltData, ltDataAuth, localStorageService});
+    this.mapMarker = {};
+    this.mapObjectLocation = {};
+    this.mapView = localStorageService.get('mapView') || DEFAULT_MAP_VIEW;
+
+    const files$q = $q((resolve, reject) => {
+      if ($stateParams.files) {
+        resolve($stateParams.files);
+      }
+      if ($stateParams.user) {
+        ltData.getFilesForUser($stateParams.user).then(resolve);
+      } else if ($stateParams.category) {
+        ltData.getFilesForCategory($stateParams.category).then(resolve);
+      } else {
+        reject();
+      }
+    });
+    const fileDetails$q = files$q.then(ltData.getCoordinates).then((titles) => {
+      this.titles = $filter('orderBy')(titles, 'file');
+      this.showGeolocated = this.titles.length <= 5;
+      // select first visible title
+      this.title = this.titles.filter((title) => this.showGeolocated || !title.coordinates.lat)[0];
+    });
+    this.loading$q = $q.all([files$q, fileDetails$q]);
+
+    $scope.$watch('$ctrl.title', (title) => this.titleChanged(title));
+    $scope.$watch('$ctrl.title.coordinates', (coordinates) => this.coordinatesChanged(coordinates));
+    $scope.$watch('$ctrl.mapView', (mapView) => this.mapViewChanged(mapView), true);
+  }
+
+  titleChanged(title) {
+    this.error = undefined;
+    if (title && title.pageid) {
+      this.ltData.getObjectLocation(title.pageid).then((objectLocation = {}) => {
+        const {lat, lng} = objectLocation;
+        Object.assign(this.mapObjectLocation, {lat, lng});
+        if (!(title.coordinates && title.coordinates.lat)) {
+          this.updateMapView({lat, lng});
+        }
+      });
+    }
+  }
+
+  coordinatesChanged(coordinates = {}) {
+    const {lat, lng} = coordinates;
+    this.updateMapView({lat, lng});
+    Object.assign(this.mapMarker, {lat, lng});
+  }
+
+  mapViewChanged(mapView) {
+    this.localStorageService.set('mapView', mapView);
+  }
+
+  updateMapView({lat, lng}) {
+    if (lat && lng) {
+      Object.assign(this.mapView, {lat, lng});
+    }
+  }
+
+  editLocation(title) {
+    this.error = undefined;
+    const {lat, lng} = this.mapMarker;
+    return this.ltDataAuth.editLocation(lat, lng, title.pageid)
+      .then(() => {
+        title.coordinates = Object.assign(title.coordinates || {}, {lat, lng});
+      }, (error) => {
+        this.error = error;
+      });
+  }
+}
+ltMain.$inject = [
+  'ltData', '$scope', '$stateParams', 'ltDataAuth', '$filter', '$q', 'localStorageService'];
+
 export default {
   template,
   controller: ltMain
 };
-
-ltMain.$inject = [
-  'ltData', '$scope', '$stateParams', 'ltDataAuth', '$filter', '$q', 'localStorageService'];
-function ltMain(ltData, $scope, $stateParams, ltDataAuth, $filter, $q, localStorageService) {
-  const vm = this;
-  vm.mapMarker = {};
-  vm.mapObjectLocation = {};
-  vm.editLocation = editLocation;
-
-  const files$q = $q((resolve, reject) => {
-    if ($stateParams.files) {
-      resolve($stateParams.files);
-    } if ($stateParams.user) {
-      ltData.getFilesForUser($stateParams.user).then(resolve);
-    } else if ($stateParams.category) {
-      ltData.getFilesForCategory($stateParams.category).then(resolve);
-    } else {
-      reject();
-    }
-  });
-  const fileDetails$q = files$q.then(ltData.getCoordinates).then((titles) => {
-    vm.titles = $filter('orderBy')(titles, 'file');
-    vm.showGeolocated = vm.titles.length <= 5;
-    // select first visible title
-    vm.title = vm.titles.filter((title) => vm.showGeolocated || !title.coordinates.lat)[0];
-  });
-  vm.loading$q = $q.all([files$q, fileDetails$q]);
-
-  $scope.$watch('$ctrl.title', (title) => {
-    vm.error = undefined;
-    if (title && title.pageid) {
-      ltData.getObjectLocation(title.pageid).then((objectLocation = {}) => {
-        const {lat, lng} = objectLocation;
-        Object.assign(vm.mapObjectLocation, {lat, lng});
-        if (!(title.coordinates && title.coordinates.lat)) {
-          updateMapView({lat, lng});
-        }
-      });
-    }
-  });
-  $scope.$watch('$ctrl.title.coordinates', (coords = {}) => {
-    const {lat, lng} = coords;
-    updateMapView({lat, lng});
-    Object.assign(vm.mapMarker, {lat, lng});
-  });
-
-  vm.mapView = localStorageService.get('mapView') || {
-    lat: 51.505,
-    lng: -0.09,
-    zoom: 13
-  };
-  $scope.$watch('$ctrl.mapView', (mapView) => localStorageService.set('mapView', mapView), true);
-
-  function updateMapView({lat, lng}) {
-    if (lat && lng) {
-      Object.assign(vm.mapView, {lat, lng});
-    }
-  }
-
-  function editLocation(title) {
-    vm.error = undefined;
-    const {lat, lng} = vm.mapMarker;
-    return ltDataAuth.editLocation(lat, lng, title.pageid)
-    .then(() => {
-      title.coordinates = Object.assign(title.coordinates || {}, {lat, lng});
-    }, (error) => {
-      vm.error = error;
-    });
-  }
-}
