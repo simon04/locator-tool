@@ -111,6 +111,7 @@ export default function data($http, $parse, $sce, $q) {
     });
   }
   function getFilesForCategory(cat) {
+    cat = cat.replace(/^Category:/, '');
     const params = {
       'language': 'commons',
       'project': 'wikimedia',
@@ -124,9 +125,7 @@ export default function data($http, $parse, $sce, $q) {
       'format': 'json',
       'doit': 1
     };
-    return $http.get('https://petscan.wmflabs.org/', {params: params}).then(function(d) {
-      return d.data['*'][0].a['*'];
-    });
+    return $http.get('https://petscan.wmflabs.org/', {params}).then((d) => d.data['*'][0].a['*']);
   }
   function $query(params) {
     params = Object.assign({
