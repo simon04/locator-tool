@@ -10,16 +10,14 @@ export default function dataAuth($http, $httpParamSerializer) {
       return d.data && d.data.user;
     });
   }
-  function editLocation(lat, lng, pageid) {
+  function editLocation(title, coordinates) {
+    const {pageid} = title;
+    const {type, lat, lng} = coordinates;
     return $http({
       method: 'POST',
       url: '/locator-tool/edit',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      data: $httpParamSerializer({
-        lat: lat,
-        lng: lng,
-        pageid: pageid
-      })
+      data: $httpParamSerializer({type, lat, lng, pageid})
     }).then(function(response) {
       const data = response.data;
       if (!data.result || !data.result.edit || data.result.edit.result !== 'Success') {

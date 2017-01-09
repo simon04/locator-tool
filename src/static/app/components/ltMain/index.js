@@ -61,17 +61,6 @@ class ltMain {
       Object.assign(this.mapView, {lat, lng});
     }
   }
-
-  editLocation(title) {
-    this.error = undefined;
-    const {lat, lng} = title.coordinates;
-    return this.ltDataAuth.editLocation(lat, lng, title.pageid)
-      .then(() => {
-        title.coordinates.setLatLng({lat, lng});
-      }, (error) => {
-        this.error = error;
-      });
-  }
 }
 ltMain.$inject = [
   'ltData', '$scope', '$stateParams', 'ltDataAuth', '$filter', '$q', 'localStorageService'];
