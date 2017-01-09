@@ -50,12 +50,15 @@ def user():
 def edit():
     if not mwoauth.get_current_user():
         abort(401)
-    if 'pageid' not in request.form or 'lat' not in request.form or 'lng' not in request.form:
+    data = request.get_json()
+    if 'pageid' not in data or 'type' not in data \
+        or 'lat' not in data or 'lng' not in data:
         abort(400)
-    pageid = int(request.form['pageid'])
-    lat = float(request.form['lat'])
-    lng = float(request.form['lng'])
-    app.logger.info('Received request pageid=%d, lat=%f, lng=%f', pageid, lat, lng)
+    pageid = int(data['pageid'])
+    type = float(data['type'])
+    lat = float(data['lat'])
+    lng = float(data['lng'])
+    app.logger.info('Received request %s', str(data))
 
     r1 = mwoauth_request({
         'action': 'query',
@@ -76,7 +79,7 @@ def edit():
     app.logger.info('Obtained token=%s for pageid=%d', token, pageid)
 
     from location_to_wikitext import add_location_to_wikitext
-    new_wikitext = add_location_to_wikitext('Location', lat, lng, wikitext)
+    new_wikitext = add_location_to_wikitext(type, lat, lng, wikitext)
 
     r2 = mwoauth_request({
         'action': 'edit',
