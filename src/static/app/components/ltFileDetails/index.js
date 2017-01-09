@@ -9,7 +9,7 @@ class ltFileDetails {
     this.error = undefined;
     return this.ltDataAuth.editLocation(title, coordinates)
       .then(() => {
-        coordinates.setLatLng({lat, lng}, true);
+        coordinates.markAsSaved();
       }, (error) => {
         this.error = error;
       });
