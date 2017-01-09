@@ -1,5 +1,7 @@
 import angular from 'angular';
 
+import LatLng from './LatLng';
+
 data.$inject = ['$http', '$parse', '$sce', '$q'];
 export default function data($http, $parse, $sce, $q) {
   const maxTitlesPerRequest = 10;
@@ -39,7 +41,7 @@ export default function data($http, $parse, $sce, $q) {
           description: $sce.trustAsHtml(descriptionGetter(page)),
           thumbnail: thumbnailGetter(page),
           url: urlGetter(page),
-          coordinates: coordsGetter(page)
+          coordinates: new LatLng(coordsGetter(page))
         };
       });
     });
@@ -69,10 +71,10 @@ export default function data($http, $parse, $sce, $q) {
       try {
         const wikitext = d.data.query.pages[pageid].revisions[0]['*'];
         const loc = wikitext.match(/\{\{Object location( dec)?\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)/);
-        return {
+        return new LatLng({
           lat: parseFloat(loc[2]),
           lng: parseFloat(loc[3])
-        };
+        });
       } catch (e) {
         return undefined;
       }

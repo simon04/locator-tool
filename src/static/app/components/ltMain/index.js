@@ -9,7 +9,6 @@ const DEFAULT_MAP_VIEW = {
 class ltMain {
   constructor(ltData, $scope, $stateParams, ltDataAuth, $filter, $q, localStorageService) {
     Object.assign(this, {ltData, ltDataAuth, localStorageService});
-    this.mapMarker = {};
     this.mapObjectLocation = {};
     this.mapView = localStorageService.get('mapView') || DEFAULT_MAP_VIEW;
 
@@ -34,12 +33,14 @@ class ltMain {
     this.loading$q = $q.all([files$q, fileDetails$q]);
 
     $scope.$watch('$ctrl.title', (title) => this.titleChanged(title));
-    $scope.$watch('$ctrl.title.coordinates', (coordinates) => this.coordinatesChanged(coordinates));
     $scope.$watch('$ctrl.mapView', (mapView) => this.mapViewChanged(mapView), true);
   }
 
   titleChanged(title) {
     this.error = undefined;
+    if (title && title.coordinates) {
+      this.updateMapView(title.coordinates);
+    }
     if (title && title.pageid) {
       this.ltData.getObjectLocation(title.pageid).then((objectLocation = {}) => {
         const {lat, lng} = objectLocation;
@@ -49,12 +50,6 @@ class ltMain {
         }
       });
     }
-  }
-
-  coordinatesChanged(coordinates = {}) {
-    const {lat, lng} = coordinates;
-    this.updateMapView({lat, lng});
-    Object.assign(this.mapMarker, {lat, lng});
   }
 
   mapViewChanged(mapView) {
@@ -69,10 +64,10 @@ class ltMain {
 
   editLocation(title) {
     this.error = undefined;
-    const {lat, lng} = this.mapMarker;
+    const {lat, lng} = title.coordinates;
     return this.ltDataAuth.editLocation(lat, lng, title.pageid)
       .then(() => {
-        title.coordinates = Object.assign(title.coordinates || {}, {lat, lng});
+        title.coordinates.setLatLng({lat, lng});
       }, (error) => {
         this.error = error;
       });

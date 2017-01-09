@@ -6,21 +6,24 @@
 </h2>
 <div ng-bind-html="$ctrl.title.description" class="well well-sm"></div>
 
-<dl class="dl-horizontal">
-  <dt ng-if="$ctrl.title.coordinates.lat" translate>Existing coordinates</dt>
-  <dd ng-if="$ctrl.title.coordinates.lat">
-    <code>{{$ctrl.title.coordinates.lat}}, {{$ctrl.title.coordinates.lng}}</code>
-  </dd>
-  <dt ng-if="$ctrl.mapMarker.lat" translate>New coordinates</dt>
-  <dd ng-if="$ctrl.mapMarker.lat">
-    <code>{{$ctrl.mapMarker.lat}}, {{$ctrl.mapMarker.lng}}</code>
-  </dd>
-</dl>
-
-<div class="form-group form-inline" ng-if="$ctrl.mapMarker.lat">
-  <button ng-click="$ctrl.editLocation($ctrl.title)" ng-disabled="$ctrl.title.coordinates.lat === $ctrl.mapMarker.lat && $ctrl.title.coordinates.lng === $ctrl.mapMarker.lng" class="btn btn-default" style="white-space: normal" translate>
-    Add <lt-location lat-lng="$ctrl.mapMarker"></lt-location>
-  </button>
+<div class="form-group">
+  <label>
+    <lt-location type="Location"></lt-location>
+  </label>
+  <div class="input-group">
+    <input type="text" class="form-control" ng-value="$ctrl.title.coordinates.csv" readonly="readonly">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button"
+              ng-click="!$ctrl.title.coordinates.discard()" title="{{'Discard changes'|translate}}">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+      <button class="btn btn-success" type="button"
+              ng-click="$ctrl.editLocation($ctrl.title)" title="{{'Save location'|translate}}"
+              ng-disabled="!$ctrl.title.coordinates.isChanged">
+        <span class="glyphicon glyphicon-save"></span>
+      </button>
+    </span>
+  </div>
 </div>
 
 <div class="alert alert-danger" ng-if="$ctrl.error">
