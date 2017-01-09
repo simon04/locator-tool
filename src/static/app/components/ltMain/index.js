@@ -6,13 +6,25 @@ export default {
 };
 
 ltMain.$inject = [
-  'ltData', '$scope', '$stateParams', 'ltDataAuth', '$filter', 'localStorageService'];
-function ltMain(ltData, $scope, $stateParams, ltDataAuth, $filter, localStorageService) {
+  'ltData', '$scope', '$stateParams', 'ltDataAuth', '$filter', '$q', 'localStorageService'];
+function ltMain(ltData, $scope, $stateParams, ltDataAuth, $filter, $q, localStorageService) {
   const vm = this;
   vm.mapMarker = {};
   vm.mapObjectLocation = {};
   vm.editLocation = editLocation;
-  ltData.getCoordinates($stateParams.titles).then((titles) => {
+
+  const files$q = $q((resolve, reject) => {
+    if ($stateParams.files) {
+      resolve($stateParams.files);
+    } if ($stateParams.user) {
+      ltData.getFilesForUser($stateParams.user).then(resolve);
+    } else if ($stateParams.category) {
+      ltData.getFilesForCategory($stateParams.category).then(resolve);
+    } else {
+      reject();
+    }
+  });
+  files$q.then(ltData.getCoordinates).then((titles) => {
     vm.titles = $filter('orderBy')(titles, 'file');
     vm.showGeolocated = vm.titles.length <= 5;
     // select first visible title

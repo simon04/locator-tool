@@ -1,8 +1,15 @@
 import template from './ltFilesSelector.html';
 
 class ltFilesSelector {
-  constructor(ltData, $state) {
+  constructor(ltData, $state, $stateParams) {
     Object.assign(this, {ltData, $state, titles: ''});
+    if ($stateParams.user) {
+      this.user = $stateParams.user;
+      this.getFilesForUser();
+    } else if ($stateParams.category) {
+      this.category = $stateParams.category;
+      this.getFilesForCategory();
+    }
   }
 
   getCategoriesForPrefix() {
@@ -14,6 +21,7 @@ class ltFilesSelector {
   }
 
   getFilesForUser() {
+    this.$state.go('.', {user: this.user, category: undefined}, {replace: true});
     this.getFilesForUser$q = this.ltData
       .getFilesForUser(this.user)
       .then((titles) => {
@@ -22,6 +30,7 @@ class ltFilesSelector {
   }
 
   getFilesForCategory() {
+    this.$state.go('.', {category: this.category, user: undefined}, {replace: true});
     this.getFilesForCategory$q = this.ltData
       .getFilesForCategory(this.category)
       .then((titles) => {
@@ -30,8 +39,8 @@ class ltFilesSelector {
   }
 
   next() {
-    const titles = this.titleList.join('|');
-    this.$state.go('list', {titles});
+    const files = this.titleList.join('|');
+    this.$state.go('geolocate', {files});
   }
 
   get titleList() {
@@ -44,7 +53,7 @@ class ltFilesSelector {
     this.titles = files && files.join('\n');
   }
 }
-ltFilesSelector.$inject = ['ltData', '$state'];
+ltFilesSelector.$inject = ['ltData', '$state', '$stateParams'];
 
 export default {
   template,

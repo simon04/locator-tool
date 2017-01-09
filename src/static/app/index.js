@@ -17,13 +17,13 @@ function routes($stateProvider, $urlRouterProvider) {
     component: 'ltAbout'
   });
 
-  $stateProvider.state('input', {
-    url: '/input',
+  $stateProvider.state('select', {
+    url: '/select?user&category',
     component: 'ltFilesSelector'
   });
 
-  $stateProvider.state('list', {
-    url: '/list?titles',
+  $stateProvider.state('geolocate', {
+    url: '/geolocate?files&user&category',
     component: 'ltMain'
   });
 
