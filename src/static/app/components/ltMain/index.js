@@ -35,6 +35,14 @@ class ltMain {
     $scope.$watch('$ctrl.mapView', (mapView) => this.mapViewChanged(mapView), true);
   }
 
+  get titlesDefinedAndSaved() {
+    return this.titles && this.titles.filter((title) => title.coordinates.isDefinedAndSaved) || [];
+  }
+
+  get titlesDefinedAndSavedPercent() {
+    return 100 * this.titlesDefinedAndSaved.length / (this.titles || []).length;
+  }
+
   titleChanged(title) {
     this.error = undefined;
     if (title && title.coordinates) {
