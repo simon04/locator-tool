@@ -31,6 +31,10 @@ export default class LatLng {
     return this.lat !== this._latOriginal || this.lng !== this._lngOriginal;
   }
 
+  get isDefinedAndSaved() {
+    return this.isDefined && !this.isChanged;
+  }
+
   get csv() {
     return this.isDefined && [this.lat, this.lng].join(', ');
   }
