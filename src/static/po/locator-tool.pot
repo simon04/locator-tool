@@ -16,10 +16,6 @@ msgstr ""
 msgid "About locator-tool"
 msgstr ""
 
-#: app/components/ltFileDetails/ltFileDetails.html:21
-msgid "Add <lt-location lat-lng=\"$ctrl.mapMarker\"></lt-location>"
-msgstr ""
-
 #: app/components/ltMain/ltMain.html:7
 msgid "Also show geolocated files"
 msgstr ""
@@ -28,16 +24,16 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
+#: app/components/ltLocationInput/ltLocationInput.html:5
+msgid "Discard"
+msgstr ""
+
 #: app/components/ltAbout/ltAbout.html:23
 #: app/components/ltAbout/ltAbout.html:25
 msgid "Edits using locator-tool"
 msgstr ""
 
-#: app/components/ltFileDetails/ltFileDetails.html:10
-msgid "Existing coordinates"
-msgstr ""
-
-#: app/components/ltFileDetails/ltFileDetails.html:28
+#: app/components/ltFileDetails/ltFileDetails.html:29
 msgid "Failed to save <lt-location></lt-location>!"
 msgstr ""
 
@@ -69,9 +65,13 @@ msgstr ""
 msgid "Its source code is available on <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> and <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
 msgstr ""
 
-#. Your language in your language
-#: app/components/ltLanguageSelector/index.js:49
+#. Your language in your language (e.g. 'English', 'Deutsch')
+#: app/components/ltLanguageSelector/index.js:37
 msgid "LANGUAGE"
+msgstr ""
+
+#: app/components/ltFileDetails/ltFileDetails.html:15
+msgid "Left click on map to set the location."
 msgstr ""
 
 #: app/components/ltUserInfo/ltUserInfo.html:1
@@ -90,12 +90,16 @@ msgstr ""
 msgid "Logged in as {{$ctrl.user}}"
 msgstr ""
 
-#: app/components/ltFileDetails/ltFileDetails.html:14
-msgid "New coordinates"
+#: app/components/ltFileDetails/ltFileDetails.html:24
+msgid "Press shift and click on map to set the object location."
 msgstr ""
 
 #: app/components/ltAbout/ltAbout.html:15
 msgid "Repeat …"
+msgstr ""
+
+#: app/components/ltLocationInput/ltLocationInput.html:9
+msgid "Save"
 msgstr ""
 
 #: index.html:48

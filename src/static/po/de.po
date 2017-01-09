@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-01-02 12:58+0000\n"
+"PO-Revision-Date: 2017-01-09 21:21+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/locator-tool/locator-tool/language/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,10 +26,6 @@ msgstr "Über"
 msgid "About locator-tool"
 msgstr "Über locator-tool"
 
-#: app/components/ltFileDetails/ltFileDetails.html:21
-msgid "Add <lt-location lat-lng=\"$ctrl.mapMarker\"></lt-location>"
-msgstr "<lt-location lat-lng=\"$ctrl.mapMarker\"></lt-location> einfügen"
-
 #: app/components/ltMain/ltMain.html:7
 msgid "Also show geolocated files"
 msgstr "Auch georeferenzierte Dateien anzeigen"
@@ -38,16 +34,16 @@ msgstr "Auch georeferenzierte Dateien anzeigen"
 msgid "Category"
 msgstr "Kategorie"
 
+#: app/components/ltLocationInput/ltLocationInput.html:5
+msgid "Discard"
+msgstr "Verwerfen"
+
 #: app/components/ltAbout/ltAbout.html:23
 #: app/components/ltAbout/ltAbout.html:25
 msgid "Edits using locator-tool"
 msgstr "Bearbeitungen mit locator-tool"
 
-#: app/components/ltFileDetails/ltFileDetails.html:10
-msgid "Existing coordinates"
-msgstr "Existierende Koordinaten"
-
-#: app/components/ltFileDetails/ltFileDetails.html:28
+#: app/components/ltFileDetails/ltFileDetails.html:29
 msgid "Failed to save <lt-location></lt-location>!"
 msgstr "<lt-location></lt-location> konnte nicht gespeichert werden!"
 
@@ -84,10 +80,14 @@ msgid ""
 "href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
 msgstr "Der Quellcode ist auf <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> verfügbar steht unter der Lizenz <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>."
 
-#. Your language in your language
-#: app/components/ltLanguageSelector/index.js:49
+#. Your language in your language (e.g. 'English', 'Deutsch')
+#: app/components/ltLanguageSelector/index.js:37
 msgid "LANGUAGE"
 msgstr "Deutsch"
+
+#: app/components/ltFileDetails/ltFileDetails.html:15
+msgid "Left click on map to set the location."
+msgstr "Linksklick auf Karte setzt die Position."
 
 #: app/components/ltUserInfo/ltUserInfo.html:1
 msgid "Log in"
@@ -105,13 +105,17 @@ msgstr "Abmelden"
 msgid "Logged in as {{$ctrl.user}}"
 msgstr "Angemeldet als {{$ctrl.user}}"
 
-#: app/components/ltFileDetails/ltFileDetails.html:14
-msgid "New coordinates"
-msgstr "Neue Koordinaten"
+#: app/components/ltFileDetails/ltFileDetails.html:24
+msgid "Press shift and click on map to set the object location."
+msgstr "Shift-Taste und Klick auf Karte setzt die Objektposition."
 
 #: app/components/ltAbout/ltAbout.html:15
 msgid "Repeat …"
 msgstr "Wiederhole …"
+
+#: app/components/ltLocationInput/ltLocationInput.html:9
+msgid "Save"
+msgstr "Speichern"
 
 #: index.html:48
 msgid "Select files to geolocate"
