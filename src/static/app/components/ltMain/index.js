@@ -24,12 +24,13 @@ function ltMain(ltData, $scope, $stateParams, ltDataAuth, $filter, $q, localStor
       reject();
     }
   });
-  files$q.then(ltData.getCoordinates).then((titles) => {
+  const fileDetails$q = files$q.then(ltData.getCoordinates).then((titles) => {
     vm.titles = $filter('orderBy')(titles, 'file');
     vm.showGeolocated = vm.titles.length <= 5;
     // select first visible title
     vm.title = vm.titles.filter((title) => vm.showGeolocated || !title.coordinates.lat)[0];
   });
+  vm.loading$q = $q.all([files$q, fileDetails$q]);
 
   $scope.$watch('$ctrl.title', (title) => {
     vm.error = undefined;
