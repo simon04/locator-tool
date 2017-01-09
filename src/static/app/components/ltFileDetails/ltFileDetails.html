@@ -10,20 +10,8 @@
   <label>
     <lt-location type="Location"></lt-location>
   </label>
-  <div class="input-group">
-    <input type="text" class="form-control" ng-value="$ctrl.title.coordinates.csv" readonly="readonly">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button"
-              ng-click="!$ctrl.title.coordinates.discard()" title="{{'Discard changes'|translate}}">
-        <span class="glyphicon glyphicon-remove"></span>
-      </button>
-      <button class="btn btn-success" type="button"
-              ng-click="$ctrl.editLocation($ctrl.title)" title="{{'Save location'|translate}}"
-              ng-disabled="!$ctrl.title.coordinates.isChanged">
-        <span class="glyphicon glyphicon-save"></span>
-      </button>
-    </span>
-  </div>
+  <lt-location-input lat-lng="$ctrl.title.coordinates" edit-location="$ctrl.editLocation($ctrl.title)">
+  </lt-location-input>
 </div>
 
 <div class="alert alert-danger" ng-if="$ctrl.error">

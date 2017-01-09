@@ -1,0 +1,14 @@
+<div class="input-group">
+  <input type="text" class="form-control" ng-value="$ctrl.latLng.csv" readonly="readonly">
+  <span class="input-group-btn">
+      <button class="btn btn-default" type="button"
+              ng-click="!$ctrl.latLng.discard()" title="{{'Discard'|translate}}">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+      <button class="btn btn-success" type="button"
+              ng-click="$ctrl.editLocation()" title="{{'Save'|translate}}"
+              ng-disabled="!$ctrl.latLng.isChanged">
+        <span class="glyphicon glyphicon-save"></span>
+      </button>
+    </span>
+</div>
