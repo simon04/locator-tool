@@ -15,18 +15,24 @@ module.exports = {
     sourceMapFilename: '[name].[chunkhash].map'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loaders: ['babel-loader'],
+        loader: 'babel-loader',
         exclude: /(\.test.js$|node_modules)/
-      },
-      {
+      }, {
         test: /\.html$/,
-        loaders: ['html-loader']
-      },
-      {test: /\.css$/, loader: 'style-loader!css-loader'},
-      {test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/, loader: 'url-loader?limit=50000'}
+        loader: 'html-loader'
+      }, {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }, {
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 50000
+        }
+      }
     ]
   },
   plugins: [
