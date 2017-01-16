@@ -3,6 +3,7 @@ import localStorage from 'angular-local-storage';
 import uiRouter from 'angular-ui-router';
 import gettext from 'angular-gettext';
 
+import './style.css';
 import appApi from './api';
 import appComponents from './components';
 
