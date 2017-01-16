@@ -47,7 +47,7 @@
     "html-webpack-plugin": "^2.25.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "2.2.0-rc.3",
+    "webpack": "2.2.0-rc.6",
     "webpack-dev-server": "2.2.0-rc.0"
   }
 }
