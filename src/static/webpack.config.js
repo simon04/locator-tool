@@ -3,6 +3,10 @@ const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const NoPlugin = {
+  apply: () => undefined
+};
 
 const productionBuild = process.env.npm_lifecycle_script !== 'webpack-dev-server';
 
@@ -38,14 +42,15 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['./dist']),
+    productionBuild && new CleanWebpackPlugin(['./dist']) || NoPlugin,
     new HtmlWebpackPlugin({
       template: './index.html',
       inject: 'body'
     }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest']
-    })
+    }),
+    productionBuild && new CompressionPlugin() || NoPlugin,
   ],
   devServer: {
     port: 8184
