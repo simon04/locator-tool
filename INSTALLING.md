@@ -5,13 +5,13 @@ Installing locator-tool
 $ mkdir -p www
 $ cd www/
 
-$ git clone --recurse-submodules https://github.com/simon04/locator-tool.git python
+$ git clone https://github.com/simon04/locator-tool.git python
 $ cd python/
 
 $ virtualenv venv
 $ source venv/bin/activate
 $ cd src/
-$ pip install
+$ pip install -r requirements.txt
 
 $ cp config-example.ini config.ini
 # generate random string for secret_key
@@ -21,6 +21,7 @@ $ cd static/
 $ npm install # or yarn
 $ npm run dist
 
+# specific to tools.wmflabs.org, see https://github.com/wikimedia/operations-software-tools-webservice/blob/master/toollabs/webservice/services/pythonwebservice.py
 $ webservice2 uwsgi-python start
 ```
 
