@@ -1,4 +1,3 @@
-import configparser
 from flask import Flask, jsonify, request, abort
 from flask_mwoauth import MWOAuth
 from talisman import Talisman
@@ -7,12 +6,8 @@ from oauthlib.common import to_unicode
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
-config = configparser.ConfigParser()
-config.read('../config.ini')
-
 app = Flask(__name__, static_url_path='', static_folder='static/dist')
-app.secret_key = config.get('auth', 'secret_key')
-app.config.update(PROPAGATE_EXCEPTIONS=True)
+app.config.from_pyfile('config.py')
 
 # HTTP security headers
 Talisman(app, content_security_policy={})
@@ -30,8 +25,8 @@ logging.getLogger('werkzeug').addHandler(logfile)
 
 mwoauth = MWOAuth(base_url='https://commons.wikimedia.org/w',
                   clean_url='https://commons.wikimedia.org/wiki',
-                  consumer_key=config.get('auth', 'consumer_key'),
-                  consumer_secret=config.get('auth', 'consumer_secret'))
+                  consumer_key=app.config['OAUTH_CONSUMER_KEY'],
+                  consumer_secret=app.config['OAUTH_CONSUMER_SECRET'])
 app.register_blueprint(mwoauth.bp)
 
 

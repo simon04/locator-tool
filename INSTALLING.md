@@ -13,9 +13,9 @@ $ source venv/bin/activate
 $ cd src/
 $ pip install -r requirements.txt
 
-$ cp config-example.ini config.ini
-# generate random string for secret_key
-# for consumer_key+consumer_secret see below
+$ cp config-example.py config.py
+# generate random string for SECRET_KEY
+# for OAUTH_CONSUMER_KEY and OAUTH_CONSUMER_SECRET see below
 
 $ cd static/
 $ npm install # or yarn
@@ -27,7 +27,7 @@ $ webservice2 uwsgi-python start
 
 ## Register OAuth client
 
-Register tool at https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose with "OAuth callback URL" = https://tools.wmflabs.org/locator-tool/oauth-callback and "Edit existing pages" grant. Insert the displayed strings as `consumer_key`+`consumer_secret` into the `config.ini` file.
+Register tool at https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose with "OAuth callback URL" = https://tools.wmflabs.org/locator-tool/oauth-callback and "Edit existing pages" grant. Insert the displayed strings as `OAUTH_CONSUMER_KEY` and `OAUTH_CONSUMER_SECRET` into the `config.ini` file.
 
 ## Further information
 
