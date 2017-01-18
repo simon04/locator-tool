@@ -696,7 +696,7 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@^3.4.6:
+bluebird@^3.4.7:
   version "3.4.7"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.7.tgz#f72d760be09b7f76d08ed8fae98b289a8d05fab3"
 
@@ -920,9 +920,9 @@ clean-css@3.4.x:
     commander "2.8.x"
     source-map "0.4.x"
 
-clean-webpack-plugin@^0.1.14:
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/clean-webpack-plugin/-/clean-webpack-plugin-0.1.14.tgz#72e577e90d38a5b8a42a2d3a9c055c45b84e2194"
+clean-webpack-plugin@^0.1.15:
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/clean-webpack-plugin/-/clean-webpack-plugin-0.1.15.tgz#facc04e0c8dba99bf451ae865ad0361f51af1df1"
   dependencies:
     rimraf "~2.5.1"
 
@@ -2051,7 +2051,7 @@ html-loader@^0.4.4:
     loader-utils "^0.2.15"
     object-assign "^4.1.0"
 
-html-minifier@^3.0.1, html-minifier@^3.1.0:
+html-minifier@^3.0.1, html-minifier@^3.2.3:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/html-minifier/-/html-minifier-3.2.3.tgz#d2ff536e24d95726c332493d8f77d84dbed85372"
   dependencies:
@@ -2064,14 +2064,14 @@ html-minifier@^3.0.1, html-minifier@^3.1.0:
     relateurl "0.2.x"
     uglify-js "2.7.x"
 
-html-webpack-plugin@^2.25.0:
-  version "2.25.0"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.25.0.tgz#945c860c9bf413d725a09f773d09cfeca72e8f8a"
+html-webpack-plugin@^2.26.0:
+  version "2.26.0"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.26.0.tgz#ba97c8a66f912b85df80d2aeea65966c8bd9249e"
   dependencies:
-    bluebird "^3.4.6"
-    html-minifier "^3.1.0"
+    bluebird "^3.4.7"
+    html-minifier "^3.2.3"
     loader-utils "^0.2.16"
-    lodash "^4.16.4"
+    lodash "^4.17.3"
     pretty-error "^2.0.2"
     toposort "^1.0.0"
 
@@ -2530,9 +2530,13 @@ lodash@^3.2.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.14.0, lodash@^4.16.4, lodash@^4.17.2, lodash@^4.2.0, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.2.0:
   version "4.17.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
+
+lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.3.0:
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 longest@^1.0.1:
   version "1.0.1"
@@ -4159,9 +4163,9 @@ webpack-dev-middleware@^1.9.0:
     path-is-absolute "^1.0.0"
     range-parser "^1.0.3"
 
-webpack-dev-server@2.2.0-rc.0:
-  version "2.2.0-rc.0"
-  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-2.2.0-rc.0.tgz#ea8a11e211d9524b8999945fe5645481a51fdf46"
+webpack-dev-server@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-2.2.0.tgz#364967eccaf8ff1d7e1681b7a8cc24fab4ced8a6"
   dependencies:
     chokidar "^1.6.0"
     compression "^1.5.2"
@@ -4186,9 +4190,9 @@ webpack-sources@^0.1.0, webpack-sources@^0.1.4:
     source-list-map "~0.1.7"
     source-map "~0.5.3"
 
-webpack@2.2.0-rc.6:
-  version "2.2.0-rc.6"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.2.0-rc.6.tgz#aa503ba64802143ff067920e4a376c83005ee3fe"
+webpack@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.2.0.tgz#09246336b5581c9002353f75bcadb598a648f977"
   dependencies:
     acorn "^4.0.4"
     acorn-dynamic-import "^2.0.0"
