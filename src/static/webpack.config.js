@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const NoPlugin = {
   apply: () => undefined
 };
@@ -31,7 +32,10 @@ module.exports = {
         loader: 'html-loader'
       }, {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ExtractTextPlugin.extract({
+          use: 'css-loader',
+          fallback: 'style-loader'
+        })
       }, {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
         loader: 'url-loader',
@@ -43,6 +47,9 @@ module.exports = {
   },
   plugins: [
     productionBuild && new CleanWebpackPlugin(['./dist']) || NoPlugin,
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash].css',
+    }),
     new HtmlWebpackPlugin({
       template: './index.html',
       inject: 'body'
