@@ -13,8 +13,9 @@ const productionBuild = process.env.npm_lifecycle_script !== 'webpack-dev-server
 
 module.exports = {
   entry: {
-    main: './app/index.js',
-    vendor: './app/vendor.js'
+    'main': './app/index.js',
+    'vendor': './app/vendor.js',
+    'vendor-leaflet': './app/vendor-leaflet.js'
   },
   output: {
     path: productionBuild && './dist' || undefined,
@@ -55,7 +56,7 @@ module.exports = {
       inject: 'body'
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'manifest']
+      names: ['vendor', 'vendor-leaflet', 'manifest']
     }),
     productionBuild && new CompressionPlugin() || NoPlugin,
   ],
