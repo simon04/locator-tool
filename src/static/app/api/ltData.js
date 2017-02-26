@@ -71,11 +71,20 @@ export default function data($http, $parse, $sce, $q) {
     return $query(params).then(function(d) {
       try {
         const wikitext = d.data.query.pages[pageid].revisions[0]['*'];
+        const locDeg = wikitext.match(/\{\{Object location( dec)?\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([NS])\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([WE])/);
         const loc = wikitext.match(/\{\{Object location( dec)?\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)/);
-        return new LatLng('Object location', {
-          lat: parseFloat(loc[2]),
-          lng: parseFloat(loc[3])
-        });
+        let lat;
+        let lng;
+        if (locDeg) {
+          lat = parseInt(locDeg[2]) + parseInt(locDeg[3]) / 60. + parseFloat(locDeg[4]) / 3600.;
+          lat *= locDeg[5] === 'N' ? 1 : -1;
+          lng = parseInt(locDeg[6]) + parseInt(locDeg[7]) / 60. + parseFloat(locDeg[8]) / 3600.;
+          lng *= locDeg[9] === 'E' ? 1 : -1;
+        } else if (loc) {
+          lat = parseFloat(loc[2]);
+          lng = parseFloat(loc[3]);
+        }
+        return new LatLng('Object location', {lat, lng});
       } catch (e) {
         return new LatLng('Object location', {});
       }
