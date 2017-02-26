@@ -110,7 +110,7 @@ export default function data($http, $parse, $sce, $q) {
       });
     });
   }
-  function getFilesForCategory(cat) {
+  function getFilesForCategory(cat, depth = 3) {
     cat = cat.replace(/^Category:/, '');
     const params = {
       'language': 'commons',
@@ -118,7 +118,7 @@ export default function data($http, $parse, $sce, $q) {
       'categories': cat,
       'negcats': 'Location_not_applicable',
       'ns[6]': 1, // File:
-      'depth': 3,
+      'depth': depth,
       'output_compatability': 'catscan',
       'sparse': 'on',
       'sortby': 'title',

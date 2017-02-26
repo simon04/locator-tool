@@ -6,8 +6,16 @@
 </form>
 
 <form class="form-group" name="formCategory" ng-submit="$ctrl.getFilesForCategory()">
-  <label for="inputCategory" translate>Category</label>
-  <input id="inputCategory" list="datalistCategory" class="form-control" ng-model="$ctrl.category" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="$ctrl.getCategoriesForPrefix()" placeholder="Category:…">
+  <div class="row">
+    <div class="col-md-10">
+      <label for="inputCategory" translate>Category</label>
+      <input id="inputCategory" list="datalistCategory" class="form-control" ng-model="$ctrl.category" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" ng-change="$ctrl.getCategoriesForPrefix()" placeholder="Category:…">
+    </div>
+    <div class="col-md-2">
+      <label for="inputCategoryDepth" translate>Depth</label>
+      <input id="inputCategoryDepth" type="number" class="form-control" ng-model="$ctrl.categoryDepth">
+    </div>
+  </div>
   <input type="submit" ng-disabled="!$ctrl.category" class="btn btn-default" value="{{'Fetch files for Category' | translate}}">
   <lt-spinner ng-if="$ctrl.getFilesForCategory$q && !$ctrl.getFilesForCategory$q.$$state.status" style="display: inline-block"></lt-spinner>
   <datalist id="datalistCategory">

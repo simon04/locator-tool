@@ -19,12 +19,12 @@ function routes($stateProvider, $urlRouterProvider) {
   });
 
   $stateProvider.state('select', {
-    url: '/select?user&category',
+    url: '/select?user&category&categoryDepth',
     component: 'ltFilesSelector'
   });
 
   $stateProvider.state('geolocate', {
-    url: '/geolocate?files&user&category',
+    url: '/geolocate?files&user&category&categoryDepth',
     component: 'ltMain'
   });
 

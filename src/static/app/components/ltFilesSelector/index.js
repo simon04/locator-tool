@@ -2,7 +2,13 @@ import template from './ltFilesSelector.html';
 
 class ltFilesSelector {
   constructor(ltData, $state, $stateParams) {
-    Object.assign(this, {ltData, $state, titles: ''});
+    Object.assign(this, {
+      ltData,
+      $state,
+      categoryDepth: $stateParams.categoryDepth !== undefined ? parseInt($stateParams.categoryDepth) : 3,
+      titles: ''
+    });
+    console.log(this.categoryDepth, $stateParams.categoryDepth)
     if ($stateParams.user) {
       this.user = $stateParams.user;
       this.getFilesForUser();
@@ -32,7 +38,7 @@ class ltFilesSelector {
   getFilesForCategory() {
     this.$state.go('.', {category: this.category, user: undefined}, {replace: true});
     this.getFilesForCategory$q = this.ltData
-      .getFilesForCategory(this.category)
+      .getFilesForCategory(this.category, this.categoryDepth)
       .then((titles) => {
         this.titleList = titles;
       });

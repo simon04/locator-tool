@@ -18,7 +18,7 @@ class ltMain {
       if ($stateParams.user) {
         ltData.getFilesForUser($stateParams.user).then(resolve);
       } else if ($stateParams.category) {
-        ltData.getFilesForCategory($stateParams.category).then(resolve);
+        ltData.getFilesForCategory($stateParams.category, $stateParams.categoryDepth).then(resolve);
       } else {
         reject();
       }
