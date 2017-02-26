@@ -9,6 +9,10 @@ export default class LatLng {
     });
   }
 
+  setLatLng({lat, lng}) {
+    Object.assign(this, {lat, lng});
+  }
+
   markAsSaved() {
     Object.assign(this, {
       _latOriginal: this.lat,

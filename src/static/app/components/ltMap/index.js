@@ -33,7 +33,10 @@ class ltMap {
     const {latlng: {lat, lng}, originalEvent: {shiftKey}} = $event;
     if (lat && lng) {
       const target = shiftKey ? this.mapObjectLocation : this.mapMarker;
-      Object.assign(target, {lat: roundToPrecision(lat), lng: roundToPrecision(lng)});
+      target.setLatLng({
+        lat: roundToPrecision(lat),
+        lng: roundToPrecision(lng)
+      });
     }
   }
 }

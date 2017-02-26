@@ -11,6 +11,7 @@ import ltMain from './ltMain';
 import ltMap from './ltMap';
 import ltSpinner from './ltSpinner';
 import ltUserInfo from './ltUserInfo';
+import smartCoordinate from './smartCoordinate';
 
 export default angular
   .module('app.components', [llLeaflet])
@@ -24,4 +25,5 @@ export default angular
   .component('ltMap', ltMap)
   .component('ltSpinner', ltSpinner)
   .component('ltUserInfo', ltUserInfo)
+  .directive('smartCoordinate', smartCoordinate)
   .name;
