@@ -102,17 +102,19 @@ angular-ll-leaflet@^0.2.2:
     angular "1.x"
     leaflet "0.7.x || 1.x"
 
-angular-local-storage@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/angular-local-storage/-/angular-local-storage-0.5.0.tgz#806d99b4fef3e3ec3833ed0770e0da74dd7722c7"
+angular-local-storage@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/angular-local-storage/-/angular-local-storage-0.5.2.tgz#7079beb0aa5ca91386d223125efefd13ca0ecd0c"
 
-angular-ui-router@1.0.0-beta.3:
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/angular-ui-router/-/angular-ui-router-1.0.0-beta.3.tgz#18d5b4af4662cdc282d1e1d7df29cb7085df9d28"
+angular-ui-router@1.0.0-rc.1:
+  version "1.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/angular-ui-router/-/angular-ui-router-1.0.0-rc.1.tgz#2d168230e8204fc8d2a93d1007ad49b9f33d09c6"
+  dependencies:
+    ui-router-core "3.1.0"
 
-angular@1.5.9, angular@1.x:
-  version "1.5.9"
-  resolved "https://registry.yarnpkg.com/angular/-/angular-1.5.9.tgz#b7aeff42dad87881e06be16b6690fe766d868b51"
+angular@1.5.11, angular@1.x:
+  version "1.5.11"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.5.11.tgz#8c5ba7386f15965c9acf3429f6881553aada30d6"
 
 ansi-escapes@^1.1.0:
   version "1.4.0"
@@ -2071,9 +2073,9 @@ leaflet-geosearch@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/leaflet-geosearch/-/leaflet-geosearch-1.0.0.tgz#7cf5c36f87e278a49ea8a4898be9d925ed848cc8"
 
-"leaflet@0.7.x || 1.x", leaflet@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.0.2.tgz#fa4fbcb7844944fc2bfb0bcf9ca0dea13463ca21"
+"leaflet@0.7.x || 1.x", leaflet@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.0.3.tgz#1f401b98b45c8192134c6c8d69686253805007c8"
 
 levn@^0.3.0, levn@~0.3.0:
   version "0.3.0"
@@ -3573,6 +3575,10 @@ uglify-js@2.7.x, uglify-js@^2.7.5:
 uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
+
+ui-router-core@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/ui-router-core/-/ui-router-core-3.1.0.tgz#c297e8198631ab2e36892a95d0f9a92c18efbc17"
 
 uid-number@~0.0.6:
   version "0.0.6"
