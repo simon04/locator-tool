@@ -1,32 +1,34 @@
+import LatLng from '../api/LatLng';
+
 export default function directive() {
   const REGEXP = /([+-]?\d+\.\d*)[,;\s]+([+-]?\d+\.\d*)/;
 
   return {
     require: 'ngModel',
-    link: function(scope, _elm, _attrs, ctrl) {
+    link: function(_scope, _elm, _attrs, ctrl) {
+      let type;
       ctrl.$parsers.push(parser);
       ctrl.$formatters.push(formatter);
-      scope.$watch(() => ctrl.$modelValue, render, true); // deep watch
 
       function parser(viewValue) {
-        const m = viewValue.match(REGEXP);
-        ctrl.$setValidity('coordinate', m);
-        if (m) {
-          ctrl.$modelValue.setLatLng({lat: m[1], lng: m[2]});
-        } else {
-          ctrl.$modelValue.setLatLng({lat: undefined, lng: undefined});
+        if (!type) {
+          // keep track of coordinate type since it is lost when returning undefined on invalid input
+          type = ctrl.$modelValue && ctrl.$modelValue.type;
         }
-        render();
-        return ctrl.$modelValue;
+        const m = viewValue.match(REGEXP);
+        ctrl.$setValidity('coordinate', m || ctrl.$isEmpty(viewValue));
+        if (m || ctrl.$isEmpty(viewValue)) {
+          return new LatLng(type, {
+            lat: m ? parseFloat(m[1]) : undefined,
+            lng: m ? parseFloat(m[2]) : undefined
+          });
+        } else {
+          return undefined;
+        }
       }
 
       function formatter(coordinate) {
         return coordinate && coordinate.csv;
-      }
-
-      function render() {
-        ctrl.$setViewValue(formatter(ctrl.$modelValue));
-        ctrl.$render();
       }
     }
   };

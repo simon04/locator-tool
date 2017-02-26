@@ -1,6 +1,10 @@
 import template from './ltMap.html';
 
 class ltMap {
+  constructor($scope) {
+    this.$scope = $scope;
+  }
+
   mapInit(L, map) {
     const attribution = `<a href="https://www.openstreetmap.org/copyright" target="_blank">
       OpenStreetMap</a> contributors`;
@@ -33,13 +37,15 @@ class ltMap {
     const {latlng: {lat, lng}, originalEvent: {shiftKey}} = $event;
     if (lat && lng) {
       const target = shiftKey ? this.mapObjectLocation : this.mapMarker;
-      target.setLatLng({
+      const coordinates = target.withLatLng({
         lat: roundToPrecision(lat),
         lng: roundToPrecision(lng)
       });
+      this.$scope.$emit('coordinatesChanged', coordinates);
     }
   }
 }
+ltMap.$inject = ['$scope'];
 
 export default {
   bindings: {

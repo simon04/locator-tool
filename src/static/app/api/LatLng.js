@@ -9,8 +9,11 @@ export default class LatLng {
     });
   }
 
-  setLatLng({lat, lng}) {
-    Object.assign(this, {lat, lng});
+  withLatLng({lat, lng} = {}) {
+    const coordinates = new LatLng(this.type, {lat, lng});
+    coordinates._latOriginal = this._latOriginal;
+    coordinates._lngOriginal = this._lngOriginal;
+    return coordinates;
   }
 
   markAsSaved() {
@@ -18,10 +21,6 @@ export default class LatLng {
       _latOriginal: this.lat,
       _lngOriginal: this.lng
     });
-  }
-
-  discard() {
-    Object.assign(this, {lat: this._latOriginal, lng: this._lngOriginal});
   }
 
   get isDefined() {

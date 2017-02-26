@@ -33,6 +33,7 @@ class ltMain {
 
     $scope.$watch('$ctrl.title', (title) => this.titleChanged(title));
     $scope.$watch('$ctrl.mapView', (mapView) => this.mapViewChanged(mapView), true);
+    $scope.$on('coordinatesChanged', (_event, coordinates) => this.coordinatesChanged(coordinates));
   }
 
   get titlesDefinedAndSaved() {
@@ -66,6 +67,16 @@ class ltMain {
   updateMapView({lat, lng}) {
     if (lat && lng) {
       Object.assign(this.mapView, {lat, lng});
+    }
+  }
+
+  coordinatesChanged(coordinates) {
+    if (!coordinates) {
+      return;
+    } else if (coordinates.type === 'Location') {
+      this.title.coordinates = this.title.coordinates.withLatLng(coordinates);
+    } else if (coordinates.type === 'Object location') {
+      this.title.objectLocation = this.title.objectLocation.withLatLng(coordinates);
     }
   }
 }
