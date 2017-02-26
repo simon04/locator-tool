@@ -26,7 +26,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: 'buble-loader',
         exclude: /(\.test.js$|node_modules)/
       }, {
         test: /\.html$/,
