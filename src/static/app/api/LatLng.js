@@ -36,6 +36,10 @@ export default class LatLng {
   }
 
   get csv() {
-    return this.isDefined && [this.lat, this.lng].join(', ');
+    return this.isDefined && [this.lat, this.lng].map(atLeastOneDecimalPlace).join(', ');
   }
+}
+
+function atLeastOneDecimalPlace(value) {
+  return value % 1 === 0 ? value.toFixed(1) : value;
 }
