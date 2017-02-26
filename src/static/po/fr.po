@@ -1,11 +1,11 @@
 # 
 # Translators:
-# Pierre Choffet <peuc@wanadoo.fr>, 2016
+# Pierre Choffet <peuc@wanadoo.fr>, 2016-2017
 # simon04 <simon.legner@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-01-09 21:19+0000\n"
+"PO-Revision-Date: 2017-02-26 12:52+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/locator-tool/locator-tool/language/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,29 +15,35 @@ msgstr ""
 
 #: app/components/ltAbout/ltAbout.html:13
 msgid ""
-"<a ui-sref=\"input\">Select files to geolocate</a> by querying a category or"
-" inputting a list of <code>File:</code>s."
-msgstr "<a ui-sref=\"input\">Sélectionnez les fichiers à géolocaliser</a> par catégorie ou en entrant une liste de <code>Fichiers:</code>s."
+"<a ui-sref=\"select\">Select files to geolocate</a> by querying a category "
+"or inputting a list of <code>File:</code>s."
+msgstr "<a ui-sref=\"select\">Sélectionnez les fichiers à géolocaliser</a> par catégorie ou en entrant une liste de <code>Fichiers:</code>s."
 
 #: app/components/ltAbout/ltAbout.html:33
 msgid "About"
 msgstr "À propos"
 
-#: index.html:50
+#: index.html:22
 msgid "About locator-tool"
 msgstr "À propos du locator-tool"
 
-#: app/components/ltMain/ltMain.html:7
+#: app/components/ltMain/ltMain.html:12
 msgid "Also show geolocated files"
 msgstr "Afficher aussi les fichiers géolocalisés"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:9
+#: app/components/ltFilesSelector/ltFilesSelector.html:11
 msgid "Category"
 msgstr "Catégorie"
 
-#: app/components/ltLocationInput/ltLocationInput.html:5
+#. Depth of category tree
+#: app/components/ltFilesSelector/ltFilesSelector.html:15
+msgctxt "Category"
+msgid "Depth"
+msgstr "Profondeur"
+
+#: app/components/ltLocationInput/ltLocationInput.html:10
 msgid "Discard"
-msgstr ""
+msgstr "Effacer"
 
 #: app/components/ltAbout/ltAbout.html:23
 #: app/components/ltAbout/ltAbout.html:25
@@ -48,7 +54,7 @@ msgstr "Modifications utilisant locator-tool"
 msgid "Failed to save <lt-location></lt-location>!"
 msgstr "Impossible de sauvegarder <lt-location></lt-location> !"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:11
+#: app/components/ltFilesSelector/ltFilesSelector.html:19
 msgid "Fetch files for Category"
 msgstr "Récupérer par catégorie"
 
@@ -56,7 +62,7 @@ msgstr "Récupérer par catégorie"
 msgid "Fetch files for User"
 msgstr "Récupérer par utilisateur"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:19
+#: app/components/ltFilesSelector/ltFilesSelector.html:27
 msgid "Files"
 msgstr "Fichiers"
 
@@ -66,11 +72,11 @@ msgid ""
 "interactive map."
 msgstr "Sélectionnez un fichier dans la liste, et cliquez sur son emplacement sur la carte."
 
-#: index.html:49
+#: index.html:21
 msgid "Geolocate files"
 msgstr "Géolocaliser les fichiers"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:21
+#: app/components/ltFilesSelector/ltFilesSelector.html:29
 msgid "Geolocate {{$ctrl.titleList.length}} files"
 msgstr "Géolocaliser {{$ctrl.titleList.length}} fichiers"
 
@@ -88,7 +94,7 @@ msgstr "Français"
 
 #: app/components/ltFileDetails/ltFileDetails.html:15
 msgid "Left click on map to set the location."
-msgstr ""
+msgstr "Clic-gauche sur la carte pour définir l'emplacement"
 
 #: app/components/ltUserInfo/ltUserInfo.html:1
 msgid "Log in"
@@ -108,17 +114,17 @@ msgstr "Identifié en tant que {{$ctrl.user}}"
 
 #: app/components/ltFileDetails/ltFileDetails.html:24
 msgid "Press shift and click on map to set the object location."
-msgstr ""
+msgstr "Majuscule+clic gauche sur la carte pour définir l'emplacement"
 
 #: app/components/ltAbout/ltAbout.html:15
 msgid "Repeat …"
 msgstr "Répéter…"
 
-#: app/components/ltLocationInput/ltLocationInput.html:9
+#: app/components/ltLocationInput/ltLocationInput.html:14
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
-#: index.html:48
+#: index.html:20
 msgid "Select files to geolocate"
 msgstr "Sélection des fichiers à géolocaliser"
 
@@ -154,7 +160,7 @@ msgstr "Utilisation"
 msgid "User"
 msgstr "Utilisateur"
 
-#: app/components/ltAbout/ltAbout.html:3 index.html:43
+#: app/components/ltAbout/ltAbout.html:3 index.html:15
 msgid "locator-tool"
 msgstr "locator-tool"
 
