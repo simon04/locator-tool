@@ -27,13 +27,13 @@ export default function data($http, $parse, $sce, $q) {
       iiurlwidth: 1024,
       iiextmetadatafilter: 'ImageDescription'
     };
-    return $query(params).then(function(d) {
+    return $query(params).then((d) => {
       const pages = d.data && d.data.query && d.data.query.pages || {};
       const descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
       const thumbnailGetter = $parse('imageinfo[0].thumburl');
       const urlGetter = $parse('imageinfo[0].descriptionurl');
       const coordsGetter = $parse('{lat: coordinates[0].lat, lng: coordinates[0].lon}');
-      return Object.keys(pages).map(function(pageid) {
+      return Object.keys(pages).map((pageid) => {
         const page = pages[pageid];
         return {
           pageid: parseInt(pageid),
@@ -57,9 +57,7 @@ export default function data($http, $parse, $sce, $q) {
     return $q.all(coordinatesPromises).then(flatten);
 
     function flatten(array) {
-      return array.reduce(function(a, b) {
-        return a.concat(b);
-      }, []);
+      return array.reduce((a, b) => a.concat(b), []);
     }
   }
   function getObjectLocation(pageid) {
@@ -68,7 +66,7 @@ export default function data($http, $parse, $sce, $q) {
       pageids: pageid,
       rvprop: 'content'
     };
-    return $query(params).then(function(d) {
+    return $query(params).then((d) => {
       try {
         const wikitext = d.data.query.pages[pageid].revisions[0]['*'];
         const locDeg = wikitext.match(/\{\{Object location( dec)?\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([NS])\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([WE])/);
@@ -98,11 +96,8 @@ export default function data($http, $parse, $sce, $q) {
       apfrom: prefix,
       apprefix: prefix
     };
-    return $query(params).then(function(d) {
-      return d.data.query.allpages.map(function(i) {
-        return i.title.replace(/^Category:/, '');
-      });
-    });
+    return $query(params).then((d) =>
+      d.data.query.allpages.map((i) => i.title.replace(/^Category:/, '')));
   }
   function getFilesForUser(user) {
     const params = {
@@ -113,11 +108,7 @@ export default function data($http, $parse, $sce, $q) {
       uclimit: 'max',
       ucprop: 'title'
     };
-    return $query(params).then(function(d) {
-      return d.data.query.usercontribs.map(function(i) {
-        return i.title;
-      });
-    });
+    return $query(params).then((d) => d.data.query.usercontribs.map((i) => i.title));
   }
   function getFilesForCategory(cat, depth = 3) {
     cat = cat.replace(/^Category:/, '');
