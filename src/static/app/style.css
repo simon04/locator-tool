@@ -30,3 +30,8 @@ a[href="https://github.com/simon04/locator-tool"] {
   background-repeat: no-repeat;
   padding-left: 20px;
 }
+
+.list-group-files .list-group-item {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
