@@ -1,8 +1,11 @@
 import template from './ltMap.html';
 
+let layerFromLocalStorage;
+
 class ltMap {
-  constructor($scope) {
-    this.$scope = $scope;
+  constructor($scope, localStorageService) {
+    Object.assign(this, {$scope, localStorageService});
+    layerFromLocalStorage = this.localStorageService.get('mapLayer') || 'OSM';
   }
 
   mapInit(L, map) {
@@ -20,12 +23,13 @@ class ltMap {
       maxZoom: 19,
       attribution
     });
-    L.control.layers({
+    const layers = {
       'OSM': osmOrg,
       'OSM @wmflabs.org': osm,
       'Wikimedia maps': wm
-    }).addTo(map);
-    osm.addTo(map);
+    };
+    L.control.layers(layers).addTo(map);
+    (layers[layerFromLocalStorage] || osm).addTo(map);
     new L.Control.GeoSearch({
       provider: new L.GeoSearch.Provider.OpenStreetMap(),
       showMarker: false
@@ -44,8 +48,12 @@ class ltMap {
       this.$scope.$emit('coordinatesChanged', coordinates);
     }
   }
+
+  mapLayerChange($event) {
+    this.localStorageService.set('mapLayer', $event.name);
+  }
 }
-ltMap.$inject = ['$scope'];
+ltMap.$inject = ['$scope', 'localStorageService'];
 
 export default {
   bindings: {
