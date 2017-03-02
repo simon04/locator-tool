@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-02-26 12:52+0000\n"
-"Last-Translator: simon04 <simon.legner@gmail.com>\n"
+"PO-Revision-Date: 2017-03-02 17:34+0000\n"
+"Last-Translator: Pierre Choffet <peuc@wanadoo.fr>\n"
 "Language-Team: French (http://www.transifex.com/locator-tool/locator-tool/language/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -138,7 +138,7 @@ msgstr "Cet outil a été créé par <a href=\"https://github.com/simon04/\">sim
 msgid ""
 "This tool helps to add <lt-location></lt-location> information to images on "
 "<a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
-msgstr "Cet outil permet d'ajouter l'iformation <lt-location></lt-location> aux images présentes sur <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgstr "Cet outil permet d'ajouter l'information <lt-location></lt-location> aux images présentes sur <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
 
 #: app/components/ltAbout/ltAbout.html:28
 msgid "Translate"
