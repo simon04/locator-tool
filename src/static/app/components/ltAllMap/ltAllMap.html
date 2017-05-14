@@ -1,0 +1,16 @@
+<div ll-map ll-init="$ctrl.mapInit" class="fill">
+  <ll-view ll-view="$ctrl.mapView"></ll-view>
+  <ll-marker ng-repeat="title in $ctrl.titles" ng-if="title.coordinates.lat" ll-lat-lng="title.coordinates" ll-popupopen="title._popup = 1"
+    ng-title="{{title}}">
+    <ll-popup>
+      <div style="width: 300px">
+        <p>
+          <a href="{{title.url}}" target="_blank">
+          {{title.file}}
+          </a>
+        </p>
+        <img ng-if="title._popup" ng-src="{{title.thumbnail}}" style="width: 100%">
+      </div>
+    </ll-popup>
+  </ll-marker>
+</div>

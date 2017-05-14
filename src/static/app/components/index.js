@@ -2,6 +2,7 @@ import angular from 'angular';
 import llLeaflet from 'angular-ll-leaflet';
 
 import ltAbout from './ltAbout';
+import ltAllMap from './ltAllMap';
 import ltFileDetails from './ltFileDetails';
 import ltFilesSelector from './ltFilesSelector';
 import ltLanguageSelector from './ltLanguageSelector';
@@ -16,6 +17,7 @@ import smartCoordinate from './smartCoordinate';
 export default angular
   .module('app.components', [llLeaflet])
   .component('ltAbout', ltAbout)
+  .component('ltAllMap', ltAllMap)
   .component('ltFileDetails', ltFileDetails)
   .component('ltFilesSelector', ltFilesSelector)
   .component('ltLanguageSelector', ltLanguageSelector)

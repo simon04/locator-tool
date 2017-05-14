@@ -5,6 +5,9 @@
   <button ng-click="$ctrl.getFilesForUser()" ng-disabled="!$ctrl.user" class="btn btn-default">
     {{'Fetch files for User' | translate}}
   </button>
+  <button ng-click="$ctrl.nextForUser('map')" ng-disabled="!$ctrl.user" class="btn btn-default">
+    {{'Show User files on map' | translate}}
+  </button>
   <lt-spinner ng-if="$ctrl.getFilesForUser$q && !$ctrl.getFilesForUser$q.$$state.status" style="display: inline-block"></lt-spinner>
 </form>
 
@@ -23,6 +26,9 @@
   <input type="submit" ng-disabled="!$ctrl.category" class="btn btn-primary" value="{{'Geolocate Category' | translate}}">
   <button ng-click="$ctrl.getFilesForCategory()" ng-disabled="!$ctrl.category" class="btn btn-default">
     {{'Fetch files for Category' | translate}}
+  </button>
+  <button ng-click="$ctrl.nextForCategory('map')" ng-disabled="!$ctrl.category" class="btn btn-default">
+    {{'Show Category on map' | translate}}
   </button>
   <lt-spinner ng-if="$ctrl.getFilesForCategory$q && !$ctrl.getFilesForCategory$q.$$state.status" style="display: inline-block"></lt-spinner>
   <datalist id="datalistCategory">

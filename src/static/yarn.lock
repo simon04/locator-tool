@@ -99,9 +99,9 @@ angular-gettext@^2.3.8:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/angular-gettext/-/angular-gettext-2.3.8.tgz#f5aa77e3e12c8774d2996160d66e7592e149ea48"
 
-angular-ll-leaflet@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/angular-ll-leaflet/-/angular-ll-leaflet-0.2.2.tgz#4c5ec80ebf83450370854ff72904875faa3110ec"
+angular-ll-leaflet@0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/angular-ll-leaflet/-/angular-ll-leaflet-0.2.3.tgz#6e40024738494a2f06820e097859f4aa84128e79"
   dependencies:
     angular "1.x"
     leaflet "0.7.x || 1.x"

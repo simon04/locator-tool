@@ -42,19 +42,19 @@ class ltFilesSelector {
       });
   }
 
-  next() {
+  next(state = 'geolocate') {
     const files = this.titleList.join('|');
-    this.$state.go('geolocate', {files});
+    this.$state.go(state, {files});
   }
 
-  nextForUser() {
+  nextForUser(state = 'geolocate') {
     const user = this.user;
-    this.$state.go('geolocate', {user});
+    this.$state.go(state, {user});
   }
 
-  nextForCategory() {
+  nextForCategory(state = 'geolocate') {
     const category = this.category;
-    this.$state.go('geolocate', {category});
+    this.$state.go(state, {category});
   }
 
   get titleList() {

@@ -26,7 +26,7 @@
   "dependencies": {
     "angular": "1.5.11",
     "angular-gettext": "^2.3.8",
-    "angular-ll-leaflet": "^0.2.2",
+    "angular-ll-leaflet": "0.2.3",
     "angular-local-storage": "^0.5.2",
     "angular-ui-router": "1.0.0-rc.1",
     "bootstrap": "^3.3.7",

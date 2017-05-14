@@ -28,6 +28,11 @@ function routes($stateProvider, $urlRouterProvider) {
     component: 'ltMain'
   });
 
+  $stateProvider.state('map', {
+    url: '/map?files&user&category&categoryDepth',
+    component: 'ltAllMap'
+  });
+
   $urlRouterProvider.otherwise('/');
 }
 
