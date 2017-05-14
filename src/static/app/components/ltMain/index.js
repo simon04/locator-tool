@@ -11,18 +11,7 @@ class ltMain {
     Object.assign(this, {ltData, ltDataAuth, localStorageService});
     this.mapView = localStorageService.get('mapView') || DEFAULT_MAP_VIEW;
 
-    const files$q = $q((resolve, reject) => {
-      if ($stateParams.files) {
-        resolve($stateParams.files);
-      }
-      if ($stateParams.user) {
-        ltData.getFilesForUser($stateParams.user).then(resolve);
-      } else if ($stateParams.category) {
-        ltData.getFilesForCategory($stateParams.category, $stateParams.categoryDepth).then(resolve);
-      } else {
-        reject();
-      }
-    });
+    const files$q = ltData.getFiles($stateParams);
     const fileDetails$q = files$q.then(ltData.getCoordinates).then(titles => {
       this.titles = $filter('orderBy')(titles, 'file');
       this.showGeolocated = this.titles.length <= 5;

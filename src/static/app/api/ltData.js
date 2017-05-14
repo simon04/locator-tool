@@ -6,11 +6,12 @@ data.$inject = ['$http', '$parse', '$sce', '$q'];
 export default function data($http, $parse, $sce, $q) {
   const maxTitlesPerRequest = 10;
   return {
-    getCoordinates: getCoordinates,
-    getCategoriesForPrefix: getCategoriesForPrefix,
-    getObjectLocation: getObjectLocation,
-    getFilesForUser: getFilesForUser,
-    getFilesForCategory: getFilesForCategory
+    getCoordinates,
+    getCategoriesForPrefix,
+    getObjectLocation,
+    getFiles,
+    getFilesForUser,
+    getFilesForCategory
   };
 
   function getCoordinates(titles) {
@@ -101,6 +102,19 @@ export default function data($http, $parse, $sce, $q) {
     return $query(params).then(d =>
       d.data.query.allpages.map(i => i.title.replace(/^Category:/, ''))
     );
+  }
+  function getFiles({files, user, category, categoryDepth}) {
+    return $q((resolve, reject) => {
+      if (files) {
+        resolve(files);
+      } else if (user) {
+        getFilesForUser(user).then(resolve);
+      } else if (category) {
+        getFilesForCategory(category, categoryDepth).then(resolve);
+      } else {
+        reject();
+      }
+    })
   }
   function getFilesForUser(user) {
     const params = {
