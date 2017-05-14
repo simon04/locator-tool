@@ -1,5 +1,6 @@
 <div ll-map ll-init="$ctrl.mapInit" class="fill">
   <ll-view ll-view="$ctrl.mapView"></ll-view>
+  <ll-fit-bounds ll-bounds="$ctrl.bounds"></ll-fit-bounds>
   <ll-marker ng-repeat="title in $ctrl.titles" ng-if="title.coordinates.lat" ll-lat-lng="title.coordinates" ll-popupopen="title._popup = 1"
     ng-title="{{title}}">
     <ll-popup>
