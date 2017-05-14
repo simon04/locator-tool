@@ -47,6 +47,16 @@ class ltFilesSelector {
     this.$state.go('geolocate', {files});
   }
 
+  nextForUser() {
+    const user = this.user;
+    this.$state.go('geolocate', {user});
+  }
+
+  nextForCategory() {
+    const category = this.category;
+    this.$state.go('geolocate', {category});
+  }
+
   get titleList() {
     return this.titles.split('\n').map(file => file && file.split('|')[0]).filter(x => x);
   }
