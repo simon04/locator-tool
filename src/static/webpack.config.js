@@ -1,5 +1,6 @@
 /* eslint-env node */
 const webpack = require('webpack');
+const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -18,7 +19,7 @@ module.exports = {
     'vendor-leaflet': './app/vendor-leaflet.js'
   },
   output: {
-    path: (productionBuild && './dist') || undefined,
+    path: (productionBuild && path.join(__dirname, 'dist')) || undefined,
     filename: '[name].[chunkhash].js',
     sourceMapFilename: '[name].[chunkhash].map'
   },
