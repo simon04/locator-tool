@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-02-26 12:52+0000\n"
+"PO-Revision-Date: 2017-05-14 19:23+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/locator-tool/locator-tool/language/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr "<a ui-sref=\"select\">Dateien zum Georeferenzieren auswählen</a> via Ka
 msgid "About"
 msgstr "Über"
 
-#: index.html:22
+#: index.html:42
 msgid "About locator-tool"
 msgstr "Über locator-tool"
 
@@ -30,12 +30,12 @@ msgstr "Über locator-tool"
 msgid "Also show geolocated files"
 msgstr "Auch georeferenzierte Dateien anzeigen"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:11
+#: app/components/ltFilesSelector/ltFilesSelector.html:23
 msgid "Category"
 msgstr "Kategorie"
 
 #. Depth of category tree
-#: app/components/ltFilesSelector/ltFilesSelector.html:15
+#: app/components/ltFilesSelector/ltFilesSelector.html:28
 msgctxt "Category"
 msgid "Depth"
 msgstr "Tiefe"
@@ -53,15 +53,15 @@ msgstr "Bearbeitungen mit locator-tool"
 msgid "Failed to save <lt-location></lt-location>!"
 msgstr "<lt-location></lt-location> konnte nicht gespeichert werden!"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:19
+#: app/components/ltFilesSelector/ltFilesSelector.html:39
 msgid "Fetch files for Category"
 msgstr "Dateien der Kategorie laden"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:4
+#: app/components/ltFilesSelector/ltFilesSelector.html:11
 msgid "Fetch files for User"
 msgstr "Dateien des Benutzers laden"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:27
+#: app/components/ltFilesSelector/ltFilesSelector.html:52
 msgid "Files"
 msgstr "Dateien"
 
@@ -71,11 +71,19 @@ msgid ""
 "interactive map."
 msgstr "Eine Datei in der Dateiliste auswählen und deren Position durch Klick auf die interaktive Karte auswählen."
 
-#: index.html:21
+#: app/components/ltFilesSelector/ltFilesSelector.html:35
+msgid "Geolocate Category"
+msgstr "Kategorie georeferenzieren"
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:7
+msgid "Geolocate User files"
+msgstr "Dateien des Benutzers georeferenzieren"
+
+#: index.html:30
 msgid "Geolocate files"
 msgstr "Dateien georeferenzieren"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:29
+#: app/components/ltFilesSelector/ltFilesSelector.html:56
 msgid "Geolocate {{$ctrl.titleList.length}} files"
 msgstr "{{$ctrl.titleList.length}} Dateien georeferenzieren"
 
@@ -111,6 +119,10 @@ msgstr "Abmelden"
 msgid "Logged in as {{$ctrl.user}}"
 msgstr "Angemeldet als {{$ctrl.user}}"
 
+#: index.html:37
+msgid "Map"
+msgstr "Karte"
+
 #: app/components/ltFileDetails/ltFileDetails.html:24
 msgid "Press shift and click on map to set the object location."
 msgstr "Shift-Taste und Klick auf Karte setzt die Objektposition."
@@ -123,9 +135,21 @@ msgstr "Wiederhole …"
 msgid "Save"
 msgstr "Speichern"
 
-#: index.html:20
+#: index.html:23
 msgid "Select files to geolocate"
 msgstr "Dateien zum Georeferenzieren auswählen"
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:43
+msgid "Show Category on map"
+msgstr "Kategorie auf Karte anzeigen"
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:15
+msgid "Show User files on map"
+msgstr "Dateien des Benutzers auf Karte anzeigen"
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:60
+msgid "Show {{$ctrl.titleList.length}} files on map"
+msgstr "{{$ctrl.titleList.length}} Dateien auf Karte anzeigen"
 
 #: app/components/ltAbout/ltAbout.html:34
 msgid ""

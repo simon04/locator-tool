@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-03-02 17:34+0000\n"
-"Last-Translator: Pierre Choffet <peuc@wanadoo.fr>\n"
+"PO-Revision-Date: 2017-05-14 19:22+0000\n"
+"Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/locator-tool/locator-tool/language/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +23,7 @@ msgstr "<a ui-sref=\"select\">Sélectionnez les fichiers à géolocaliser</a> pa
 msgid "About"
 msgstr "À propos"
 
-#: index.html:22
+#: index.html:42
 msgid "About locator-tool"
 msgstr "À propos du locator-tool"
 
@@ -31,12 +31,12 @@ msgstr "À propos du locator-tool"
 msgid "Also show geolocated files"
 msgstr "Afficher aussi les fichiers géolocalisés"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:11
+#: app/components/ltFilesSelector/ltFilesSelector.html:23
 msgid "Category"
 msgstr "Catégorie"
 
 #. Depth of category tree
-#: app/components/ltFilesSelector/ltFilesSelector.html:15
+#: app/components/ltFilesSelector/ltFilesSelector.html:28
 msgctxt "Category"
 msgid "Depth"
 msgstr "Profondeur"
@@ -54,15 +54,15 @@ msgstr "Modifications utilisant locator-tool"
 msgid "Failed to save <lt-location></lt-location>!"
 msgstr "Impossible de sauvegarder <lt-location></lt-location> !"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:19
+#: app/components/ltFilesSelector/ltFilesSelector.html:39
 msgid "Fetch files for Category"
 msgstr "Récupérer par catégorie"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:4
+#: app/components/ltFilesSelector/ltFilesSelector.html:11
 msgid "Fetch files for User"
 msgstr "Récupérer par utilisateur"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:27
+#: app/components/ltFilesSelector/ltFilesSelector.html:52
 msgid "Files"
 msgstr "Fichiers"
 
@@ -72,11 +72,19 @@ msgid ""
 "interactive map."
 msgstr "Sélectionnez un fichier dans la liste, et cliquez sur son emplacement sur la carte."
 
-#: index.html:21
+#: app/components/ltFilesSelector/ltFilesSelector.html:35
+msgid "Geolocate Category"
+msgstr ""
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:7
+msgid "Geolocate User files"
+msgstr ""
+
+#: index.html:30
 msgid "Geolocate files"
 msgstr "Géolocaliser les fichiers"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:29
+#: app/components/ltFilesSelector/ltFilesSelector.html:56
 msgid "Geolocate {{$ctrl.titleList.length}} files"
 msgstr "Géolocaliser {{$ctrl.titleList.length}} fichiers"
 
@@ -112,6 +120,10 @@ msgstr "Se déconnecter"
 msgid "Logged in as {{$ctrl.user}}"
 msgstr "Identifié en tant que {{$ctrl.user}}"
 
+#: index.html:37
+msgid "Map"
+msgstr ""
+
 #: app/components/ltFileDetails/ltFileDetails.html:24
 msgid "Press shift and click on map to set the object location."
 msgstr "Majuscule+clic gauche sur la carte pour définir l'emplacement"
@@ -124,9 +136,21 @@ msgstr "Répéter…"
 msgid "Save"
 msgstr "Enregistrer"
 
-#: index.html:20
+#: index.html:23
 msgid "Select files to geolocate"
 msgstr "Sélection des fichiers à géolocaliser"
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:43
+msgid "Show Category on map"
+msgstr ""
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:15
+msgid "Show User files on map"
+msgstr ""
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:60
+msgid "Show {{$ctrl.titleList.length}} files on map"
+msgstr ""
 
 #: app/components/ltAbout/ltAbout.html:34
 msgid ""

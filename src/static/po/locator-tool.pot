@@ -12,7 +12,7 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: index.html:22
+#: index.html:42
 msgid "About locator-tool"
 msgstr ""
 
@@ -20,12 +20,12 @@ msgstr ""
 msgid "Also show geolocated files"
 msgstr ""
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:11
+#: app/components/ltFilesSelector/ltFilesSelector.html:23
 msgid "Category"
 msgstr ""
 
 #. Depth of category tree
-#: app/components/ltFilesSelector/ltFilesSelector.html:15
+#: app/components/ltFilesSelector/ltFilesSelector.html:28
 msgctxt "Category"
 msgid "Depth"
 msgstr ""
@@ -43,15 +43,15 @@ msgstr ""
 msgid "Failed to save <lt-location></lt-location>!"
 msgstr ""
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:19
+#: app/components/ltFilesSelector/ltFilesSelector.html:39
 msgid "Fetch files for Category"
 msgstr ""
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:4
+#: app/components/ltFilesSelector/ltFilesSelector.html:11
 msgid "Fetch files for User"
 msgstr ""
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:27
+#: app/components/ltFilesSelector/ltFilesSelector.html:52
 msgid "Files"
 msgstr ""
 
@@ -59,11 +59,19 @@ msgstr ""
 msgid "From the list of files provided, select one and click its location on an interactive map."
 msgstr ""
 
-#: index.html:21
+#: app/components/ltFilesSelector/ltFilesSelector.html:35
+msgid "Geolocate Category"
+msgstr ""
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:7
+msgid "Geolocate User files"
+msgstr ""
+
+#: index.html:30
 msgid "Geolocate files"
 msgstr ""
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:29
+#: app/components/ltFilesSelector/ltFilesSelector.html:56
 msgid "Geolocate {{$ctrl.titleList.length}} files"
 msgstr ""
 
@@ -96,6 +104,10 @@ msgstr ""
 msgid "Logged in as {{$ctrl.user}}"
 msgstr ""
 
+#: index.html:37
+msgid "Map"
+msgstr ""
+
 #: app/components/ltFileDetails/ltFileDetails.html:24
 msgid "Press shift and click on map to set the object location."
 msgstr ""
@@ -108,8 +120,20 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: index.html:20
+#: index.html:23
 msgid "Select files to geolocate"
+msgstr ""
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:43
+msgid "Show Category on map"
+msgstr ""
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:15
+msgid "Show User files on map"
+msgstr ""
+
+#: app/components/ltFilesSelector/ltFilesSelector.html:60
+msgid "Show {{$ctrl.titleList.length}} files on map"
 msgstr ""
 
 #: app/components/ltAbout/ltAbout.html:34
