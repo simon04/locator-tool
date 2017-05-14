@@ -7,12 +7,14 @@ class ltFileDetails {
 
   editLocation(title, coordinates) {
     this.error = undefined;
-    return this.ltDataAuth.editLocation(title, coordinates)
-      .then(() => {
+    return this.ltDataAuth.editLocation(title, coordinates).then(
+      () => {
         coordinates.markAsSaved();
-      }, (error) => {
+      },
+      error => {
         this.error = error;
-      });
+      }
+    );
   }
 }
 ltFileDetails.$inject = ['ltDataAuth'];

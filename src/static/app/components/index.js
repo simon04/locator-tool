@@ -25,5 +25,4 @@ export default angular
   .component('ltMap', ltMap)
   .component('ltSpinner', ltSpinner)
   .component('ltUserInfo', ltUserInfo)
-  .directive('smartCoordinate', smartCoordinate)
-  .name;
+  .directive('smartCoordinate', smartCoordinate).name;

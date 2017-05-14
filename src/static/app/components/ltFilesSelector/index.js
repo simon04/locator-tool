@@ -5,10 +5,12 @@ class ltFilesSelector {
     Object.assign(this, {
       ltData,
       $state,
-      categoryDepth: $stateParams.categoryDepth !== undefined ? parseInt($stateParams.categoryDepth) : 3,
+      categoryDepth: $stateParams.categoryDepth !== undefined
+        ? parseInt($stateParams.categoryDepth)
+        : 3,
       titles: ''
     });
-    console.log(this.categoryDepth, $stateParams.categoryDepth)
+    console.log(this.categoryDepth, $stateParams.categoryDepth);
     if ($stateParams.user) {
       this.user = $stateParams.user;
       this.getFilesForUser();
@@ -19,27 +21,23 @@ class ltFilesSelector {
   }
 
   getCategoriesForPrefix() {
-    this.ltData
-      .getCategoriesForPrefix(this.category)
-      .then((categories) => {
-        this.categorySuggestions = categories;
-      });
+    this.ltData.getCategoriesForPrefix(this.category).then(categories => {
+      this.categorySuggestions = categories;
+    });
   }
 
   getFilesForUser() {
     this.$state.go('.', {user: this.user, category: undefined}, {replace: true});
-    this.getFilesForUser$q = this.ltData
-      .getFilesForUser(this.user)
-      .then((titles) => {
-        this.titleList = titles;
-      });
+    this.getFilesForUser$q = this.ltData.getFilesForUser(this.user).then(titles => {
+      this.titleList = titles;
+    });
   }
 
   getFilesForCategory() {
     this.$state.go('.', {category: this.category, user: undefined}, {replace: true});
     this.getFilesForCategory$q = this.ltData
       .getFilesForCategory(this.category, this.categoryDepth)
-      .then((titles) => {
+      .then(titles => {
         this.titleList = titles;
       });
   }
@@ -50,9 +48,7 @@ class ltFilesSelector {
   }
 
   get titleList() {
-    return this.titles.split('\n')
-      .map((file) => file && file.split('|')[0])
-      .filter((x) => x);
+    return this.titles.split('\n').map(file => file && file.split('|')[0]).filter(x => x);
   }
 
   set titleList(files) {

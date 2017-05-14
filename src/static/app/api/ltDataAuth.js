@@ -6,7 +6,7 @@ export default function dataAuth($http) {
   };
 
   function getUserInfo() {
-    return $http.get('/locator-tool/user').then((d) => d.data && d.data.user);
+    return $http.get('/locator-tool/user').then(d => d.data && d.data.user);
   }
   function editLocation(title, coordinates) {
     const {pageid} = title;
@@ -15,7 +15,7 @@ export default function dataAuth($http) {
       method: 'POST',
       url: '/locator-tool/edit',
       data: {type, lat, lng, pageid}
-    }).then((response) => {
+    }).then(response => {
       const data = response.data;
       if (!data.result || !data.result.edit || data.result.edit.result !== 'Success') {
         throw data;

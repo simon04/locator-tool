@@ -24,7 +24,7 @@ class ltMap {
       attribution
     });
     const layers = {
-      'OSM': osmOrg,
+      OSM: osmOrg,
       'OSM @wmflabs.org': osm,
       'Wikimedia maps': wm
     };
@@ -66,5 +66,5 @@ export default {
 };
 
 function roundToPrecision(value, precision = 10e7) {
-  return (value * precision) % 1 ? Math.round(value * precision) / precision : value;
+  return value * precision % 1 ? Math.round(value * precision) / precision : value;
 }

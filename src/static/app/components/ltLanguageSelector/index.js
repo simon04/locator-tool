@@ -15,7 +15,7 @@ class ltLanguageSelector {
     if (language) {
       gettextCatalog.setCurrentLanguage(language);
     } else if ($window.navigator && $window.navigator.languages) {
-      const langs = $window.navigator.languages.filter((lang) => this.languages[lang]);
+      const langs = $window.navigator.languages.filter(lang => this.languages[lang]);
       if (langs.length) {
         gettextCatalog.setCurrentLanguage(langs[0]);
       }

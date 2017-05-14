@@ -23,21 +23,21 @@ class ltMain {
         reject();
       }
     });
-    const fileDetails$q = files$q.then(ltData.getCoordinates).then((titles) => {
+    const fileDetails$q = files$q.then(ltData.getCoordinates).then(titles => {
       this.titles = $filter('orderBy')(titles, 'file');
       this.showGeolocated = this.titles.length <= 5;
       // select first visible title
-      this.title = this.titles.filter((title) => this.showGeolocated || !title.coordinates.lat)[0];
+      this.title = this.titles.filter(title => this.showGeolocated || !title.coordinates.lat)[0];
     });
     this.loading$q = $q.all([files$q, fileDetails$q]);
 
-    $scope.$watch('$ctrl.title', (title) => this.titleChanged(title));
-    $scope.$watch('$ctrl.mapView', (mapView) => this.mapViewChanged(mapView), true);
+    $scope.$watch('$ctrl.title', title => this.titleChanged(title));
+    $scope.$watch('$ctrl.mapView', mapView => this.mapViewChanged(mapView), true);
     $scope.$on('coordinatesChanged', (_event, coordinates) => this.coordinatesChanged(coordinates));
   }
 
   get titlesDefinedAndSaved() {
-    return this.titles && this.titles.filter((title) => title.coordinates.isDefinedAndSaved) || [];
+    return (this.titles && this.titles.filter(title => title.coordinates.isDefinedAndSaved)) || [];
   }
 
   get titlesDefinedAndSavedPercent() {
@@ -50,7 +50,7 @@ class ltMain {
       this.updateMapView(title.coordinates);
     }
     if (title && title.pageid) {
-      this.ltData.getObjectLocation(title.pageid).then((objectLocation) => {
+      this.ltData.getObjectLocation(title.pageid).then(objectLocation => {
         const {lat, lng} = objectLocation;
         title.objectLocation = objectLocation;
         if (!(title.coordinates && title.coordinates.lat)) {
@@ -81,7 +81,14 @@ class ltMain {
   }
 }
 ltMain.$inject = [
-  'ltData', '$scope', '$stateParams', 'ltDataAuth', '$filter', '$q', 'localStorageService'];
+  'ltData',
+  '$scope',
+  '$stateParams',
+  'ltDataAuth',
+  '$filter',
+  '$q',
+  'localStorageService'
+];
 
 export default {
   template,

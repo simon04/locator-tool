@@ -2,7 +2,7 @@ import template from './ltUserInfo.html';
 
 class ltUserInfo {
   constructor(ltDataAuth) {
-    ltDataAuth.getUserInfo().then((user) => {
+    ltDataAuth.getUserInfo().then(user => {
       this.user = user;
     });
   }

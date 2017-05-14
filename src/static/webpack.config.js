@@ -13,12 +13,12 @@ const productionBuild = process.env.npm_lifecycle_script !== 'webpack-dev-server
 
 module.exports = {
   entry: {
-    'main': './app/index.js',
-    'vendor': './app/vendor.js',
+    main: './app/index.js',
+    vendor: './app/vendor.js',
     'vendor-leaflet': './app/vendor-leaflet.js'
   },
   output: {
-    path: productionBuild && './dist' || undefined,
+    path: (productionBuild && './dist') || undefined,
     filename: '[name].[chunkhash].js',
     sourceMapFilename: '[name].[chunkhash].map'
   },
@@ -28,16 +28,19 @@ module.exports = {
         test: /\.js$/,
         loader: 'buble-loader',
         exclude: /(\.test.js$|node_modules)/
-      }, {
+      },
+      {
         test: /\.html$/,
         loader: 'html-loader'
-      }, {
+      },
+      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           use: 'css-loader',
           fallback: 'style-loader'
         })
-      }, {
+      },
+      {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
         loader: 'url-loader',
         options: {
@@ -47,9 +50,9 @@ module.exports = {
     ]
   },
   plugins: [
-    productionBuild && new CleanWebpackPlugin(['./dist']) || NoPlugin,
+    (productionBuild && new CleanWebpackPlugin(['./dist'])) || NoPlugin,
     new ExtractTextPlugin({
-      filename: '[name].[contenthash].css',
+      filename: '[name].[contenthash].css'
     }),
     new HtmlWebpackPlugin({
       template: './index.html',
@@ -58,7 +61,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'vendor-leaflet', 'manifest']
     }),
-    productionBuild && new CompressionPlugin() || NoPlugin,
+    (productionBuild && new CompressionPlugin()) || NoPlugin
   ],
   devServer: {
     port: 8184
