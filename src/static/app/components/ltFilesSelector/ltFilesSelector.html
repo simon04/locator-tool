@@ -1,12 +1,18 @@
 <form class="form-group" name="formUser" ng-submit="$ctrl.nextForUser()">
   <label for="inputUser" translate>User</label>
   <input id="inputUser" class="form-control" ng-model="$ctrl.user" placeholder="User:…">
-  <input type="submit" ng-disabled="!$ctrl.user" class="btn btn-primary" value="{{'Geolocate user files' | translate}}">
+  <input type="submit" ng-disabled="!$ctrl.user" class="hidden">
+  <button ng-click="$ctrl.nextForUser()" ng-disabled="!$ctrl.user" class="btn btn-primary">
+    <span class="glyphicon glyphicon-map-marker"></span>
+    <span translate>Geolocate User files</span>
+  </button>
   <button ng-click="$ctrl.getFilesForUser()" ng-disabled="!$ctrl.user" class="btn btn-default">
-    {{'Fetch files for User' | translate}}
+    <span class="glyphicon glyphicon-circle-arrow-down"></span>
+    <span translate>Fetch files for User</span>
   </button>
   <button ng-click="$ctrl.nextForUser('map')" ng-disabled="!$ctrl.user" class="btn btn-default">
-    {{'Show User files on map' | translate}}
+    <span class="glyphicon glyphicon-globe"></span>
+    <span translate>Show User files on map</span>
   </button>
   <lt-spinner ng-if="$ctrl.getFilesForUser$q && !$ctrl.getFilesForUser$q.$$state.status" style="display: inline-block"></lt-spinner>
 </form>
@@ -23,12 +29,18 @@
       <input id="inputCategoryDepth" type="number" class="form-control" ng-model="$ctrl.categoryDepth">
     </div>
   </div>
-  <input type="submit" ng-disabled="!$ctrl.category" class="btn btn-primary" value="{{'Geolocate Category' | translate}}">
+  <input type="submit" ng-disabled="!$ctrl.category" class="hidden">
+  <button ng-click="$ctrl.nextForCategory()" ng-disabled="!$ctrl.category" class="btn btn-primary">
+    <span class="glyphicon glyphicon-map-marker"></span>
+    <span translate>Geolocate Category</span>
+  </button>
   <button ng-click="$ctrl.getFilesForCategory()" ng-disabled="!$ctrl.category" class="btn btn-default">
-    {{'Fetch files for Category' | translate}}
+    <span class="glyphicon glyphicon-circle-arrow-down"></span>
+    <span translate>Fetch files for Category</span>
   </button>
   <button ng-click="$ctrl.nextForCategory('map')" ng-disabled="!$ctrl.category" class="btn btn-default">
-    {{'Show Category on map' | translate}}
+    <span class="glyphicon glyphicon-globe"></span>
+    <span translate>Show Category on map</span>
   </button>
   <lt-spinner ng-if="$ctrl.getFilesForCategory$q && !$ctrl.getFilesForCategory$q.$$state.status" style="display: inline-block"></lt-spinner>
   <datalist id="datalistCategory">
@@ -39,7 +51,12 @@
 <form class="form-group" name="formTitles">
   <label for="inputTitles" translate>Files</label>
   <textarea id="inputTitles" class="form-control" rows="10" ng-model="$ctrl.titles" placeholder="File:…"></textarea>
-  <button ng-disabled="!$ctrl.titleList.length" ng-click="$ctrl.next()" class="btn btn-primary" translate>
-    Geolocate {{$ctrl.titleList.length}} files
+  <button ng-disabled="!$ctrl.titleList.length" ng-click="$ctrl.next()" class="btn btn-primary">
+    <span class="glyphicon glyphicon-map-marker"></span>
+    <span translate>Geolocate {{$ctrl.titleList.length}} files</span>
+  </button>
+  <button ng-disabled="!$ctrl.titleList.length" ng-click="$ctrl.next('map')" class="btn btn-default">
+    <span class="glyphicon glyphicon-map-marker"></span>
+    <span translate>Show {{$ctrl.titleList.length}} files on map</span>
   </button>
 </form>
