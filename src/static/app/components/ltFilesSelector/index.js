@@ -10,7 +10,6 @@ class ltFilesSelector {
         : 3,
       titles: ''
     });
-    console.log(this.categoryDepth, $stateParams.categoryDepth);
     if ($stateParams.user) {
       this.user = $stateParams.user;
       this.getFilesForUser();
