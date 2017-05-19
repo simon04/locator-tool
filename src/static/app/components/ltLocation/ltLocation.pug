@@ -1,0 +1,5 @@
+code
+  | {{
+  span {{$ctrl.type || 'Location'}}
+  span(ng-if='$ctrl.latLng') | {{$ctrl.latLng.lat}} | {{$ctrl.latLng.lng}}
+  | }}
