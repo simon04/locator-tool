@@ -10,6 +10,7 @@ import ltLocation from './ltLocation';
 import ltLocationInput from './ltLocationInput';
 import ltMain from './ltMain';
 import ltMap from './ltMap';
+import ltNavbar from './ltNavbar';
 import ltSpinner from './ltSpinner';
 import ltUserInfo from './ltUserInfo';
 import smartCoordinate from './smartCoordinate';
@@ -25,6 +26,7 @@ export default angular
   .component('ltLocationInput', ltLocationInput)
   .component('ltMain', ltMain)
   .component('ltMap', ltMap)
+  .component('ltNavbar', ltNavbar)
   .component('ltSpinner', ltSpinner)
   .component('ltUserInfo', ltUserInfo)
   .directive('smartCoordinate', smartCoordinate).name;

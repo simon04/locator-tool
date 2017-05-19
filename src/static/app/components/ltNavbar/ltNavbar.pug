@@ -1,0 +1,27 @@
+nav.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      a.navbar-brand(ui-sref='about')
+        span.glyphicon.glyphicon-map-marker
+        span(translate) locator-tool
+    .navbar-collapse
+      ul.nav.navbar-nav
+        li(ui-sref-active='active')
+          a(ui-sref='select')
+            span.glyphicon.glyphicon-check
+            span(translate) Select files to geolocate
+        li(ui-sref-active='active')
+          a.hidden(ui-sref='geolocate')
+          a
+            span.glyphicon.glyphicon-map-marker
+            span(translate) Geolocate files
+        li(ui-sref-active='active')
+          a.hidden(ui-sref='map')
+          a
+            span.glyphicon.glyphicon-globe
+            span(translate) Map
+        li(ui-sref-active='active')
+          a(ui-sref='about')
+            span(translate) About locator-tool
+      lt-user-info.navbar-right
+      lt-language-selector.navbar-form.navbar-right
