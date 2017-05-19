@@ -1,0 +1,37 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge')
+  meta(name='viewport', content='width=device-width,initial-scale=1')
+  title locator-tool
+
+nav.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      a.navbar-brand(ui-sref='about')
+        span.glyphicon.glyphicon-map-marker
+        span(translate) locator-tool
+    .navbar-collapse
+      ul.nav.navbar-nav
+        li(ui-sref-active='active')
+          a(ui-sref='select')
+            span.glyphicon.glyphicon-check
+            span(translate) Select files to geolocate
+        li(ui-sref-active='active')
+          a.hidden(ui-sref='geolocate')
+          a
+            span.glyphicon.glyphicon-map-marker
+            span(translate) Geolocate files
+        li(ui-sref-active='active')
+          a.hidden(ui-sref='map')
+          a
+            span.glyphicon.glyphicon-globe
+            span(translate) Map
+        li(ui-sref-active='active')
+          a(ui-sref='about')
+            span(translate) About locator-tool
+      lt-user-info.navbar-right
+      lt-language-selector.navbar-form.navbar-right
+
+.container-fluid(style='height: calc(100% - 53px - 20px)')
+  ui-view.fill

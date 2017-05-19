@@ -1,4 +1,4 @@
-import template from './ltAbout.html';
+import template from './ltAbout.pug';
 
 export default {
   template

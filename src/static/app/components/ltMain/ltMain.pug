@@ -1,0 +1,30 @@
+.row.fill
+  .col-md-3.col-lg-2.fill.col-md-h40(style='position:relative')
+    .progress
+      .progress-bar(role='progressbar', ng-style="{width: $ctrl.titlesDefinedAndSavedPercent + '%'}")
+        | {{$ctrl.titlesDefinedAndSaved.length}} / {{$ctrl.titles.length}}
+    .form-group
+      .checkbox
+        label
+          input(ng-model='$ctrl.showGeolocated', type='checkbox')
+          span(translate) Also show geolocated files
+    .input-group
+      span.input-group-addon
+        span.glyphicon.glyphicon-search
+      input.form-control(ng-model='$ctrl.filter', type='text')
+    ul.list-group.list-group-files.fill-absolute(style='top: 110px')
+      li(ng-if='$ctrl.loading$q && !$ctrl.loading$q.$$state.status')
+        lt-spinner
+      li.list-group-item(ng-repeat='title in $ctrl.titles | filter:$ctrl.filter', ng-show='$ctrl.showGeolocated || !title.coordinates.isDefinedAndSaved', ng-click='$ctrl.title = title', ng-class="{'list-group-item-info': title === $ctrl.title}")
+        span.glyphicon.glyphicon-check(ng-show='title.coordinates.isDefinedAndSaved')
+        | {{title.file}}
+
+  .col-md-9.col-lg-3.fill.col-md-h40(ng-if='$ctrl.title', style='overflow-y: auto')
+    .row
+      .col-md-5.col-lg-12
+        lt-file-details(title='$ctrl.title')
+      .col-md-7.col-lg-12
+        img.img-responsive.thumbnail(ng-src='{{$ctrl.title.thumbnail}}', style='max-height: 100%')
+
+  .col-md-12.col-lg-7.fill.col-md-h60(ng-if='$ctrl.title')
+    lt-map.fill(map-view='$ctrl.mapView', map-marker='$ctrl.title.coordinates', map-object-location='$ctrl.title.objectLocation')

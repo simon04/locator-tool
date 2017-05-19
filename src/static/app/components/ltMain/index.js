@@ -1,4 +1,4 @@
-import template from './ltMain.html';
+import template from './ltMain.pug';
 
 const DEFAULT_MAP_VIEW = {
   lat: 51.505,

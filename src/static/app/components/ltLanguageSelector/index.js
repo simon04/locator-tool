@@ -1,4 +1,4 @@
-import template from './ltLanguageSelector.html';
+import template from './ltLanguageSelector.pug';
 
 import 'angular-gettext-loader!../../../po/de.po';
 import 'angular-gettext-loader!../../../po/fr.po';

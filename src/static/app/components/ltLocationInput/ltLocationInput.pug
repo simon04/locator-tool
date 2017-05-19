@@ -1,0 +1,7 @@
+.input-group(ng-form='coordinatesForm', ng-class="{'has-error': !coordinatesForm.$valid}")
+  input.form-control(type='text', ng-model='$ctrl.latLng', ng-model-options="{updateOn: 'default blur', debounce: {default: 2000, blur: 0}}", ng-change='coordinatesForm.$valid && $ctrl.fireChanged($ctrl.latLng)', smart-coordinate='')
+  span.input-group-btn
+    button.btn.btn-default(type='button', ng-click='$ctrl.fireChanged($ctrl.latLng.withLatLng(undefined))', title="{{'Discard'|translate}}")
+      span.glyphicon.glyphicon-remove
+    button.btn.btn-success(type='button', ng-click='$ctrl.editLocation()', title="{{'Save'|translate}}", ng-disabled='!$ctrl.latLng.isChanged')
+      span.glyphicon.glyphicon-save

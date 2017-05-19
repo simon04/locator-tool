@@ -1,0 +1,10 @@
+.fill(ll-map='', ll-init='$ctrl.mapInit')
+  ll-view(ll-view='$ctrl.mapView')
+  ll-fit-bounds(ll-bounds='$ctrl.bounds')
+  ll-marker(ng-repeat='title in $ctrl.titles', ng-if='title.coordinates.lat', ll-lat-lng='title.coordinates', ll-popupopen='title._popup = 1', ng-title='{{title}}')
+    ll-popup
+      div(style='width: 300px')
+        p
+          a(href='{{title.url}}', target='_blank')
+            | {{title.file}}
+        img(ng-if='title._popup', ng-src='{{title.thumbnail}}', style='width: 100%')

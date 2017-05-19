@@ -11,7 +11,7 @@
     "prettier": "prettier --print-width 100 --no-bracket-spacing --single-quote",
     "lint": "eslint app/ webpack.config.js && npm run prettier -- --list-different $(git ls-files '*.js')",
     "po": "angular-gettext-cli --compile --files 'po/*.po' --dest app/i18n.js --module app",
-    "pot": "angular-gettext-cli --files '{,app/**/}*.{js,html}' --dest po/locator-tool.pot"
+    "pot": "node ./pot-extract.js"
   },
   "repository": {
     "type": "git",
@@ -33,11 +33,13 @@
     "core-js": "^2.4.1",
     "leaflet": "^1.0.3",
     "leaflet-geosearch": "1.0.0",
-    "octicons": "^5.0.1"
+    "octicons": "^5.0.1",
+    "pug": "^2.0.0-rc.1"
   },
   "devDependencies": {
     "angular-gettext-cli": "^1.2.0",
     "angular-gettext-loader": "^1.0.1",
+    "angular-gettext-tools": "^2.3.5",
     "buble": "^0.15.2",
     "buble-loader": "^0.4.1",
     "clean-webpack-plugin": "^0.1.16",

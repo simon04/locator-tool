@@ -1,4 +1,4 @@
-import template from './ltFilesSelector.html';
+import template from './ltFilesSelector.pug';
 
 class ltFilesSelector {
   constructor(ltData, $state, $stateParams) {

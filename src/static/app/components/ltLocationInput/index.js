@@ -1,4 +1,4 @@
-import template from './ltLocationInput.html';
+import template from './ltLocationInput.pug';
 
 class controller {
   constructor($scope) {

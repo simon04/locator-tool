@@ -31,8 +31,8 @@ module.exports = {
         exclude: /(\.test.js$|node_modules)/
       },
       {
-        test: /\.html$/,
-        loader: 'html-loader'
+        test: /\.pug$/,
+        loader: './pug-loader'
       },
       {
         test: /\.css$/,
@@ -56,7 +56,7 @@ module.exports = {
       filename: '[name].[contenthash].css'
     }),
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: './index.pug',
       inject: 'body'
     }),
     new webpack.optimize.CommonsChunkPlugin({

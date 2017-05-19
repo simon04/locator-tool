@@ -1,4 +1,4 @@
-import template from './ltUserInfo.html';
+import template from './ltUserInfo.pug';
 
 class ltUserInfo {
   constructor(ltDataAuth) {

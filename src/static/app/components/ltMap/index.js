@@ -1,4 +1,4 @@
-import template from './ltMap.html';
+import template from './ltMap.pug';
 
 let layerFromLocalStorage;
 
