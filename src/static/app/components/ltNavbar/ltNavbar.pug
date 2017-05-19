@@ -11,13 +11,11 @@ nav.navbar.navbar-default
             span.glyphicon.glyphicon-check
             span(translate) Select files to geolocate
         li(ui-sref-active='active')
-          a.hidden(ui-sref='geolocate')
-          a
+          a(ng-show='$ctrl.activateLinks', ui-sref='geolocate($ctrl.params)')
             span.glyphicon.glyphicon-map-marker
             span(translate) Geolocate files
         li(ui-sref-active='active')
-          a.hidden(ui-sref='map')
-          a
+          a(ng-show='$ctrl.activateLinks', ui-sref='map($ctrl.params)')
             span.glyphicon.glyphicon-globe
             span(translate) Map
         li(ui-sref-active='active')
