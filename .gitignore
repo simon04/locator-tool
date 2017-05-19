@@ -1,0 +1,5 @@
+*.pyc
+__pycache__
+config.ini
+src/static/dist/
+src/static/node_modules/
