@@ -28,7 +28,7 @@
     "angular-gettext": "^2.3.8",
     "angular-ll-leaflet": "0.3.0",
     "angular-local-storage": "^0.5.2",
-    "angular-ui-router": "1.0.0-rc.1",
+    "angular-ui-router": "^1.0.3",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "leaflet": "^1.0.3",
