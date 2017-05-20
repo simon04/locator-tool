@@ -53,6 +53,17 @@ class ltMap {
     }
   }
 
+  markerMoveend($event, target) {
+    const {lat, lng} = $event.target.getLatLng();
+    if (lat && lng) {
+      const coordinates = target.withLatLng({
+        lat: roundToPrecision(lat),
+        lng: roundToPrecision(lng)
+      });
+      this.$scope.$emit('coordinatesChanged', coordinates);
+    }
+  }
+
   mapLayerChange($event) {
     this.localStorageService.set('mapLayer', $event.name);
   }

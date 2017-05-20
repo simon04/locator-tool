@@ -1,6 +1,6 @@
 .fill(ll-map='', ll-init='$ctrl.mapInit', ll-click='$ctrl.mapClick($event)', ll-baselayerchange='$ctrl.mapLayerChange($event)')
   ll-view(ll-view='$ctrl.mapView')
-  ll-marker(ll-lat-lng='$ctrl.mapMarker', ll-marker='{draggable: true}', ng-if='$ctrl.mapMarker.lat')
+  ll-marker(ll-lat-lng='$ctrl.mapMarker', ll-marker='{draggable: true}', ll-moveend='$ctrl.markerMoveend($event, $ctrl.mapMarker)', ng-if='$ctrl.mapMarker.lat')
   ll-marker(ll-lat-lng='$ctrl.mapObjectLocation', ng-if='$ctrl.mapObjectLocation.lat')
     ll-div-icon
       div(title='Object location')
