@@ -30,6 +30,8 @@ def add_location_to_wikitext(type, lat, lng, wikitext):
     '{{Object location|12.3|45.6}}'
     >>> add_location_to_wikitext('Object location', 12.3, 45.6, "{{Information}}{{Location|9.99|9.99|region:XY-Z}}{{Object location|87.65|-43.21|region:XY-Z}}")
     '{{Information}}{{Location|9.99|9.99|region:XY-Z}}{{Object location|12.3|45.6|region:XY-Z}}'
+    >>> add_location_to_wikitext('Object location', 12.3, 45.6, "{{object location|87.65|-43.21|region:XY-Z}}")
+    '{{Object location|12.3|45.6|region:XY-Z}}'
     """
     if type not in ['Location', 'Object location']:
         raise ValueError('Invalid location type')
