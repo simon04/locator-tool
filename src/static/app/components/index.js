@@ -4,6 +4,7 @@ import llLeaflet from 'angular-ll-leaflet';
 import ltAbout from './ltAbout';
 import ltAllMap from './ltAllMap';
 import ltFileDetails from './ltFileDetails';
+import ltFileThumbnail from './ltFileThumbnail';
 import ltFilesSelector from './ltFilesSelector';
 import ltLanguageSelector from './ltLanguageSelector';
 import ltLocationInput from './ltLocationInput';
@@ -19,6 +20,7 @@ export default angular
   .component('ltAbout', ltAbout)
   .component('ltAllMap', ltAllMap)
   .component('ltFileDetails', ltFileDetails)
+  .component('ltFileThumbnail', ltFileThumbnail)
   .component('ltFilesSelector', ltFilesSelector)
   .component('ltLanguageSelector', ltLanguageSelector)
   .component('ltLocationInput', ltLocationInput)

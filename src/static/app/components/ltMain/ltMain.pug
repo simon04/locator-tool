@@ -27,7 +27,7 @@
       .col-md-5.col-lg-12
         lt-file-details(file='$ctrl.title')
       .col-md-7.col-lg-12
-        img.img-responsive.thumbnail(ng-src='{{$ctrl.title.thumbnail}}', style='max-height: 100%', ng-animate-swap='$ctrl.title.thumbnail')
+        lt-file-thumbnail(file='$ctrl.title')
 
   .col-md-12.col-lg-7.fill.col-md-h60(ng-if='$ctrl.title')
     lt-map.fill(map-view='$ctrl.mapView', map-marker='$ctrl.title.coordinates', map-object-location='$ctrl.title.objectLocation')

@@ -1,0 +1,13 @@
+img.img-responsive.thumbnail(
+  ng-src='{{$ctrl.file.thumbnail}}',
+  style='max-height: 100%; cursor: zoom-in',
+  ng-click='$ctrl.dialogShown = true'
+  ng-animate-swap='$ctrl.file.thumbnail')
+
+.modal(style='display: block', ng-if='$ctrl.dialogShown')
+  .modal-dialog(style='width: 90%')
+    .modal-content
+      .modal-body
+        img.img-responsive(ng-src='{{$ctrl.file.thumbnail}}', style='max-height: 100%')
+      .modal-footer
+        button.btn.btn-default(type='button', ng-click='$ctrl.dialogShown = false', translate) Close
