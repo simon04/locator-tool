@@ -61,3 +61,14 @@ span.glyphicon + span::before {
   opacity: 1;
   left: 0;
 }
+
+img.ng-enter {
+  transition: 0.3s linear all;
+  opacity: 0;
+}
+img.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+img.ng-leave {
+  display: none;
+}
