@@ -13,27 +13,29 @@ class ltMap {
   }
 
   static _mapInit(L, map) {
+    const external = '<span class="glyphicon glyphicon-new-window"></span>'
     const attribution = `<a href="https://www.openstreetmap.org/copyright" target="_blank">
       OpenStreetMap</a> contributors`;
     const wm = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
+      name: 'Wikimedia maps',
       maxZoom: 18,
       attribution: 'Wikimedia maps | Map data &copy; ' + attribution
     });
     const osm = L.tileLayer('https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png', {
+      name: 'OSM @wmflabs.org',
       maxZoom: 18,
       attribution
     });
     const osmOrg = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      name: `OSM ${external}`,
       maxZoom: 19,
       attribution
     });
-    const layers = {
-      OSM: osmOrg,
-      'OSM @wmflabs.org': osm,
-      'Wikimedia maps': wm
-    };
-    L.control.layers(layers).addTo(map);
-    (layers[layerFromLocalStorage] || osm).addTo(map);
+    const layersControl = L.control.layers().addTo(map);
+    const layers = [osmOrg, osm, wm];
+    layers.forEach(l => layersControl.addBaseLayer(l, l.options.name));
+    const activeLayer = layers.filter(l => l.options.name === layerFromLocalStorage).shift() || osm;
+    activeLayer.addTo(map);
     new L.Control.GeoSearch({
       provider: new L.GeoSearch.Provider.OpenStreetMap(),
       showMarker: false
