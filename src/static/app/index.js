@@ -1,4 +1,5 @@
 import angular from 'angular';
+import animate from 'angular-animate';
 import localStorage from 'angular-local-storage';
 import uiRouter from 'angular-ui-router';
 import gettext from 'angular-gettext';
@@ -7,7 +8,7 @@ import './style.css';
 import appApi from './api';
 import appComponents from './components';
 
-angular.module('app', [uiRouter, localStorage, gettext, appApi, appComponents]);
+angular.module('app', [animate, uiRouter, localStorage, gettext, appApi, appComponents]);
 
 angular.module('app').config(routes);
 

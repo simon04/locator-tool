@@ -1,4 +1,5 @@
 import 'angular';
+import 'angular-animate';
 import 'angular-local-storage';
 import 'angular-gettext';
 import 'angular-ui-router';
