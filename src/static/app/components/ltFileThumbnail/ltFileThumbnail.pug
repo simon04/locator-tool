@@ -6,8 +6,6 @@ img.img-responsive.thumbnail(
 
 .modal(style='display: block', ng-if='$ctrl.dialogShown')
   .modal-dialog(style='width: 90%')
-    .modal-content
+    .modal-content(ng-click='$ctrl.dialogShown = false', style='cursor: zoom-out')
       .modal-body
-        img.img-responsive(ng-src='{{$ctrl.file.thumbnail}}', style='max-height: 100%')
-      .modal-footer
-        button.btn.btn-default(type='button', ng-click='$ctrl.dialogShown = false', translate) Close
+        img.img-responsive(ng-src='{{$ctrl.fullImageUrl}}', style='max-height: 85%; margin: auto')

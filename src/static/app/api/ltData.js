@@ -24,7 +24,7 @@ export default function data($http, $parse, $sce, $q) {
     const params = {
       prop: 'coordinates|imageinfo',
       titles: titles.join('|'),
-      iiprop: 'url|extmetadata',
+      iiprop: 'dimensions|url|extmetadata',
       iiurlwidth: 1024,
       iiextmetadatafilter: 'ImageDescription'
     };
@@ -36,11 +36,22 @@ export default function data($http, $parse, $sce, $q) {
       const coordsGetter = $parse('{lat: coordinates[0].lat, lng: coordinates[0].lon}');
       return Object.keys(pages).map(pageid => {
         const page = pages[pageid];
+        const imgWidth = page && page.imageinfo && page.imageinfo[0] && page.imageinfo[0].width;
         return {
           pageid: parseInt(pageid),
           file: page.title,
           description: $sce.trustAsHtml(descriptionGetter(page)),
           thumbnail: thumbnailGetter(page),
+          imageUrl(width) {
+            // Mediawiki does not provide an easy way of getting an image in the desired width
+            if (!this.thumbnail.match(/\/thumb\//)) {
+              return this.thumbnail;
+            } else if (width >= imgWidth) {
+              return this.thumbnail.replace(/\/thumb\//, '/').replace(/\/[^/]+$/, '');
+            } else {
+              return this.thumbnail.replace(/\/\d+px([^/]+)$/, `/${width}px$1`);
+            }
+          },
           url: urlGetter(page),
           coordinates: new LatLng('Location', coordsGetter(page)),
           objectLocation: new LatLng('Object location', {})
