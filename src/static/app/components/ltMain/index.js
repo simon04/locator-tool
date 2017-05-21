@@ -25,6 +25,10 @@ class ltMain {
     $scope.$on('coordinatesChanged', (_event, coordinates) => this.coordinatesChanged(coordinates));
   }
 
+  get isLoading() {
+    return this.loading$q && !this.loading$q.$$state.status;
+  }
+
   get titlesDefinedAndSaved() {
     return (this.titles && this.titles.filter(title => title.coordinates.isDefinedAndSaved)) || [];
   }

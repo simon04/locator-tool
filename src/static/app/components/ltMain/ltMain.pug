@@ -1,4 +1,9 @@
-.row.fill
+.row.fill(ng-if='$ctrl.isLoading')
+  .col-sm-12
+    .jumbotron
+      p(translate) Loading file details …
+      lt-spinner
+.row.fill(ng-if='!$ctrl.isLoading')
   .col-md-3.col-lg-2.fill.col-md-h40(style='position:relative')
     .progress
       .progress-bar(role='progressbar', ng-style="{width: $ctrl.titlesDefinedAndSavedPercent + '%'}")
@@ -13,8 +18,6 @@
         span.glyphicon.glyphicon-search
       input.form-control(ng-model='$ctrl.filter', type='text')
     ul.list-group.list-group-files.fill-absolute(style='top: 110px')
-      li(ng-if='$ctrl.loading$q && !$ctrl.loading$q.$$state.status')
-        lt-spinner
       li.list-group-item(ng-repeat='title in $ctrl.titles | filter:$ctrl.filter', ng-show='$ctrl.showGeolocated || !title.coordinates.isDefinedAndSaved', ng-click='$ctrl.title = title', ng-class="{'list-group-item-info': title === $ctrl.title}")
         span.glyphicon.glyphicon-check(ng-show='title.coordinates.isDefinedAndSaved')
         | {{title.file}}
