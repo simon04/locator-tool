@@ -39,3 +39,10 @@ a[href="https://github.com/simon04/locator-tool"] {
 span.glyphicon + span::before {
   content: ' ';
 }
+
+.mediawiki-template::before {
+  content: '{{';
+}
+.mediawiki-template::after {
+  content: '}}';
+}
