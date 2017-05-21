@@ -5,7 +5,7 @@ img.img-responsive.thumbnail(
   ng-animate-swap='$ctrl.file.thumbnail')
 
 .modal(style='display: block', ng-if='$ctrl.dialogShown')
-  .modal-dialog(style='width: 90%')
+  .modal-dialog(style='width: 90%; max-height: 90%; overflow-y: scroll')
     .modal-content(ng-click='$ctrl.dialogShown = false', style='cursor: zoom-out')
       .modal-body
-        img.img-responsive(ng-src='{{$ctrl.fullImageUrl}}', style='max-height: 85%; margin: auto')
+        img.img-responsive(ng-src='{{$ctrl.fullImageUrl}}', style='margin: auto')
