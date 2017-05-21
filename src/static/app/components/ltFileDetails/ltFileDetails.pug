@@ -1,21 +1,21 @@
 h2
-  | {{$ctrl.title.file}}
+  | {{$ctrl.file.file}}
   small
-    a(href='{{$ctrl.title.url}}', target='_blank')
+    a(href='{{$ctrl.file.url}}', target='_blank')
       span.glyphicon.glyphicon-new-window
 
-.well.well-sm(ng-bind-html='$ctrl.title.description')
+.well.well-sm(ng-bind-html='$ctrl.file.description')
 
 .form-group
   label
-    lt-location(type='{{$ctrl.title.coordinates.type}}')
-  lt-location-input(lat-lng='$ctrl.title.coordinates', edit-location='$ctrl.editLocation($ctrl.title, $ctrl.title.coordinates)')
+    lt-location(type='{{$ctrl.file.coordinates.type}}')
+  lt-location-input(lat-lng='$ctrl.file.coordinates', edit-location='$ctrl.editLocation($ctrl.file, $ctrl.file.coordinates)')
   p.help-block(translate) Left click on map to set the location.
 
 .form-group
   label
-    lt-location(type='{{$ctrl.title.objectLocation.type}}')
-  lt-location-input(lat-lng='$ctrl.title.objectLocation', edit-location='$ctrl.editLocation($ctrl.title, $ctrl.title.objectLocation)')
+    lt-location(type='{{$ctrl.file.objectLocation.type}}')
+  lt-location-input(lat-lng='$ctrl.file.objectLocation', edit-location='$ctrl.editLocation($ctrl.file, $ctrl.file.objectLocation)')
   p.help-block(translate) Press shift and click on map to set the object location.
 
 .alert.alert-danger(ng-if='$ctrl.error')

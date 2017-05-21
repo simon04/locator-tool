@@ -5,9 +5,9 @@ class ltFileDetails {
     Object.assign(this, {ltDataAuth});
   }
 
-  editLocation(title, coordinates) {
+  editLocation(file, coordinates) {
     this.error = undefined;
-    return this.ltDataAuth.editLocation(title, coordinates).then(
+    return this.ltDataAuth.editLocation(file, coordinates).then(
       () => {
         coordinates.markAsSaved();
       },
@@ -21,7 +21,7 @@ ltFileDetails.$inject = ['ltDataAuth'];
 
 export default {
   bindings: {
-    title: '<'
+    file: '<'
   },
   controller: ltFileDetails,
   template

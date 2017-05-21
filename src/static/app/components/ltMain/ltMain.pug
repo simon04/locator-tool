@@ -22,7 +22,7 @@
   .col-md-9.col-lg-3.fill.col-md-h40(ng-if='$ctrl.title', style='overflow-y: auto')
     .row
       .col-md-5.col-lg-12
-        lt-file-details(title='$ctrl.title')
+        lt-file-details(file='$ctrl.title')
       .col-md-7.col-lg-12
         img.img-responsive.thumbnail(ng-src='{{$ctrl.title.thumbnail}}', style='max-height: 100%')
 
