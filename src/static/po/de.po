@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-05-14 19:23+0000\n"
+"PO-Revision-Date: 2017-05-23 06:35+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/locator-tool/locator-tool/language/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,82 +12,87 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/components/ltAbout/ltAbout.html:13
+#: ./app/components/ltAbout/ltAbout.pug
 msgid ""
 "<a ui-sref=\"select\">Select files to geolocate</a> by querying a category "
 "or inputting a list of <code>File:</code>s."
 msgstr "<a ui-sref=\"select\">Dateien zum Georeferenzieren auswählen</a> via Kategorie oder <code>Datei:</code>-Liste."
 
-#: app/components/ltAbout/ltAbout.html:33
+#: ./app/components/ltAbout/ltAbout.pug
 msgid "About"
 msgstr "Über"
 
-#: index.html:42
+#: ./app/components/ltNavbar/ltNavbar.pug
 msgid "About locator-tool"
 msgstr "Über locator-tool"
 
-#: app/components/ltMain/ltMain.html:12
+#: ./app/components/ltMain/ltMain.pug
 msgid "Also show geolocated files"
 msgstr "Auch georeferenzierte Dateien anzeigen"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:23
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid ""
+"Camera location via\n"
+"<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
+msgstr "Kameraposition mittels\n <a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Category"
 msgstr "Kategorie"
 
 #. Depth of category tree
-#: app/components/ltFilesSelector/ltFilesSelector.html:28
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgctxt "Category"
 msgid "Depth"
 msgstr "Tiefe"
 
-#: app/components/ltLocationInput/ltLocationInput.html:10
+#: ./app/components/ltLocationInput/ltLocationInput.pug
 msgid "Discard"
 msgstr "Verwerfen"
 
-#: app/components/ltAbout/ltAbout.html:23
-#: app/components/ltAbout/ltAbout.html:25
+#: ./app/components/ltAbout/ltAbout.pug
 msgid "Edits using locator-tool"
 msgstr "Bearbeitungen mit locator-tool"
 
-#: app/components/ltFileDetails/ltFileDetails.html:29
+#: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Failed to save <lt-location></lt-location>!"
 msgstr "<lt-location></lt-location> konnte nicht gespeichert werden!"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:39
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Fetch files for Category"
 msgstr "Dateien der Kategorie laden"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:11
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Fetch files for User"
 msgstr "Dateien des Benutzers laden"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:52
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Files"
 msgstr "Dateien"
 
-#: app/components/ltAbout/ltAbout.html:14
+#: ./app/components/ltAbout/ltAbout.pug
 msgid ""
 "From the list of files provided, select one and click its location on an "
 "interactive map."
 msgstr "Eine Datei in der Dateiliste auswählen und deren Position durch Klick auf die interaktive Karte auswählen."
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:35
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Geolocate Category"
 msgstr "Kategorie georeferenzieren"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:7
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Geolocate User files"
 msgstr "Dateien des Benutzers georeferenzieren"
 
-#: index.html:30
+#: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Geolocate files"
 msgstr "Dateien georeferenzieren"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:56
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Geolocate {{$ctrl.titleList.length}} files"
 msgstr "{{$ctrl.titleList.length}} Dateien georeferenzieren"
 
-#: app/components/ltAbout/ltAbout.html:37
+#: ./app/components/ltAbout/ltAbout.pug
 msgid ""
 "Its source code is available on <a href=\"https://github.com/simon04"
 "/locator-tool\">GitHub</a> and <a "
@@ -95,99 +100,110 @@ msgid ""
 msgstr "Der Quellcode ist auf <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> verfügbar steht unter der Lizenz <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>."
 
 #. Your language in your language (e.g. 'English', 'Deutsch')
-#: app/components/ltLanguageSelector/index.js:37
+#: ./app/components/ltLanguageSelector/ltLanguageSelector.pug
 msgid "LANGUAGE"
 msgstr "Deutsch"
 
-#: app/components/ltFileDetails/ltFileDetails.html:15
+#: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Left click on map to set the location."
 msgstr "Linksklick auf Karte setzt die Position."
 
-#: app/components/ltUserInfo/ltUserInfo.html:1
+#: ./app/components/ltMain/ltMain.pug
+msgid "Loading file details …"
+msgstr "Dateiinformationen werden geladen …"
+
+#: ./app/components/ltUserInfo/ltUserInfo.pug
 msgid "Log in"
 msgstr "Anmelden"
 
-#: app/components/ltAbout/ltAbout.html:12
+#: ./app/components/ltAbout/ltAbout.pug
 msgid "Log in using the button on the upper right corner"
 msgstr "Anmelden mittels Button im rechten oberen Eck"
 
-#: app/components/ltUserInfo/ltUserInfo.html:3
+#: ./app/components/ltUserInfo/ltUserInfo.pug
 msgid "Log out"
 msgstr "Abmelden"
 
-#: app/components/ltUserInfo/ltUserInfo.html:2
+#: ./app/components/ltUserInfo/ltUserInfo.pug
 msgid "Logged in as {{$ctrl.user}}"
 msgstr "Angemeldet als {{$ctrl.user}}"
 
-#: index.html:37
+#: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Map"
 msgstr "Karte"
 
-#: app/components/ltFileDetails/ltFileDetails.html:24
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid ""
+"Object location via\n"
+"<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
+msgstr "Objektposition mittels\n <a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
+
+#: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Press shift and click on map to set the object location."
 msgstr "Shift-Taste und Klick auf Karte setzt die Objektposition."
 
-#: app/components/ltAbout/ltAbout.html:15
+#: ./app/components/ltAbout/ltAbout.pug
 msgid "Repeat …"
 msgstr "Wiederhole …"
 
-#: app/components/ltLocationInput/ltLocationInput.html:14
+#: ./app/components/ltLocationInput/ltLocationInput.pug
 msgid "Save"
 msgstr "Speichern"
 
-#: index.html:23
+#: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Select files to geolocate"
 msgstr "Dateien zum Georeferenzieren auswählen"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:43
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Show Category on map"
 msgstr "Kategorie auf Karte anzeigen"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:15
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Show User files on map"
 msgstr "Dateien des Benutzers auf Karte anzeigen"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:60
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Show {{$ctrl.titleList.length}} files on map"
 msgstr "{{$ctrl.titleList.length}} Dateien auf Karte anzeigen"
 
-#: app/components/ltAbout/ltAbout.html:34
+#: ./app/components/ltAbout/ltAbout.pug
 msgid ""
 "This tool has been created by <a "
 "href=\"https://github.com/simon04/\">simon04</a>."
 msgstr "Dieses Werkzeug wurde von <a href=\"https://github.com/simon04/\">simon04</a> entwickelt."
 
-#: app/components/ltAbout/ltAbout.html:6
+#: ./app/components/ltAbout/ltAbout.pug
 msgid ""
-"This tool helps to add <lt-location></lt-location> information to images on "
-"<a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
-msgstr "Dieses Werkzeug hilft <lt-location></lt-location> zu bestehenden Dateien auf <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a> hinzuzufügen."
+"This tool helps to add <code class=\"mediawiki-template\">Coordinate</code> "
+"information to images on <a "
+"href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgstr "Dieses Werkzeug hilft <code class=\"mediawiki-template\">Coordinate</code> zu bestehenden Dateien auf <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a> hinzuzufügen."
 
-#: app/components/ltAbout/ltAbout.html:28
+#: ./app/components/ltAbout/ltAbout.pug
 msgid "Translate"
 msgstr "Übersetzen"
 
-#: app/components/ltAbout/ltAbout.html:30
+#: ./app/components/ltAbout/ltAbout.pug
 msgid "Translate locator-tool on Transifex"
 msgstr "Übersetze locator-tool auf Transifex"
 
-#: app/components/ltAbout/ltAbout.html:18
+#: ./app/components/ltAbout/ltAbout.pug
 msgid "Tutorial"
 msgstr "Einführung"
 
-#: app/components/ltAbout/ltAbout.html:10
+#: ./app/components/ltAbout/ltAbout.pug
 msgid "Usage"
 msgstr "Verwendung"
 
-#: app/components/ltFilesSelector/ltFilesSelector.html:2
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "User"
 msgstr "Benutzer"
 
-#: app/components/ltAbout/ltAbout.html:3 index.html:15
+#: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
 msgid "locator-tool"
 msgstr "locator-tool"
 
-#: app/components/ltAbout/ltAbout.html:19
+#: ./app/components/ltAbout/ltAbout.pug
 msgid ""
 "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
 "tool\">Commons:Locator-tool</a>"
