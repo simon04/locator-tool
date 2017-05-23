@@ -1,2 +1,5 @@
 select.form-control(ng-model='$ctrl.language')
   option(ng-repeat='(key, label) in $ctrl.languages', value='{{key}}') {{label}}
+
+//- annotation for i18n
+.hidden(translate, translate-comment="Your language in your language (e.g. 'English', 'Deutsch')") LANGUAGE

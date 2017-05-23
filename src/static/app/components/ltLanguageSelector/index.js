@@ -32,9 +32,7 @@ class ltLanguageSelector {
   }
 
   getDisplayString(language) {
-    /* eslint spaced-comment: 0 */
-    /// Your language in your language (e.g. 'English', 'Deutsch')
-    const key = this.gettext('LANGUAGE');
+    const key = 'LANGUAGE';
     return this.gettextCatalog.getStringFormFor(language, key, 1) || language;
   }
 }
