@@ -1,5 +1,6 @@
 import template from './ltLanguageSelector.pug';
 
+import 'angular-gettext-loader!../../../po/bn.po';
 import 'angular-gettext-loader!../../../po/de.po';
 import 'angular-gettext-loader!../../../po/fr.po';
 
@@ -7,6 +8,7 @@ class ltLanguageSelector {
   constructor($window, localStorageService, gettext, gettextCatalog) {
     Object.assign(this, {$window, localStorageService, gettext, gettextCatalog});
     this.languages = {
+      bn: this.getDisplayString('bn'),
       de: this.getDisplayString('de'),
       en: 'English',
       fr: this.getDisplayString('fr')

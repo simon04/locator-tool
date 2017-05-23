@@ -1,0 +1,210 @@
+# 
+# Translators:
+# Bodhisattwa Mandal <bodhisattwa.rgkmc@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: locator-tool\n"
+"PO-Revision-Date: 2017-05-23 11:26+0000\n"
+"Last-Translator: Bodhisattwa Mandal <bodhisattwa.rgkmc@gmail.com>\n"
+"Language-Team: Bengali (http://www.transifex.com/locator-tool/locator-tool/language/bn/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"<a ui-sref=\"select\">Select files to geolocate</a> by querying a category "
+"or inputting a list of <code>File:</code>s."
+msgstr "একটি বিষয়শ্রেণী অনুসন্ধান করে বা <code>চিত্র:</code>সমূহের তালিকা থেকে <a ui-sref=\"select\">ফাইলসমূহ নির্বাচন করে ভূ-অবস্থান নির্ণয় করুন</a>"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "About"
+msgstr "সম্পর্কে"
+
+#: ./app/components/ltNavbar/ltNavbar.pug
+msgid "About locator-tool"
+msgstr "লোকেটর-টুল সম্বন্ধে"
+
+#: ./app/components/ltMain/ltMain.pug
+msgid "Also show geolocated files"
+msgstr "ভূ-অবস্থানযুক্ত ফাইলসমূহও দেখাবে"
+
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid ""
+"Camera location via\n"
+"<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
+msgstr "<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>\nমারফত ক্যামেরা অবস্থান "
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Category"
+msgstr "বিষয়শ্রেণী"
+
+#. Depth of category tree
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgctxt "Category"
+msgid "Depth"
+msgstr "গভীরতা"
+
+#: ./app/components/ltLocationInput/ltLocationInput.pug
+msgid "Discard"
+msgstr "বাতিল করুন"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Edits using locator-tool"
+msgstr "লোকেটর-টুল ব্যবহার করে সম্পাদনাসমূহ"
+
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid "Failed to save <lt-location></lt-location>!"
+msgstr "<lt-location></lt-location> সংরক্ষণ করতে ব্যর্থ হয়েছে!"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Fetch files for Category"
+msgstr "বিষয়শ্রেণীর জন্য ফাইল আনুন"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Fetch files for User"
+msgstr "ব্যবহারকারীর জন্য ফাইল আনুন"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Files"
+msgstr "ফাইলসমূহ"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"From the list of files provided, select one and click its location on an "
+"interactive map."
+msgstr "ফাইলসমূহের প্রদত্ত তালিকা থেকে, একটি নির্বাচন করুন ও একটি আদানপ্রদানমূলক মানচিত্রে তার অবস্থান ক্লিক করুন।"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Geolocate Category"
+msgstr "বিষয়শ্রেণীর ভূ-অবস্থান নির্ণয়"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Geolocate User files"
+msgstr "ব্যবহারকারী ফাইলসমূহের ভূ-অবস্থান নির্ণয়"
+
+#: ./app/components/ltNavbar/ltNavbar.pug
+msgid "Geolocate files"
+msgstr "ফাইলসমূহের ভূ-অবস্থান নির্ণয়"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Geolocate {{$ctrl.titleList.length}} files"
+msgstr "{{$ctrl.titleList.length}} ফাইলসমূহের ভূ-অবস্থান নির্ণয়"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"Its source code is available on <a href=\"https://github.com/simon04"
+"/locator-tool\">GitHub</a> and <a "
+"href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
+msgstr "এর উৎস কোড <a href=\"https://github.com/simon04/locator-tool\">গিটহাবে</a> <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>লাইসেন্সে উপলব্ধ।"
+
+#. Your language in your language (e.g. 'English', 'Deutsch')
+#: ./app/components/ltLanguageSelector/ltLanguageSelector.pug
+msgid "LANGUAGE"
+msgstr "ভাষা"
+
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid "Left click on map to set the location."
+msgstr "মানচিত্রে বাম ক্লিক করে অবস্থান সূচক করুন।"
+
+#: ./app/components/ltMain/ltMain.pug
+msgid "Loading file details …"
+msgstr "ফাইলের বিস্তারিত লোড হচ্ছে ..."
+
+#: ./app/components/ltUserInfo/ltUserInfo.pug
+msgid "Log in"
+msgstr "প্রবেশ করুন"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Log in using the button on the upper right corner"
+msgstr "ওপরের ডানদিকের কোণে বোতাম ব্যবহার করে প্রবেশ করুন"
+
+#: ./app/components/ltUserInfo/ltUserInfo.pug
+msgid "Log out"
+msgstr "প্রস্থান করুন"
+
+#: ./app/components/ltUserInfo/ltUserInfo.pug
+msgid "Logged in as {{$ctrl.user}}"
+msgstr "{{$ctrl.user}} হিসেবে প্রবেশ করা হয়েছে"
+
+#: ./app/components/ltNavbar/ltNavbar.pug
+msgid "Map"
+msgstr "মানচিত্র"
+
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid ""
+"Object location via\n"
+"<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
+msgstr "<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>\nমারফত বস্তুর অবস্থান"
+
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid "Press shift and click on map to set the object location."
+msgstr "শিফট টিপে ও মানচিত্রে ক্লিক করে বস্তুর অবস্থান সূচক করুন।"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Repeat …"
+msgstr "পুনরায়..."
+
+#: ./app/components/ltLocationInput/ltLocationInput.pug
+msgid "Save"
+msgstr "সংরক্ষণ করুন"
+
+#: ./app/components/ltNavbar/ltNavbar.pug
+msgid "Select files to geolocate"
+msgstr "ভূ-অবস্থান নির্ণয় করতে ফাইলসমূহ নির্বাচন করুন"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Show Category on map"
+msgstr "মানচিত্রে বিষয়শ্রেণী দেখান"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Show User files on map"
+msgstr "মানচিত্রে ব্যবহারকারী ফাইলসমূহ দেখান"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Show {{$ctrl.titleList.length}} files on map"
+msgstr "মানচিত্রে {{$ctrl.titleList.length}} ফাইলসমূহ দেখান"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"This tool has been created by <a "
+"href=\"https://github.com/simon04/\">simon04</a>."
+msgstr "এই সরঞ্জাম তৈরি করেছেন <a href=\"https://github.com/simon04/\">simon04</a>।"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"This tool helps to add <code class=\"mediawiki-template\">Coordinate</code> "
+"information to images on <a "
+"href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgstr "এই সরঞ্জাম <a href=\"https://commons.wikimedia.org/\">উইকিমিডিয়া কমন্সে</a> চিত্রগুলিতে <code class=\"mediawiki-template\">Coordinate</code> তথ্য যোগ করতে সহায়তা করে।"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Translate"
+msgstr "অনুবাদ করুন"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Translate locator-tool on Transifex"
+msgstr "ট্রান্সিফেক্সে লোকেটর-টুল অনুবাদ করুন"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Tutorial"
+msgstr "নির্দেশিকা"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Usage"
+msgstr "ব্যবহার"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "User"
+msgstr "ব্যবহারকারী"
+
+#: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
+msgid "locator-tool"
+msgstr "লোকেটর-টুল"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
+"tool\">Commons:Locator-tool</a>"
+msgstr "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-tool\"> কমন্স:লোকেটর-টুল</a>"
