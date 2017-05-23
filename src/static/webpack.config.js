@@ -32,7 +32,7 @@ module.exports = {
       },
       {
         test: /\.pug$/,
-        loader: './pug-loader'
+        loader: ['html-loader', './pug-loader']
       },
       {
         test: /\.css$/,
@@ -57,6 +57,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './index.pug',
+      favicon: './app/locator-tool.svg',
       inject: 'body'
     }),
     new webpack.optimize.CommonsChunkPlugin({

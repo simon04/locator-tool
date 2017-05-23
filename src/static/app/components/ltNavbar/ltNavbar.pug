@@ -1,8 +1,9 @@
 nav.navbar.navbar-default
   .container-fluid
     .navbar-header
+      a.navbar-brand(ui-sref='about', style='padding-top: 10px')
+        img(src='../../locator-tool.svg', style='height: 30px')
       a.navbar-brand(ui-sref='about')
-        span.glyphicon.glyphicon-map-marker
         span(translate) locator-tool
     .navbar-collapse
       ul.nav.navbar-nav
