@@ -4,30 +4,39 @@
       p(translate) Loading file details …
       lt-spinner
 .row.fill(ng-if='!$ctrl.isLoading')
-  .col-md-3.col-lg-2.fill.col-md-h40(style='position:relative')
+  .col-lg-3.col-xl-2.fill.col-lg-h40(style='position:relative')
     .progress
       .progress-bar(role='progressbar', ng-style="{width: $ctrl.titlesDefinedAndSavedPercent + '%'}")
         | {{$ctrl.titlesDefinedAndSaved.length}} / {{$ctrl.titles.length}}
-    .form-group
+    .form-group.my-2
       .checkbox
         label
           input(ng-model='$ctrl.showGeolocated', type='checkbox')
+          |
+          |
           span(translate) Also show geolocated files
-    .input-group
+    .input-group.my-2
       span.input-group-addon
-        span.glyphicon.glyphicon-search
+        svg.octicon
+          use(xlink:href='#search')
       input.form-control(ng-model='$ctrl.filter', type='text')
-    ul.list-group.list-group-files.fill-absolute(style='top: 135px')
-      li.list-group-item(ng-repeat='title in $ctrl.titles | filter:$ctrl.filter', ng-show='$ctrl.showGeolocated || !title.coordinates.isDefinedAndSaved', ng-click='$ctrl.title = title', ng-class="{'list-group-item-info': title === $ctrl.title}")
-        span.glyphicon.glyphicon-check(ng-show='title.coordinates.isDefinedAndSaved')
-        | {{title.file}}
+    .fill-absolute(style='top: 135px')
+      ul.list-group
+        li.list-group-item.py-1.px-2(
+          ng-repeat='title in $ctrl.titles | filter:$ctrl.filter',
+          ng-show='$ctrl.showGeolocated || !title.coordinates.isDefinedAndSaved',
+          ng-click='$ctrl.title = title',
+          ng-class="{'list-group-item-info': title === $ctrl.title}")
+          svg.octicon(ng-show='title.coordinates.isDefinedAndSaved')
+            use(xlink:href='#check')
+          | {{title.file}}
 
-  .col-md-9.col-lg-3.fill.col-md-h40(ng-if='$ctrl.title', style='overflow-y: auto')
+  .col-lg-9.col-xl-3.fill.col-lg-h40(ng-if='$ctrl.title', style='overflow-y: auto')
     .row
-      .col-md-5.col-lg-12
+      .col-lg-5.col-xl-12
         lt-file-details(file='$ctrl.title')
-      .col-md-7.col-lg-12
+      .col-lg-7.col-xl-12
         lt-file-thumbnail(file='$ctrl.title')
 
-  .col-md-12.col-lg-7.fill.col-md-h60(ng-if='$ctrl.title')
+  .col-lg-12.col-xl-7.fill.col-lg-h60(ng-if='$ctrl.title')
     lt-map.fill(map-view='$ctrl.mapView', map-marker='$ctrl.title.coordinates', map-object-location='$ctrl.title.objectLocation')

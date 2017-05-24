@@ -4,4 +4,5 @@
   ll-marker(ll-lat-lng='$ctrl.mapObjectLocation', ll-marker='{draggable: true}', ll-moveend='$ctrl.markerMoveend($event, $ctrl.mapObjectLocation)', ng-if='$ctrl.mapObjectLocation.lat')
     ll-div-icon
       div(title='Object location')
-        span.glyphicon.glyphicon-asterisk(style='color: red')
+        svg.octicon(style='color: red')
+          use(xlink:href='#star')

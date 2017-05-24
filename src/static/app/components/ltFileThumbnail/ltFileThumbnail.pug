@@ -1,11 +1,14 @@
-img.img-responsive.thumbnail(
+img.img-fluid.img-thumbnail(
   ng-src='{{$ctrl.file.thumbnail}}',
   style='max-height: 100%; cursor: zoom-in',
   ng-click='$ctrl.dialogShown = true'
   ng-animate-swap='$ctrl.file.thumbnail')
 
-.modal(style='display: block', ng-if='$ctrl.dialogShown')
-  .modal-dialog(style='width: 90%; max-height: 90%; overflow-y: scroll')
-    .modal-content(ng-click='$ctrl.dialogShown = false', style='cursor: zoom-out')
+.modal(
+  style='display: block; cursor: zoom-out; background: rgba(0, 0, 0, 0.5)',
+  ng-if='$ctrl.dialogShown',
+  ng-click='$ctrl.dialogShown = false')
+  .modal-dialog(style='max-width: 90%; max-height: 90%; overflow-y: scroll')
+    .modal-content
       .modal-body
-        img.img-responsive(ng-src='{{$ctrl.fullImageUrl}}', style='margin: auto')
+        img.img-fluid(ng-src='{{$ctrl.fullImageUrl}}', style='margin: auto')

@@ -5,7 +5,6 @@ html, body {
   height: 100%;
 }
 .fill {
-  display: block;
   height: 100%;
 }
 .fill-absolute {
@@ -17,10 +16,10 @@ html, body {
   overflow-y: auto;
 }
 @media (min-width: 768px) and (max-width: 1199px) {
-  .col-md-h40 {
+  .col-lg-h40 {
     height: 40%;
   }
-  .col-md-h60 {
+  .col-lg-h60 {
     height: 60%;
   }
 }
@@ -31,12 +30,12 @@ a[href="https://github.com/simon04/locator-tool"] {
   padding-left: 20px;
 }
 
-.list-group-files .list-group-item {
-  padding-top: 3px;
-  padding-bottom: 3px;
+.octicon {
+  width: 1em;
+  height: 1em;
 }
 
-span.glyphicon + span::before {
+.octicon + span::before {
   content: ' ';
 }
 
@@ -71,4 +70,8 @@ img.ng-enter.ng-enter-active {
 }
 img.ng-leave {
   display: none;
+}
+
+label {
+  font-weight: bold;
 }

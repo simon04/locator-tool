@@ -1,30 +1,38 @@
-h2
-  | {{$ctrl.file.file}}
-  small
-    a(href='{{$ctrl.file.url}}', target='_blank')
-      span.glyphicon.glyphicon-new-window
+.card
+  h3.card-header.p-2
+    | {{$ctrl.file.file}}
+    small
+      a(href='{{$ctrl.file.url}}', target='_blank')
+        svg.octicon
+          use(xlink:href='#link-external')
+  .card-block.p-2
+    .card-content(ng-bind-html='$ctrl.file.description')
 
-.well.well-sm(ng-bind-html='$ctrl.file.description')
-
-.form-group
-  label(translate)
-    | Camera location via
-    |
-    a(href='https://commons.wikimedia.org/wiki/Template:Location', target='_blank')
-      code.mediawiki-template Location
-  lt-location-input(lat-lng='$ctrl.file.coordinates', edit-location='$ctrl.editLocation($ctrl.file, $ctrl.file.coordinates)')
-  p.help-block(translate) Left click on map to set the location.
-
-.form-group
-  label(translate)
-    | Object location via
-    |
-    a(href='https://commons.wikimedia.org/wiki/Template:Object_location', target='_blank')
-      code.mediawiki-template Object location
-  lt-location-input(lat-lng='$ctrl.file.objectLocation', edit-location='$ctrl.editLocation($ctrl.file, $ctrl.file.objectLocation)')
-  p.help-block(translate) Press shift and click on map to set the object location.
+.card.mt-2
+  .card-block.p-2
+    .card-content
+      .form-group
+        label(translate)
+          | Camera location via
+          |
+          a(href='https://commons.wikimedia.org/wiki/Template:Location', target='_blank')
+            code.mediawiki-template Location
+        lt-location-input(lat-lng='$ctrl.file.coordinates', edit-location='$ctrl.editLocation($ctrl.file, $ctrl.file.coordinates)')
+        p.help-block(translate) Left click on map to set the location.
+.card.mt-2
+  .card-block.p-2
+    .card-content
+      .form-group
+        label(translate)
+          | Object location via
+          |
+          a(href='https://commons.wikimedia.org/wiki/Template:Object_location', target='_blank')
+            code.mediawiki-template Object location
+        lt-location-input(lat-lng='$ctrl.file.objectLocation', edit-location='$ctrl.editLocation($ctrl.file, $ctrl.file.objectLocation)')
+        p.help-block(translate) Press shift and click on map to set the object location.
 
 .alert.alert-danger(ng-if='$ctrl.error')
-  span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
+  svg.octicon
+    use(xlink:href='#alert')
   span(translate)
-    | Failed to save <lt-location></lt-location>!
+    | Failed to save: {{$ctrl.error.statusText}}
