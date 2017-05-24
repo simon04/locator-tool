@@ -8,12 +8,14 @@
     .progress
       .progress-bar(role='progressbar', ng-style="{width: $ctrl.titlesDefinedAndSavedPercent + '%'}")
         | {{$ctrl.titlesDefinedAndSaved.length}} / {{$ctrl.titles.length}}
-    .form-group
+    .form-group.my-2
       .checkbox
         label
           input(ng-model='$ctrl.showGeolocated', type='checkbox')
+          |
+          |
           span(translate) Also show geolocated files
-    .input-group
+    .input-group.my-2
       span.input-group-addon
         span.glyphicon.glyphicon-search
       input.form-control(ng-model='$ctrl.filter', type='text')
