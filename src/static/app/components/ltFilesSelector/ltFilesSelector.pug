@@ -2,17 +2,17 @@ form(name='formUser', ng-submit='$ctrl.nextForUser()')
   .form-group
     label(for='inputUser', translate) User
     input#inputUser.form-control(ng-model='$ctrl.user', placeholder='User:…')
-  input.invisible(type='submit', ng-disabled='!$ctrl.user')
   .form-group.btn-group
     button.btn.btn-primary(ng-click='$ctrl.nextForUser()', ng-disabled='!$ctrl.user')
       span.glyphicon.glyphicon-map-marker
       span(translate) Geolocate User files
-    button.btn.btn-default(ng-click='$ctrl.getFilesForUser()', ng-disabled='!$ctrl.user')
+    button.btn.btn-secondary(ng-click='$ctrl.getFilesForUser()', ng-disabled='!$ctrl.user')
       span.glyphicon.glyphicon-circle-arrow-down
       span(translate) Fetch files for User
-    button.btn.btn-default(ng-click="$ctrl.nextForUser('map')", ng-disabled='!$ctrl.user')
+    button.btn.btn-secondary(ng-click="$ctrl.nextForUser('map')", ng-disabled='!$ctrl.user')
       span.glyphicon.glyphicon-globe
       span(translate) Show User files on map
+    input.invisible(type='submit', ng-disabled='!$ctrl.user')
   lt-spinner(ng-if='$ctrl.getFilesForUser$q && !$ctrl.getFilesForUser$q.$$state.status')
 
 form(name='formCategory', ng-submit='$ctrl.nextForCategory()')
@@ -23,17 +23,17 @@ form(name='formCategory', ng-submit='$ctrl.nextForCategory()')
     .col-md-2
       label(for='inputCategoryDepth', translate-comment='Depth of category tree', translate-context='Category', translate) Depth
       input#inputCategoryDepth.form-control(type='number', ng-model='$ctrl.categoryDepth')
-  input.invisible(type='submit', ng-disabled='!$ctrl.category')
   .form-group.btn-group
     button.btn.btn-primary(ng-click='$ctrl.nextForCategory()', ng-disabled='!$ctrl.category')
       span.glyphicon.glyphicon-map-marker
       span(translate) Geolocate Category
-    button.btn.btn-default(ng-click='$ctrl.getFilesForCategory()', ng-disabled='!$ctrl.category')
+    button.btn.btn-secondary(ng-click='$ctrl.getFilesForCategory()', ng-disabled='!$ctrl.category')
       span.glyphicon.glyphicon-circle-arrow-down
       span(translate) Fetch files for Category
-    button.btn.btn-default(ng-click="$ctrl.nextForCategory('map')", ng-disabled='!$ctrl.category')
+    button.btn.btn-secondary(ng-click="$ctrl.nextForCategory('map')", ng-disabled='!$ctrl.category')
       span.glyphicon.glyphicon-globe
       span(translate) Show Category on map
+    input.invisible(type='submit', ng-disabled='!$ctrl.category')
   lt-spinner(ng-if='$ctrl.getFilesForCategory$q && !$ctrl.getFilesForCategory$q.$$state.status')
   datalist#datalistCategory
     option(ng-repeat='i in $ctrl.categorySuggestions', ng-value='i')
@@ -46,6 +46,6 @@ form(name='formTitles')
     button.btn.btn-primary(ng-disabled='!$ctrl.titleList.length', ng-click='$ctrl.next()')
       span.glyphicon.glyphicon-map-marker
       span(translate) Geolocate {{$ctrl.titleList.length}} files
-    button.btn.btn-default(ng-disabled='!$ctrl.titleList.length', ng-click="$ctrl.next('map')")
+    button.btn.btn-secondary(ng-disabled='!$ctrl.titleList.length', ng-click="$ctrl.next('map')")
       span.glyphicon.glyphicon-map-marker
       span(translate) Show {{$ctrl.titleList.length}} files on map
