@@ -5,7 +5,6 @@ html, body {
   height: 100%;
 }
 .fill {
-  display: block;
   height: 100%;
 }
 .fill-absolute {
@@ -17,10 +16,10 @@ html, body {
   overflow-y: auto;
 }
 @media (min-width: 768px) and (max-width: 1199px) {
-  .col-md-h40 {
+  .col-lg-h40 {
     height: 40%;
   }
-  .col-md-h60 {
+  .col-lg-h60 {
     height: 60%;
   }
 }

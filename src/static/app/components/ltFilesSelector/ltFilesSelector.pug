@@ -17,10 +17,10 @@ form(name='formUser', ng-submit='$ctrl.nextForUser()')
 
 form(name='formCategory', ng-submit='$ctrl.nextForCategory()')
   .form-group.row
-    .col-md-10
+    .col-lg-10
       label(for='inputCategory', translate) Category
       input#inputCategory.form-control(list='datalistCategory', ng-model='$ctrl.category', ng-model-options="{updateOn: 'default blur', debounce: {default: 500, change: 0, blur: 0}}", ng-change='$ctrl.getCategoriesForPrefix()', placeholder='Category:…')
-    .col-md-2
+    .col-lg-2
       label(for='inputCategoryDepth', translate-comment='Depth of category tree', translate-context='Category', translate) Depth
       input#inputCategoryDepth.form-control(type='number', ng-model='$ctrl.categoryDepth')
   .form-group.btn-group
