@@ -31,8 +31,8 @@
         lt-location-input(lat-lng='$ctrl.file.objectLocation', edit-location='$ctrl.editLocation($ctrl.file, $ctrl.file.objectLocation)')
         p.help-block(translate) Press shift and click on map to set the object location.
 
-      .alert.alert-danger(ng-if='$ctrl.error')
-        svg.octicon
-          use(xlink:href='#alert')
-        span(translate)
-          | Failed to save <lt-location></lt-location>!
+.alert.alert-danger(ng-if='$ctrl.error')
+  svg.octicon
+    use(xlink:href='#alert')
+  span(translate)
+    | Failed to save: {{$ctrl.error.statusText}}
