@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-05-23 11:26+0000\n"
+"PO-Revision-Date: 2017-05-23 21:31+0000\n"
 "Last-Translator: Bodhisattwa Mandal <bodhisattwa.rgkmc@gmail.com>\n"
 "Language-Team: Bengali (http://www.transifex.com/locator-tool/locator-tool/language/bn/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,7 +102,7 @@ msgstr "এর উৎস কোড <a href=\"https://github.com/simon04/locator-
 #. Your language in your language (e.g. 'English', 'Deutsch')
 #: ./app/components/ltLanguageSelector/ltLanguageSelector.pug
 msgid "LANGUAGE"
-msgstr "ভাষা"
+msgstr "বাংলা"
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Left click on map to set the location."

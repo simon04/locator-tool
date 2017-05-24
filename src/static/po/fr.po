@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-05-23 06:33+0000\n"
-"Last-Translator: simon04 <simon.legner@gmail.com>\n"
+"PO-Revision-Date: 2017-05-23 21:28+0000\n"
+"Last-Translator: Pierre Choffet <peuc@wanadoo.fr>\n"
 "Language-Team: French (http://www.transifex.com/locator-tool/locator-tool/language/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,7 +35,7 @@ msgstr "Afficher aussi les fichiers géolocalisés"
 msgid ""
 "Camera location via\n"
 "<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
-msgstr ""
+msgstr "Emplacement de l'appareil photo, via <a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Category"
@@ -61,11 +61,11 @@ msgstr "Impossible de sauvegarder <lt-location></lt-location> !"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Fetch files for Category"
-msgstr "Récupérer par catégorie"
+msgstr "Lister les fichiers de la catégorie"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Fetch files for User"
-msgstr "Récupérer par utilisateur"
+msgstr "Lister les fichiers de l'utilisateur"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Files"
@@ -79,11 +79,11 @@ msgstr "Sélectionnez un fichier dans la liste, et cliquez sur son emplacement s
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Geolocate Category"
-msgstr ""
+msgstr "Géolocaliser la catégorie"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Geolocate User files"
-msgstr ""
+msgstr "Géolocaliser les fichiers de l'utilisateur"
 
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Geolocate files"
@@ -111,7 +111,7 @@ msgstr "Clic-gauche sur la carte pour définir l'emplacement"
 
 #: ./app/components/ltMain/ltMain.pug
 msgid "Loading file details …"
-msgstr ""
+msgstr "Chargement des informations des fichiers…"
 
 #: ./app/components/ltUserInfo/ltUserInfo.pug
 msgid "Log in"
@@ -131,13 +131,13 @@ msgstr "Identifié en tant que {{$ctrl.user}}"
 
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Map"
-msgstr ""
+msgstr "Carte"
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid ""
 "Object location via\n"
 "<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
-msgstr ""
+msgstr "Emplacement de l'objet représenté, via <a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Press shift and click on map to set the object location."
@@ -153,19 +153,19 @@ msgstr "Enregistrer"
 
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Select files to geolocate"
-msgstr "Sélection des fichiers à géolocaliser"
+msgstr "Sélectionner les fichiers à géolocaliser"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Show Category on map"
-msgstr ""
+msgstr "Voir la catégorie sur une carte"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Show User files on map"
-msgstr ""
+msgstr "Voir les fichiers de l'utilisateur sur une carte"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Show {{$ctrl.titleList.length}} files on map"
-msgstr ""
+msgstr "Voir les {{$ctrl.titleList.length}} fichiers sur une carte"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""
@@ -178,7 +178,7 @@ msgid ""
 "This tool helps to add <code class=\"mediawiki-template\">Coordinate</code> "
 "information to images on <a "
 "href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
-msgstr ""
+msgstr "Cet outil aide à remplir les templates <code class=\"mediawiki-template\">Location</code> et <code class=\"mediawiki-template\">Object Location</code>  » des images présentes sur <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid "Translate"
