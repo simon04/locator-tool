@@ -30,7 +30,7 @@
     "angular-ll-leaflet": "0.3.1",
     "angular-local-storage": "^0.5.2",
     "angular-ui-router": "^1.0.3",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.4.1",
     "leaflet": "^1.0.3",
     "leaflet-geosearch": "1.0.0",
