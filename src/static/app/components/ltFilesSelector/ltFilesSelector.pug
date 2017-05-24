@@ -2,7 +2,7 @@ form(name='formUser', ng-submit='$ctrl.nextForUser()')
   .form-group
     label(for='inputUser', translate) User
     input#inputUser.form-control(ng-model='$ctrl.user', placeholder='User:…')
-  input.hidden(type='submit', ng-disabled='!$ctrl.user')
+  input.invisible(type='submit', ng-disabled='!$ctrl.user')
   .form-group.btn-group
     button.btn.btn-primary(ng-click='$ctrl.nextForUser()', ng-disabled='!$ctrl.user')
       span.glyphicon.glyphicon-map-marker
@@ -23,7 +23,7 @@ form(name='formCategory', ng-submit='$ctrl.nextForCategory()')
     .col-md-2
       label(for='inputCategoryDepth', translate-comment='Depth of category tree', translate-context='Category', translate) Depth
       input#inputCategoryDepth.form-control(type='number', ng-model='$ctrl.categoryDepth')
-  input.hidden(type='submit', ng-disabled='!$ctrl.category')
+  input.invisible(type='submit', ng-disabled='!$ctrl.category')
   .form-group.btn-group
     button.btn.btn-primary(ng-click='$ctrl.nextForCategory()', ng-disabled='!$ctrl.category')
       span.glyphicon.glyphicon-map-marker

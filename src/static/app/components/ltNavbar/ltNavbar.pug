@@ -1,26 +1,25 @@
-nav.navbar.navbar-default
-  .container-fluid
-    .navbar-header
-      a.navbar-brand(ui-sref='about', style='padding-top: 10px')
-        img(src='../../locator-tool.svg', style='height: 30px')
-      a.navbar-brand(ui-sref='about')
-        span(translate) locator-tool
-    .navbar-collapse
-      ul.nav.navbar-nav
-        li(ui-sref-active='active')
-          a(ui-sref='select')
-            span.glyphicon.glyphicon-check
-            span(translate) Select files to geolocate
-        li(ui-sref-active='active')
-          a(ng-show='$ctrl.activateLinks', ui-sref='geolocate($ctrl.params)')
-            span.glyphicon.glyphicon-map-marker
-            span(translate) Geolocate files
-        li(ui-sref-active='active')
-          a(ng-show='$ctrl.activateLinks', ui-sref='map($ctrl.params)')
-            span.glyphicon.glyphicon-globe
-            span(translate) Map
-        li(ui-sref-active='active')
-          a(ui-sref='about')
-            span(translate) About locator-tool
-      lt-user-info.navbar-right
-      lt-language-selector.navbar-form.navbar-right
+nav.navbar.navbar-light.bg-faded.navbar-toggleable-md(style='margin-bottom: 17px')
+  .navbar-header
+    a.navbar-brand(ui-sref='about')
+      img(src='../../locator-tool.svg', style='height: 30px')
+    a.navbar-brand(ui-sref='about')
+      span(translate) locator-tool
+  ul.navbar-nav
+    li.nav-item(ui-sref-active='active')
+      a.nav-link(ui-sref='select')
+        span.glyphicon.glyphicon-check
+        span(translate) Select files to geolocate
+    li.nav-item(ui-sref-active='active')
+      a.nav-link(ng-show='$ctrl.activateLinks', ui-sref='geolocate($ctrl.params)')
+        span.glyphicon.glyphicon-map-marker
+        span(translate) Geolocate files
+    li.nav-item(ui-sref-active='active')
+      a.nav-link(ng-show='$ctrl.activateLinks', ui-sref='map($ctrl.params)')
+        span.glyphicon.glyphicon-globe
+        span(translate) Map
+    li.nav-item(ui-sref-active='active')
+      a.nav-link(ui-sref='about')
+        span(translate) About locator-tool
+  .mr-auto
+  lt-language-selector.form-inline
+  lt-user-info
