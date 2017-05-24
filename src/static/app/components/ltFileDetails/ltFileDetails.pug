@@ -1,10 +1,11 @@
-h2
-  | {{$ctrl.file.file}}
-  small
-    a(href='{{$ctrl.file.url}}', target='_blank')
-      span.glyphicon.glyphicon-new-window
-
-.well.well-sm(ng-bind-html='$ctrl.file.description')
+.card
+  h3.card-header
+    | {{$ctrl.file.file}}
+    small
+      a(href='{{$ctrl.file.url}}', target='_blank')
+        span.glyphicon.glyphicon-new-window
+  .card-block
+    .card-content(ng-bind-html='$ctrl.file.description')
 
 .form-group
   label(translate)
