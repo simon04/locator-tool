@@ -17,7 +17,8 @@
           span(translate) Also show geolocated files
     .input-group.my-2
       span.input-group-addon
-        span.glyphicon.glyphicon-search
+        svg.octicon
+          use(xlink:href='#search')
       input.form-control(ng-model='$ctrl.filter', type='text')
     .fill-absolute(style='top: 135px')
       ul.list-group
@@ -26,7 +27,8 @@
           ng-show='$ctrl.showGeolocated || !title.coordinates.isDefinedAndSaved',
           ng-click='$ctrl.title = title',
           ng-class="{'list-group-item-info': title === $ctrl.title}")
-          span.glyphicon.glyphicon-check(ng-show='title.coordinates.isDefinedAndSaved')
+          svg.octicon(ng-show='title.coordinates.isDefinedAndSaved')
+            use(xlink:href='#check')
           | {{title.file}}
 
   .col-lg-9.col-xl-3.fill.col-lg-h40(ng-if='$ctrl.title', style='overflow-y: auto')

@@ -4,13 +4,16 @@ form(name='formUser', ng-submit='$ctrl.nextForUser()')
     input#inputUser.form-control(ng-model='$ctrl.user', placeholder='User:…')
   .form-group.btn-group
     button.btn.btn-primary(ng-click='$ctrl.nextForUser()', ng-disabled='!$ctrl.user')
-      span.glyphicon.glyphicon-map-marker
+      svg.octicon
+        use(xlink:href='#location')
       span(translate) Geolocate User files
     button.btn.btn-secondary(ng-click='$ctrl.getFilesForUser()', ng-disabled='!$ctrl.user')
-      span.glyphicon.glyphicon-circle-arrow-down
+      svg.octicon
+        use(xlink:href='#arrow-down')
       span(translate) Fetch files for User
     button.btn.btn-secondary(ng-click="$ctrl.nextForUser('map')", ng-disabled='!$ctrl.user')
-      span.glyphicon.glyphicon-globe
+      svg.octicon
+        use(xlink:href='#globe')
       span(translate) Show User files on map
     input.invisible(type='submit', ng-disabled='!$ctrl.user')
   lt-spinner(ng-if='$ctrl.getFilesForUser$q && !$ctrl.getFilesForUser$q.$$state.status')
@@ -25,13 +28,16 @@ form(name='formCategory', ng-submit='$ctrl.nextForCategory()')
       input#inputCategoryDepth.form-control(type='number', ng-model='$ctrl.categoryDepth')
   .form-group.btn-group
     button.btn.btn-primary(ng-click='$ctrl.nextForCategory()', ng-disabled='!$ctrl.category')
-      span.glyphicon.glyphicon-map-marker
+      svg.octicon
+        use(xlink:href='#location')
       span(translate) Geolocate Category
     button.btn.btn-secondary(ng-click='$ctrl.getFilesForCategory()', ng-disabled='!$ctrl.category')
-      span.glyphicon.glyphicon-circle-arrow-down
+      svg.octicon
+        use(xlink:href='#arrow-down')
       span(translate) Fetch files for Category
     button.btn.btn-secondary(ng-click="$ctrl.nextForCategory('map')", ng-disabled='!$ctrl.category')
-      span.glyphicon.glyphicon-globe
+      svg.octicon
+        use(xlink:href='#globe')
       span(translate) Show Category on map
     input.invisible(type='submit', ng-disabled='!$ctrl.category')
   lt-spinner(ng-if='$ctrl.getFilesForCategory$q && !$ctrl.getFilesForCategory$q.$$state.status')
@@ -44,8 +50,10 @@ form(name='formTitles')
     textarea#inputTitles.form-control(rows='10', ng-model='$ctrl.titles', placeholder='File:…')
   .form-group.btn-group
     button.btn.btn-primary(ng-disabled='!$ctrl.titleList.length', ng-click='$ctrl.next()')
-      span.glyphicon.glyphicon-map-marker
+      svg.octicon
+        use(xlink:href='#location')
       span(translate) Geolocate {{$ctrl.titleList.length}} files
     button.btn.btn-secondary(ng-disabled='!$ctrl.titleList.length', ng-click="$ctrl.next('map')")
-      span.glyphicon.glyphicon-map-marker
+      svg.octicon
+        use(xlink:href='#location')
       span(translate) Show {{$ctrl.titleList.length}} files on map

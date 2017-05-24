@@ -3,7 +3,8 @@
     | {{$ctrl.file.file}}
     small
       a(href='{{$ctrl.file.url}}', target='_blank')
-        span.glyphicon.glyphicon-new-window
+        svg.octicon
+          use(xlink:href='#link-external')
   .card-block.p-2
     .card-content(ng-bind-html='$ctrl.file.description')
 
@@ -31,6 +32,7 @@
         p.help-block(translate) Press shift and click on map to set the object location.
 
       .alert.alert-danger(ng-if='$ctrl.error')
-        span.glyphicon.glyphicon-exclamation-sign
+        svg.octicon
+          use(xlink:href='#alert')
         span(translate)
           | Failed to save <lt-location></lt-location>!

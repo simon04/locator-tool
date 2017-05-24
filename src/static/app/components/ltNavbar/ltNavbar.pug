@@ -7,15 +7,18 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md(style='margin-bottom: 17px
   ul.navbar-nav
     li.nav-item(ui-sref-active='active')
       a.nav-link(ui-sref='select')
-        span.glyphicon.glyphicon-check
+        svg.octicon
+          use(xlink:href='#tasklist')
         span(translate) Select files to geolocate
     li.nav-item(ui-sref-active='active')
       a.nav-link(ng-show='$ctrl.activateLinks', ui-sref='geolocate($ctrl.params)')
-        span.glyphicon.glyphicon-map-marker
+        svg.octicon
+          use(xlink:href='#location')
         span(translate) Geolocate files
     li.nav-item(ui-sref-active='active')
       a.nav-link(ng-show='$ctrl.activateLinks', ui-sref='map($ctrl.params)')
-        span.glyphicon.glyphicon-globe
+        svg.octicon
+          use(xlink:href='#globe')
         span(translate) Map
     li.nav-item(ui-sref-active='active')
       a.nav-link(ui-sref='about')

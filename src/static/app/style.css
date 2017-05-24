@@ -30,7 +30,12 @@ a[href="https://github.com/simon04/locator-tool"] {
   padding-left: 20px;
 }
 
-span.glyphicon + span::before {
+.octicon {
+  width: 1em;
+  height: 1em;
+}
+
+.octicon + span::before {
   content: ' ';
 }
 
