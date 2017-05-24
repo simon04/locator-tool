@@ -3,5 +3,6 @@
   span.input-group-btn
     button.btn.btn-secondary(type='button', ng-click='$ctrl.fireChanged($ctrl.latLng.withLatLng(undefined))', title="{{'Discard'|translate}}")
       span.glyphicon.glyphicon-remove
+  span.input-group-btn
     button.btn.btn-success(type='button', ng-click='$ctrl.editLocation()', title="{{'Save'|translate}}", ng-disabled='!$ctrl.latLng.isChanged')
       span.glyphicon.glyphicon-save
