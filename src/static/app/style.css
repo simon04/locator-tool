@@ -71,3 +71,7 @@ img.ng-enter.ng-enter-active {
 img.ng-leave {
   display: none;
 }
+
+label {
+  font-weight: bold;
+}
