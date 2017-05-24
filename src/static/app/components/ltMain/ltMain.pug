@@ -17,10 +17,15 @@
       span.input-group-addon
         span.glyphicon.glyphicon-search
       input.form-control(ng-model='$ctrl.filter', type='text')
-    ul.list-group.list-group-files.fill-absolute(style='top: 135px')
-      li.list-group-item(ng-repeat='title in $ctrl.titles | filter:$ctrl.filter', ng-show='$ctrl.showGeolocated || !title.coordinates.isDefinedAndSaved', ng-click='$ctrl.title = title', ng-class="{'list-group-item-info': title === $ctrl.title}")
-        span.glyphicon.glyphicon-check(ng-show='title.coordinates.isDefinedAndSaved')
-        | {{title.file}}
+    .fill-absolute(style='top: 135px')
+      ul.list-group.list-group-files
+        li.list-group-item(
+          ng-repeat='title in $ctrl.titles | filter:$ctrl.filter',
+          ng-show='$ctrl.showGeolocated || !title.coordinates.isDefinedAndSaved',
+          ng-click='$ctrl.title = title',
+          ng-class="{'list-group-item-info': title === $ctrl.title}")
+          span.glyphicon.glyphicon-check(ng-show='title.coordinates.isDefinedAndSaved')
+          | {{title.file}}
 
   .col-lg-9.col-xl-3.fill.col-lg-h40(ng-if='$ctrl.title', style='overflow-y: auto')
     .row
