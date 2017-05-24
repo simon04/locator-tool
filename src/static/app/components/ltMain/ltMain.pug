@@ -18,8 +18,8 @@
         span.glyphicon.glyphicon-search
       input.form-control(ng-model='$ctrl.filter', type='text')
     .fill-absolute(style='top: 135px')
-      ul.list-group.list-group-files
-        li.list-group-item(
+      ul.list-group
+        li.list-group-item.py-1.px-2(
           ng-repeat='title in $ctrl.titles | filter:$ctrl.filter',
           ng-show='$ctrl.showGeolocated || !title.coordinates.isDefinedAndSaved',
           ng-click='$ctrl.title = title',

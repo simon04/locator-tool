@@ -1,10 +1,10 @@
 .card
-  h3.card-header
+  h3.card-header.p-2
     | {{$ctrl.file.file}}
     small
       a(href='{{$ctrl.file.url}}', target='_blank')
         span.glyphicon.glyphicon-new-window
-  .card-block
+  .card-block.p-2
     .card-content(ng-bind-html='$ctrl.file.description')
 
 .form-group
