@@ -1,9 +1,9 @@
-a.btn.btn-success.navbar-btn(href='/locator-tool/login?next=/locator-tool/', ng-hide='$ctrl.user', translate)
+a.btn.btn-success.navbar-btn.ml-2(href='/locator-tool/login?next=/locator-tool/', ng-hide='$ctrl.user', translate)
   svg.octicon
     use(xlink:href='#sign-in')
   span(translate) Log in
-p.navbar-text(ng-show='$ctrl.user', translate) Logged in as {{$ctrl.user}}
-a.btn.btn-secondary.navbar-btn(href='/locator-tool/logout?next=/locator-tool/', ng-show='$ctrl.user')
+span.navbar-text.ml-2(ng-show='$ctrl.user', translate) Logged in as {{$ctrl.user}}
+a.btn.btn-secondary.navbar-btn.ml-2(href='/locator-tool/logout?next=/locator-tool/', ng-show='$ctrl.user')
   svg.octicon
     use(xlink:href='#sign-out')
   span(translate) Log out
