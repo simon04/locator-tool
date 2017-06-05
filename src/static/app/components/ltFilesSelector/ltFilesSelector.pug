@@ -29,7 +29,7 @@ form(name='formUser', ng-submit='$ctrl.nextForUser()', ng-show='$ctrl.$tab === $
     button.btn.btn-primary(ng-click='$ctrl.nextForUser()', ng-disabled='!$ctrl.user')
       svg.octicon
         use(xlink:href='#location')
-      span(translate) Geolocate User files
+      span(translate) Load User files to geolocate
     button.btn.btn-secondary(ng-click="$ctrl.nextForUser('map')", ng-disabled='!$ctrl.user')
       svg.octicon
         use(xlink:href='#globe')
@@ -49,7 +49,7 @@ form(name='formCategory', ng-submit='$ctrl.nextForCategory()', ng-show='$ctrl.$t
     button.btn.btn-primary(ng-click='$ctrl.nextForCategory()', ng-disabled='!$ctrl.category')
       svg.octicon
         use(xlink:href='#location')
-      span(translate) Geolocate Category
+      span(translate) Load Category to geolocate
     button.btn.btn-secondary(ng-click="$ctrl.nextForCategory('map')", ng-disabled='!$ctrl.category')
       svg.octicon
         use(xlink:href='#globe')
@@ -67,7 +67,7 @@ form(name='formTitles', ng-show='$ctrl.$tab === $ctrl.$tabs.files')
     button.btn.btn-primary(ng-disabled='!$ctrl.titleList.length', ng-click='$ctrl.next()')
       svg.octicon
         use(xlink:href='#location')
-      span(translate) Geolocate {{$ctrl.titleList.length}} files
+      span(translate) Load {{$ctrl.titleList.length}} files to geolocate
     button.btn.btn-secondary(ng-disabled='!$ctrl.titleList.length', ng-click="$ctrl.next('map')")
       svg.octicon
         use(xlink:href='#location')
