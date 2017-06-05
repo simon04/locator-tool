@@ -6,7 +6,7 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md(style='margin-bottom: 17px
       span(translate) locator-tool
   ul.navbar-nav
     li.nav-item(ui-sref-active='active')
-      a.nav-link(ui-sref='select', ng-title='{{"Select files to geolocate" | translate}}')
+      a.nav-link(ui-sref='select($ctrl.params)', ng-title='{{"Select files to geolocate" | translate}}')
         svg.octicon
           use(xlink:href='#tasklist')
         span(translate) Select files

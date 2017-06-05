@@ -10,25 +10,32 @@ class ltFilesSelector {
       files: {}
     };
     Object.assign(this, {
-      $tab: $tabs.category,
+      $tab: $stateParams.user ? $tabs.user : $tabs.category,
       $tabs,
       ltData,
       $state,
-      categoryDepth: $stateParams.categoryDepth !== undefined
-        ? parseInt($stateParams.categoryDepth)
-        : 3,
+      category: $stateParams.category,
+      categoryDepth: tryParse(parseInt, $stateParams.categoryDepth, 3),
+      user: $stateParams.user,
+      userLimit: tryParse(parseInt, $stateParams.userLimit, undefined),
+      userStart: tryParse(s => new Date(s), $stateParams.userStart, undefined),
+      userEnd: tryParse(s => new Date(s), $stateParams.userEnd, undefined),
       titles: ''
     });
-    if ($stateParams.user) {
-      this.user = $stateParams.user;
-      this.$tab = $tabs.user;
-    } else if ($stateParams.category) {
-      this.category = $stateParams.category;
-    } else {
-      ltDataAuth.getUserInfo().then(userInfo => {
-        this.userInfo = userInfo;
-        this.user = this.user || userInfo;
-      });
+    ltDataAuth.getUserInfo().then(userInfo => {
+      this.userInfo = userInfo;
+      this.user = this.user || userInfo;
+    });
+
+    function tryParse(parser, text, fallback) {
+      if (!text) {
+        return fallback;
+      }
+      try {
+        return parser(text);
+      } catch (ex) {
+        return fallback;
+      }
     }
   }
 
