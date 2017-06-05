@@ -7,10 +7,6 @@ form(name='formUser', ng-submit='$ctrl.nextForUser()')
       svg.octicon
         use(xlink:href='#location')
       span(translate) Geolocate User files
-    button.btn.btn-secondary(ng-click='$ctrl.getFilesForUser()', ng-disabled='!$ctrl.user')
-      svg.octicon
-        use(xlink:href='#arrow-down')
-      span(translate) Fetch files for User
     button.btn.btn-secondary(ng-click="$ctrl.nextForUser('map')", ng-disabled='!$ctrl.user')
       svg.octicon
         use(xlink:href='#globe')
@@ -31,10 +27,6 @@ form(name='formCategory', ng-submit='$ctrl.nextForCategory()')
       svg.octicon
         use(xlink:href='#location')
       span(translate) Geolocate Category
-    button.btn.btn-secondary(ng-click='$ctrl.getFilesForCategory()', ng-disabled='!$ctrl.category')
-      svg.octicon
-        use(xlink:href='#arrow-down')
-      span(translate) Fetch files for Category
     button.btn.btn-secondary(ng-click="$ctrl.nextForCategory('map')", ng-disabled='!$ctrl.category')
       svg.octicon
         use(xlink:href='#globe')
