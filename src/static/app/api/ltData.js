@@ -114,26 +114,29 @@ export default function data($http, $parse, $sce, $q) {
       d.data.query.allpages.map(i => i.title.replace(/^Category:/, ''))
     );
   }
-  function getFiles({files, user, category, categoryDepth}) {
+  function getFiles({files, user, userLimit, userStart, userEnd, category, categoryDepth}) {
     return $q((resolve, reject) => {
       if (files) {
         resolve(files);
       } else if (user) {
-        getFilesForUser(user).then(resolve);
+        getFilesForUser(user, userLimit, userStart, userEnd).then(resolve);
       } else if (category) {
         getFilesForCategory(category, categoryDepth).then(resolve);
       } else {
         reject();
       }
-    })
+    });
   }
-  function getFilesForUser(user) {
+  function getFilesForUser(user, userLimit, userStart, userEnd) {
     const params = {
       list: 'usercontribs',
       ucuser: user,
       ucnamespace: 6,
       ucshow: 'new',
-      uclimit: 'max',
+      uclimit: userLimit || 'max',
+      ucstart: userEnd, // sic! (due to ucdir)
+      ucend: userStart, // sic! (due to ucdir)
+      ucdir: 'older',
       ucprop: 'title'
     };
     return $query(params).then(d => d.data.query.usercontribs.map(i => i.title));

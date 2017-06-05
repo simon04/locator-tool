@@ -25,6 +25,16 @@ form(name='formUser', ng-submit='$ctrl.nextForUser()', ng-show='$ctrl.$tab === $
   .form-group
     label(for='inputUser', translate) User
     input#inputUser.form-control(ng-model='$ctrl.user', placeholder='User:…')
+  .row
+    .form-group.col-sm-4
+      label(for='inputUserLimit', translate, translate-comment='maximum number of files') Limit
+      input#inputUserLimit.form-control(ng-model='$ctrl.userLimit', type='number', max='500')
+    .form-group.col-sm-4
+      label(for='inputUserStart', translate) Start timestamp
+      input#inputUserStart.form-control(ng-model='$ctrl.userStart', type='date')
+    .form-group.col-sm-4
+      label(for='inputUserEnd', translate) End timestamp
+      input#inputUserEnd.form-control(ng-model='$ctrl.userEnd', type='date')
   .form-group.btn-group
     button.btn.btn-primary(ng-click='$ctrl.nextForUser()', ng-disabled='!$ctrl.user')
       svg.octicon
@@ -38,11 +48,11 @@ form(name='formUser', ng-submit='$ctrl.nextForUser()', ng-show='$ctrl.$tab === $
   lt-spinner(ng-if='$ctrl.getFilesForUser$q && !$ctrl.getFilesForUser$q.$$state.status')
 
 form(name='formCategory', ng-submit='$ctrl.nextForCategory()', ng-show='$ctrl.$tab === $ctrl.$tabs.category')
-  .form-group.row
-    .col-lg-10
+  .row
+    .form-group.col-lg-10
       label(for='inputCategory', translate) Category
       input#inputCategory.form-control(list='datalistCategory', ng-model='$ctrl.category', ng-model-options="{updateOn: 'default blur', debounce: {default: 500, change: 0, blur: 0}}", ng-change='$ctrl.getCategoriesForPrefix()', placeholder='Category:…')
-    .col-lg-2
+    .form-group.col-lg-2
       label(for='inputCategoryDepth', translate-comment='Depth of category tree', translate-context='Category', translate) Depth
       input#inputCategoryDepth.form-control(type='number', ng-model='$ctrl.categoryDepth')
   .form-group.btn-group

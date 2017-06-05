@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 import template from './ltFilesSelector.pug';
 
 class ltFilesSelector {
@@ -42,13 +44,14 @@ class ltFilesSelector {
   }
 
   nextForUser(state = 'geolocate') {
-    const user = this.user;
-    this.$state.go(state, {user});
+    const {user, userLimit} = this;
+    const userStart = angular.isDate(this.userStart) ? this.userStart.toISOString() : undefined;
+    const userEnd = angular.isDate(this.userEnd) ? this.userEnd.toISOString() : undefined;
+    this.$state.go(state, {user, userLimit, userStart, userEnd});
   }
 
   nextForCategory(state = 'geolocate') {
-    const category = this.category;
-    const categoryDepth = this.categoryDepth;
+    const {category, categoryDepth} = this;
     this.$state.go(state, {category, categoryDepth});
   }
 
