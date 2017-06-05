@@ -1,7 +1,7 @@
 import template from './ltFilesSelector.pug';
 
 class ltFilesSelector {
-  constructor(ltData, $state, $stateParams) {
+  constructor(ltData, ltDataAuth, $state, $stateParams) {
     Object.assign(this, {
       $tab: 'TAB_CATEGORY',
       ltData,
@@ -16,6 +16,10 @@ class ltFilesSelector {
       this.$tab = 'TAB_USER';
     } else if ($stateParams.category) {
       this.category = $stateParams.category;
+    } else {
+      ltDataAuth.getUserInfo().then(userInfo => {
+        this.userInfo = userInfo;
+      });
     }
   }
 
@@ -49,7 +53,7 @@ class ltFilesSelector {
     this.titles = files && files.join('\n');
   }
 }
-ltFilesSelector.$inject = ['ltData', '$state', '$stateParams'];
+ltFilesSelector.$inject = ['ltData', 'ltDataAuth', '$state', '$stateParams'];
 
 export default {
   template,

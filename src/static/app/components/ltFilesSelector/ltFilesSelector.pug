@@ -1,3 +1,13 @@
+h2(ng-hide='$ctrl.userInfo', translate) Sign in
+p(ng-hide='$ctrl.userInfo')
+  span(translate) In order to allow locator-tool to modify file description pages, sign in first:
+  a.btn.btn-success.navbar-btn.ml-2(href='/locator-tool/login?next=/locator-tool/')
+    svg.octicon
+      use(xlink:href='#sign-in')
+    span(translate) Log in
+
+p(ng-show='$ctrl.userInfo') Hello {{$ctrl.userInfo}}!
+
 h2(translate) Select files to geolocate
 
 ul.nav.nav-pills.my-3
