@@ -1,4 +1,17 @@
-form(name='formUser', ng-submit='$ctrl.nextForUser()')
+h2(translate) Select files to geolocate
+
+ul.nav.nav-pills.my-3
+  li.nav-item
+    a.nav-link(translate, ng-click='$ctrl.$tab = "TAB_CATEGORY"', ng-class='{active: $ctrl.$tab === "TAB_CATEGORY"}')
+      | Category
+  li.nav-item
+    a.nav-link(translate, ng-click='$ctrl.$tab = "TAB_USER"', ng-class='{active: $ctrl.$tab === "TAB_USER"}')
+      | User files
+  li.nav-item
+    a.nav-link(translate, ng-click='$ctrl.$tab = "TAB_FILES"', ng-class='{active: $ctrl.$tab === "TAB_FILES"}')
+      | File list
+
+form(name='formUser', ng-submit='$ctrl.nextForUser()', ng-show='$ctrl.$tab === "TAB_USER"')
   .form-group
     label(for='inputUser', translate) User
     input#inputUser.form-control(ng-model='$ctrl.user', placeholder='User:…')
@@ -14,7 +27,7 @@ form(name='formUser', ng-submit='$ctrl.nextForUser()')
     input.invisible(type='submit', ng-disabled='!$ctrl.user')
   lt-spinner(ng-if='$ctrl.getFilesForUser$q && !$ctrl.getFilesForUser$q.$$state.status')
 
-form(name='formCategory', ng-submit='$ctrl.nextForCategory()')
+form(name='formCategory', ng-submit='$ctrl.nextForCategory()', ng-show='$ctrl.$tab === "TAB_CATEGORY"')
   .form-group.row
     .col-lg-10
       label(for='inputCategory', translate) Category
@@ -36,7 +49,7 @@ form(name='formCategory', ng-submit='$ctrl.nextForCategory()')
   datalist#datalistCategory
     option(ng-repeat='i in $ctrl.categorySuggestions', ng-value='i')
 
-form(name='formTitles')
+form(name='formTitles', ng-show='$ctrl.$tab === "TAB_FILES"')
   .form-group
     label(for='inputTitles', translate) Files
     textarea#inputTitles.form-control(rows='10', ng-model='$ctrl.titles', placeholder='File:…')

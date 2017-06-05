@@ -3,6 +3,7 @@ import template from './ltFilesSelector.pug';
 class ltFilesSelector {
   constructor(ltData, $state, $stateParams) {
     Object.assign(this, {
+      $tab: 'TAB_CATEGORY',
       ltData,
       $state,
       categoryDepth: $stateParams.categoryDepth !== undefined
@@ -12,6 +13,7 @@ class ltFilesSelector {
     });
     if ($stateParams.user) {
       this.user = $stateParams.user;
+      this.$tab = 'TAB_USER';
     } else if ($stateParams.category) {
       this.category = $stateParams.category;
     }
