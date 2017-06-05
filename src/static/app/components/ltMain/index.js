@@ -7,7 +7,7 @@ const DEFAULT_MAP_VIEW = {
 };
 
 class ltMain {
-  constructor(ltData, $scope, $stateParams, ltDataAuth, $filter, $q, localStorageService) {
+  constructor(ltData, $scope, $stateParams, ltDataAuth, $q, localStorageService) {
     Object.assign(this, {ltData, ltDataAuth, localStorageService});
     const {category, user, files} = $stateParams;
     Object.assign(this, {category, user, files});
@@ -15,7 +15,7 @@ class ltMain {
 
     const files$q = ltData.getFiles($stateParams);
     const fileDetails$q = files$q.then(ltData.getCoordinates).then(titles => {
-      this.titles = $filter('orderBy')(titles, 'file');
+      this.titles = titles;
       this.showGeolocated = this.titles.length <= 5;
       // select first visible title
       this.title = this.titles.filter(title => this.showGeolocated || !title.coordinates.lat)[0];
@@ -75,15 +75,7 @@ class ltMain {
     }
   }
 }
-ltMain.$inject = [
-  'ltData',
-  '$scope',
-  '$stateParams',
-  'ltDataAuth',
-  '$filter',
-  '$q',
-  'localStorageService'
-];
+ltMain.$inject = ['ltData', '$scope', '$stateParams', 'ltDataAuth', '$q', 'localStorageService'];
 
 export default {
   template,
