@@ -56,7 +56,7 @@ module.exports = {
       filename: '[name].[contenthash].css'
     }),
     new HtmlWebpackPlugin({
-      template: './index.pug',
+      template: './app/index.pug',
       favicon: './app/locator-tool.svg',
       inject: 'body'
     }),
