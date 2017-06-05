@@ -53,7 +53,8 @@ class ltFilesSelector {
 
   nextForCategory(state = 'geolocate') {
     const category = this.category;
-    this.$state.go(state, {category});
+    const categoryDepth = this.categoryDepth;
+    this.$state.go(state, {category, categoryDepth});
   }
 
   get titleList() {
