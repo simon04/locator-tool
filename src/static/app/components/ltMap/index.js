@@ -13,7 +13,7 @@ class ltMap {
   }
 
   static _mapInit(L, map) {
-    const external = '<svg class="octicon"><use xlink:href="#link-external"></use></svg>'
+    const external = '<svg class="octicon"><use xlink:href="#link-external"></use></svg>';
     const attribution = `<a href="https://www.openstreetmap.org/copyright" target="_blank">
       OpenStreetMap</a> contributors`;
     const wm = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {

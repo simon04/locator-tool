@@ -5,7 +5,12 @@
     - prettier
   rules:
     require-jsdoc: 'off'
-    max-len: ['error', 100, 2]
+    max-len:
+    - 'error'
+    - 100
+    -
+      tabWidth: 2
+      ignoreRegExpLiterals: true
     no-unused-vars: ['error', {args: 'all', argsIgnorePattern: '^_'}]
     no-var: 'error'
     prefer-const: 'error'

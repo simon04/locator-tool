@@ -12,7 +12,8 @@ export default function directive() {
 
       function parser(viewValue) {
         if (!type) {
-          // keep track of coordinate type since it is lost when returning undefined on invalid input
+          // keep track of coordinate type since it is lost
+          // when returning undefined on invalid input
           type = ctrl.$modelValue && ctrl.$modelValue.type;
         }
         const m = viewValue.match(REGEXP);

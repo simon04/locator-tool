@@ -23,11 +23,7 @@ class controller {
     new ltMap.controller._mapInit(L, map);
   }
 }
-controller.$inject = [
-  'ltData',
-  '$stateParams',
-  'localStorageService'
-];
+controller.$inject = ['ltData', '$stateParams', 'localStorageService'];
 
 export default {
   template,
