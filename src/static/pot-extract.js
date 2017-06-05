@@ -19,12 +19,12 @@ glob('./{,app/**/}*.{js,pug}', (err, files) => {
   if (err) {
     throw err;
   }
-  files.forEach(file => {
-    const content = fs.readFileSync(file, 'utf8');
-    if (file.match(/\.pug$/)) {
-      extractor.parse(file, pug.compile(content)());
+  files.forEach(filename => {
+    const content = fs.readFileSync(filename, 'utf8');
+    if (filename.match(/\.pug$/)) {
+      extractor.parse(filename, pug.compile(content, {filename})());
     } else {
-      extractor.parse(file, content);
+      extractor.parse(filename, content);
     }
   });
 }).on('end', () => {
