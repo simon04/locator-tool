@@ -12,16 +12,16 @@ h2(translate) Select files to geolocate
 
 ul.nav.nav-pills.my-3
   li.nav-item
-    a.nav-link(translate, ng-click='$ctrl.$tab = "TAB_CATEGORY"', ng-class='{active: $ctrl.$tab === "TAB_CATEGORY"}')
+    a.nav-link(translate, ng-click='$ctrl.$tab = $ctrl.$tabs.category', ng-class='{active: $ctrl.$tab === $ctrl.$tabs.category}')
       | Category
   li.nav-item
-    a.nav-link(translate, ng-click='$ctrl.$tab = "TAB_USER"', ng-class='{active: $ctrl.$tab === "TAB_USER"}')
+    a.nav-link(translate, ng-click='$ctrl.$tab = $ctrl.$tabs.user', ng-class='{active: $ctrl.$tab === $ctrl.$tabs.user}')
       | User files
   li.nav-item
-    a.nav-link(translate, ng-click='$ctrl.$tab = "TAB_FILES"', ng-class='{active: $ctrl.$tab === "TAB_FILES"}')
+    a.nav-link(translate, ng-click='$ctrl.$tab = $ctrl.$tabs.files', ng-class='{active: $ctrl.$tab === $ctrl.$tabs.files}')
       | File list
 
-form(name='formUser', ng-submit='$ctrl.nextForUser()', ng-show='$ctrl.$tab === "TAB_USER"')
+form(name='formUser', ng-submit='$ctrl.nextForUser()', ng-show='$ctrl.$tab === $ctrl.$tabs.user')
   .form-group
     label(for='inputUser', translate) User
     input#inputUser.form-control(ng-model='$ctrl.user', placeholder='User:…')
@@ -37,7 +37,7 @@ form(name='formUser', ng-submit='$ctrl.nextForUser()', ng-show='$ctrl.$tab === "
     input.invisible(type='submit', ng-disabled='!$ctrl.user')
   lt-spinner(ng-if='$ctrl.getFilesForUser$q && !$ctrl.getFilesForUser$q.$$state.status')
 
-form(name='formCategory', ng-submit='$ctrl.nextForCategory()', ng-show='$ctrl.$tab === "TAB_CATEGORY"')
+form(name='formCategory', ng-submit='$ctrl.nextForCategory()', ng-show='$ctrl.$tab === $ctrl.$tabs.category')
   .form-group.row
     .col-lg-10
       label(for='inputCategory', translate) Category
@@ -59,7 +59,7 @@ form(name='formCategory', ng-submit='$ctrl.nextForCategory()', ng-show='$ctrl.$t
   datalist#datalistCategory
     option(ng-repeat='i in $ctrl.categorySuggestions', ng-value='i')
 
-form(name='formTitles', ng-show='$ctrl.$tab === "TAB_FILES"')
+form(name='formTitles', ng-show='$ctrl.$tab === $ctrl.$tabs.files')
   .form-group
     label(for='inputTitles', translate) File list
     textarea#inputTitles.form-control(rows='10', ng-model='$ctrl.titles', placeholder='File:…')
