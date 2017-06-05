@@ -19,9 +19,15 @@ function routes($stateProvider, $urlRouterProvider) {
     component: 'ltAbout'
   });
 
-  const params = ['user', 'userLimit', 'userStart', 'userEnd', 'category', 'categoryDepth'].join(
-    '&'
-  );
+  const params = [
+    'files',
+    'user',
+    'userLimit',
+    'userStart',
+    'userEnd',
+    'category',
+    'categoryDepth'
+  ].join('&');
 
   $stateProvider.state('select', {
     url: '/?' + params,
