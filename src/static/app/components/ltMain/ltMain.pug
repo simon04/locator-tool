@@ -3,7 +3,14 @@
     .jumbotron
       p(translate) Loading file details …
       lt-spinner
-.row.fill(ng-if='!$ctrl.isLoading')
+.row.fill(ng-if='!$ctrl.isLoading && !$ctrl.titles.length')
+  .col-sm-12
+    .alert.alert-warning
+      svg.octicon
+        use(xlink:href='#alert')
+      span(ng-if='$ctrl.category', translate) Fetched 0 files for category <code>{{$ctrl.category}}</code>!
+      span(ng-if='$ctrl.user', translate) Fetched 0 files for user <code>{{$ctrl.user}}</code>!
+.row.fill(ng-if='!$ctrl.isLoading && $ctrl.titles.length')
   .col-lg-3.col-xl-2.fill.col-lg-h40(style='position:relative')
     .progress
       .progress-bar(role='progressbar', ng-style="{width: $ctrl.titlesDefinedAndSavedPercent + '%'}")

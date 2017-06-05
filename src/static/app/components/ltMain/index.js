@@ -9,6 +9,8 @@ const DEFAULT_MAP_VIEW = {
 class ltMain {
   constructor(ltData, $scope, $stateParams, ltDataAuth, $filter, $q, localStorageService) {
     Object.assign(this, {ltData, ltDataAuth, localStorageService});
+    const {category, user, files} = $stateParams;
+    Object.assign(this, {category, user, files});
     this.mapView = localStorageService.get('mapView') || DEFAULT_MAP_VIEW;
 
     const files$q = ltData.getFiles($stateParams);
