@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-05-24 22:07+0000\n"
+"PO-Revision-Date: 2017-06-05 10:13+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/locator-tool/locator-tool/language/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgid ""
 "or inputting a list of <code>File:</code>s."
 msgstr "<a ui-sref=\"select\">Dateien zum Georeferenzieren auswählen</a> via Kategorie oder <code>Datei:</code>-Liste."
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
 msgid "About"
 msgstr "Über"
 
@@ -55,20 +55,20 @@ msgid "Edits using locator-tool"
 msgstr "Bearbeitungen mit locator-tool"
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
-msgid "Failed to save <lt-location></lt-location>!"
-msgstr "<lt-location></lt-location> konnte nicht gespeichert werden!"
+msgid "Failed to save: {{$ctrl.error.statusText}}"
+msgstr "Fehler beim Speichern: {{$ctrl.error.statusText}}"
+
+#: ./app/components/ltMain/ltMain.pug
+msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
+msgstr "0 Dateien für Kategorie <code>{{$ctrl.category}}</code> geladen!"
+
+#: ./app/components/ltMain/ltMain.pug
+msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
+msgstr "0 Dateien für Benutzer <code>{{$ctrl.user}}</code> geladen!"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Fetch files for Category"
-msgstr "Dateien der Kategorie laden"
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Fetch files for User"
-msgstr "Dateien des Benutzers laden"
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Files"
-msgstr "Dateien"
+msgid "File list"
+msgstr "Dateiliste"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""
@@ -92,6 +92,12 @@ msgstr "Dateien georeferenzieren"
 msgid "Geolocate {{$ctrl.titleList.length}} files"
 msgstr "{{$ctrl.titleList.length}} Dateien georeferenzieren"
 
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid ""
+"In order to allow locator-tool to modify file description pages, sign in "
+"first:"
+msgstr "Bitte anmelden, damit locator-tool Änderungen an Dateibeschreibungsseiten vornehmen kann:"
+
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""
 "Its source code is available on <a href=\"https://github.com/simon04"
@@ -112,6 +118,7 @@ msgstr "Linksklick auf Karte setzt die Position."
 msgid "Loading file details …"
 msgstr "Dateiinformationen werden geladen …"
 
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 #: ./app/components/ltUserInfo/ltUserInfo.pug
 msgid "Log in"
 msgstr "Anmelden"
@@ -151,6 +158,11 @@ msgid "Save"
 msgstr "Speichern"
 
 #: ./app/components/ltNavbar/ltNavbar.pug
+msgid "Select files"
+msgstr "Dateien auswählen"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Select files to geolocate"
 msgstr "Dateien zum Georeferenzieren auswählen"
 
@@ -166,6 +178,10 @@ msgstr "Dateien des Benutzers auf Karte anzeigen"
 msgid "Show {{$ctrl.titleList.length}} files on map"
 msgstr "{{$ctrl.titleList.length}} Dateien auf Karte anzeigen"
 
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Sign in"
+msgstr "Anmelden"
+
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""
 "This tool has been created by <a "
@@ -178,10 +194,6 @@ msgid ""
 "information to images on <a "
 "href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
 msgstr "Dieses Werkzeug hilft <code class=\"mediawiki-template\">Coordinate</code> zu bestehenden Dateien auf <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a> hinzuzufügen."
-
-#: ./app/components/ltAbout/ltAbout.pug
-msgid "Translate"
-msgstr "Übersetzen"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid "Translate locator-tool on Transifex"
@@ -198,6 +210,10 @@ msgstr "Verwendung"
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "User"
 msgstr "Benutzer"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "User files"
+msgstr "Dateien des Benutzers"
 
 #: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
 msgid "locator-tool"

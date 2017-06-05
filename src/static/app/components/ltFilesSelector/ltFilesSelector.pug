@@ -61,7 +61,7 @@ form(name='formCategory', ng-submit='$ctrl.nextForCategory()', ng-show='$ctrl.$t
 
 form(name='formTitles', ng-show='$ctrl.$tab === "TAB_FILES"')
   .form-group
-    label(for='inputTitles', translate) Files
+    label(for='inputTitles', translate) File list
     textarea#inputTitles.form-control(rows='10', ng-model='$ctrl.titles', placeholder='File:…')
   .form-group.btn-group
     button.btn.btn-primary(ng-disabled='!$ctrl.titleList.length', ng-click='$ctrl.next()')

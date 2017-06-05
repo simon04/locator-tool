@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-05-23 21:31+0000\n"
-"Last-Translator: Bodhisattwa Mandal <bodhisattwa.rgkmc@gmail.com>\n"
+"PO-Revision-Date: 2017-06-05 10:13+0000\n"
+"Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: Bengali (http://www.transifex.com/locator-tool/locator-tool/language/bn/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,7 +18,7 @@ msgid ""
 "or inputting a list of <code>File:</code>s."
 msgstr "একটি বিষয়শ্রেণী অনুসন্ধান করে বা <code>চিত্র:</code>সমূহের তালিকা থেকে <a ui-sref=\"select\">ফাইলসমূহ নির্বাচন করে ভূ-অবস্থান নির্ণয় করুন</a>"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
 msgid "About"
 msgstr "সম্পর্কে"
 
@@ -55,20 +55,20 @@ msgid "Edits using locator-tool"
 msgstr "লোকেটর-টুল ব্যবহার করে সম্পাদনাসমূহ"
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
-msgid "Failed to save <lt-location></lt-location>!"
-msgstr "<lt-location></lt-location> সংরক্ষণ করতে ব্যর্থ হয়েছে!"
+msgid "Failed to save: {{$ctrl.error.statusText}}"
+msgstr ""
+
+#: ./app/components/ltMain/ltMain.pug
+msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
+msgstr ""
+
+#: ./app/components/ltMain/ltMain.pug
+msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
+msgstr ""
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Fetch files for Category"
-msgstr "বিষয়শ্রেণীর জন্য ফাইল আনুন"
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Fetch files for User"
-msgstr "ব্যবহারকারীর জন্য ফাইল আনুন"
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Files"
-msgstr "ফাইলসমূহ"
+msgid "File list"
+msgstr ""
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""
@@ -92,6 +92,12 @@ msgstr "ফাইলসমূহের ভূ-অবস্থান নির্
 msgid "Geolocate {{$ctrl.titleList.length}} files"
 msgstr "{{$ctrl.titleList.length}} ফাইলসমূহের ভূ-অবস্থান নির্ণয়"
 
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid ""
+"In order to allow locator-tool to modify file description pages, sign in "
+"first:"
+msgstr ""
+
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""
 "Its source code is available on <a href=\"https://github.com/simon04"
@@ -112,6 +118,7 @@ msgstr "মানচিত্রে বাম ক্লিক করে অব�
 msgid "Loading file details …"
 msgstr "ফাইলের বিস্তারিত লোড হচ্ছে ..."
 
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 #: ./app/components/ltUserInfo/ltUserInfo.pug
 msgid "Log in"
 msgstr "প্রবেশ করুন"
@@ -151,6 +158,11 @@ msgid "Save"
 msgstr "সংরক্ষণ করুন"
 
 #: ./app/components/ltNavbar/ltNavbar.pug
+msgid "Select files"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Select files to geolocate"
 msgstr "ভূ-অবস্থান নির্ণয় করতে ফাইলসমূহ নির্বাচন করুন"
 
@@ -166,6 +178,10 @@ msgstr "মানচিত্রে ব্যবহারকারী ফাই�
 msgid "Show {{$ctrl.titleList.length}} files on map"
 msgstr "মানচিত্রে {{$ctrl.titleList.length}} ফাইলসমূহ দেখান"
 
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Sign in"
+msgstr ""
+
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""
 "This tool has been created by <a "
@@ -178,10 +194,6 @@ msgid ""
 "information to images on <a "
 "href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
 msgstr "এই সরঞ্জাম <a href=\"https://commons.wikimedia.org/\">উইকিমিডিয়া কমন্সে</a> চিত্রগুলিতে <code class=\"mediawiki-template\">Coordinate</code> তথ্য যোগ করতে সহায়তা করে।"
-
-#: ./app/components/ltAbout/ltAbout.pug
-msgid "Translate"
-msgstr "অনুবাদ করুন"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid "Translate locator-tool on Transifex"
@@ -198,6 +210,10 @@ msgstr "ব্যবহার"
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "User"
 msgstr "ব্যবহারকারী"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "User files"
+msgstr ""
 
 #: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
 msgid "locator-tool"
