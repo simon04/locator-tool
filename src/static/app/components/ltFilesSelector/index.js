@@ -19,6 +19,7 @@ class ltFilesSelector {
     } else {
       ltDataAuth.getUserInfo().then(userInfo => {
         this.userInfo = userInfo;
+        this.user = this.user || userInfo;
       });
     }
   }
