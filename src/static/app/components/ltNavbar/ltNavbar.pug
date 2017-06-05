@@ -6,10 +6,10 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md(style='margin-bottom: 17px
       span(translate) locator-tool
   ul.navbar-nav
     li.nav-item(ui-sref-active='active')
-      a.nav-link(ui-sref='select')
+      a.nav-link(ui-sref='select', ng-title='{{"Select files to geolocate" | translate}}')
         svg.octicon
           use(xlink:href='#tasklist')
-        span(translate) Select files to geolocate
+        span(translate) Select files
     li.nav-item(ui-sref-active='active')
       a.nav-link(ng-show='$ctrl.activateLinks', ui-sref='geolocate($ctrl.params)')
         svg.octicon
@@ -20,9 +20,9 @@ nav.navbar.navbar-light.bg-faded.navbar-toggleable-md(style='margin-bottom: 17px
         svg.octicon
           use(xlink:href='#globe')
         span(translate) Map
-    li.nav-item(ui-sref-active='active')
+    li.nav-item(ui-sref-active='active', ng-title='{{"About locator-tool" | translate}}')
       a.nav-link(ui-sref='about')
-        span(translate) About locator-tool
+        span(translate) About
   .mr-auto
   lt-language-selector.ml-2
   lt-user-info
