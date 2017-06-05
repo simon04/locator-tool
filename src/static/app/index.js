@@ -15,12 +15,12 @@ angular.module('app').config(routes);
 routes.$inject = ['$stateProvider', '$urlRouterProvider'];
 function routes($stateProvider, $urlRouterProvider) {
   $stateProvider.state('about', {
-    url: '/',
+    url: '/about',
     component: 'ltAbout'
   });
 
   $stateProvider.state('select', {
-    url: '/select?user&category&categoryDepth',
+    url: '/?user&category&categoryDepth',
     component: 'ltFilesSelector'
   });
 
