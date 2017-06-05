@@ -22,7 +22,8 @@ export default function data($http, $parse, $sce, $q) {
       return getCoordinatesChunkByChunk(titles);
     }
     const params = {
-      prop: 'coordinates|imageinfo',
+      prop: 'coordinates|imageinfo|categories',
+      clshow: '!hidden',
       titles: titles.join('|'),
       iiprop: 'dimensions|url|extmetadata',
       iiurlwidth: 1024,
@@ -37,9 +38,12 @@ export default function data($http, $parse, $sce, $q) {
       return Object.keys(pages).map(pageid => {
         const page = pages[pageid];
         const imgWidth = page && page.imageinfo && page.imageinfo[0] && page.imageinfo[0].width;
+        const categories = ((page && page.categories) || [])
+          .map(category => category.title.replace(/^Category:/, ''));
         return {
           pageid: parseInt(pageid),
           file: page.title,
+          categories,
           description: $sce.trustAsHtml(descriptionGetter(page)),
           thumbnail: thumbnailGetter(page),
           imageUrl(width) {

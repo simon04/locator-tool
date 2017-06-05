@@ -6,7 +6,11 @@
         svg.octicon
           use(xlink:href='#link-external')
   .card-block.p-2
-    .card-content(ng-bind-html='$ctrl.file.description')
+    .card-content
+      div(ng-bind-html='$ctrl.file.description')
+      a(ng-repeat='category in $ctrl.file.categories', ng-href='https://commons.wikimedia.org/wiki/Category:{{category}}', target='_blank')
+        span.badge.badge-default
+          | {{::category}}
 
 .card.mt-2
   .card-block.p-2
