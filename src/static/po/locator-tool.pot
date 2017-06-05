@@ -45,6 +45,10 @@ msgstr ""
 msgid "Edits using locator-tool"
 msgstr ""
 
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "End timestamp"
+msgstr ""
+
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Failed to save: {{$ctrl.error.statusText}}"
 msgstr ""
@@ -65,20 +69,8 @@ msgstr ""
 msgid "From the list of files provided, select one and click its location on an interactive map."
 msgstr ""
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate Category"
-msgstr ""
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate User files"
-msgstr ""
-
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Geolocate files"
-msgstr ""
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate {{$ctrl.titleList.length}} files"
 msgstr ""
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
@@ -96,6 +88,23 @@ msgstr ""
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Left click on map to set the location."
+msgstr ""
+
+#. maximum number of files
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Limit"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load Category to geolocate"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load User files to geolocate"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load {{$ctrl.titleList.length}} files to geolocate"
 msgstr ""
 
 #: ./app/components/ltMain/ltMain.pug
@@ -164,6 +173,10 @@ msgstr ""
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Sign in"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Start timestamp"
 msgstr ""
 
 #: ./app/components/ltAbout/ltAbout.pug

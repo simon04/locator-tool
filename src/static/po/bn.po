@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-06-05 10:13+0000\n"
+"PO-Revision-Date: 2017-06-05 11:15+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: Bengali (http://www.transifex.com/locator-tool/locator-tool/language/bn/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,6 +54,10 @@ msgstr "বাতিল করুন"
 msgid "Edits using locator-tool"
 msgstr "লোকেটর-টুল ব্যবহার করে সম্পাদনাসমূহ"
 
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "End timestamp"
+msgstr ""
+
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Failed to save: {{$ctrl.error.statusText}}"
 msgstr ""
@@ -76,21 +80,9 @@ msgid ""
 "interactive map."
 msgstr "ফাইলসমূহের প্রদত্ত তালিকা থেকে, একটি নির্বাচন করুন ও একটি আদানপ্রদানমূলক মানচিত্রে তার অবস্থান ক্লিক করুন।"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate Category"
-msgstr "বিষয়শ্রেণীর ভূ-অবস্থান নির্ণয়"
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate User files"
-msgstr "ব্যবহারকারী ফাইলসমূহের ভূ-অবস্থান নির্ণয়"
-
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Geolocate files"
 msgstr "ফাইলসমূহের ভূ-অবস্থান নির্ণয়"
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate {{$ctrl.titleList.length}} files"
-msgstr "{{$ctrl.titleList.length}} ফাইলসমূহের ভূ-অবস্থান নির্ণয়"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid ""
@@ -113,6 +105,23 @@ msgstr "বাংলা"
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Left click on map to set the location."
 msgstr "মানচিত্রে বাম ক্লিক করে অবস্থান সূচক করুন।"
+
+#. maximum number of files
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Limit"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load Category to geolocate"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load User files to geolocate"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load {{$ctrl.titleList.length}} files to geolocate"
+msgstr ""
 
 #: ./app/components/ltMain/ltMain.pug
 msgid "Loading file details …"
@@ -180,6 +189,10 @@ msgstr "মানচিত্রে {{$ctrl.titleList.length}} ফাইলস�
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Sign in"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Start timestamp"
 msgstr ""
 
 #: ./app/components/ltAbout/ltAbout.pug

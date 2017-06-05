@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-06-05 10:13+0000\n"
+"PO-Revision-Date: 2017-06-05 11:16+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/locator-tool/locator-tool/language/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,6 +54,10 @@ msgstr "Verwerfen"
 msgid "Edits using locator-tool"
 msgstr "Bearbeitungen mit locator-tool"
 
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "End timestamp"
+msgstr "Endzeitpunkt"
+
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Failed to save: {{$ctrl.error.statusText}}"
 msgstr "Fehler beim Speichern: {{$ctrl.error.statusText}}"
@@ -76,21 +80,9 @@ msgid ""
 "interactive map."
 msgstr "Eine Datei in der Dateiliste auswählen und deren Position durch Klick auf die interaktive Karte auswählen."
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate Category"
-msgstr "Kategorie georeferenzieren"
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate User files"
-msgstr "Dateien des Benutzers georeferenzieren"
-
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Geolocate files"
 msgstr "Dateien georeferenzieren"
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate {{$ctrl.titleList.length}} files"
-msgstr "{{$ctrl.titleList.length}} Dateien georeferenzieren"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid ""
@@ -113,6 +105,23 @@ msgstr "Deutsch"
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Left click on map to set the location."
 msgstr "Linksklick auf Karte setzt die Position."
+
+#. maximum number of files
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Limit"
+msgstr "maximale Anzahl"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load Category to geolocate"
+msgstr "Kategorie laden zum Georeferenzieren"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load User files to geolocate"
+msgstr "Dateien des Benutzers laden zum Georeferenzieren"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load {{$ctrl.titleList.length}} files to geolocate"
+msgstr "{{$ctrl.titleList.length}} Dateien laden zum Georeferenzieren"
 
 #: ./app/components/ltMain/ltMain.pug
 msgid "Loading file details …"
@@ -181,6 +190,10 @@ msgstr "{{$ctrl.titleList.length}} Dateien auf Karte anzeigen"
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Sign in"
 msgstr "Anmelden"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Start timestamp"
+msgstr "Anfangszeitpunkt"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""

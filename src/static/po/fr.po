@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-06-05 10:13+0000\n"
+"PO-Revision-Date: 2017-06-05 11:15+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/locator-tool/locator-tool/language/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,6 +55,10 @@ msgstr "Effacer"
 msgid "Edits using locator-tool"
 msgstr "Modifications utilisant locator-tool"
 
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "End timestamp"
+msgstr ""
+
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Failed to save: {{$ctrl.error.statusText}}"
 msgstr ""
@@ -77,21 +81,9 @@ msgid ""
 "interactive map."
 msgstr "Sélectionnez un fichier dans la liste, et cliquez sur son emplacement sur la carte."
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate Category"
-msgstr "Géolocaliser la catégorie"
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate User files"
-msgstr "Géolocaliser les fichiers de l'utilisateur"
-
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Geolocate files"
 msgstr "Géolocaliser les fichiers"
-
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgid "Geolocate {{$ctrl.titleList.length}} files"
-msgstr "Géolocaliser {{$ctrl.titleList.length}} fichiers"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid ""
@@ -114,6 +106,23 @@ msgstr "Français"
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Left click on map to set the location."
 msgstr "Clic-gauche sur la carte pour définir l'emplacement"
+
+#. maximum number of files
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Limit"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load Category to geolocate"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load User files to geolocate"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load {{$ctrl.titleList.length}} files to geolocate"
+msgstr ""
 
 #: ./app/components/ltMain/ltMain.pug
 msgid "Loading file details …"
@@ -181,6 +190,10 @@ msgstr "Voir les {{$ctrl.titleList.length}} fichiers sur une carte"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Sign in"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Start timestamp"
 msgstr ""
 
 #: ./app/components/ltAbout/ltAbout.pug
