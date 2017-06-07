@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-06-05 11:15+0000\n"
+"PO-Revision-Date: 2017-06-07 21:04+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/locator-tool/locator-tool/language/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,7 @@ msgstr "Emplacement de l'appareil photo, via <a href=\"https://commons.wikimedia
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Category"
-msgstr "Catégorie"
+msgstr "Par catégorie"
 
 #. Depth of category tree
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
@@ -57,23 +57,23 @@ msgstr "Modifications utilisant locator-tool"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "End timestamp"
-msgstr ""
+msgstr "Horodatage (fin)"
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Failed to save: {{$ctrl.error.statusText}}"
-msgstr ""
+msgstr "La sauvegarde a échoué : {{$ctrl.error.statusText}}"
 
 #: ./app/components/ltMain/ltMain.pug
 msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
-msgstr ""
+msgstr "0 fichiers récupérés pour l'utilisateur <code>{{$ctrl.user}}</code> !"
 
 #: ./app/components/ltMain/ltMain.pug
 msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
-msgstr ""
+msgstr "0 fichiers récupérés pour l'utilisateur <code>{{$ctrl.user}}</code> !"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "File list"
-msgstr ""
+msgstr "Liste de fichiers"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""
@@ -89,7 +89,7 @@ msgstr "Géolocaliser les fichiers"
 msgid ""
 "In order to allow locator-tool to modify file description pages, sign in "
 "first:"
-msgstr ""
+msgstr "Vous devez vous identifier avec votre compte Wikimedia pour permettre au locator-tool de modifier les descriptions des images :"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""
@@ -110,19 +110,19 @@ msgstr "Clic-gauche sur la carte pour définir l'emplacement"
 #. maximum number of files
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Limit"
-msgstr ""
+msgstr "Limite"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Load Category to geolocate"
-msgstr ""
+msgstr "Charger la Catégorie à géolocaliser"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Load User files to geolocate"
-msgstr ""
+msgstr "Charger les fichiers de l'utilisateur à géolocaliser"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Load {{$ctrl.titleList.length}} files to geolocate"
-msgstr ""
+msgstr "Charger {{$ctrl.titleList.length}} fichiers à géolocaliser"
 
 #: ./app/components/ltMain/ltMain.pug
 msgid "Loading file details …"
@@ -169,7 +169,7 @@ msgstr "Enregistrer"
 
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Select files"
-msgstr ""
+msgstr "Sélectionner les fichiers"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 #: ./app/components/ltNavbar/ltNavbar.pug
@@ -190,11 +190,11 @@ msgstr "Voir les {{$ctrl.titleList.length}} fichiers sur une carte"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Sign in"
-msgstr ""
+msgstr "Se connecter"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Start timestamp"
-msgstr ""
+msgstr "Horodatage (début)"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""
@@ -227,6 +227,13 @@ msgstr "Utilisateur"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "User files"
+msgstr "Par utilisateur"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid ""
+"When a clipboard content containing HTML code (for instance a copied "
+"selection from a Commons gallery) is pasted here, locator-tool tries to "
+"extract <code>File:</code>s from the code."
 msgstr ""
 
 #: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug

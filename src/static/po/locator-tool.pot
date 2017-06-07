@@ -207,6 +207,10 @@ msgstr ""
 msgid "User files"
 msgstr ""
 
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "When a clipboard content containing HTML code (for instance a copied selection from a Commons gallery) is pasted here, locator-tool tries to extract <code>File:</code>s from the code."
+msgstr ""
+
 #: ./app/components/ltAbout/ltAbout.pug
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "locator-tool"

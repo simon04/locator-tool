@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-06-05 11:15+0000\n"
+"PO-Revision-Date: 2017-06-07 21:04+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: Bengali (http://www.transifex.com/locator-tool/locator-tool/language/bn/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -226,6 +226,13 @@ msgstr "ব্যবহারকারী"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "User files"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid ""
+"When a clipboard content containing HTML code (for instance a copied "
+"selection from a Commons gallery) is pasted here, locator-tool tries to "
+"extract <code>File:</code>s from the code."
 msgstr ""
 
 #: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
