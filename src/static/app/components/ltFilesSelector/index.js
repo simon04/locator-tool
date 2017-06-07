@@ -69,6 +69,29 @@ class ltFilesSelector {
   set titleList(files) {
     this.titles = files && files.join('\n');
   }
+
+  onFilesPaste($event) {
+    /* eslint-env browser */
+    try {
+      if (!$event.clipboardData) return;
+      const html = $event.clipboardData.getData('text/html');
+      if (!html) return;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const links = doc.getElementsByTagName('a');
+      const files = {};
+      [].slice
+        .call(links)
+        .map(a => decodeURI(a.href))
+        .filter(href => !!href)
+        .map(href => href.replace(/.*File:/, 'File:'))
+        .forEach(file => (files[file] = true));
+      this.titleList = Object.keys(files);
+      $event.preventDefault();
+    } catch (ex) {
+      console.warn('Could not parse HTML clipboard content', ex);
+    }
+  }
 }
 ltFilesSelector.$inject = ['ltData', 'ltDataAuth', '$state', '$stateParams'];
 
