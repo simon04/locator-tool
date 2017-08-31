@@ -146,21 +146,16 @@ export default function data($http, $parse, $sce, $q) {
     return $query(params).then(d => d.data.query.usercontribs.map(i => i.title));
   }
   function getFilesForCategory(cat, depth = 3) {
-    cat = cat.replace(/^Category:/, '');
     const params = {
-      language: 'commons',
-      project: 'wikimedia',
-      categories: cat,
-      negcats: 'Location_not_applicable',
-      'ns[6]': 1, // File:
+      lang: 'commons',
+      cat: cat.replace(/^Category:/, ''),
+      type: 6, // File:
       depth: depth,
-      output_compatability: 'catscan',
-      sparse: 'on',
-      sortby: 'title',
-      format: 'json',
-      doit: 1
+      json: 1
     };
-    return $http.get('https://petscan.wmflabs.org/', {params}).then(d => d.data['*'][0].a['*']);
+    return $http
+      .get('https://tools.wmflabs.org/cats-php/', {params})
+      .then(d => d.data.map(f => `File:${f}`));
   }
   function $query(params) {
     params = Object.assign(
