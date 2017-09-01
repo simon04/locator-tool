@@ -4,7 +4,7 @@ import LatLng from './LatLng';
 
 data.$inject = ['$http', '$parse', '$sce', '$q'];
 export default function data($http, $parse, $sce, $q) {
-  const maxTitlesPerRequest = 10;
+  const maxTitlesPerRequest = 50;
   return {
     getCoordinates,
     getCategoriesForPrefix,
@@ -29,8 +29,8 @@ export default function data($http, $parse, $sce, $q) {
       iiurlwidth: 1024,
       iiextmetadatafilter: 'ImageDescription'
     };
-    return $query(params).then(d => {
-      const pages = (d.data && d.data.query && d.data.query.pages) || {};
+    return $query(params).then(data => {
+      const pages = (data && data.query && data.query.pages) || {};
       const descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
       const thumbnailGetter = $parse('imageinfo[0].thumburl');
       const urlGetter = $parse('imageinfo[0].descriptionurl');
@@ -73,7 +73,7 @@ export default function data($http, $parse, $sce, $q) {
     return $q.all(coordinatesPromises).then(flatten);
 
     function flatten(array) {
-      return array.reduce((a, b) => a.concat(b), []);
+      return [].concat(...array);
     }
   }
   function getObjectLocation(pageid) {
@@ -82,9 +82,9 @@ export default function data($http, $parse, $sce, $q) {
       pageids: pageid,
       rvprop: 'content'
     };
-    return $query(params).then(d => {
+    return $query(params).then(data => {
       try {
-        const wikitext = d.data.query.pages[pageid].revisions[0]['*'];
+        const wikitext = data.query.pages[pageid].revisions[0]['*'];
         const locDeg = wikitext.match(
           /\{\{Object location( dec)?\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([NS])\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([WE])/i
         );
@@ -114,8 +114,8 @@ export default function data($http, $parse, $sce, $q) {
       apfrom: prefix,
       apprefix: prefix
     };
-    return $query(params).then(d =>
-      d.data.query.allpages.map(i => i.title.replace(/^Category:/, ''))
+    return $query(params).then(data =>
+      data.query.allpages.map(i => i.title.replace(/^Category:/, ''))
     );
   }
   function getFiles({files, user, userLimit, userStart, userEnd, category, categoryDepth}) {
@@ -143,7 +143,7 @@ export default function data($http, $parse, $sce, $q) {
       ucdir: 'older',
       ucprop: 'title'
     };
-    return $query(params).then(d => d.data.query.usercontribs.map(i => i.title));
+    return $query(params).then(data => data.query.usercontribs.map(i => i.title));
   }
   function getFilesForCategory(cat, depth = 3) {
     const params = {
@@ -157,7 +157,7 @@ export default function data($http, $parse, $sce, $q) {
       .get('https://tools.wmflabs.org/cats-php/', {params})
       .then(d => d.data.map(f => `File:${f}`));
   }
-  function $query(params) {
+  function $query(params, previousResults = {}) {
     params = Object.assign(
       {
         action: 'query',
@@ -166,6 +166,14 @@ export default function data($http, $parse, $sce, $q) {
       },
       params
     );
-    return $http.jsonp('https://commons.wikimedia.org/w/api.php', {params: params});
+    return $http
+      .jsonp('https://commons.wikimedia.org/w/api.php', {params})
+      .then(d => angular.merge({}, previousResults, {continue: undefined}, d.data))
+      .then(
+        data =>
+          data.continue
+            ? $query(Object.assign(params, {continue: undefined}, data.continue), data)
+            : data
+      );
   }
 }
