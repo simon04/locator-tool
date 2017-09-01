@@ -31,8 +31,19 @@ class ltMap {
       maxZoom: 19,
       attribution
     });
+    const basemap = L.tileLayer(
+      'https://maps{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg',
+      {
+        name: `basemap.at 🇦🇹 ${external}`,
+        subdomains: '1234',
+        maxZoom: 20,
+        attribution: `<a href="https://www.basemap.at/" target="_blank">basemap.at</a>
+        (<a href="https://creativecommons.org/licenses/by/3.0/at/deed.de" target="_blank">
+        CC-BY 3.0 AT</a>)`
+      }
+    );
     const layersControl = L.control.layers().addTo(map);
-    const layers = [osmOrg, osm, wm];
+    const layers = [osmOrg, osm, wm, basemap];
     layers.forEach(l => layersControl.addBaseLayer(l, l.options.name));
     const activeLayer = layers.filter(l => l.options.name === layerFromLocalStorage).shift() || osm;
     activeLayer.addTo(map);
