@@ -168,11 +168,15 @@ export default function data($http, $parse, $sce, $q) {
     );
     return $http
       .jsonp('https://commons.wikimedia.org/w/api.php', {params})
-      .then(d => angular.merge({}, previousResults, {continue: undefined}, d.data))
+      .then(d => d.data)
+      .then(data => angular.merge({}, previousResults, data))
       .then(
         data =>
           data.continue
-            ? $query(Object.assign(params, {continue: undefined}, data.continue), data)
+            ? $query(
+                Object.assign(params, {continue: undefined}, data.continue),
+                Object.assign(data, {continue: undefined})
+              )
             : data
       );
   }
