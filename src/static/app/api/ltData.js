@@ -1,9 +1,10 @@
 import angular from 'angular';
+import deepmerge from 'deepmerge';
 
 import LatLng from './LatLng';
 
-data.$inject = ['$http', '$parse', '$sce', '$q'];
-export default function data($http, $parse, $sce, $q) {
+data.$inject = ['$http', '$parse', '$sce', '$q', 'limitToFilter'];
+export default function data($http, $parse, $sce, $q, limitToFilter) {
   const maxTitlesPerRequest = 50;
   return {
     getCoordinates,
@@ -143,7 +144,11 @@ export default function data($http, $parse, $sce, $q) {
       ucdir: 'older',
       ucprop: 'title'
     };
-    return $query(params).then(data => data.query.usercontribs.map(i => i.title));
+    const shouldContinue = data =>
+      data.continue && (!userLimit || data.query.usercontribs.length < userLimit);
+    return $query(params, {}, shouldContinue)
+      .then(data => data.query.usercontribs.map(i => i.title))
+      .then(usercontribs => (userLimit ? limitToFilter(usercontribs, userLimit) : usercontribs));
   }
   function getFilesForCategory(cat, depth = 3) {
     const params = {
@@ -157,7 +162,7 @@ export default function data($http, $parse, $sce, $q) {
       .get('https://tools.wmflabs.org/cats-php/', {params})
       .then(d => d.data.map(f => `File:${f}`));
   }
-  function $query(params, previousResults = {}) {
+  function $query(params, previousResults = {}, shouldContinue = data => !!data.continue) {
     params = Object.assign(
       {
         action: 'query',
@@ -169,13 +174,14 @@ export default function data($http, $parse, $sce, $q) {
     return $http
       .jsonp('https://commons.wikimedia.org/w/api.php', {params})
       .then(d => d.data)
-      .then(data => angular.merge({}, previousResults, data))
+      .then(data => deepmerge(previousResults, data, {arrayMerge: (x, y) => [].concat(...x, ...y)}))
       .then(
         data =>
-          data.continue
+          shouldContinue(data)
             ? $query(
                 Object.assign(params, {continue: undefined}, data.continue),
-                Object.assign(data, {continue: undefined})
+                Object.assign(data, {continue: undefined}),
+                shouldContinue
               )
             : data
       );
