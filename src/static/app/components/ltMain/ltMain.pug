@@ -30,13 +30,12 @@
     .fill-absolute(style='top: 135px')
       ul.list-group
         li.list-group-item.py-1.px-2(
+          style='line-break: loose'
           ng-repeat='title in $ctrl.titles | filter:$ctrl.filter',
           ng-show='$ctrl.showGeolocated || !title.coordinates.isDefinedAndSaved',
           ng-click='$ctrl.title = title',
           ng-class="{'list-group-item-info': title === $ctrl.title}")
-          svg.octicon(ng-show='title.coordinates.isDefinedAndSaved')
-            use(xlink:href='#check')
-          | {{title.file}}
+          | {{title.coordinates.isDefinedAndSaved && '✓' || ''}} {{title.file}}
 
   .col-lg-9.col-xl-3.fill.col-lg-h40(ng-if='$ctrl.title', style='overflow-y: auto')
     .row
