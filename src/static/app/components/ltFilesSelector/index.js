@@ -3,7 +3,7 @@ import angular from 'angular';
 import template from './ltFilesSelector.pug';
 
 class ltFilesSelector {
-  constructor(ltData, ltDataAuth, $state, $stateParams) {
+  constructor(ltData, ltDataAuth, $log, $state, $stateParams) {
     const $tabs = {
       category: {},
       user: {},
@@ -13,6 +13,7 @@ class ltFilesSelector {
       $tab: $stateParams.user ? $tabs.user : $tabs.category,
       $tabs,
       ltData,
+      $log,
       $state,
       category: $stateParams.category,
       categoryDepth: tryParse(parseInt, $stateParams.categoryDepth, 3),
@@ -89,11 +90,11 @@ class ltFilesSelector {
       this.titleList = Object.keys(files);
       $event.preventDefault();
     } catch (ex) {
-      console.warn('Could not parse HTML clipboard content', ex);
+      this.$log.warn('Could not parse HTML clipboard content', ex);
     }
   }
 }
-ltFilesSelector.$inject = ['ltData', 'ltDataAuth', '$state', '$stateParams'];
+ltFilesSelector.$inject = ['ltData', 'ltDataAuth', '$log', '$state', '$stateParams'];
 
 export default {
   template,
