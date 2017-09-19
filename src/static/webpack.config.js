@@ -66,6 +66,12 @@ module.exports = {
     (productionBuild && new CompressionPlugin()) || NoPlugin
   ],
   devServer: {
+    proxy: {
+      '/render/tlgbe/**': {
+        target: 'https://tools.wmflabs.org/',
+        changeOrigin: true
+      }
+    },
     port: 8184
   }
 };

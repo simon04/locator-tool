@@ -151,6 +151,9 @@ export default function data($http, $parse, $sce, $q, limitToFilter) {
       .then(usercontribs => (userLimit ? limitToFilter(usercontribs, userLimit) : usercontribs));
   }
   function getFilesForCategory(cat, depth = 3) {
+    return $q.race([getFilesForCategory1(cat, depth), getFilesForCategory2(cat, depth)]);
+  }
+  function getFilesForCategory1(cat, depth) {
     const params = {
       lang: 'commons',
       cat: cat.replace(/^Category:/, ''),
@@ -161,6 +164,24 @@ export default function data($http, $parse, $sce, $q, limitToFilter) {
     return $http
       .get('https://tools.wmflabs.org/cats-php/', {params})
       .then(d => d.data.map(f => `File:${f}`));
+  }
+  function getFilesForCategory2(cat, depth) {
+    const params = {
+      action: 'query',
+      lang: 'commons',
+      query: cat,
+      querydepth: depth,
+      flaws: 'ALL',
+      format: 'json'
+    };
+    return $http
+      .get('/render/tlgbe/tlgwsgi.py', {params, transformResponse})
+      .then(d => d.data.filter(x => !!x.page).map(x => x.page.page_title));
+    function transformResponse(value) {
+      // tlgwsgi returns one JSON object per line w/o commas in between
+      const array = `[${value.replace(/\n/g, ',').replace(/,$/, '')}]`;
+      return JSON.parse(array);
+    }
   }
   function $query(params, previousResults = {}, shouldContinue = data => !!data.continue) {
     params = Object.assign(
