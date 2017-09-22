@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-06-07 21:21+0000\n"
-"Last-Translator: simon04 <simon.legner@gmail.com>\n"
+"PO-Revision-Date: 2017-09-07 15:26+0000\n"
+"Last-Translator: Pierre Choffet <peuc@wanadoo.fr>\n"
 "Language-Team: French (http://www.transifex.com/locator-tool/locator-tool/language/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,7 +17,7 @@ msgstr ""
 msgid ""
 "<a ui-sref=\"select\">Select files to geolocate</a> by querying a category "
 "or inputting a list of <code>File:</code>s."
-msgstr "<a ui-sref=\"select\">Sélectionnez les fichiers à géolocaliser</a> par catégorie ou en entrant une liste de <code>Fichiers:</code>s."
+msgstr "<a ui-sref=\"select\">Sélectionnez les fichiers à géolocaliser</a> par catégorie ou en entrant une liste de <code>File:</code>."
 
 #: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
 msgid "About"
@@ -228,6 +228,13 @@ msgstr "Utilisateur"
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "User files"
 msgstr "Par utilisateur"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid ""
+"When a clipboard content containing HTML code (for instance a copied "
+"selection from a Commons gallery) is pasted here, locator-tool tries to "
+"extract <code>File:</code>s from the code."
+msgstr "Quand le contenu du presse-papier (par exemple copié depuis une gallerie Commons) est collé ici, le locator-tool tente d'en extraire les <code>File:</code>."
 
 #: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
 msgid "locator-tool"
