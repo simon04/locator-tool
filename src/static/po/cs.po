@@ -1,0 +1,247 @@
+# 
+# Translators:
+# frettie <frettie@gmail.com>, 2017
+# simon04 <simon.legner@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: locator-tool\n"
+"PO-Revision-Date: 2017-09-22 07:15+0000\n"
+"Last-Translator: simon04 <simon.legner@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/locator-tool/locator-tool/language/cs/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"<a ui-sref=\"select\">Select files to geolocate</a> by querying a category "
+"or inputting a list of <code>File:</code>s."
+msgstr "<a ui-sref=\"select\">Vyberte soubory pro geolokaci</a> dotazem na kategorii nebo seznamem <code>Soubor:</code>ů"
+
+#: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
+msgid "About"
+msgstr "O nástroji"
+
+#: ./app/components/ltNavbar/ltNavbar.pug
+msgid "About locator-tool"
+msgstr "O nástroji locator-tool"
+
+#: ./app/components/ltMain/ltMain.pug
+msgid "Also show geolocated files"
+msgstr "Zobrazít i geolokované soubory"
+
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid ""
+"Camera location via\n"
+"<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
+msgstr "Pozice fotoaparátu\n<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Lokace</code></a>"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Category"
+msgstr "Kategorie"
+
+#. Depth of category tree
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgctxt "Category"
+msgid "Depth"
+msgstr "Hloubka"
+
+#: ./app/components/ltLocationInput/ltLocationInput.pug
+msgid "Discard"
+msgstr "Zrušit"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Edits using locator-tool"
+msgstr "Editace pomocí locator-tool"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "End timestamp"
+msgstr "Do"
+
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid "Failed to save: {{$ctrl.error.statusText}}"
+msgstr "Nepovedlo se uložit: {{$ctrl.error.statusText}}"
+
+#: ./app/components/ltMain/ltMain.pug
+msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
+msgstr "Načteno 0 souborů z kategorie <code>{{$ctrl.category}}1</code>!"
+
+#: ./app/components/ltMain/ltMain.pug
+msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
+msgstr "Načteno 0 souborů uživatele <code>{{$ctrl.user}}</code>!"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "File list"
+msgstr "Seznam souborů"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"From the list of files provided, select one and click its location on an "
+"interactive map."
+msgstr "Vyberte soubor ze seznamu souborů a klikněte na pozici fotoaparátu, odkud byl vyfocen."
+
+#: ./app/components/ltNavbar/ltNavbar.pug
+msgid "Geolocate files"
+msgstr "Geolokovat soubory"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid ""
+"In order to allow locator-tool to modify file description pages, sign in "
+"first:"
+msgstr "Pro povolení editace stránek souborů pomocí nástroje locator-tool se prosím přihlašte:"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"Its source code is available on <a href=\"https://github.com/simon04"
+"/locator-tool\">GitHub</a> and <a "
+"href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
+msgstr "Zdrojový kód nástroje je dostupný na <a href=\"https://github.com/simon04/locator-tool\">GitHubu</a> a je licencován pomocí licence <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>."
+
+#. Your language in your language (e.g. 'English', 'Deutsch')
+#: ./app/components/ltLanguageSelector/ltLanguageSelector.pug
+msgid "LANGUAGE"
+msgstr "Čeština"
+
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid "Left click on map to set the location."
+msgstr "Na nastavení umístění klikněte levým tlačítkem myši."
+
+#. maximum number of files
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Limit"
+msgstr "Limit"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load Category to geolocate"
+msgstr "Načtěte kategorii pro geolokování."
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load User files to geolocate"
+msgstr "Načtěte soubory uživatele pro geolokování."
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Load {{$ctrl.titleList.length}} files to geolocate"
+msgstr "Načteno {{$ctrl.titleList.length}} souborů pro geolokaci."
+
+#: ./app/components/ltMain/ltMain.pug
+msgid "Loading file details …"
+msgstr "Načítám detaily souborů ..."
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltUserInfo/ltUserInfo.pug
+msgid "Log in"
+msgstr "Přihlásit"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Log in using the button on the upper right corner"
+msgstr "Přihlašte se pomocí tlačítka v pravém horním rohu"
+
+#: ./app/components/ltUserInfo/ltUserInfo.pug
+msgid "Log out"
+msgstr "Odhlásit"
+
+#: ./app/components/ltUserInfo/ltUserInfo.pug
+msgid "Logged in as {{$ctrl.user}}"
+msgstr "Přihlášen jako {{$ctrl.user}}"
+
+#: ./app/components/ltNavbar/ltNavbar.pug
+msgid "Map"
+msgstr "Mapa"
+
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid ""
+"Object location via\n"
+"<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
+msgstr "Umístění objektu pomocí\n<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Umístění objektu</code></a>"
+
+#: ./app/components/ltFileDetails/ltFileDetails.pug
+msgid "Press shift and click on map to set the object location."
+msgstr "Pro nastavení pozice objektu zmáčkněte Shift a klikněte do mapy."
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Repeat …"
+msgstr "Opakovat ..."
+
+#: ./app/components/ltLocationInput/ltLocationInput.pug
+msgid "Save"
+msgstr "Uložit"
+
+#: ./app/components/ltNavbar/ltNavbar.pug
+msgid "Select files"
+msgstr "Vyberte soubory"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltNavbar/ltNavbar.pug
+msgid "Select files to geolocate"
+msgstr "Vyberte soubory pro geolokaci"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Show Category on map"
+msgstr "Zobrazit kategorii na mapě"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Show User files on map"
+msgstr "Zobrazit soubory uživatele na mapě"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Show {{$ctrl.titleList.length}} files on map"
+msgstr "Zobrazit {{$ctrl.titleList.length}} souborů na mapě"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Sign in"
+msgstr "Přihlásit"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Start timestamp"
+msgstr "Od"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"This tool has been created by <a "
+"href=\"https://github.com/simon04/\">simon04</a>."
+msgstr "Autorem tohoto nástroje je <a href=\"https://github.com/simon04/\">simon04</a>."
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"This tool helps to add <code class=\"mediawiki-template\">Coordinate</code> "
+"information to images on <a "
+"href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgstr "Tento nástroj pomáhá přidávat informace o <code class=\"mediawiki-template\">souřadnicích</code> obrázků na <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Translate locator-tool on Transifex"
+msgstr "Přeložte locator-tool na Transifex"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid "Usage"
+msgstr "Použití"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "User"
+msgstr "Uživatel"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "User files"
+msgstr "Soubory uživatele"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid ""
+"When a clipboard content containing HTML code (for instance a copied "
+"selection from a Commons gallery) is pasted here, locator-tool tries to "
+"extract <code>File:</code>s from the code."
+msgstr "V případě, že vložíte obsah schránky, který obsahuje HTML kód (například z galerie na Commons), tak se locator-tool pokusí extrahovat z kódu informace of <code>Soubor:</code>ech."
+
+#: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
+msgid "locator-tool"
+msgstr "locator-tool"
+
+#: ./app/components/ltAbout/ltAbout.pug
+msgid ""
+"→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
+"tool\">Commons:Locator-tool</a>"
+msgstr "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-tool\">Commons:Locator-tool</a>"
