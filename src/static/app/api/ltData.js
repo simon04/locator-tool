@@ -9,7 +9,7 @@ export default function data($http, $parse, $sce, $q, limitToFilter) {
   return {
     getCoordinates,
     getCategoriesForPrefix,
-    getObjectLocation,
+    getFileDetails,
     getFiles,
     getFilesForUser,
     getFilesForCategory
@@ -74,13 +74,15 @@ export default function data($http, $parse, $sce, $q, limitToFilter) {
       return [].concat(...array);
     }
   }
-  function getObjectLocation(pageid) {
+  function getFileDetails(pageid) {
     const params = {
       prop: 'revisions',
       pageids: pageid,
       rvprop: 'content'
     };
-    return $query(params).then(data => {
+    return $query(params).then(data => ({objectLocation: extractObjectLocation(data)}));
+
+    function extractObjectLocation(data) {
       try {
         const wikitext = data.query.pages[pageid].revisions[0]['*'];
         const locDeg = wikitext.match(
@@ -102,7 +104,7 @@ export default function data($http, $parse, $sce, $q, limitToFilter) {
       } catch (e) {
         return new LatLng('Object location', {});
       }
-    });
+    }
   }
   function getCategoriesForPrefix(prefix) {
     const params = {
