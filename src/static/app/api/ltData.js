@@ -23,26 +23,17 @@ export default function data($http, $parse, $sce, $q, limitToFilter) {
       return getCoordinatesChunkByChunk(titles);
     }
     const params = {
-      prop: 'coordinates|imageinfo|categories',
-      clshow: '!hidden',
-      titles: titles.join('|'),
-      iiprop: 'url|extmetadata',
-      iiextmetadatafilter: 'ImageDescription'
+      prop: 'coordinates',
+      titles: titles.join('|').replace(/_/g, ' ')
     };
     return $query(params).then(data => {
       const pages = (data && data.query && data.query.pages) || {};
-      const descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
-      const urlGetter = $parse('imageinfo[0].descriptionurl');
       const coordsGetter = $parse('{lat: coordinates[0].lat, lng: coordinates[0].lon}');
       return Object.keys(pages).map(pageid => {
         const page = pages[pageid];
-        const categories = ((page && page.categories) || [])
-          .map(category => category.title.replace(/^Category:/, ''));
         return {
           pageid: parseInt(pageid),
           file: page.title,
-          categories,
-          description: $sce.trustAsHtml(descriptionGetter(page)),
           imageUrl(width) {
             const file = this.file.replace(/^File:/, '');
             const url = `https://commons.wikimedia.org/wiki/Special:FilePath/${file}`;
@@ -54,7 +45,6 @@ export default function data($http, $parse, $sce, $q, limitToFilter) {
               return `${url}?width=1024`;
             }
           },
-          url: urlGetter(page),
           coordinates: new LatLng('Location', coordsGetter(page)),
           objectLocation: new LatLng('Object location', {})
         };
@@ -76,15 +66,30 @@ export default function data($http, $parse, $sce, $q, limitToFilter) {
   }
   function getFileDetails(pageid) {
     const params = {
-      prop: 'revisions',
+      prop: 'categories|imageinfo|revisions',
+      clshow: '!hidden',
       pageids: pageid,
+      iiprop: 'url|extmetadata',
+      iiextmetadatafilter: 'ImageDescription',
       rvprop: 'content'
     };
-    return $query(params).then(data => ({objectLocation: extractObjectLocation(data)}));
+    return $query(params).then(data => {
+      const page = (data && data.query && data.query.pages && data.query.pages[pageid]) || {};
+      const categories = ((page && page.categories) || [])
+        .map(category => category.title.replace(/^Category:/, ''));
+      const descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
+      const urlGetter = $parse('imageinfo[0].descriptionurl');
+      return {
+        categories,
+        description: $sce.trustAsHtml(descriptionGetter(page)),
+        url: urlGetter(page),
+        objectLocation: extractObjectLocation(page)
+      };
+    });
 
-    function extractObjectLocation(data) {
+    function extractObjectLocation(page) {
       try {
-        const wikitext = data.query.pages[pageid].revisions[0]['*'];
+        const wikitext = page.revisions[0]['*'];
         const locDeg = wikitext.match(
           /\{\{Object location( dec)?\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([NS])\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([WE])/i
         );

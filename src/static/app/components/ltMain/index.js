@@ -45,9 +45,9 @@ class ltMain {
       this.updateMapView(title.coordinates);
     }
     if (title && title.pageid) {
-      this.ltData.getFileDetails(title.pageid).then(({objectLocation}) => {
-        const {lat, lng} = objectLocation;
-        title.objectLocation = objectLocation;
+      this.ltData.getFileDetails(title.pageid).then(fileDetails => {
+        Object.assign(title, fileDetails);
+        const {lat, lng} = title.objectLocation;
         if (!(title.coordinates && title.coordinates.lat)) {
           this.updateMapView({lat, lng});
         }
