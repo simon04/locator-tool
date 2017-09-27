@@ -1,8 +1,8 @@
 img.img-fluid.img-thumbnail(
-  ng-src='{{$ctrl.file.thumbnail}}',
+  ng-src='{{$ctrl.thumbnailUrl}}',
   style='max-height: 100%; cursor: zoom-in',
   ng-click='$ctrl.dialogShown = true'
-  ng-animate-swap='$ctrl.file.thumbnail')
+  ng-animate-swap='$ctrl.thumbnailUrl')
 
 .modal(
   style='display: block; cursor: zoom-out; background: rgba(0, 0, 0, 0.5)',
@@ -11,4 +11,4 @@ img.img-fluid.img-thumbnail(
   .modal-dialog(style='max-width: 90%; max-height: 90%; overflow-y: scroll')
     .modal-content
       .modal-body
-        img.img-fluid(ng-src='{{$ctrl.fullImageUrl}}', style='margin: auto')
+        img.img-fluid(ng-src='{{$ctrl.imageUrl}}', style='margin: auto')

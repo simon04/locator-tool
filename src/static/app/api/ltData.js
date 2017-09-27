@@ -26,19 +26,16 @@ export default function data($http, $parse, $sce, $q, limitToFilter) {
       prop: 'coordinates|imageinfo|categories',
       clshow: '!hidden',
       titles: titles.join('|'),
-      iiprop: 'dimensions|url|extmetadata',
-      iiurlwidth: 1024,
+      iiprop: 'url|extmetadata',
       iiextmetadatafilter: 'ImageDescription'
     };
     return $query(params).then(data => {
       const pages = (data && data.query && data.query.pages) || {};
       const descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
-      const thumbnailGetter = $parse('imageinfo[0].thumburl');
       const urlGetter = $parse('imageinfo[0].descriptionurl');
       const coordsGetter = $parse('{lat: coordinates[0].lat, lng: coordinates[0].lon}');
       return Object.keys(pages).map(pageid => {
         const page = pages[pageid];
-        const imgWidth = page && page.imageinfo && page.imageinfo[0] && page.imageinfo[0].width;
         const categories = ((page && page.categories) || [])
           .map(category => category.title.replace(/^Category:/, ''));
         return {
@@ -46,15 +43,15 @@ export default function data($http, $parse, $sce, $q, limitToFilter) {
           file: page.title,
           categories,
           description: $sce.trustAsHtml(descriptionGetter(page)),
-          thumbnail: thumbnailGetter(page),
           imageUrl(width) {
-            // Mediawiki does not provide an easy way of getting an image in the desired width
-            if (!this.thumbnail.match(/\/thumb\//)) {
-              return this.thumbnail;
-            } else if (width >= imgWidth) {
-              return this.thumbnail.replace(/\/thumb\//, '/').replace(/\/[^/]+$/, '');
+            const file = this.file.replace(/^File:/, '');
+            const url = `https://commons.wikimedia.org/wiki/Special:FilePath/${file}`;
+            if (width >= 2048) {
+              return url;
+            } else if (width >= 1280) {
+              return `${url}?width=2048`;
             } else {
-              return this.thumbnail.replace(/\/\d+px([^/]+)$/, `/${width}px$1`);
+              return `${url}?width=1024`;
             }
           },
           url: urlGetter(page),
