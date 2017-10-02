@@ -7,4 +7,4 @@
         p
           a(href='{{title.url}}', target='_blank')
             | {{title.file}}
-        img(ng-if='title._popup', ng-src='{{title.thumbnail}}', style='width: 100%')
+        img(ng-if='title._popup', ng-src='{{::title.imageUrl(300)}}', style='width: 100%')

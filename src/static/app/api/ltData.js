@@ -34,6 +34,7 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
         return {
           pageid: parseInt(pageid),
           file: page.title,
+          url: `https://commons.wikimedia.org/wiki/${page.title}`,
           imageUrl(width) {
             const file = this.file.replace(/^File:/, '');
             const url = `https://commons.wikimedia.org/wiki/Special:FilePath/${file}`;
