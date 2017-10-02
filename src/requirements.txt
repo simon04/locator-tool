@@ -1,5 +1,5 @@
 flask
 flask-mwoauth>=0.1.14
 werkzeug>=0.9
-flask-SeaSurf==0.2.2
+git+https://github.com/maxcountryman/flask-seasurf.git@b2895b1e637bdd2cc56b2396ff716d77110b14b5#egg=flask-SeaSurf
 talisman==0.1.0

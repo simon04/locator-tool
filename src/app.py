@@ -15,6 +15,7 @@ Talisman(app, content_security_policy={})
 # CSRF protection. settings fitting Angular $httpProvider
 app.config['CSRF_COOKIE_NAME'] = 'XSRF-TOKEN'
 app.config['CSRF_HEADER_NAME'] = 'X-XSRF-TOKEN'
+app.config['CSRF_COOKIE_PATH'] = '/locator-tool/'
 SeaSurf(app)
 
 logfile = TimedRotatingFileHandler(filename='locator-tool.log', when='midnight')
