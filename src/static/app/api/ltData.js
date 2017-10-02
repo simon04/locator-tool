@@ -3,8 +3,8 @@ import deepmerge from 'deepmerge';
 
 import LatLng from './LatLng';
 
-data.$inject = ['$http', '$parse', '$sce', '$q', 'limitToFilter'];
-export default function data($http, $parse, $sce, $q, limitToFilter) {
+data.$inject = ['$http', '$httpParamSerializer', '$parse', '$sce', '$q', 'limitToFilter'];
+export default function data($http, $httpParamSerializer, $parse, $sce, $q, limitToFilter) {
   const maxTitlesPerRequest = 50;
   return {
     getCoordinates,
@@ -187,24 +187,22 @@ export default function data($http, $parse, $sce, $q, limitToFilter) {
       return JSON.parse(array);
     }
   }
-  function $query(params, previousResults = {}, shouldContinue = data => !!data.continue) {
-    params = Object.assign(
-      {
-        action: 'query',
-        format: 'json',
-        callback: 'JSON_CALLBACK'
-      },
-      params
-    );
+  function $query(query, previousResults = {}, shouldContinue = data => !!data.continue) {
+    const data = $httpParamSerializer(query);
+    const params = {
+      action: 'query',
+      format: 'json',
+      origin: '*'
+    };
     return $http
-      .jsonp('https://commons.wikimedia.org/w/api.php', {params})
+      .post('https://commons.wikimedia.org/w/api.php', data, {params})
       .then(d => d.data)
       .then(data => deepmerge(previousResults, data, {arrayMerge: (x, y) => [].concat(...x, ...y)}))
       .then(
         data =>
           shouldContinue(data)
             ? $query(
-                Object.assign(params, {continue: undefined}, data.continue),
+                Object.assign(query, {continue: undefined}, data.continue),
                 Object.assign(data, {continue: undefined}),
                 shouldContinue
               )
