@@ -74,6 +74,10 @@ msgid "Geolocate files"
 msgstr ""
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Hello {{$ctrl.userInfo}}!"
+msgstr ""
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "In order to allow locator-tool to modify file description pages, sign in first:"
 msgstr ""
 

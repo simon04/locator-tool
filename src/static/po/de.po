@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-09-22 07:16+0000\n"
+"PO-Revision-Date: 2017-10-06 18:11+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/locator-tool/locator-tool/language/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,6 +83,10 @@ msgstr "Eine Datei in der Dateiliste auswählen und deren Position durch Klick a
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Geolocate files"
 msgstr "Dateien georeferenzieren"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Hello {{$ctrl.userInfo}}!"
+msgstr "Hallo {{$ctrl.userInfo}}!"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid ""
