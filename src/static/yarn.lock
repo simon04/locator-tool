@@ -2,9 +2,15 @@
 # yarn lockfile v1
 
 
-"@uirouter/core@5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.3.tgz#e2b5b1e45190e20c67ba4e15c013de5d4e0ccab3"
+"@uirouter/angularjs@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@uirouter/angularjs/-/angularjs-1.0.7.tgz#152b13dcd23de9cfbb7b4ed9a3cbec72c1772c29"
+  dependencies:
+    "@uirouter/core" "5.0.8"
+
+"@uirouter/core@5.0.8":
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.8.tgz#fa9da20fb5fcb6352c9b6011d48dee2b1b70d871"
 
 abbrev@1:
   version "1.0.9"
@@ -125,12 +131,6 @@ angular-ll-leaflet@0.3.1:
 angular-local-storage@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/angular-local-storage/-/angular-local-storage-0.5.2.tgz#7079beb0aa5ca91386d223125efefd13ca0ecd0c"
-
-angular-ui-router@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/angular-ui-router/-/angular-ui-router-1.0.3.tgz#bf2494caae95c37cf01af3761d89747cfed2db45"
-  dependencies:
-    "@uirouter/core" "5.0.3"
 
 angular@1.5.11, angular@1.x:
   version "1.5.11"

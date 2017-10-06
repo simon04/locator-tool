@@ -25,12 +25,12 @@
   },
   "homepage": "https://tools.wmflabs.org/locator-tool/",
   "dependencies": {
+    "@uirouter/angularjs": "^1.0.7",
     "angular": "1.5.11",
     "angular-animate": "1.5.11",
     "angular-gettext": "^2.3.8",
     "angular-ll-leaflet": "0.3.1",
     "angular-local-storage": "^0.5.2",
-    "angular-ui-router": "^1.0.3",
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.4.1",
     "deepmerge": "^1.5.1",

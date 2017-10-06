@@ -1,7 +1,7 @@
 import angular from 'angular';
 import animate from 'angular-animate';
 import localStorage from 'angular-local-storage';
-import uiRouter from 'angular-ui-router';
+import uiRouter from '@uirouter/angularjs';
 import gettext from 'angular-gettext';
 
 import './style.css';
