@@ -44,17 +44,17 @@ class ltMap {
       }
     );
     const mapyCzBase = L.tileLayer('https://mapserver.mapy.cz/1base-m/{z}-{x}-{y}', {
-        name: `Mapy.cz base ${external}`,
+        name: `Mapy.cz base 🇨🇿 ${external}`,
         maxZoom: 18,
         attribution
       });
     const mapyCzPhoto = L.tileLayer('https://mapserver.mapy.cz/bing/{z}-{x}-{y}', {
-        name: `Mapy.cz Photo ${external}`,
+        name: `Mapy.cz Photo 🇨🇿 ${external}`,
         maxZoom: 20,
         attribution
       });
     const mapyCzTourism = L.tileLayer('https://mapserver.mapy.cz/1turist-m/{z}-{x}-{y}', {
-        name: `Mapy.cz Touristic map ${external}`,
+        name: `Mapy.cz Touristic map 🇨🇿 ${external}`,
         maxZoom: 18,
         attribution
       });
