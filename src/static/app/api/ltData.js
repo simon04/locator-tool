@@ -157,7 +157,7 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
   }
   function getFilesForCategory(cat, depth = 3) {
     cat = cat.replace(/^Category:/, '');
-    return $q.race([getFilesForCategory1(cat, depth), getFilesForCategory2(cat, depth)]);
+    return successRace([getFilesForCategory1(cat, depth), getFilesForCategory2(cat, depth)]);
   }
   function getFilesForCategory1(cat, depth) {
     const params = {
@@ -214,5 +214,13 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
               )
             : data
       );
+  }
+  function successRace(promises) {
+    return $q((resolve, reject) => {
+      // resolve first successful one
+      promises.forEach(promise => promise.then(resolve));
+      // reject when all fail
+      $q.all(promises).catch(reject);
+    });
   }
 }
