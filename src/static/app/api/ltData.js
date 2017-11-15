@@ -179,9 +179,13 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
       flaws: 'ALL',
       format: 'json'
     };
-    return $http
-      .get('/render/tlgbe/tlgwsgi.py', {params, transformResponse})
-      .then(d => d.data.filter(x => !!x.page).map(x => x.page.page_title));
+    return $http.get('/render/tlgbe/tlgwsgi.py', {params, transformResponse}).then(d => {
+      const exceptions = d.data.filter(x => !!x.exception).map(x => x.exception);
+      if (exceptions.length) {
+        throw new Error(exceptions[0]);
+      }
+      return d.data.filter(x => !!x.page).map(x => x.page.page_title);
+    });
     function transformResponse(value) {
       // tlgwsgi returns one JSON object per line w/o commas in between
       const array = `[${value.replace(/\n/g, ',').replace(/,$/, '')}]`;
