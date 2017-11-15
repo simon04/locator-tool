@@ -156,6 +156,7 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
       .then(usercontribs => (userLimit ? limitToFilter(usercontribs, userLimit) : usercontribs));
   }
   function getFilesForCategory(cat, depth = 3) {
+    cat = cat.replace(/^Category:/, '');
     return $q.race([getFilesForCategory1(cat, depth), getFilesForCategory2(cat, depth)]);
   }
   function getFilesForCategory1(cat, depth) {
