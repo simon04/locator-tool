@@ -43,8 +43,23 @@ class ltMap {
         CC-BY 3.0 AT</a>)`
       }
     );
+    const mapyCzBase = L.tileLayer('https://mapserver.mapy.cz/1base-m/{z}-{x}-{y}', {
+        name: `Mapy.cz base 🇨🇿 ${external}`,
+        maxZoom: 18,
+        attribution
+      });
+    const mapyCzPhoto = L.tileLayer('https://mapserver.mapy.cz/bing/{z}-{x}-{y}', {
+        name: `Mapy.cz Photo 🇨🇿 ${external}`,
+        maxZoom: 20,
+        attribution
+      });
+    const mapyCzTourism = L.tileLayer('https://mapserver.mapy.cz/1turist-m/{z}-{x}-{y}', {
+        name: `Mapy.cz Touristic map 🇨🇿 ${external}`,
+        maxZoom: 18,
+        attribution
+      });
     const layersControl = L.control.layers().addTo(map);
-    const layers = [osmOrg, osm, wm, basemap];
+    const layers = [osmOrg, osm, wm, basemap, mapyCzBase, mapyCzPhoto, mapyCzTourism];
     layers.forEach(l => layersControl.addBaseLayer(l, l.options.name));
     const activeLayer = layers.filter(l => l.options.name === layerFromLocalStorage).shift() || osm;
     activeLayer.addTo(map);
