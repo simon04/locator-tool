@@ -10,7 +10,13 @@ import appComponents from './components';
 
 angular.module('app', [animate, uiRouter, localStorage, gettext, appApi, appComponents]);
 
+angular.module('app').config(configure);
 angular.module('app').config(routes);
+
+configure.$inject = ['$compileProvider'];
+function configure($compileProvider) {
+  $compileProvider.preAssignBindingsEnabled(true);
+}
 
 routes.$inject = ['$stateProvider', '$urlRouterProvider'];
 function routes($stateProvider, $urlRouterProvider) {

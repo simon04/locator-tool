@@ -26,8 +26,8 @@
   "homepage": "https://tools.wmflabs.org/locator-tool/",
   "dependencies": {
     "@uirouter/angularjs": "^1.0.7",
-    "angular": "1.5.11",
-    "angular-animate": "1.5.11",
+    "angular": "1.6.8",
+    "angular-animate": "1.6.8",
     "angular-gettext": "^2.3.8",
     "angular-ll-leaflet": "0.3.1",
     "angular-local-storage": "^0.5.2",
