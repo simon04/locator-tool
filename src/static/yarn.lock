@@ -2252,9 +2252,13 @@ leaflet-geosearch@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/leaflet-geosearch/-/leaflet-geosearch-1.0.0.tgz#7cf5c36f87e278a49ea8a4898be9d925ed848cc8"
 
-"leaflet@0.7.x || 1.x", leaflet@^1.0.3:
+"leaflet@0.7.x || 1.x":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.0.3.tgz#1f401b98b45c8192134c6c8d69686253805007c8"
+
+leaflet@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.2.0.tgz#fd5d93d9cb00091f5f8a69206d0d6744c1c82697"
 
 leven@^2.0.0:
   version "2.1.0"
