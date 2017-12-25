@@ -7,8 +7,17 @@ const DEFAULT_MAP_VIEW = {
 };
 
 class ltMain {
-  constructor(ltData, $scope, $stateParams, ltDataAuth, $q, localStorageService, orderByFilter) {
-    Object.assign(this, {ltData, ltDataAuth, localStorageService});
+  constructor(
+    ltData,
+    $scope,
+    $stateParams,
+    ltDataAuth,
+    $q,
+    localStorageService,
+    filterFilter,
+    orderByFilter
+  ) {
+    Object.assign(this, {ltData, ltDataAuth, localStorageService, filterFilter});
     const {category, user, files} = $stateParams;
     Object.assign(this, {category, user, files});
     this.mapView = localStorageService.get('mapView') || DEFAULT_MAP_VIEW;
@@ -31,12 +40,32 @@ class ltMain {
     return this.loading$q && !this.loading$q.$$state.status;
   }
 
+  get filteredTitles() {
+    let titles = this.titles;
+    titles = this.filterFilter(titles, this.filter);
+    titles = this.filterFilter(
+      titles,
+      title => this.showGeolocated || !title.coordinates.isDefinedAndSaved
+    );
+    return titles;
+  }
+
   get titlesDefinedAndSaved() {
     return (this.titles && this.titles.filter(title => title.coordinates.isDefinedAndSaved)) || [];
   }
 
   get titlesDefinedAndSavedPercent() {
     return 100 * this.titlesDefinedAndSaved.length / (this.titles || []).length;
+  }
+
+  keyPressedInList($event) {
+    const titles = this.filteredTitles;
+    const direction = keydownToDirection($event);
+    const index = titles.indexOf(this.title);
+    const newIndex = direction + index;
+    if (newIndex >= 0 && titles[newIndex]) {
+      this.title = titles[newIndex];
+    }
   }
 
   titleChanged(title) {
@@ -82,6 +111,7 @@ ltMain.$inject = [
   'ltDataAuth',
   '$q',
   'localStorageService',
+  'filterFilter',
   'orderByFilter'
 ];
 
@@ -89,3 +119,18 @@ export default {
   template,
   controller: ltMain
 };
+
+function keydownToDirection($event) {
+  if ($event && $event.keyCode) {
+    switch ($event.keyCode) {
+      case 39: // right
+      case 40: // down
+        $event.preventDefault();
+        return 1;
+      case 37: // left
+      case 38: // up
+        $event.preventDefault();
+        return -1;
+    }
+  }
+}
