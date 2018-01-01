@@ -76,8 +76,9 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
     };
     return $query(params).then(data => {
       const page = (data && data.query && data.query.pages && data.query.pages[pageid]) || {};
-      const categories = ((page && page.categories) || [])
-        .map(category => category.title.replace(/^Category:/, ''));
+      const categories = ((page && page.categories) || []).map(category =>
+        category.title.replace(/^Category:/, '')
+      );
       const descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
       const urlGetter = $parse('imageinfo[0].descriptionurl');
       return {

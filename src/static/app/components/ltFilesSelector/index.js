@@ -64,7 +64,10 @@ class ltFilesSelector {
   }
 
   get titleList() {
-    return this.titles.split('\n').map(file => file && file.split('|')[0]).filter(x => x);
+    return this.titles
+      .split('\n')
+      .map(file => file && file.split('|')[0])
+      .filter(x => x);
   }
 
   set titleList(files) {
