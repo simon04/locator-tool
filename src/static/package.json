@@ -35,7 +35,7 @@
     "core-js": "^2.4.1",
     "deepmerge": "^1.5.1",
     "leaflet": "^1.2.0",
-    "leaflet-geosearch": "1.0.0",
+    "leaflet-control-geocoder": "^1.5.8",
     "octicons": "^5.0.1"
   },
   "devDependencies": {

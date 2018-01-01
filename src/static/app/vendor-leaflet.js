@@ -1,6 +1,5 @@
 import 'leaflet';
-import 'leaflet-geosearch/src/js/l.control.geosearch.js';
-import 'leaflet-geosearch/src/js/l.geosearch.provider.openstreetmap.js';
+import 'leaflet-control-geocoder/src/control';
 
 import 'leaflet/dist/leaflet.css';
-import 'leaflet-geosearch/src/css/l.geosearch.css';
+import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
