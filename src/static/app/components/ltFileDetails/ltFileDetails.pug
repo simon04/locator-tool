@@ -9,7 +9,7 @@
     .card-content
       div(ng-bind-html='$ctrl.file.description')
       a(ng-repeat='category in $ctrl.file.categories', ng-href='https://commons.wikimedia.org/wiki/Category:{{category}}', target='_blank')
-        span.badge.badge-default
+        span.badge.badge-secondary
           | {{::category}}
 
 .card.mt-2
