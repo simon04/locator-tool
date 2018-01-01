@@ -18,8 +18,9 @@ function configure($compileProvider) {
   $compileProvider.preAssignBindingsEnabled(true);
 }
 
-routes.$inject = ['$stateProvider', '$urlRouterProvider'];
-function routes($stateProvider, $urlRouterProvider) {
+routes.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
+function routes($stateProvider, $urlRouterProvider, $locationProvider) {
+  $locationProvider.hashPrefix('');
   $stateProvider.state('about', {
     url: '/about',
     component: 'ltAbout'
