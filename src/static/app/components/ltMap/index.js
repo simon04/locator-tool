@@ -1,4 +1,7 @@
 import template from './ltMap.pug';
+import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+import iconUrl from 'leaflet/dist/images/marker-icon.png';
+import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 let layerFromLocalStorage;
 
@@ -13,6 +16,14 @@ class ltMap {
   }
 
   static _mapInit(L, map) {
+    // https://github.com/Leaflet/Leaflet/issues/4968#issuecomment-269750768
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl,
+      iconUrl,
+      shadowUrl
+    });
+
     map.attributionControl.setPrefix(false);
     const external = '<svg class="octicon"><use xlink:href="#link-external"></use></svg>';
     const attribution = `<a href="https://www.openstreetmap.org/copyright" target="_blank">
