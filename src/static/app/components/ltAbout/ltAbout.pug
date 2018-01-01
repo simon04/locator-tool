@@ -36,3 +36,12 @@ ul
     span
       a(href='https://www.transifex.com/locator-tool/locator-tool/')
         span(translate) Translate locator-tool on Transifex
+  li
+    span(translate) Version:
+    |
+    |
+    time(ng-attr-datetime='{{::$ctrl.buildDate.toISOString()}}') {{::$ctrl.buildDate | date:'yyyy-MM-dd'}},
+    |
+    |
+    a(ng-href='https://github.com/simon04/locator-tool/commit/{{$ctrl.buildVersion}}')
+      code {{::$ctrl.buildVersion}}

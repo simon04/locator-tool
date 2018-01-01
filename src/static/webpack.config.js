@@ -1,6 +1,7 @@
 /* eslint-env node */
 const webpack = require('webpack');
 const path = require('path');
+const {execSync} = require('child_process');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -11,6 +12,20 @@ const NoPlugin = {
 };
 
 const productionBuild = process.env.npm_lifecycle_script !== 'webpack-dev-server';
+
+class DefineBuildInfo extends webpack.DefinePlugin {
+  constructor() {
+    super({});
+  }
+  apply(compiler) {
+    const git = execSync('git describe --always', {encoding: 'utf8'}).trim();
+    this.definitions = {
+      __BUILD_DATE__: JSON.stringify(Date.now()),
+      __BUILD_VERSION__: JSON.stringify(git)
+    };
+    super.apply(compiler);
+  }
+}
 
 module.exports = {
   entry: {
@@ -63,6 +78,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'vendor-leaflet', 'manifest']
     }),
+    new DefineBuildInfo(),
     (productionBuild && new CompressionPlugin()) || NoPlugin
   ],
   devServer: {
