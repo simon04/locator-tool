@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@uirouter/angularjs@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@uirouter/angularjs/-/angularjs-1.0.7.tgz#152b13dcd23de9cfbb7b4ed9a3cbec72c1772c29"
+"@uirouter/angularjs@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@uirouter/angularjs/-/angularjs-1.0.12.tgz#b2275b7e33e0024a485f96568a18d350539880f3"
   dependencies:
-    "@uirouter/core" "5.0.8"
+    "@uirouter/core" "5.0.13"
 
-"@uirouter/core@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.8.tgz#fa9da20fb5fcb6352c9b6011d48dee2b1b70d871"
+"@uirouter/core@5.0.13":
+  version "5.0.13"
+  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.13.tgz#e1b31626c393cbdd82651755ff1ce3fc55163fd0"
 
 abbrev@1:
   version "1.0.9"
