@@ -5,10 +5,11 @@ head
   meta(name='viewport', content='width=device-width,initial-scale=1')
   title locator-tool
 
-div(hidden)
-  include ../node_modules/octicons/build/sprite.octicons.svg
+body
+  div(hidden)
+    include ../node_modules/octicons/build/sprite.octicons.svg
 
-lt-navbar
+  lt-navbar
 
-.container-fluid(style='height: calc(100% - 76px)')
-  ui-view.fill
+  .container-fluid(style='height: calc(100% - 76px)')
+    ui-view.fill
