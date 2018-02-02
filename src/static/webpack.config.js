@@ -6,7 +6,6 @@ const {execSync} = require('child_process');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const NoPlugin = {
   apply: () => undefined
 };
@@ -28,15 +27,18 @@ class DefineBuildInfo extends webpack.DefinePlugin {
 }
 
 module.exports = {
-  entry: {
-    main: './app/index.js',
-    vendor: './app/vendor.js',
-    'vendor-leaflet': './app/vendor-leaflet.js'
-  },
+  mode: productionBuild ? 'production' : 'development',
+  entry: ['./app/index.js', './app/vendor.js', './app/vendor-leaflet.js'],
   output: {
     path: (productionBuild && path.join(__dirname, 'dist')) || undefined,
     filename: '[name].[chunkhash].js',
     sourceMapFilename: '[name].[chunkhash].map'
+  },
+  optimization: {
+    splitChunks: {chunks: 'all'}
+  },
+  performance: {
+    hints: false
   },
   module: {
     rules: [
@@ -51,10 +53,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: 'css-loader',
-          fallback: 'style-loader'
-        })
+        loader: ['style-loader', 'css-loader']
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -67,16 +66,10 @@ module.exports = {
   },
   plugins: [
     (productionBuild && new CleanWebpackPlugin(['./dist'])) || NoPlugin,
-    new ExtractTextPlugin({
-      filename: '[name].[contenthash].css'
-    }),
     new HtmlWebpackPlugin({
       template: './app/index.pug',
       favicon: './app/locator-tool.svg',
       inject: 'body'
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'vendor-leaflet', 'manifest']
     }),
     new DefineBuildInfo(),
     (productionBuild && new CompressionPlugin()) || NoPlugin
