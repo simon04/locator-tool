@@ -9,7 +9,7 @@ export default class LatLng {
     });
   }
 
-  withLatLng({lat, lng} = {}) {
+  withLatLng({lat, lng} = {lat: this._latOriginal, lng: this._lngOriginal}) {
     const coordinates = new LatLng(this.type, {lat, lng});
     coordinates._latOriginal = this._latOriginal;
     coordinates._lngOriginal = this._lngOriginal;
