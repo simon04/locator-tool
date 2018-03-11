@@ -40,18 +40,21 @@ class ltMain {
     return this.loading$q && !this.loading$q.$$state.status;
   }
 
+  _hasLocation(title) {
+    return title.coordinates.isDefinedAndSaved || title.objectLocation.isDefinedAndSaved;
+  }
+
   get filteredTitles() {
-    let titles = this.titles;
+    let titles =
+      this.showGeolocated || !this.titles
+        ? this.titles
+        : this.titles.filter(t => !this._hasLocation(t));
     titles = this.filterFilter(titles, this.filter);
-    titles = this.filterFilter(
-      titles,
-      title => this.showGeolocated || !title.coordinates.isDefinedAndSaved
-    );
     return titles;
   }
 
   get titlesDefinedAndSaved() {
-    return (this.titles && this.titles.filter(title => title.coordinates.isDefinedAndSaved)) || [];
+    return this.titles ? this.titles.filter(this._hasLocation) : [];
   }
 
   get titlesDefinedAndSavedPercent() {
