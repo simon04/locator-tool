@@ -5,18 +5,21 @@ The frontend is an [Angular 1](https://angularjs.org/) application.
 
 To start a development server
 -----------------------------
+
 1. `$ npm install` or `$ yarn`
 2. `$ npm run start`
 3. Open your browser at http://localhost:8184/webpack-dev-server/
 
 To build the application
 ------------------------
+
 1. `$ npm install` or `$ yarn`
 2. `$ npm run dist`
 3. The application is built to `./dist/`
 
 Translations
 ------------
+
 * Translations are done at [transifex.com/locator-tool](https://www.transifex.com/locator-tool/locator-tool/dashboard/)
 * To update the translation template (POT file), run `$ npm run pot`, followed by an upload to Transifex using `$ tx push -s`
 * To update the translated files (PO files), run `$ tx pull`, followed by `$ npm run po`
