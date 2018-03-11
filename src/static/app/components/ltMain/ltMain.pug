@@ -34,7 +34,15 @@
           ng-repeat='title in $ctrl.filteredTitles',
           ng-click='$ctrl.title = title',
           ng-class="{'list-group-item-info': title === $ctrl.title}")
-          | {{title.coordinates.isDefinedAndSaved && '✓' || ''}} {{title.file}}
+          abbr(ng-if='title.coordinates.isDefinedAndSaved', title='Location ✔')
+            svg.octicon
+              use(xlink:href='#device-camera')
+          abbr(ng-if='title.objectLocation.isDefinedAndSaved', title='Object location ✔')
+            svg.octicon
+              use(xlink:href='#squirrel')
+          |
+          |
+          span {{title.file}}
 
   .col-lg-9.col-xl-3.fill.col-lg-h40(ng-if='$ctrl.title', style='overflow-y: auto')
     .row
