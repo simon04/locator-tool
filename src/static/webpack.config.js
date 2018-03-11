@@ -6,6 +6,7 @@ const {execSync} = require('child_process');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const NoPlugin = {
   apply: () => undefined
 };
@@ -53,7 +54,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ['style-loader', 'css-loader']
+        use: ExtractTextPlugin.extract({
+          use: 'css-loader',
+          fallback: 'style-loader'
+        })
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -66,6 +70,9 @@ module.exports = {
   },
   plugins: [
     (productionBuild && new CleanWebpackPlugin(['./dist'])) || NoPlugin,
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash].css'
+    }),
     new HtmlWebpackPlugin({
       template: './app/index.pug',
       favicon: './app/locator-tool.svg',
