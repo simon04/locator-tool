@@ -8,6 +8,18 @@
   .card-block.p-2
     .card-content
       div(ng-bind-html='$ctrl.file.description')
+      div.small(ng-if='$ctrl.file.timestamp')
+        svg.octicon
+          use(xlink:href='#calendar')
+        |
+        |
+        time {{$ctrl.file.timestamp}}
+      div.small(ng-if='$ctrl.file.author')
+        svg.octicon
+          use(xlink:href='#person')
+        |
+        |
+        span(ng-bind-html='$ctrl.file.author')
       a(ng-repeat='category in $ctrl.file.categories', ng-href='https://commons.wikimedia.org/wiki/Category:{{category}}', target='_blank')
         span.badge.badge-secondary
           | {{::category}}

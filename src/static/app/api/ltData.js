@@ -82,19 +82,23 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
       clshow: '!hidden',
       pageids: pageid,
       iiprop: 'url|extmetadata',
-      iiextmetadatafilter: 'ImageDescription',
+      iiextmetadatafilter: 'ImageDescription|Artist|DateTimeOriginal',
       rvprop: 'content'
     };
+    const descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
+    const authorGetter = $parse('imageinfo[0].extmetadata.Artist.value');
+    const timestampGetter = $parse('imageinfo[0].extmetadata.DateTimeOriginal.value');
+    const urlGetter = $parse('imageinfo[0].descriptionurl');
     return $query(params).then(data => {
       const page = (data && data.query && data.query.pages && data.query.pages[pageid]) || {};
       const categories = ((page && page.categories) || []).map(category =>
         category.title.replace(/^Category:/, '')
       );
-      const descriptionGetter = $parse('imageinfo[0].extmetadata.ImageDescription.value');
-      const urlGetter = $parse('imageinfo[0].descriptionurl');
       return {
         categories,
         description: $sce.trustAsHtml(descriptionGetter(page)),
+        author: $sce.trustAsHtml(authorGetter(page)),
+        timestamp: timestampGetter(page),
         url: urlGetter(page),
         objectLocation: extractObjectLocation(page)
       };
