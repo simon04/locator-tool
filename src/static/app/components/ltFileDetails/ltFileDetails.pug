@@ -16,22 +16,30 @@
   .card-block.p-2
     .card-content
       .form-group
-        label(translate)
-          | Camera location via
+        label
+          svg.octicon
+            use(xlink:href='#device-camera')
           |
-          a(href='https://commons.wikimedia.org/wiki/Template:Location', target='_blank')
-            code.mediawiki-template Location
+          span(translate)
+            | Camera location via
+            |
+            a(href='https://commons.wikimedia.org/wiki/Template:Location', target='_blank')
+              code.mediawiki-template Location
         lt-location-input(lat-lng='$ctrl.file.coordinates', edit-location='$ctrl.editLocation($ctrl.file, $ctrl.file.coordinates)')
         p.help-block(translate) Left click on map to set the location.
 .card.mt-2
   .card-block.p-2
     .card-content
       .form-group
-        label(translate)
-          | Object location via
+        label
+          svg.octicon
+            use(xlink:href='#squirrel')
           |
-          a(href='https://commons.wikimedia.org/wiki/Template:Object_location', target='_blank')
-            code.mediawiki-template Object location
+          span(translate)
+            | Object location via
+            |
+            a(href='https://commons.wikimedia.org/wiki/Template:Object_location', target='_blank')
+              code.mediawiki-template Object location
         lt-location-input(lat-lng='$ctrl.file.objectLocation', edit-location='$ctrl.editLocation($ctrl.file, $ctrl.file.objectLocation)')
         p.help-block(translate) Press shift and click on map to set the object location.
 
