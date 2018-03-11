@@ -28,7 +28,7 @@ form(name='formUser', ng-submit='$ctrl.nextForUser()', ng-show='$ctrl.$tab === $
   .row
     .form-group.col-sm-4
       label(for='inputUserLimit', translate, translate-comment='maximum number of files') Limit
-      input#inputUserLimit.form-control(ng-model='$ctrl.userLimit', type='number', max='500')
+      input#inputUserLimit.form-control(ng-model='$ctrl.userLimit', type='number')
     .form-group.col-sm-4
       label(for='inputUserStart', translate) Start timestamp
       input#inputUserStart.form-control(ng-model='$ctrl.userStart', type='date')
