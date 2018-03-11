@@ -53,12 +53,12 @@ a[href="https://github.com/simon04/locator-tool"] {
 .list-group-item.ng-leave.ng-leave-active,
 .list-group-item.ng-enter {
   opacity: 0;
-  left: -100%;
+  line-height: 0;
 }
 .list-group-item.ng-enter.ng-enter-active,
 .list-group-item.ng-leave {
   opacity: 1;
-  left: 0;
+  line-height: 1.5;
 }
 
 img.ng-enter {
