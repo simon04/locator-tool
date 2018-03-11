@@ -24,13 +24,15 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
     }
     const params = {
       prop: 'coordinates',
+      coprop: 'type|name',
+      coprimary: 'all',
       titles: titles.join('|').replace(/_/g, ' ')
     };
     return $query(params).then(data => {
       const pages = (data && data.query && data.query.pages) || {};
-      const coordsGetter = $parse('{lat: coordinates[0].lat, lng: coordinates[0].lon}');
       return Object.keys(pages).map(pageid => {
         const page = pages[pageid];
+        const coordinates = page.coordinates || [];
         return {
           pageid: parseInt(pageid),
           file: page.title,
@@ -46,10 +48,19 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
               return `${url}?width=1024`;
             }
           },
-          coordinates: new LatLng('Location', coordsGetter(page)),
-          objectLocation: new LatLng('Object location', {})
+          coordinates: new LatLng(
+            'Location',
+            toLatLng(coordinates.find(c => c.primary === '' && c.type === 'camera'))
+          ),
+          objectLocation: new LatLng(
+            'Object location',
+            toLatLng(coordinates.find(c => c.type === 'object'))
+          )
         };
       });
+      function toLatLng(c) {
+        return angular.isObject(c) ? {lat: c.lat, lng: c.lon} : {};
+      }
     });
   }
   function getCoordinatesChunkByChunk(titles) {
