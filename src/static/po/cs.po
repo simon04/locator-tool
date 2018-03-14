@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-09-22 07:15+0000\n"
+"PO-Revision-Date: 2017-10-06 18:11+0000\n"
 "Last-Translator: simon04 <simon.legner@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/locator-tool/locator-tool/language/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,6 +84,10 @@ msgstr "Vyberte soubor ze seznamu souborů a klikněte na pozici fotoaparátu, o
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Geolocate files"
 msgstr "Geolokovat soubory"
+
+#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+msgid "Hello {{$ctrl.userInfo}}!"
+msgstr ""
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid ""
