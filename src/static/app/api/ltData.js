@@ -155,15 +155,14 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
   }
   function getFilesForUser(user, userLimit, userStart, userEnd) {
     const params = {
-      list: 'usercontribs',
-      ucuser: user,
-      ucnamespace: 6,
-      ucshow: 'new',
-      uclimit: userLimit || 'max',
-      ucstart: userEnd, // sic! (due to ucdir)
-      ucend: userStart, // sic! (due to ucdir)
-      ucdir: 'older',
-      ucprop: 'title'
+      generator: 'allimages',
+      gaiuser: user,
+      gailimit: userLimit || 'max',
+      gaistart: userStart,
+      gaiend: userEnd,
+      gaisort: 'timestamp',
+      gaidir: 'older',
+      gaiprop: 'title'
     };
     const shouldContinue = data =>
       data.continue && (!userLimit || data.query.usercontribs.length < userLimit);
