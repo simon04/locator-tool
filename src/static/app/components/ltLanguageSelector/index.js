@@ -2,14 +2,15 @@ import template from './ltLanguageSelector.pug';
 
 import 'angular-gettext-loader!../../../po/bn.po';
 import 'angular-gettext-loader!../../../po/cs.po';
-import 'angular-gettext-loader!../../../po/es.po';
 import 'angular-gettext-loader!../../../po/de.po';
+import 'angular-gettext-loader!../../../po/es.po';
 import 'angular-gettext-loader!../../../po/fr.po';
 import 'angular-gettext-loader!../../../po/ml.po';
 import 'angular-gettext-loader!../../../po/pt.po';
 import 'angular-gettext-loader!../../../po/ru.po';
+import 'angular-gettext-loader!../../../po/zh_TW.po';
 
-const languages = ['bn', 'cs', 'en', 'es', 'de', 'fr', 'ml', 'pt', 'ru'];
+const languages = ['bn', 'cs', 'de', 'en', 'es', 'fr', 'ml', 'pt', 'ru', 'zh_TW'];
 
 class ltLanguageSelector {
   constructor($window, localStorageService, gettext, gettextCatalog) {
