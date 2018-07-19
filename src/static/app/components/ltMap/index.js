@@ -31,7 +31,7 @@ class ltMap {
       OpenStreetMap</a> contributors`;
     const wm = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
       name: 'Wikimedia maps',
-      maxZoom: 18,
+      maxZoom: 19,
       attribution: 'Wikimedia maps | Map data &copy; ' + attribution
     });
     const osm = L.tileLayer('https://tiles.wmflabs.org/osm/{z}/{x}/{y}.png', {
