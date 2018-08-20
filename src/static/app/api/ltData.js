@@ -24,6 +24,7 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
     }
     const params = {
       prop: 'coordinates',
+      colimit: 500,
       coprop: 'type|name',
       coprimary: 'all',
       titles: titles.join('|').replace(/_/g, ' ')
