@@ -154,22 +154,22 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
     });
   }
   function getFilesForUser(user, userLimit, userStart, userEnd) {
+    // https://commons.wikimedia.org/w/api.php?action=help&modules=query%2Ballimages
     const params = {
-      list: 'usercontribs',
-      ucuser: user,
-      ucnamespace: 6,
-      ucshow: 'new',
-      uclimit: userLimit || 'max',
-      ucstart: userEnd, // sic! (due to ucdir)
-      ucend: userStart, // sic! (due to ucdir)
-      ucdir: 'older',
-      ucprop: 'title'
+      generator: 'allimages',
+      gaiuser: user,
+      gailimit: typeof userLimit === 'number' && userLimit <= 500 ? userLimit : 'max',
+      gaistart: userEnd, // sic! (due to gaidir)
+      gaiend: userStart, // sic! (due to gaidir)
+      gaisort: 'timestamp',
+      gaidir: 'older'
     };
+    const toPageArray = data => Object.keys(data.query.pages).map(id => data.query.pages[id]);
     const shouldContinue = data =>
-      data.continue && (!userLimit || data.query.usercontribs.length < userLimit);
+      data.continue && (!userLimit || toPageArray(data).length < userLimit);
     return $query(params, {}, shouldContinue)
-      .then(data => data.query.usercontribs.map(i => i.title))
-      .then(usercontribs => (userLimit ? limitToFilter(usercontribs, userLimit) : usercontribs));
+      .then(data => toPageArray(data).map(page => page.title))
+      .then(pages => (userLimit ? limitToFilter(pages, userLimit) : pages));
   }
   function getFilesForCategory(cat, depth = 3) {
     cat = cat.replace(/^Category:/, '');
