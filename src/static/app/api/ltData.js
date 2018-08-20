@@ -2,6 +2,7 @@ import angular from 'angular';
 import deepmerge from 'deepmerge';
 
 import LatLng from './LatLng';
+import {getFilePath} from './Commons';
 
 data.$inject = ['$http', '$httpParamSerializer', '$parse', '$sce', '$q', 'limitToFilter'];
 export default function data($http, $httpParamSerializer, $parse, $sce, $q, limitToFilter) {
@@ -39,15 +40,7 @@ export default function data($http, $httpParamSerializer, $parse, $sce, $q, limi
           file: page.title,
           url: `https://commons.wikimedia.org/wiki/${page.title}`,
           imageUrl(width) {
-            const file = this.file.replace(/^File:/, '');
-            const url = `https://commons.wikimedia.org/wiki/Special:FilePath/${file}`;
-            if (width >= 2048) {
-              return url;
-            } else if (width >= 1280) {
-              return `${url}?width=2048`;
-            } else {
-              return `${url}?width=1024`;
-            }
+            return getFilePath(this.file, width);
           },
           coordinates: new LatLng(
             'Location',
