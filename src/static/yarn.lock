@@ -2904,6 +2904,10 @@ leaflet-control-geocoder@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/leaflet-control-geocoder/-/leaflet-control-geocoder-1.6.0.tgz#d42dd715bcf16943b94f944ebbf4e95f17c6626c"
 
+leaflet-providers@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/leaflet-providers/-/leaflet-providers-1.3.1.tgz#ce51ea62287eb9113418118e64a445720830eaf2"
+
 "leaflet@0.7.x || 1.x":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.3.1.tgz#86f336d2fb0e2d0ff446677049a5dc34cf0ea60e"
