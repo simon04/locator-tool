@@ -1,5 +1,4 @@
 import template from './ltMap.pug';
-import Geocoder from 'leaflet-control-geocoder';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
@@ -75,7 +74,7 @@ class ltMap {
     layers.forEach(l => layersControl.addBaseLayer(l, l.options.name));
     const activeLayer = layers.filter(l => l.options.name === layerFromLocalStorage).shift() || osm;
     activeLayer.addTo(map);
-    const geocoder = new Geocoder({
+    const geocoder = new L.Control.Geocoder({
       collapsed: false,
       placeholder: '…',
       position: 'topleft',
