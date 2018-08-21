@@ -43,7 +43,7 @@
     "angular-gettext-cli": "^1.2.0",
     "angular-gettext-loader": "^1.0.1",
     "angular-gettext-tools": "^2.3.5",
-    "buble": "^0.18.0",
+    "buble": "^0.19.3",
     "clean-webpack-plugin": "^0.1.19",
     "compression-webpack-plugin": "^1.1.11",
     "css-loader": "^1.0.0",
