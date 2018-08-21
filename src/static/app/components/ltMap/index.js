@@ -87,7 +87,10 @@ class ltMap {
 
   mapClick($event) {
     // http://leafletjs.com/reference.html#mouse-event
-    const {latlng: {lat, lng}, originalEvent: {shiftKey}} = $event;
+    const {
+      latlng: {lat, lng},
+      originalEvent: {shiftKey}
+    } = $event;
     if (lat && lng) {
       const target = shiftKey ? this.mapObjectLocation : this.mapMarker;
       const coordinates = target.withLatLng({

@@ -58,7 +58,7 @@ class ltMain {
   }
 
   get titlesDefinedAndSavedPercent() {
-    return 100 * this.titlesDefinedAndSaved.length / (this.titles || []).length;
+    return (100 * this.titlesDefinedAndSaved.length) / (this.titles || []).length;
   }
 
   keyPressedInList($event) {
