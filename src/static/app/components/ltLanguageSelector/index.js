@@ -5,12 +5,13 @@ import 'angular-gettext-loader!@/po/cs.po';
 import 'angular-gettext-loader!@/po/de.po';
 import 'angular-gettext-loader!@/po/es.po';
 import 'angular-gettext-loader!@/po/fr.po';
+import 'angular-gettext-loader!@/po/it.po';
 import 'angular-gettext-loader!@/po/ml.po';
 import 'angular-gettext-loader!@/po/pt.po';
 import 'angular-gettext-loader!@/po/ru.po';
 import 'angular-gettext-loader!@/po/zh_TW.po';
 
-const languages = ['bn', 'cs', 'de', 'en', 'es', 'fr', 'ml', 'pt', 'ru', 'zh_TW'];
+const languages = ['bn', 'cs', 'de', 'en', 'es', 'fr', 'it', 'ml', 'pt', 'ru', 'zh_TW'];
 
 class ltLanguageSelector {
   constructor($window, localStorageService, gettext, gettextCatalog) {
