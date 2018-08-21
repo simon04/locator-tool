@@ -7,9 +7,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const NoPlugin = {
-  apply: () => undefined
-};
 
 const productionBuild = process.env.npm_lifecycle_script !== 'webpack-dev-server';
 
@@ -31,7 +28,7 @@ module.exports = {
   mode: productionBuild ? 'production' : 'development',
   entry: ['./app/index.js', './app/vendor.js', './app/vendor-leaflet.js'],
   output: {
-    path: (productionBuild && path.join(__dirname, 'dist')) || undefined,
+    path: productionBuild ? path.join(__dirname, 'dist') : undefined,
     filename: '[name].[chunkhash].js',
     sourceMapFilename: '[name].[chunkhash].map'
   },
@@ -71,7 +68,7 @@ module.exports = {
     ]
   },
   plugins: [
-    (productionBuild && new CleanWebpackPlugin(['./dist'])) || NoPlugin,
+    productionBuild ? new CleanWebpackPlugin(['./dist']) : undefined,
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css'
     }),
@@ -81,8 +78,8 @@ module.exports = {
       inject: 'body'
     }),
     new DefineBuildInfo(),
-    (productionBuild && new CompressionPlugin()) || NoPlugin
-  ],
+    productionBuild ? new CompressionPlugin() : undefined
+  ].filter(plugin => !!plugin),
   devServer: {
     proxy: {
       '/render/tlgbe/**': {
