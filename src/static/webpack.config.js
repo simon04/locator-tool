@@ -41,6 +41,11 @@ module.exports = {
   performance: {
     hints: false
   },
+  resolve: {
+    alias: {
+      '@': __dirname
+    }
+  },
   module: {
     rules: [
       {
