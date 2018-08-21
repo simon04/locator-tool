@@ -10,7 +10,8 @@ class controller {
   }
 
   get imageUrl() {
-    return this.file.imageUrl(this.$window.innerWidth);
+    const width = this.$window.innerWidth;
+    return this.file.imageUrl(width > 2048 ? undefined : width > 1280 ? 2048 : 1024);
   }
 }
 controller.$inject = ['$window'];
