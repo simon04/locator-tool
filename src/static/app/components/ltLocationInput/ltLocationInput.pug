@@ -1,10 +1,9 @@
 .input-group(ng-form='coordinatesForm', ng-class="{'has-error': !coordinatesForm.$valid}")
   input.form-control(type='text', ng-model='$ctrl.latLng', ng-model-options="{updateOn: 'default blur', debounce: {default: 2000, blur: 0}}", ng-change='coordinatesForm.$valid && $ctrl.fireChanged($ctrl.latLng)', smart-coordinate='')
-  span.input-group-btn
+  .input-group-append
     button.btn.btn-secondary(type='button', ng-click='$ctrl.fireChanged($ctrl.latLng.withLatLng(undefined))', title="{{'Discard'|translate}}")
       svg.octicon
         use(xlink:href='#x')
-  span.input-group-btn
     button.btn.btn-success(type='button', ng-click='$ctrl.editLocation()', title="{{'Save'|translate}}", ng-disabled='!$ctrl.latLng.isChanged')
       svg.octicon
         use(xlink:href='#git-commit')
