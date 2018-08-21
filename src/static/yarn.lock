@@ -664,6 +664,12 @@ browserify-zlib@^0.2.0:
   dependencies:
     pako "~1.0.5"
 
+buble-loader@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/buble-loader/-/buble-loader-0.5.1.tgz#c34b94e2daeec39e7ee533e314b368af6c288025"
+  dependencies:
+    loader-utils "^1.1.0"
+
 buble@^0.19.3:
   version "0.19.3"
   resolved "https://registry.yarnpkg.com/buble/-/buble-0.19.3.tgz#01e9412062cff1da6f20342b6ecd72e7bf699d02"

@@ -45,7 +45,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        loader: './buble-loader',
+        loader: 'buble-loader',
         exclude: /(\.test.js$|node_modules)/
       },
       {
