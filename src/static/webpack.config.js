@@ -80,6 +80,7 @@ module.exports = {
     new DefineBuildInfo(),
     productionBuild ? new CompressionPlugin() : undefined
   ].filter(plugin => !!plugin),
+  devtool: productionBuild ? 'source-map' : undefined,
   devServer: {
     proxy: {
       '/render/tlgbe/**': {
