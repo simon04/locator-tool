@@ -6,7 +6,7 @@ const {execSync} = require('child_process');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const NoPlugin = {
   apply: () => undefined
 };
@@ -54,10 +54,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: 'css-loader',
-          fallback: 'style-loader'
-        })
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -70,7 +67,7 @@ module.exports = {
   },
   plugins: [
     (productionBuild && new CleanWebpackPlugin(['./dist'])) || NoPlugin,
-    new ExtractTextPlugin({
+    new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css'
     }),
     new HtmlWebpackPlugin({
