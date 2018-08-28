@@ -2,7 +2,7 @@ import angular from 'angular';
 import deepmerge from 'deepmerge';
 
 import LatLng from './LatLng';
-import {getFilePath} from './Commons';
+import getFilePath from 'wikimedia-commons-file-path';
 
 data.$inject = ['$http', '$httpParamSerializer', '$parse', '$sce', '$q', 'limitToFilter'];
 export default function data($http, $httpParamSerializer, $parse, $sce, $q, limitToFilter) {

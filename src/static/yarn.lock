@@ -5257,6 +5257,12 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2"
 
+wikimedia-commons-file-path@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/wikimedia-commons-file-path/-/wikimedia-commons-file-path-1.0.0.tgz#2ac195e5fea9a796a4d1034b8dbc0c9dd51a7f8e"
+  dependencies:
+    js-md5 "^0.7.3"
+
 window-size@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
