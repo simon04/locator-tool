@@ -1,34 +1,47 @@
-import angular from 'angular';
+import * as angular from 'angular';
+import {StateService, StateParams} from '@uirouter/angularjs';
 
 import template from './ltFilesSelector.pug';
+import LtDataAuth from '../api/ltDataAuth';
+import LtData from '../api/ltData';
 
-class ltFilesSelector {
-  constructor(ltData, ltDataAuth, $log, $state, $stateParams) {
-    const $tabs = {
-      category: {},
-      user: {},
-      files: {}
-    };
-    Object.assign(this, {
-      $tab: $stateParams.user ? $tabs.user : $tabs.category,
-      $tabs,
-      ltData,
-      $log,
-      $state,
-      category: $stateParams.category,
-      categoryDepth: tryParse(parseInt, $stateParams.categoryDepth, 3),
-      user: $stateParams.user,
-      userLimit: tryParse(parseInt, $stateParams.userLimit, undefined),
-      userStart: tryParse(s => new Date(s), $stateParams.userStart, undefined),
-      userEnd: tryParse(s => new Date(s), $stateParams.userEnd, undefined),
-      titles: ''
-    });
-    ltDataAuth.getUserInfo().then(userInfo => {
-      this.userInfo = userInfo;
-      this.user = this.user || userInfo;
-    });
+enum Tab {
+  CATEGORY = 1,
+  USER = 2,
+  FILES = 3
+}
 
-    function tryParse(parser, text, fallback) {
+class LtFilesSelectorController implements ng.IComponentController {
+  $tab: Tab;
+  $tabs = Tab;
+  category: string;
+  categoryDepth: number;
+  categorySuggestions: string[];
+  titles: string;
+  user: string;
+  userEnd: Date;
+  userInfo: string;
+  userLimit: number;
+  userStart: Date;
+
+  public static $inject = ['ltData', 'ltDataAuth', '$log', '$state', '$stateParams'];
+  constructor(
+    private ltData: LtData,
+    private ltDataAuth: LtDataAuth,
+    private $log: ng.ILogService,
+    private $state: StateService,
+    $stateParams: StateParams
+  ) {
+    this.$tab = $stateParams.user ? Tab.USER : Tab.CATEGORY;
+    this.category = $stateParams.category;
+    this.categoryDepth = tryParse(parseInt, $stateParams.categoryDepth, 3);
+    this.user = $stateParams.user;
+    this.userLimit = tryParse(parseInt, $stateParams.userLimit, undefined);
+    this.userStart = tryParse(s => new Date(s), $stateParams.userStart, undefined);
+    this.userEnd = tryParse(s => new Date(s), $stateParams.userEnd, undefined);
+    this.titles = '';
+
+    function tryParse<T>(parser: (string) => T, text: string, fallback: T): T {
       if (!text) {
         return fallback;
       }
@@ -38,6 +51,13 @@ class ltFilesSelector {
         return fallback;
       }
     }
+  }
+
+  $onInit() {
+    this.ltDataAuth.getUserInfo().then(userInfo => {
+      this.userInfo = userInfo;
+      this.user = this.user || userInfo;
+    });
   }
 
   getCategoriesForPrefix() {
@@ -97,9 +117,8 @@ class ltFilesSelector {
     }
   }
 }
-ltFilesSelector.$inject = ['ltData', 'ltDataAuth', '$log', '$state', '$stateParams'];
 
 export default {
   template,
-  controller: ltFilesSelector
-};
+  controller: LtFilesSelectorController
+} as ng.IComponentOptions;
