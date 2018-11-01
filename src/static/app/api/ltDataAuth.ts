@@ -1,17 +1,19 @@
-dataAuth.$inject = ['$http'];
-export default function dataAuth($http) {
-  return {
-    getUserInfo: getUserInfo,
-    editLocation: editLocation
-  };
+interface UserApiResponse {
+  user: string;
+}
 
-  function getUserInfo() {
-    return $http.get('/locator-tool/user').then(d => d.data && d.data.user);
+export default class LtDataAuth {
+  public static $inject = ['$http'];
+  constructor(private $http: ng.IHttpService) {}
+
+  getUserInfo() {
+    return this.$http.get<UserApiResponse>('/locator-tool/user').then(d => d.data && d.data.user);
   }
-  function editLocation(title, coordinates) {
+
+  editLocation(title, coordinates) {
     const {pageid} = title;
     const {type, lat, lng} = coordinates;
-    return $http({
+    return this.$http<any>({
       method: 'POST',
       url: '/locator-tool/edit',
       data: {type, lat, lng, pageid}
