@@ -1,4 +1,4 @@
-import LatLng from '../model';
+import {LatLng} from '../model';
 
 export default function directive() {
   const REGEXP = /([+-]?\d+\.\d*)[,;\s]+([+-]?\d+\.\d*)/;
