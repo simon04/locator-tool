@@ -18,8 +18,8 @@ $ cp config-example.py config.py
 # for OAUTH_CONSUMER_KEY and OAUTH_CONSUMER_SECRET see below
 
 $ cd static/
-$ npm install # or yarn
-$ npm run dist
+$ yarn
+$ yarn build
 
 # specific to tools.wmflabs.org, see https://github.com/wikimedia/operations-software-tools-webservice/blob/master/toollabs/webservice/services/pythonwebservice.py
 $ webservice2 uwsgi-python start
