@@ -37,7 +37,7 @@
             |
             a(href='https://commons.wikimedia.org/wiki/Template:Location', target='_blank')
               code.mediawiki-template Location
-        lt-location-input(lat-lng='$ctrl.file.coordinates', edit-location='$ctrl.editLocation($ctrl.file, $ctrl.file.coordinates)')
+        lt-location-input(lat-lng='$ctrl.file.coordinates', edit-location='$ctrl.editLocation($ctrl.file.coordinates)')
         p.help-block(translate) Left click on map to set the location.
 .card.mt-2
   .card-block.p-2
@@ -52,7 +52,7 @@
             |
             a(href='https://commons.wikimedia.org/wiki/Template:Object_location', target='_blank')
               code.mediawiki-template Object location
-        lt-location-input(lat-lng='$ctrl.file.objectLocation', edit-location='$ctrl.editLocation($ctrl.file, $ctrl.file.objectLocation)')
+        lt-location-input(lat-lng='$ctrl.file.objectLocation', edit-location='$ctrl.editLocation($ctrl.file.objectLocation)')
         p.help-block(translate) Press shift and click on map to set the object location.
 
 .alert.alert-danger(ng-if='$ctrl.error')
