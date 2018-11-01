@@ -1,3 +1,5 @@
+import {CommonsFile, LatLng} from '../model';
+import LtData from '../api/ltData';
 import ltMap from './ltMap';
 import template from './ltAllMap.pug';
 
@@ -7,8 +9,17 @@ const DEFAULT_MAP_VIEW = {
   zoom: 13
 };
 
-class controller {
-  constructor(ltData, $stateParams, localStorageService) {
+class LtAllMapController implements ng.IComponentController {
+  bounds: LatLng[];
+  mapView = DEFAULT_MAP_VIEW;
+  titles: CommonsFile[];
+
+  public static $inject = ['ltData', '$stateParams', 'localStorageService'];
+  constructor(
+    ltData: LtData,
+    $stateParams: any,
+    localStorageService: angular.local.storage.ILocalStorageService
+  ) {
     this.mapView = localStorageService.get('mapView') || DEFAULT_MAP_VIEW;
     ltData
       .getFiles($stateParams)
@@ -26,9 +37,8 @@ class controller {
     new ltMap.controller._mapInit(L, map);
   }
 }
-controller.$inject = ['ltData', '$stateParams', 'localStorageService'];
 
 export default {
   template,
-  controller
-};
+  controller: LtAllMapController
+} as ng.IComponentOptions;

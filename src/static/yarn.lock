@@ -2,7 +2,14 @@
 # yarn lockfile v1
 
 
-"@types/angular@^1.6.51":
+"@types/angular-local-storage@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@types/angular-local-storage/-/angular-local-storage-0.6.1.tgz#15ed7974b0e4d6eba64ceede1cf2436bc5995d24"
+  integrity sha512-B+ljAyMv/J5sWpz0kTxSutQB8Z3zM+kuomUps5WhdjESzQKDtihQ57kMc5OdZNb67O/zWqE3Nd65yhT7JkizOg==
+  dependencies:
+    "@types/angular" "*"
+
+"@types/angular@*", "@types/angular@^1.6.51":
   version "1.6.51"
   resolved "https://registry.yarnpkg.com/@types/angular/-/angular-1.6.51.tgz#a67515b0ba6a2ff68894a39405c1343cbf9c36d4"
   integrity sha512-wYU+/zlJWih7ZmonWVjGQ18tG7GboI9asMNjRBM5fpIFJWXSioQttCTw9qGL44cP82ghM8sCV9apEqm1zBDq2w==

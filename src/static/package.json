@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@types/angular": "^1.6.51",
+    "@types/angular-local-storage": "^0.6.1",
     "@types/clean-webpack-plugin": "^0.1.2",
     "@types/compression-webpack-plugin": "^0.4.2",
     "@types/html-webpack-plugin": "^3.2.0",
