@@ -34,11 +34,6 @@ const config: webpack.Configuration = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        loader: 'buble-loader',
-        exclude: /node_modules/
-      },
-      {
         test: /\.ts/,
         loader: 'ts-loader',
         exclude: /node_modules/
