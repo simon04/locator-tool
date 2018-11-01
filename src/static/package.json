@@ -45,6 +45,8 @@
     "@types/clean-webpack-plugin": "^0.1.2",
     "@types/compression-webpack-plugin": "^0.4.2",
     "@types/html-webpack-plugin": "^3.2.0",
+    "@types/leaflet": "^1.2.11",
+    "@types/leaflet-providers": "^1.1.2",
     "@types/mini-css-extract-plugin": "^0.2.0",
     "@types/node": "^10.12.1",
     "@types/webpack": "^4.4.17",

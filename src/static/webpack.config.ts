@@ -13,7 +13,7 @@ const git = execSync('git describe --always', {encoding: 'utf8'}).trim();
 
 const config: webpack.Configuration = {
   mode: productionBuild ? 'production' : 'development',
-  entry: ['./app/index.js', './app/vendor.js', './app/vendor-leaflet.js'],
+  entry: ['./app/index', './app/vendor', './app/vendor-leaflet'],
   output: {
     path: productionBuild ? path.join(__dirname, 'dist') : undefined,
     filename: '[name].[chunkhash].js',
