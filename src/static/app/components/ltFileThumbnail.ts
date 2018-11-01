@@ -1,9 +1,11 @@
 import template from './ltFileThumbnail.pug';
+import {CommonsFile} from '../model';
 
-class controller {
-  constructor($window) {
-    this.$window = $window;
-  }
+class LtFileThumbnailController implements ng.IComponentController {
+  file: CommonsFile;
+
+  public static $inject = ['$window'];
+  constructor(private $window: ng.IWindowService) {}
 
   get thumbnailUrl() {
     return this.file.imageUrl(1024);
@@ -14,12 +16,11 @@ class controller {
     return this.file.imageUrl(width > 2048 ? undefined : width > 1280 ? 2048 : 1024);
   }
 }
-controller.$inject = ['$window'];
 
 export default {
   bindings: {
     file: '<'
   },
-  controller,
+  controller: LtFileThumbnailController,
   template
-};
+} as ng.IComponentOptions;
