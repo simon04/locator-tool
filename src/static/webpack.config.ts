@@ -1,30 +1,17 @@
 /* eslint-env node */
-const webpack = require('webpack');
-const path = require('path');
-const {execSync} = require('child_process');
+import * as webpack from 'webpack';
+import * as path from 'path';
+import {execSync} from 'child_process';
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as CleanWebpackPlugin from 'clean-webpack-plugin';
+import * as CompressionPlugin from 'compression-webpack-plugin';
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const productionBuild = process.env.npm_lifecycle_script !== 'webpack-dev-server';
+const git = execSync('git describe --always', {encoding: 'utf8'}).trim();
 
-class DefineBuildInfo extends webpack.DefinePlugin {
-  constructor() {
-    super({});
-  }
-  apply(compiler) {
-    const git = execSync('git describe --always', {encoding: 'utf8'}).trim();
-    this.definitions = {
-      __BUILD_DATE__: JSON.stringify(Date.now()),
-      __BUILD_VERSION__: JSON.stringify(git)
-    };
-    super.apply(compiler);
-  }
-}
-
-module.exports = {
+const config: webpack.Configuration = {
   mode: productionBuild ? 'production' : 'development',
   entry: ['./app/index.js', './app/vendor.js', './app/vendor-leaflet.js'],
   output: {
@@ -77,7 +64,10 @@ module.exports = {
       favicon: './app/locator-tool.svg',
       inject: 'body'
     }),
-    new DefineBuildInfo(),
+    new webpack.DefinePlugin({
+      __BUILD_DATE__: JSON.stringify(Date.now()),
+      __BUILD_VERSION__: JSON.stringify(git)
+    }),
     productionBuild ? new CompressionPlugin() : undefined
   ].filter(plugin => !!plugin),
   devtool: productionBuild ? 'source-map' : undefined,
@@ -91,3 +81,5 @@ module.exports = {
     port: 8184
   }
 };
+
+export default config;
