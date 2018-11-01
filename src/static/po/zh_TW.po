@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2018-07-10 15:00+0000\n"
+"PO-Revision-Date: 2018-07-11 13:21+0000\n"
 "Last-Translator: R. Z. Huang <dong12of@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/locator-tool/locator-tool/language/zh_TW/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +34,7 @@ msgstr "亦顯示已定位檔案"
 msgid ""
 "Camera location via\n"
 "<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
-msgstr "以\n<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>\n標記拍攝地點"
+msgstr "以<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>標記拍攝地點"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Category"
@@ -56,7 +56,7 @@ msgstr "使用定位小工具來編輯"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "End timestamp"
-msgstr "結束時間戳"
+msgstr "結束於"
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Failed to save: {{$ctrl.error.statusText}}"
@@ -99,16 +99,16 @@ msgid ""
 "Its source code is available on <a href=\"https://github.com/simon04"
 "/locator-tool\">GitHub</a> and <a "
 "href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
-msgstr "其原始碼以<a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>釋出，可在<a href=\"https://github.com/simon04/locator-tool\">GitHub</a>上找到。"
+msgstr "其原始碼以<a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>釋出，可在<a href=\"https://github.com/simon04/locator-tool\">GitHub</a>上存取。"
 
 #. Your language in your language (e.g. 'English', 'Deutsch')
 #: ./app/components/ltLanguageSelector/ltLanguageSelector.pug
 msgid "LANGUAGE"
-msgstr "臺灣正體中文"
+msgstr "正體中文（臺灣）"
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Left click on map to set the location."
-msgstr "左鍵單擊地圖以設定位置。"
+msgstr "左鍵單擊地圖來設定拍攝地點。"
 
 #. maximum number of files
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
@@ -156,15 +156,15 @@ msgstr "地圖"
 msgid ""
 "Object location via\n"
 "<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
-msgstr "由\n<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>\n標記目標位置"
+msgstr "以<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>標記目標位置"
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Press shift and click on map to set the object location."
-msgstr "按 Shift 並點擊地圖來設定目標位置。"
+msgstr "按住 Shift 並點擊地圖來設定目標位置。"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid "Repeat …"
-msgstr "重複……"
+msgstr "重複上述動作……"
 
 #: ./app/components/ltLocationInput/ltLocationInput.pug
 msgid "Save"
@@ -177,7 +177,7 @@ msgstr "選擇檔案"
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 #: ./app/components/ltNavbar/ltNavbar.pug
 msgid "Select files to geolocate"
-msgstr "選擇檔案來定位"
+msgstr "選擇檔案以進行地理編碼"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Show Category on map"
@@ -197,7 +197,7 @@ msgstr "登入"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Start timestamp"
-msgstr "開始時間戳"
+msgstr "開始於"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid ""
@@ -247,4 +247,4 @@ msgstr "定位小工具"
 msgid ""
 "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
 "tool\">Commons:Locator-tool</a>"
-msgstr "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-tool\">Commons:Locator-tool</a>"
+msgstr "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-tool\">Commons:Locator-tool</a>（中文可選）"

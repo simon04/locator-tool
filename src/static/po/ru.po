@@ -1,7 +1,7 @@
 # 
 # Translators:
 # Yevgeniy Movsesov <yevhen.movsesov@gmail.com>, 2018
-# simon04 <simon.legner@gmail.com>, 2018
+# Simon Legner <simon.legner@gmail.com>, 2018
 # Yevgeniy Movsesov <yevhen.movsesov@gmail.com>, 2018
 msgid ""
 msgstr ""

@@ -1,12 +1,12 @@
 # 
 # Translators:
 # Pierre Choffet <peuc@wanadoo.fr>, 2016-2017
-# simon04 <simon.legner@gmail.com>, 2017
+# Simon Legner <simon.legner@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
 "PO-Revision-Date: 2017-10-06 18:11+0000\n"
-"Last-Translator: simon04 <simon.legner@gmail.com>\n"
+"Last-Translator: Simon Legner <simon.legner@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/locator-tool/locator-tool/language/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

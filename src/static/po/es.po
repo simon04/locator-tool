@@ -1,12 +1,12 @@
 # 
 # Translators:
 # Ivan Martinez <galaver@gmail.com>, 2018
-# simon04 <simon.legner@gmail.com>, 2018
+# Simon Legner <simon.legner@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
 "PO-Revision-Date: 2018-06-26 10:40+0000\n"
-"Last-Translator: simon04 <simon.legner@gmail.com>\n"
+"Last-Translator: Simon Legner <simon.legner@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/locator-tool/locator-tool/language/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
