@@ -1,4 +1,4 @@
-import ltMap from '../ltMap';
+import ltMap from './ltMap';
 import template from './ltAllMap.pug';
 
 const DEFAULT_MAP_VIEW = {
