@@ -1,4 +1,4 @@
-import angular from 'angular';
+import * as angular from 'angular';
 
 import ltData from './ltData';
 import ltDataAuth from './ltDataAuth';
