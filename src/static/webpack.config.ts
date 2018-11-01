@@ -44,6 +44,10 @@ const config: webpack.Configuration = {
         exclude: /node_modules/
       },
       {
+        test: /\.po$/,
+        loader: ['angular-gettext-loader']
+      },
+      {
         test: /\.pug$/,
         loader: ['html-loader?exportAsEs6Default=true', './pug-loader']
       },
