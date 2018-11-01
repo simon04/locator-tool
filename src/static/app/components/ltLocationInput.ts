@@ -1,20 +1,19 @@
 import template from './ltLocationInput.pug';
 
-class controller {
-  constructor($scope) {
-    this.$scope = $scope;
-  }
+class LtLocationInputController implements ng.IComponentController {
+  public static $inject = ['$scope'];
+  constructor(private $scope: ng.IScope) {}
+
   fireChanged(coordinates) {
     this.$scope.$emit('coordinatesChanged', coordinates);
   }
 }
-controller.$inject = ['$scope'];
 
 export default {
   bindings: {
     latLng: '<',
     editLocation: '&'
   },
-  controller,
+  controller: LtLocationInputController,
   template
-};
+} as ng.IComponentOptions;
