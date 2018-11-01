@@ -1,8 +1,8 @@
 import * as angular from 'angular';
 import * as deepmerge from 'deepmerge';
-
-import LatLng from './LatLng';
 import getFilePath from 'wikimedia-commons-file-path';
+
+import {CommonsFile, CommonsTitle, LatLng} from '../model';
 
 const maxTitlesPerRequest = 50;
 
@@ -24,7 +24,7 @@ export default class LtData {
     private limitToFilter: ng.IFilterLimitTo
   ) {}
 
-  getCoordinates(titles) {
+  getCoordinates(titles: CommonsTitle[]): ng.IPromise<CommonsFile[]> {
     if (angular.isString(titles)) {
       titles = titles.split('|');
     }
@@ -38,7 +38,7 @@ export default class LtData {
       coprimary: 'all',
       titles: titles.join('|').replace(/_/g, ' ')
     };
-    return this.$query(params).then(data => {
+    return this.$query<any>(params).then(data => {
       const pages = (data && data.query && data.query.pages) || {};
       return Object.keys(pages).map(pageid => {
         const page = pages[pageid];
@@ -47,7 +47,7 @@ export default class LtData {
           pageid: parseInt(pageid),
           file: page.title,
           url: `https://commons.wikimedia.org/wiki/${page.title}`,
-          imageUrl(width) {
+          imageUrl(width: number) {
             return getFilePath(this.file, width);
           },
           coordinates: new LatLng(
@@ -58,7 +58,7 @@ export default class LtData {
             'Object location',
             toLatLng(coordinates.find(c => c.type === 'object'))
           )
-        };
+        } as CommonsFile;
       });
       function toLatLng(c) {
         return angular.isObject(c) ? {lat: c.lat, lng: c.lon} : {};
@@ -66,17 +66,18 @@ export default class LtData {
     });
   }
 
-  getCoordinatesChunkByChunk(titles: any[]) {
+  getCoordinatesChunkByChunk(titles: CommonsTitle[]): ng.IPromise<CommonsFile[]> {
     const t = [...titles];
-    const requests = [];
+    const requests: CommonsTitle[][] = [];
     while (t.length) {
       requests.push(t.splice(0, Math.min(maxTitlesPerRequest, t.length)));
     }
     const coordinatesPromises = requests.map(x => this.getCoordinates(x));
-    return this.$q.all(coordinatesPromises).then(flatten);
+    return this.$q.all(coordinatesPromises).then(x => flatten(x));
 
-    function flatten(array) {
-      return [].concat(...array);
+    function flatten<T>(array: T[][]) {
+      const result: T[] = [];
+      return result.concat(...array);
     }
   }
 
@@ -93,7 +94,7 @@ export default class LtData {
     const authorGetter = this.$parse('imageinfo[0].extmetadata.Artist.value');
     const timestampGetter = this.$parse('imageinfo[0].extmetadata.DateTimeOriginal.value');
     const urlGetter = this.$parse('imageinfo[0].descriptionurl');
-    return this.$query(params).then(data => {
+    return this.$query<any>(params).then(data => {
       const page = (data && data.query && data.query.pages && data.query.pages[pageid]) || {};
       const categories = ((page && page.categories) || []).map(category =>
         category.title.replace(/^Category:/, '')
@@ -133,7 +134,7 @@ export default class LtData {
     }
   }
 
-  getCategoriesForPrefix(prefix) {
+  getCategoriesForPrefix(prefix: string): ng.IPromise<CommonsTitle[]> {
     const params = {
       list: 'allpages',
       apnamespace: 14,
@@ -141,12 +142,28 @@ export default class LtData {
       apfrom: prefix,
       apprefix: prefix
     };
-    return this.$query(params).then(data =>
-      data.query.allpages.map(i => i.title.replace(/^Category:/, ''))
+    return this.$query<any>(params).then(data =>
+      data.query.allpages.map(i => i.title.replace(/^Category:/, '' as CommonsTitle))
     );
   }
 
-  getFiles({files, user, userLimit, userStart, userEnd, category, categoryDepth}) {
+  getFiles({
+    files,
+    user,
+    userLimit,
+    userStart,
+    userEnd,
+    category,
+    categoryDepth
+  }: {
+    files: CommonsTitle[];
+    user: string;
+    userLimit: number;
+    userStart: number;
+    userEnd: number;
+    category: string;
+    categoryDepth: number;
+  }): ng.IPromise<CommonsTitle[]> {
     return this.$q((resolve, reject) => {
       if (files) {
         resolve(files);
@@ -160,7 +177,12 @@ export default class LtData {
     });
   }
 
-  getFilesForUser(user, userLimit, userStart, userEnd) {
+  getFilesForUser(
+    user: string,
+    userLimit: number,
+    userStart: number,
+    userEnd: number
+  ): ng.IPromise<CommonsTitle[]> {
     // https://commons.wikimedia.org/w/api.php?action=help&modules=query%2Ballimages
     const params = {
       generator: 'allimages',
@@ -175,11 +197,11 @@ export default class LtData {
     const shouldContinue = data =>
       data.continue && (!userLimit || toPageArray(data).length < userLimit);
     return this.$query(params, {}, shouldContinue)
-      .then(data => toPageArray(data).map(page => page.title))
+      .then(data => toPageArray(data).map(page => page.title as CommonsTitle))
       .then(pages => (userLimit ? this.limitToFilter(pages, userLimit) : pages));
   }
 
-  getFilesForCategory(cat, depth = 3) {
+  getFilesForCategory(cat: string, depth = 3): ng.IPromise<CommonsTitle[]> {
     cat = cat.replace(/^Category:/, '');
     return this.successRace([
       this.getFilesForCategory1(cat, depth),
@@ -187,7 +209,7 @@ export default class LtData {
     ]);
   }
 
-  getFilesForCategory1(cat, depth) {
+  getFilesForCategory1(cat: string, depth: number): ng.IPromise<CommonsTitle[]> {
     const params = {
       lang: 'commons',
       cat: cat.replace(/^Category:/, ''),
@@ -196,11 +218,11 @@ export default class LtData {
       json: 1
     };
     return this.$http
-      .get<any[]>('https://tools.wmflabs.org/cats-php/', {params})
+      .get<CommonsTitle[]>('https://tools.wmflabs.org/cats-php/', {params})
       .then(d => d.data.map(f => `File:${f}`));
   }
 
-  getFilesForCategory2(cat, depth) {
+  getFilesForCategory2(cat, depth): ng.IPromise<CommonsTitle[]> {
     const params = {
       action: 'query',
       lang: 'commons',
@@ -216,7 +238,7 @@ export default class LtData {
         if (exceptions.length) {
           throw new Error(exceptions[0]);
         }
-        return d.data.filter(x => !!x.page).map(x => x.page.page_title);
+        return d.data.filter(x => !!x.page).map(x => x.page.page_title as CommonsTitle);
       });
     function transformResponse(value) {
       // tlgwsgi returns one JSON object per line w/o commas in between
@@ -225,7 +247,11 @@ export default class LtData {
     }
   }
 
-  private $query(query, previousResults = {}, shouldContinue = data => !!data.continue) {
+  private $query<T>(
+    query,
+    previousResults = {},
+    shouldContinue = data => !!data.continue
+  ): ng.IPromise<T> {
     const data = this.$httpParamSerializer(query);
     const params = {
       action: 'query',
@@ -248,8 +274,8 @@ export default class LtData {
       );
   }
 
-  private successRace(promises) {
-    return this.$q((resolve, reject) => {
+  private successRace<T>(promises: ng.IPromise<T>[]): ng.IPromise<T> {
+    return this.$q<T>((resolve, reject) => {
       // resolve first successful one
       promises.forEach(promise => promise.then(resolve));
       // reject when all fail

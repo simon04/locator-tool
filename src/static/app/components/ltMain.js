@@ -23,6 +23,7 @@ class ltMain {
     this.mapView = localStorageService.get('mapView') || DEFAULT_MAP_VIEW;
 
     const files$q = ltData.getFiles($stateParams);
+    files$q.then(titles => ltData.getCoordinates(titles)).then(console.log)
     const fileDetails$q = files$q.then(titles => ltData.getCoordinates(titles)).then(titles => {
       this.titles = orderByFilter(titles, title => title.file);
       this.showGeolocated = this.titles.length <= 5;

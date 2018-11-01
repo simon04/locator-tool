@@ -1,4 +1,4 @@
-export default class LatLng {
+export class LatLng {
   public lat?: number;
   public lng?: number;
   _latOriginal?: number;
