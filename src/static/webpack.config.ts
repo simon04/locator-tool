@@ -26,6 +26,7 @@ const config: webpack.Configuration = {
     hints: false
   },
   resolve: {
+    extensions: ['.ts', '.js'],
     alias: {
       '@': __dirname
     }
@@ -35,7 +36,12 @@ const config: webpack.Configuration = {
       {
         test: /\.js$/,
         loader: 'buble-loader',
-        exclude: /(\.test.js$|node_modules)/
+        exclude: /node_modules/
+      },
+      {
+        test: /\.ts/,
+        loader: 'ts-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.pug$/,

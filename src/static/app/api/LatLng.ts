@@ -1,12 +1,14 @@
 export default class LatLng {
-  constructor(type, {lat, lng}) {
-    Object.assign(this, {
-      type,
-      lat,
-      lng,
-      _latOriginal: lat,
-      _lngOriginal: lng
-    });
+  public lat?: number;
+  public lng?: number;
+  _latOriginal?: number;
+  _lngOriginal?: number;
+
+  constructor(public type: string, {lat, lng}: {lat?: number; lng?: number}) {
+    this.lat = lat;
+    this.lng = lng;
+    this._latOriginal = lat;
+    this._lngOriginal = lng;
   }
 
   withLatLng({lat, lng} = {lat: this._latOriginal, lng: this._lngOriginal}) {
@@ -17,14 +19,12 @@ export default class LatLng {
   }
 
   markAsSaved() {
-    Object.assign(this, {
-      _latOriginal: this.lat,
-      _lngOriginal: this.lng
-    });
+    this._latOriginal = this.lat;
+    this._lngOriginal = this.lng;
   }
 
   get isDefined() {
-    return this.lat && this.lng;
+    return this.lat !== undefined && this.lng !== undefined;
   }
 
   get isChanged() {
@@ -36,10 +36,10 @@ export default class LatLng {
   }
 
   get csv() {
-    return this.isDefined && [this.lat, this.lng].map(atLeastOneDecimalPlace).join(', ');
+    return this.isDefined ? [this.lat, this.lng].map(atLeastOneDecimalPlace).join(', ') : '';
   }
 }
 
-function atLeastOneDecimalPlace(value) {
+function atLeastOneDecimalPlace(value: number) {
   return value % 1 === 0 ? value.toFixed(1) : value;
 }
