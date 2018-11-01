@@ -76,7 +76,7 @@ const config: webpack.Configuration = {
     }),
     productionBuild ? new CompressionPlugin() : undefined
   ].filter(plugin => !!plugin),
-  devtool: productionBuild ? 'source-map' : undefined,
+  devtool: productionBuild ? 'source-map' : 'cheap-module-eval-source-map',
   devServer: {
     proxy: {
       '/render/tlgbe/**': {
