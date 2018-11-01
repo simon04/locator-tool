@@ -3,12 +3,21 @@ import * as animate from 'angular-animate';
 import * as localStorage from 'angular-local-storage';
 import uiRouter, {StateProvider, UrlRouterProvider, LocationConfig} from '@uirouter/angularjs';
 import * as gettext from 'angular-gettext';
+import 'angular-lazy-img/dist/angular-lazy-img';
 
 import './style.css';
 import appApi from './api';
 import appComponents from './components';
 
-angular.module('app', [animate, uiRouter, localStorage, gettext, appApi, appComponents]);
+angular.module('app', [
+  animate,
+  uiRouter,
+  localStorage,
+  gettext,
+  'angularLazyImg',
+  appApi,
+  appComponents
+]);
 
 angular.module('app').config(configure);
 angular.module('app').config(routes);

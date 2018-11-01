@@ -28,6 +28,7 @@
     "angular": "1.6.8",
     "angular-animate": "1.6.8",
     "angular-gettext": "^2.3.8",
+    "angular-lazy-img": "^1.2.0",
     "angular-ll-leaflet": "^1.0.0",
     "angular-local-storage": "^0.5.2",
     "bootstrap": "^4.1.3",

@@ -7,6 +7,10 @@ class LtFileThumbnailController implements ng.IComponentController {
   public static $inject = ['$window'];
   constructor(private $window: ng.IWindowService) {}
 
+  get lazyUrl() {
+    return this.file.imageUrl(120);
+  }
+
   get thumbnailUrl() {
     return this.file.imageUrl(1024);
   }

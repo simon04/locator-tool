@@ -500,6 +500,11 @@ angular-gettext@^2.3.8:
   resolved "https://registry.yarnpkg.com/angular-gettext/-/angular-gettext-2.4.1.tgz#1cfc53afd0f8541a36b56dc50558a1a24def181b"
   integrity sha512-+Ba6mY5hPdka68rxLuXk7HCDFeiS6EIHFTKgTT0tTVtgap6gNdJzmydb8Niqs5aylf8U3B7+m1ETzppE/qtgKw==
 
+angular-lazy-img@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/angular-lazy-img/-/angular-lazy-img-1.2.0.tgz#65c1258c88067f2e279b6e07683434a69cddd0fe"
+  integrity sha1-ZcEljIgGfy4nm24HaDQ0ppzd0P4=
+
 angular-ll-leaflet@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/angular-ll-leaflet/-/angular-ll-leaflet-1.0.0.tgz#3c168ed0a34fb03ab4e1b36dccfdcfe66d4d8a57"

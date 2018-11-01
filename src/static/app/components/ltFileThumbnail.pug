@@ -1,6 +1,7 @@
 img.img-fluid.img-thumbnail(
-  ng-src='{{$ctrl.thumbnailUrl}}',
-  style='max-height: 100%; cursor: zoom-in',
+  ng-src='{{$ctrl.lazyUrl}}',
+  lazy-img='{{$ctrl.thumbnailUrl}}',
+  style='max-height: 100%; cursor: zoom-in; width: 100%',
   ng-click='$ctrl.dialogShown = true'
   ng-animate-swap='$ctrl.thumbnailUrl')
 
@@ -11,4 +12,7 @@ img.img-fluid.img-thumbnail(
   .modal-dialog(style='max-width: 90%; max-height: 90%; overflow-y: scroll')
     .modal-content
       .modal-body
-        img.img-fluid(ng-src='{{$ctrl.imageUrl}}', style='margin: auto')
+        img.img-fluid(
+          ng-src='{{$ctrl.thumbnailUrl}}',
+          lazy-img='{{$ctrl.imageUrl}}',
+          style='margin: auto; width: 100%')
