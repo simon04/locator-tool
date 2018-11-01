@@ -1,18 +1,26 @@
 import template from './ltMap.pug';
-import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-import iconUrl from 'leaflet/dist/images/marker-icon.png';
-import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import * as iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+import * as iconUrl from 'leaflet/dist/images/marker-icon.png';
+import * as shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import {LatLng} from '../model';
 
 let layerFromLocalStorage;
 
-class ltMap {
-  constructor($scope, localStorageService) {
-    Object.assign(this, {$scope, localStorageService});
+export class LtMapController implements ng.IComponentController {
+  mapView: any;
+  mapMarker: LatLng;
+  mapObjectLocation: LatLng;
+
+  public static $inject = ['$scope', 'localStorageService'];
+  constructor(
+    private $scope: ng.IScope,
+    private localStorageService: angular.local.storage.ILocalStorageService
+  ) {
     layerFromLocalStorage = this.localStorageService.get('mapLayer') || 'OSM';
   }
 
   mapInit(L, map) {
-    ltMap._mapInit(L, map);
+    LtMapController._mapInit(L, map);
   }
 
   static _mapInit(L, map) {
@@ -73,7 +81,7 @@ class ltMap {
     }
   }
 
-  markerMoveend($event, target) {
+  markerMoveend($event, target: LatLng) {
     const {lat, lng} = $event.target.getLatLng();
     if (lat && lng) {
       const coordinates = target.withLatLng({
@@ -88,7 +96,6 @@ class ltMap {
     this.localStorageService.set('mapLayer', $event.name);
   }
 }
-ltMap.$inject = ['$scope', 'localStorageService'];
 
 export default {
   bindings: {
@@ -97,9 +104,9 @@ export default {
     mapObjectLocation: '<'
   },
   template,
-  controller: ltMap
-};
+  controller: LtMapController
+} as ng.IComponentOptions;
 
-function roundToPrecision(value, precision = 10e7) {
+function roundToPrecision(value: number, precision = 10e7) {
   return (value * precision) % 1 ? Math.round(value * precision) / precision : value;
 }

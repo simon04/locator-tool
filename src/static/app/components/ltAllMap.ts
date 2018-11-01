@@ -1,6 +1,6 @@
 import {CommonsFile, LatLng} from '../model';
 import LtData from '../api/ltData';
-import ltMap from './ltMap';
+import {LtMapController} from './ltMap';
 import template from './ltAllMap.pug';
 
 const DEFAULT_MAP_VIEW = {
@@ -34,7 +34,7 @@ class LtAllMapController implements ng.IComponentController {
   }
 
   mapInit(L, map) {
-    new ltMap.controller._mapInit(L, map);
+    new LtMapController._mapInit(L, map);
   }
 }
 
