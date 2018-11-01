@@ -5,5 +5,5 @@ import ltDataAuth from './ltDataAuth';
 
 export default angular
   .module('app.api', [])
-  .factory('ltData', ltData)
+  .service('ltData', ltData)
   .factory('ltDataAuth', ltDataAuth).name;
