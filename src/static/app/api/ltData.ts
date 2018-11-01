@@ -142,7 +142,7 @@ export default class LtData {
       apfrom: prefix,
       apprefix: prefix
     };
-    return this.$query<any>(params).then(data =>
+    return this.$query<any>(params, {}, () => false).then(data =>
       data.query.allpages.map(i => i.title.replace(/^Category:/, '' as CommonsTitle))
     );
   }
