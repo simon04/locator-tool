@@ -1,16 +1,21 @@
 import {LatLng} from '../model';
 
-export default function directive() {
+export default function directive(): ng.IDirective {
   const REGEXP = /([+-]?\d+\.\d*)[,;\s]+([+-]?\d+\.\d*)/;
 
   return {
     require: 'ngModel',
-    link: function(_scope, _elm, _attrs, ctrl) {
+    link: function(
+      _scope: ng.IScope,
+      _elm: JQLite,
+      _attrs: ng.IAttributes,
+      ctrl: ng.INgModelController
+    ) {
       let type;
-      ctrl.$parsers.push(parser);
-      ctrl.$formatters.push(formatter);
+      ctrl.$parsers.push(parser as ng.IModelParser);
+      ctrl.$formatters.push(formatter as ng.IModelFormatter);
 
-      function parser(viewValue) {
+      function parser(viewValue): LatLng {
         if (!type) {
           // keep track of coordinate type since it is lost
           // when returning undefined on invalid input
@@ -28,7 +33,7 @@ export default function directive() {
         }
       }
 
-      function formatter(coordinate) {
+      function formatter(coordinate: LatLng) {
         return coordinate && coordinate.csv;
       }
     }
