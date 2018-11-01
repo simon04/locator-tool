@@ -45,7 +45,7 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.pug$/,
-        loader: ['html-loader', './pug-loader']
+        loader: ['html-loader?exportAsEs6Default=true', './pug-loader']
       },
       {
         test: /\.css$/,
