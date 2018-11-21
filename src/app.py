@@ -18,8 +18,10 @@ app.config['CSRF_HEADER_NAME'] = 'X-XSRF-TOKEN'
 app.config['CSRF_COOKIE_PATH'] = '/locator-tool/'
 SeaSurf(app)
 
-logfile = TimedRotatingFileHandler(filename='locator-tool.log', when='midnight')
-logfile.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+logfile = TimedRotatingFileHandler(
+    filename='locator-tool.log', when='midnight')
+logfile.setFormatter(logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
 logfile.setLevel(logging.INFO)
 app.logger.addHandler(logfile)
 logging.getLogger('werkzeug').addHandler(logfile)
@@ -48,7 +50,7 @@ def edit():
         abort(401)
     data = request.get_json()
     if 'pageid' not in data or 'type' not in data \
-        or 'lat' not in data or 'lng' not in data:
+            or 'lat' not in data or 'lng' not in data:
         abort(400)
     pageid = int(data['pageid'])
     type = data['type']
@@ -91,6 +93,7 @@ def edit():
 def mwoauth_request(api_query):
     api_query['format'] = 'json'
     return mwoauth.mwoauth.post(mwoauth.base_url + '/api.php?', data=api_query).data
+
 
 if __name__ == '__main__':
     app.run()

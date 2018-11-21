@@ -3,7 +3,7 @@ import re
 
 def add_location_to_wikitext(type, lat, lng, wikitext):
     r"""
-    Adds a {{Location}} template containig `lat`, `lng` to the `wikitext`.
+    Adds a {{Location}} template containing `lat`, `lng` to the `wikitext`.
     Replaces previously specified `{{Location}}`, `{{Location dec}}` templates.
 
     >>> add_location_to_wikitext(None, 12.3, 45.6, "")
