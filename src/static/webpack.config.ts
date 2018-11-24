@@ -9,7 +9,6 @@ import * as CompressionPlugin from 'compression-webpack-plugin';
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const productionBuild = process.env.npm_lifecycle_script !== 'webpack-dev-server';
-const git = execSync('git describe --always', {encoding: 'utf8'}).trim();
 
 const config: webpack.Configuration = {
   mode: productionBuild ? 'production' : 'development',
@@ -70,8 +69,12 @@ const config: webpack.Configuration = {
       inject: 'body'
     }),
     new webpack.DefinePlugin({
-      __BUILD_DATE__: JSON.stringify(Date.now()),
-      __BUILD_VERSION__: JSON.stringify(git)
+      __BUILD_DATE__: JSON.stringify(
+        parseInt(execSync('git log -1 --format=%cd --date=unix', {encoding: 'utf8'}).trim()) * 1000
+      ),
+      __BUILD_VERSION__: JSON.stringify(
+        execSync('git describe --always', {encoding: 'utf8'}).trim()
+      )
     }),
     productionBuild ? new CompressionPlugin() : undefined
   ].filter(plugin => !!plugin),
