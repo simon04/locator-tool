@@ -8,9 +8,8 @@ argparse==1.2.1
 flask-mwoauth==0.2.46
 future==0.15.2
 itsdangerous==0.24
-oauthlib==1.1.1
+oauthlib==1.1.2
 requests==2.10.0
-requests-oauthlib==0.6.1
+requests-oauthlib==0.6.2
 six==1.10.0
 talisman==0.1.0
-wsgiref==0.1.2
