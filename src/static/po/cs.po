@@ -1,12 +1,13 @@
 # 
 # Translators:
 # frettie <frettie@gmail.com>, 2017
+# J.Podhorecky <j.podhorecky@volny.cz>, 2019
 # Simon Legner <simon.legner@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2017-10-06 18:11+0000\n"
-"Last-Translator: Simon Legner <simon.legner@gmail.com>\n"
+"PO-Revision-Date: 2019-03-04 00:05+0000\n"
+"Last-Translator: J.Podhorecky <j.podhorecky@volny.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/locator-tool/locator-tool/language/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,7 +88,7 @@ msgstr "Geolokovat soubory"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid "Hello {{$ctrl.userInfo}}!"
-msgstr ""
+msgstr "Ahoj {{$ctrl.userInfo}}!"
 
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
 msgid ""
