@@ -205,7 +205,8 @@ export default class LtData {
     cat = cat.replace(/^Category:/, '');
     return this.successRace([
       this.getFilesForCategory1(cat, depth),
-      this.getFilesForCategory2(cat, depth)
+      this.getFilesForCategory2(cat, depth),
+      this.getFilesForCategory3(cat, depth)
     ]);
   }
 
@@ -245,6 +246,22 @@ export default class LtData {
       const array = `[${value.replace(/\n/g, ',').replace(/,$/, '')}]`;
       return JSON.parse(array);
     }
+  }
+
+  getFilesForCategory3(categories: string, depth: number): ng.IPromise<CommonsTitle[]> {
+    const params = {
+      language: 'commons',
+      project: 'wikimedia',
+      depth,
+      categories,
+      'ns[6]': 1,
+      format: 'json',
+      sparse: 1,
+      doit: 1
+    };
+    return this.$http
+      .get<any[]>('https://petscan.wmflabs.org/', {params})
+      .then(d => d.data['*'][0]['a']['*'] as CommonsTitle[]);
   }
 
   private $query<T>(
