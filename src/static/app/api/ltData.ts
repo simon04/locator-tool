@@ -13,6 +13,7 @@ export default class LtData {
     '$parse',
     '$sce',
     '$q',
+    'gettextCatalog',
     'limitToFilter'
   ];
   constructor(
@@ -21,6 +22,7 @@ export default class LtData {
     private $parse: ng.IParseService,
     private $sce: ng.ISCEService,
     private $q: ng.IQService,
+    private gettextCatalog: any,
     private limitToFilter: ng.IFilterLimitTo
   ) {}
 
@@ -88,6 +90,7 @@ export default class LtData {
       pageids: pageid,
       iiprop: 'url|extmetadata',
       iiextmetadatafilter: 'ImageDescription|Artist|DateTimeOriginal',
+      iiextmetadatalanguage: this.gettextCatalog.getCurrentLanguage(),
       rvprop: 'content'
     };
     const descriptionGetter = this.$parse('imageinfo[0].extmetadata.ImageDescription.value');
