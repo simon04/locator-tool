@@ -1,7 +1,7 @@
 .fill(ll-map='', ll-init='$ctrl.mapInit')
   ll-view(ll-view='$ctrl.mapView')
   ll-fit-bounds(ll-bounds='$ctrl.bounds')
-  ll-marker(ng-repeat='title in $ctrl.titles', ng-if='title.coordinates.lat', ll-lat-lng='title.coordinates', ll-popupopen='title._popup = 1', ng-title='{{title}}')
+  ll-marker(ng-repeat='title in $ctrl.titles', ng-if='title.coordinates.lat', ll-lat-lng='title.coordinates', ll-popupopen='title._popup = 1', ll-marker='{title: title.file}')
     ll-popup
       div(style='width: 300px')
         p
