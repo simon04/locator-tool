@@ -5,7 +5,7 @@ import 'leaflet-control-geocoder';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 
-L.TileLayer.Provider.providers.mapyCZ = {
+(L.TileLayer as any).Provider.providers.mapyCZ = {
   url: 'https://mapserver.mapy.cz/{variant}/{z}-{x}-{y}',
   options: {
     maxZoom: 20,
