@@ -32,7 +32,12 @@ export class LtMapController implements ng.IComponentController {
       shadowUrl
     });
 
-    map.attributionControl.setPrefix(false);
+    map.attributionControl.setPrefix(
+      [
+        '<a href="https://github.com/simon04/locator-tool/" target="_blank">@simon04/locator-tool</a>',
+        '(<a href="https://github.com/simon04/locator-tool/blob/master/LICENSE" target="_blank">GPL v3</a>)'
+      ].join(' ')
+    );
     const external = '<svg class="octicon"><use xlink:href="#link-external"></use></svg>';
     const wm = L.tileLayer.provider('Wikimedia', {
       name: 'Wikimedia Maps'
