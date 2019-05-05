@@ -11,21 +11,22 @@ import '../../po/pt.po';
 import '../../po/ru.po';
 import '../../po/zh_TW.po';
 
-const languages = ['bn', 'cs', 'de', 'en', 'es', 'fr', 'it', 'ml', 'pt', 'ru', 'zh_TW'];
+const languageCodes = ['bn', 'cs', 'de', 'en', 'es', 'fr', 'it', 'ml', 'pt', 'ru', 'zh_TW'];
 
 class ltLanguageSelector implements ng.IComponentController {
-  languages = languages.reduce((obj, lang) => {
-    obj[lang] = this.getDisplayString(lang);
-    return obj;
-  }, {});
-
+  languages: object;
   public static $inject = ['$window', 'localStorageService', 'gettext', 'gettextCatalog'];
   constructor(
     private $window: ng.IWindowService,
     private localStorageService: angular.local.storage.ILocalStorageService,
     private gettext: any,
     private gettextCatalog: any
-  ) {}
+  ) {
+    this.languages = languageCodes.reduce((obj, lang) => {
+      obj[lang] = this.getDisplayString(lang);
+      return obj;
+    }, {});
+  }
 
   $onInit() {
     const language = this.localStorageService.get('language');

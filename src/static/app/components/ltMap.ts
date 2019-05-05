@@ -34,8 +34,10 @@ export class LtMapController implements ng.IComponentController {
     });
     ((map as any).attributionControl as L.Control.Attribution).setPrefix(
       [
-        '<a href="https://github.com/simon04/locator-tool/" target="_blank">@simon04/locator-tool</a>',
-        '(<a href="https://github.com/simon04/locator-tool/blob/master/LICENSE" target="_blank">GPL v3</a>)'
+        '<a href="https://github.com/simon04/locator-tool/" ',
+        'target="_blank">@simon04/locator-tool</a>',
+        '(<a href="https://github.com/simon04/locator-tool/blob/master/LICENSE" ',
+        'target="_blank">GPL v3</a>)'
       ].join(' ')
     );
     const external = '<svg class="octicon"><use xlink:href="#link-external"></use></svg>';
