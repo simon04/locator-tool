@@ -1,10 +1,11 @@
 import template from './ltMap.pug';
+import * as L from 'leaflet';
 import * as iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import * as iconUrl from 'leaflet/dist/images/marker-icon.png';
 import * as shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import {LatLng} from '../model';
 
-let layerFromLocalStorage;
+let layerFromLocalStorage: string;
 
 export class LtMapController implements ng.IComponentController {
   mapView: any;
@@ -19,48 +20,40 @@ export class LtMapController implements ng.IComponentController {
     layerFromLocalStorage = this.localStorageService.get('mapLayer') || 'OSM';
   }
 
-  mapInit(L, map) {
-    LtMapController._mapInit(L, map);
+  mapInit(_L, map: L.Map) {
+    LtMapController._mapInit(map);
   }
 
-  static _mapInit(L, map) {
+  static _mapInit(map: L.Map) {
     // https://github.com/Leaflet/Leaflet/issues/4968#issuecomment-269750768
-    delete L.Icon.Default.prototype._getIconUrl;
+    delete (L.Icon.Default.prototype as any)._getIconUrl;
     L.Icon.Default.mergeOptions({
       iconRetinaUrl,
       iconUrl,
       shadowUrl
     });
-
-    map.attributionControl.setPrefix(
+    ((map as any).attributionControl as L.Control.Attribution).setPrefix(
       [
         '<a href="https://github.com/simon04/locator-tool/" target="_blank">@simon04/locator-tool</a>',
         '(<a href="https://github.com/simon04/locator-tool/blob/master/LICENSE" target="_blank">GPL v3</a>)'
       ].join(' ')
     );
     const external = '<svg class="octicon"><use xlink:href="#link-external"></use></svg>';
-    const wm = L.tileLayer.provider('Wikimedia', {
-      name: 'Wikimedia Maps'
-    });
-    const osm = L.tileLayer.provider('HikeBike', {
-      name: 'OSM @wmflabs.org',
-      variant: 'osm'
-    });
-    const osmOrg = L.tileLayer.provider('OpenStreetMap', {
-      name: `OSM ${external}`
-    });
-    const basemap = L.tileLayer.provider('BasemapAT.orthofoto', {
-      name: `basemap.at 🇦🇹 ${external}`
-    });
-    const mapyCzPhoto = L.tileLayer.provider('mapyCZ', {
-      name: `Mapy.cz Photo 🇨🇿 ${external}`
-    });
+    const osm = `OSM ${external}`;
+    const layers = {
+      [osm]: L.tileLayer.provider('OpenStreetMap'),
+      ['OSM @wmflabs.org']: L.tileLayer.provider('HikeBike', {
+        name: 'OSM @wmflabs.org',
+        variant: 'osm'
+      }),
+      ['Wikimedia Maps']: L.tileLayer.provider('Wikimedia'),
+      [`basemap.at 🇦🇹 ${external}`]: L.tileLayer.provider('BasemapAT.orthofoto'),
+      [`Mapy.cz Photo 🇨🇿 ${external}`]: L.tileLayer.provider('mapyCZ')
+    };
     const layersControl = L.control.layers().addTo(map);
-    const layers = [osmOrg, osm, wm, basemap, mapyCzPhoto];
-    layers.forEach(l => layersControl.addBaseLayer(l, l.options.name));
-    const activeLayer = layers.filter(l => l.options.name === layerFromLocalStorage).shift() || osm;
-    activeLayer.addTo(map);
-    const geocoder = new L.Control.Geocoder({
+    Object.keys(layers).forEach(name => layersControl.addBaseLayer(layers[name], name));
+    (layers[layerFromLocalStorage] || layers[osm]).addTo(map);
+    const geocoder = new (L.Control as any).Geocoder({
       placeholder: '…',
       position: 'topleft',
       defaultMarkGeocode: false
@@ -69,7 +62,7 @@ export class LtMapController implements ng.IComponentController {
     geocoder.addTo(map);
   }
 
-  mapClick($event) {
+  mapClick($event: L.LeafletMouseEvent) {
     // http://leafletjs.com/reference.html#mouse-event
     const {
       latlng: {lat, lng},
@@ -85,8 +78,8 @@ export class LtMapController implements ng.IComponentController {
     }
   }
 
-  markerMoveend($event, target: LatLng) {
-    const {lat, lng} = $event.target.getLatLng();
+  markerMoveend($event: L.LeafletMouseEvent, target: LatLng) {
+    const {lat, lng} = ($event.target as L.Marker).getLatLng();
     if (lat && lng) {
       const coordinates = target.withLatLng({
         lat: roundToPrecision(lat),
@@ -96,7 +89,7 @@ export class LtMapController implements ng.IComponentController {
     }
   }
 
-  mapLayerChange($event) {
+  mapLayerChange($event: L.LayersControlEvent) {
     this.localStorageService.set('mapLayer', $event.name);
   }
 }

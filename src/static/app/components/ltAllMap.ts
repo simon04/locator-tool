@@ -2,6 +2,7 @@ import {CommonsFile, LatLng} from '../model';
 import LtData from '../api/ltData';
 import {LtMapController} from './ltMap';
 import template from './ltAllMap.pug';
+import * as L from 'leaflet';
 
 const DEFAULT_MAP_VIEW = {
   lat: 51.505,
@@ -33,8 +34,8 @@ class LtAllMapController implements ng.IComponentController {
       });
   }
 
-  mapInit(L, map) {
-    new LtMapController._mapInit(L, map);
+  mapInit(_L, map: L.Map) {
+    new LtMapController._mapInit(map);
   }
 }
 
