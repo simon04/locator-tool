@@ -1,4 +1,4 @@
-.fill(ll-map='', ll-init='$ctrl.mapInit')
+.fill(ll-map='', ll-init='$ctrl.mapInit', style='margin-left: -15px; margin-right: -15px')
   ll-view(ll-view='$ctrl.mapView')
   ll-fit-bounds(ll-bounds='$ctrl.bounds')
   ll-marker(ng-repeat='title in $ctrl.titles', ng-if='title.coordinates.lat', ll-lat-lng='title.coordinates', ll-popupopen='title._popup = 1', ll-marker='{title: title.file}')
