@@ -61,7 +61,6 @@ export class LtMapController implements ng.IComponentController {
     const activeLayer = layers.filter(l => l.options.name === layerFromLocalStorage).shift() || osm;
     activeLayer.addTo(map);
     const geocoder = new L.Control.Geocoder({
-      collapsed: false,
       placeholder: '…',
       position: 'topleft',
       defaultMarkGeocode: false
