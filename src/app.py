@@ -54,8 +54,8 @@ def edit():
         abort(400)
     pageid = int(data['pageid'])
     type = data['type']
-    lat = float(data['lat'])
-    lng = float(data['lng'])
+    lat = round(float(data['lat']),5)
+    lng = round(float(data['lng']),5)
     app.logger.info('Received request %s', str(data))
 
     r1 = mwoauth_request({
