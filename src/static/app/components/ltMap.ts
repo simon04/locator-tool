@@ -111,6 +111,6 @@ export default {
   controller: LtMapController
 } as ng.IComponentOptions;
 
-function roundToPrecision(value: number, precision = 10e7) {
-  return (value * precision) % 1 ? Math.round(value * precision) / precision : value;
+function roundToPrecision(value?: number, fractionDigits = 5): number {
+  return typeof value === 'number' ? +value.toFixed(fractionDigits) : value;
 }
