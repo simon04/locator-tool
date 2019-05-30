@@ -42,14 +42,18 @@ export class LtMapController implements ng.IComponentController {
     );
     const external = '<svg class="octicon"><use xlink:href="#link-external"></use></svg>';
     const osm = `OSM ${external}`;
+    const maxZoomOptions = {
+      maxZoom: 21,
+      maxNativeZoom: 19
+    };
     const layers = {
-      [osm]: L.tileLayer.provider('OpenStreetMap'),
+      [osm]: L.tileLayer.provider('OpenStreetMap', maxZoomOptions),
       ['OSM @wmflabs.org']: L.tileLayer.provider('HikeBike', {
         name: 'OSM @wmflabs.org',
         variant: 'osm'
       }),
-      ['Wikimedia Maps']: L.tileLayer.provider('Wikimedia'),
-      [`basemap.at 🇦🇹 ${external}`]: L.tileLayer.provider('BasemapAT.orthofoto'),
+      ['Wikimedia Maps']: L.tileLayer.provider('Wikimedia', maxZoomOptions),
+      [`basemap.at 🇦🇹 ${external}`]: L.tileLayer.provider('BasemapAT.orthofoto', maxZoomOptions),
       [`Mapy.cz Photo 🇨🇿 ${external}`]: L.tileLayer.provider('mapyCZ')
     };
     const layersControl = L.control.layers().addTo(map);
@@ -108,4 +112,11 @@ export default {
 
 function roundToPrecision(value?: number, fractionDigits = 5): number {
   return typeof value === 'number' ? +value.toFixed(fractionDigits) : value;
+}
+
+declare module 'leaflet' {
+  namespace tileLayer {
+    // fix for https://github.com/DefinitelyTyped/DefinitelyTyped/pull/35837
+    function provider(provider: string, options?: TileLayerOptions): TileLayer.Provider;
+  }
 }
