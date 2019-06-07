@@ -113,10 +113,3 @@ export default {
 function roundToPrecision(value?: number, fractionDigits = 5): number {
   return typeof value === 'number' ? +value.toFixed(fractionDigits) : value;
 }
-
-declare module 'leaflet' {
-  namespace tileLayer {
-    // fix for https://github.com/DefinitelyTyped/DefinitelyTyped/pull/35837
-    function provider(provider: string, options?: TileLayerOptions): TileLayer.Provider;
-  }
-}
