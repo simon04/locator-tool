@@ -4,6 +4,7 @@ import '../../po/bn.po';
 import '../../po/cs.po';
 import '../../po/de.po';
 import '../../po/es.po';
+import '../../po/fa_IR.po';
 import '../../po/fr.po';
 import '../../po/it.po';
 import '../../po/ml.po';
@@ -11,7 +12,20 @@ import '../../po/pt.po';
 import '../../po/ru.po';
 import '../../po/zh_TW.po';
 
-const languageCodes = ['bn', 'cs', 'de', 'en', 'es', 'fr', 'it', 'ml', 'pt', 'ru', 'zh_TW'];
+const languageCodes = [
+  'bn',
+  'cs',
+  'de',
+  'en',
+  'es',
+  'fa_IR',
+  'fr',
+  'it',
+  'ml',
+  'pt',
+  'ru',
+  'zh_TW'
+];
 
 class ltLanguageSelector implements ng.IComponentController {
   languages: object;
