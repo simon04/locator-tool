@@ -1,13 +1,14 @@
 # 
 # Translators:
 # frettie <frettie@gmail.com>, 2017
-# J.Podhorecky <j.podhorecky@volny.cz>, 2019
+# trendspotter <j.podhorecky@volny.cz>, 2019
+# trendspotter <j.podhorecky@volny.cz>, 2019
 # Simon Legner <simon.legner@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2019-03-04 00:05+0000\n"
-"Last-Translator: J.Podhorecky <j.podhorecky@volny.cz>\n"
+"PO-Revision-Date: 2019-07-10 19:14+0000\n"
+"Last-Translator: trendspotter <j.podhorecky@volny.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/locator-tool/locator-tool/language/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,7 +31,7 @@ msgstr "O nástroji locator-tool"
 
 #: ./app/components/ltMain/ltMain.pug
 msgid "Also show geolocated files"
-msgstr "Zobrazít i geolokované soubory"
+msgstr "Zobrazit i geolokované soubory"
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid ""
@@ -101,7 +102,7 @@ msgid ""
 "Its source code is available on <a href=\"https://github.com/simon04"
 "/locator-tool\">GitHub</a> and <a "
 "href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
-msgstr "Zdrojový kód nástroje je dostupný na <a href=\"https://github.com/simon04/locator-tool\">GitHubu</a> a je licencován pomocí licence <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>."
+msgstr "Zdrojový kód nástroje je dostupný na <a href=\"https://github.com/simon04/locator-tool\">GitHubu</a> a je licencován licencí <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>."
 
 #. Your language in your language (e.g. 'English', 'Deutsch')
 #: ./app/components/ltLanguageSelector/ltLanguageSelector.pug
@@ -110,7 +111,7 @@ msgstr "Čeština"
 
 #: ./app/components/ltFileDetails/ltFileDetails.pug
 msgid "Left click on map to set the location."
-msgstr "Na nastavení umístění klikněte levým tlačítkem myši."
+msgstr "Na umístění klikněte levým tlačítkem myši."
 
 #. maximum number of files
 #: ./app/components/ltFilesSelector/ltFilesSelector.pug
@@ -212,11 +213,11 @@ msgid ""
 "This tool helps to add <code class=\"mediawiki-template\">Coordinate</code> "
 "information to images on <a "
 "href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
-msgstr "Tento nástroj pomáhá přidávat informace o <code class=\"mediawiki-template\">souřadnicích</code> obrázků na <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgstr "Tento nástroj pomáhá přidávat informace o souřadnicích <code class=\"mediawiki-template\">Coordinate</code> obrázků na <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid "Translate locator-tool on Transifex"
-msgstr "Přeložte locator-tool na Transifex"
+msgstr "Přeložte locator-tool na Transifexu"
 
 #: ./app/components/ltAbout/ltAbout.pug
 msgid "Tutorial"
@@ -239,7 +240,7 @@ msgid ""
 "When a clipboard content containing HTML code (for instance a copied "
 "selection from a Commons gallery) is pasted here, locator-tool tries to "
 "extract <code>File:</code>s from the code."
-msgstr "V případě, že vložíte obsah schránky, který obsahuje HTML kód (například z galerie na Commons), tak se locator-tool pokusí extrahovat z kódu informace of <code>Soubor:</code>ech."
+msgstr "V případě, že vložíte obsah schránky, který obsahuje HTML kód (například z galerie na Commons), tak se locator-tool pokusí extrahovat z kódu informace o souborech <code>File:</code>."
 
 #: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
 msgid "locator-tool"
