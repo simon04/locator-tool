@@ -10,6 +10,7 @@ import '../../po/it.po';
 import '../../po/ml.po';
 import '../../po/pt.po';
 import '../../po/ru.po';
+import '../../po/uk.po';
 import '../../po/zh_TW.po';
 
 const languageCodes = [
@@ -24,6 +25,7 @@ const languageCodes = [
   'ml',
   'pt',
   'ru',
+  'uk',
   'zh_TW'
 ];
 
