@@ -208,7 +208,6 @@ export default class LtData {
     cat = cat.replace(/^Category:/, '');
     return this.successRace([
       this.getFilesForCategory1(cat, depth),
-      this.getFilesForCategory2(cat, depth),
       this.getFilesForCategory3(cat, depth)
     ]);
   }
@@ -224,31 +223,6 @@ export default class LtData {
     return this.$http
       .get<CommonsTitle[]>('https://tools.wmflabs.org/cats-php/', {params})
       .then(d => d.data.map(f => `File:${f}`));
-  }
-
-  getFilesForCategory2(cat, depth): ng.IPromise<CommonsTitle[]> {
-    const params = {
-      action: 'query',
-      lang: 'commons',
-      query: cat,
-      querydepth: depth,
-      flaws: 'ALL',
-      format: 'json'
-    };
-    return this.$http
-      .get<any[]>('/render/tlgbe/tlgwsgi.py', {params, transformResponse})
-      .then(d => {
-        const exceptions = d.data.filter(x => !!x.exception).map(x => x.exception);
-        if (exceptions.length) {
-          throw new Error(exceptions[0]);
-        }
-        return d.data.filter(x => !!x.page).map(x => x.page.page_title as CommonsTitle);
-      });
-    function transformResponse(value) {
-      // tlgwsgi returns one JSON object per line w/o commas in between
-      const array = `[${value.replace(/\n/g, ',').replace(/,$/, '')}]`;
-      return JSON.parse(array);
-    }
   }
 
   getFilesForCategory3(categories: string, depth: number): ng.IPromise<CommonsTitle[]> {
