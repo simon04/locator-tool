@@ -10,7 +10,6 @@ jobs:
       - uses: actions/checkout@master
       - name: Perform yarn install, build, and test
         run: |
-          cd src/static/
           yarn --no-progress
           yarn build
           yarn test

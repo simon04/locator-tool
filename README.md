@@ -7,8 +7,8 @@ Structure
 ---------
 
 The application consists of:
-* a backend written in Python/flask, located at [`src/`](https://github.com/simon04/locator-tool/tree/master/src)
-* a frontend written in JavaScript/AngularJS, located at [`src/static/`](https://github.com/simon04/locator-tool/tree/master/src/static)
+* a backend written in Python/flask, located at [`backend/`](https://github.com/simon04/locator-tool/tree/master/backend)
+* a frontend written in JavaScript/AngularJS, located at [`app/`](https://github.com/simon04/locator-tool/tree/master/app)
 
 Usage
 -----
