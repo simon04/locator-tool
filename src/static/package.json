@@ -32,7 +32,6 @@
     "angular-ll-leaflet": "^1.0.0",
     "angular-local-storage": "^0.5.2",
     "bootstrap": "^4.3.1",
-    "core-js": "^2.4.1",
     "deepmerge": "^1.5.1",
     "leaflet": "^1.5.1",
     "leaflet-control-geocoder": "^1.9.0",
