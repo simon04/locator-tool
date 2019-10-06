@@ -155,10 +155,10 @@
   dependencies:
     "@types/leaflet" "*"
 
-"@types/leaflet@*", "@types/leaflet@^1.4.4":
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.4.4.tgz#4a3d9815fe6c32a04ac3a230fe23772be8e0de83"
-  integrity sha512-CROxHvsRDFyR1OQKZv/WJsCVFv8Wj6wFF/FOI/yiGwX7GMivyvF8Ks5AT3/JYk269pGiE43wP9JOgcr7EK2eUw==
+"@types/leaflet@*", "@types/leaflet@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.5.2.tgz#3f3964642a68a36f3d4ef669e1595062cc2d4b2d"
+  integrity sha512-P6Ldzmu0UKE+nbQlEQb4+jukpAVFp4Xc8xkIwUJWft2KXvlFux+ofRMbFxHQhqRyW1+kh/q8g4WgoJCq/gjRVA==
   dependencies:
     "@types/geojson" "*"
 
@@ -3383,20 +3383,22 @@ lcid@^2.0.0:
   dependencies:
     invert-kv "^2.0.0"
 
-leaflet-control-geocoder@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/leaflet-control-geocoder/-/leaflet-control-geocoder-1.7.0.tgz#939a790c80ff85c5a308a56a3c4cab2147da2862"
-  integrity sha512-AAdu+EdW7n0wfPIctRkpSrSFEekn7X8Iw/9xZQvfTw8NSMYcVOV5eC3nXK5tfaoHspaDEWTK4OQPhj3uXDLHAA==
+leaflet-control-geocoder@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/leaflet-control-geocoder/-/leaflet-control-geocoder-1.9.0.tgz#d837569de7762953cd4f9543850602bab9f82230"
+  integrity sha512-yY6v8wly5Z+S4avTedgEGlDiW1HNPUS+1Eggus0k8UFxoSg7doZZv23T/1wQjix5hJZBEnlEgyHv4HAW1D8W+A==
+  optionalDependencies:
+    open-location-code "^1.0.0"
 
-leaflet-providers@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/leaflet-providers/-/leaflet-providers-1.6.0.tgz#20a36286dad8756ac139902838136526eaae4f8d"
-  integrity sha512-a/LzpZj5H83pnIyNgLKYT4BeMclc0IF406tth25bz8mEt3RvZmeX6s5aYvkoFG3fQ+Wyj8j8UV2qiLowryWWpQ==
+leaflet-providers@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/leaflet-providers/-/leaflet-providers-1.9.0.tgz#94c089cafbd3bdd88a74e68b34af9f19abdf6e35"
+  integrity sha512-S7rGelBezzjH7vXLa0uA9dQ3lYgdqvmt8JZLjcm63VBcnRNz/c897mCycYp6AtDfkH2b0rz9eFzzkWHfHaoozg==
 
-leaflet@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.4.0.tgz#d5f56eeb2aa32787c24011e8be4c77e362ae171b"
-  integrity sha512-x9j9tGY1+PDLN9pcWTx9/y6C5nezoTMB8BLK5jTakx+H7bPlnbCHfi9Hjg+Qt36sgDz/cb9lrSpNQXmk45Tvhw==
+leaflet@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.5.1.tgz#9afb9d963d66c870066b1342e7a06f92840f46bf"
+  integrity sha512-ekM9KAeG99tYisNBg0IzEywAlp0hYI5XRipsqRXyRTeuU8jcuntilpp+eFf5gaE0xubc9RuSNIVtByEKwqFV0w==
 
 levn@^0.3.0, levn@~0.3.0:
   version "0.3.0"
@@ -4059,6 +4061,11 @@ onetime@^2.0.0:
   integrity sha1-BnQoIw/WdEOyeUsiu6UotoZ5YtQ=
   dependencies:
     mimic-fn "^1.0.0"
+
+open-location-code@^1.0.0:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/open-location-code/-/open-location-code-1.0.3.tgz#5ea1a34ee5221c6cafa04392e1bd906fd7488f7e"
+  integrity sha1-XqGjTuUiHGyvoEOS4b2Qb9dIj34=
 
 opn@^5.5.0:
   version "5.5.0"
