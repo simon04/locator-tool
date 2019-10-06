@@ -4,7 +4,7 @@ Contributing to locator-tool
 ## Obtain the source code
 
 ```
-git clone --recurse-submodules https://github.com/simon04/locator-tool.git
+git clone https://github.com/simon04/locator-tool.git
 ```
 
 ## Code style
@@ -17,19 +17,7 @@ The locator-tool relies on OAuth for editing files on Wikimedia Commons, which i
 
 ### Read-only frontend development
 
-For improving the frontend of the web application without requiring save operations (i.e., "Add {{Location}}"), a very simple setup suffices:
-
-```sh
-$ cd src/static/
-
-$ python3 -m http.server 8000
-# or
-$ python -m SimpleHTTPServer 8000
-# or
-$ php -S localhost:8000
-```
-
-Afterwards, open http://localhost:8000/ in the browser.
+For improving the frontend of the web application without requiring save operations (i.e., "Add {{Location}}"), a very simple setup suffices. Follow the instructions from [src/](https://github.com/simon04/locator-tool/tree/master/app#readme)
 
 ### Read-write frontend development
 
