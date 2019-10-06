@@ -247,13 +247,19 @@ export default class LtData {
     shouldContinue = data => !!data.continue
   ): ng.IPromise<T> {
     const data = this.$httpParamSerializer(query);
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    } as angular.IHttpRequestConfigHeaders;
     const params = {
       action: 'query',
       format: 'json',
       origin: '*'
     };
     return this.$http
-      .post('https://commons.wikimedia.org/w/api.php', data, {params})
+      .post('https://commons.wikimedia.org/w/api.php', data, {
+        headers,
+        params
+      })
       .then(d => d.data)
       .then(data => deepmerge(previousResults, data, {arrayMerge: (x, y) => [].concat(...x, ...y)}))
       .then(
