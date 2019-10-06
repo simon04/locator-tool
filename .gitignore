@@ -1,5 +1,5 @@
-*.pyc
-__pycache__
-config.ini
+backend/config.py
+backend/locator-tool.log
+backend/static/
 dist/
 node_modules/

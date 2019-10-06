@@ -2,27 +2,23 @@ Installing locator-tool
 =======================
 
 ```sh
-$ mkdir -p www
-$ cd www/
+$ git clone https://github.com/simon04/locator-tool.git $HOME/locator-tool
+$ mkdir -p $HOME/www/python
 
-$ git clone https://github.com/simon04/locator-tool.git python
-$ cd python/
-
+$ cd $HOME/www/python
+$ ln -s $HOME/locator-tool/backend src
 $ virtualenv venv
 $ source venv/bin/activate
-$ cd src/
-$ pip install -r requirements.txt
 
+$ cd $HOME/www/python/src/
+$ git clone --branch=gh-pages https://github.com/simon04/locator-tool.git static
+$ pip install -r requirements.txt
 $ cp config-example.py config.py
 # generate random string for SECRET_KEY
 # for OAUTH_CONSUMER_KEY and OAUTH_CONSUMER_SECRET see below
 
-$ cd static/
-$ yarn
-$ yarn build
-
 # specific to tools.wmflabs.org, see https://github.com/wikimedia/operations-software-tools-webservice/blob/master/toollabs/webservice/services/pythonwebservice.py
-$ webservice2 uwsgi-python start
+$ webservice --backend=kubernetes python start
 ```
 
 ## Register OAuth client
