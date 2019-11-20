@@ -25,7 +25,7 @@
   "homepage": "https://tools.wmflabs.org/locator-tool/",
   "dependencies": {
     "@uirouter/angularjs": "^1.0.12",
-    "angular": "1.6.8",
+    "angular": "1.7.9",
     "angular-animate": "1.6.8",
     "angular-gettext": "^2.3.8",
     "angular-lazy-img": "^1.2.0",
