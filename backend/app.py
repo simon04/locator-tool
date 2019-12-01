@@ -5,8 +5,11 @@ from flask_seasurf import SeaSurf
 from oauthlib.common import to_unicode
 
 import logging
-import sys
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+import os
+logging.basicConfig(
+    filename=os.path.join(os.path.dirname(__file__), 'locator-tool.log'),
+    level=logging.DEBUG,
+)
 
 app = Flask(__name__, static_url_path='', static_folder='static/')
 app.config.from_pyfile('config.py')
