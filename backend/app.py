@@ -8,6 +8,7 @@ import logging
 import os
 logging.basicConfig(
     filename=os.path.join(os.path.dirname(__file__), 'locator-tool.log'),
+    format='[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
     level=logging.DEBUG,
 )
 
