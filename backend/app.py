@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, request, abort
-from flask_mwoauth import MWOAuth
 from talisman import Talisman
 from flask_seasurf import SeaSurf
+import mwoauth
+import mwoauth.flask
 from oauthlib.common import to_unicode
 
 import logging
@@ -12,7 +13,31 @@ logging.basicConfig(
     level=logging.DEBUG,
 )
 
-app = Flask(__name__, static_url_path='', static_folder='static/')
+
+class LocatorToolApp(Flask):
+    def __init__(self):
+        super(LocatorToolApp, self).__init__(
+            __name__,
+             static_url_path='',
+            static_folder='static/',
+        )
+    def add_url_rule(self, rule, endpoint=None, view_func=None, provide_automatic_options=None, **options):
+        remap_rule = {
+            '/mwoauth/initiate/': '/login',
+            '/mwoauth/callback/': '/oauth-callback',
+            '/mwoauth/identify/': '/user',
+            '/mwoauth/logout/': '/logout',
+        }
+        super(LocatorToolApp, self).add_url_rule(
+            rule=remap_rule.get(rule, rule),
+            endpoint=endpoint,
+            view_func=view_func,
+            provide_automatic_options=provide_automatic_options,
+            **options,
+        )
+
+
+app = LocatorToolApp()
 app.config.from_pyfile('config.py')
 
 # HTTP security headers
@@ -24,11 +49,12 @@ app.config['CSRF_HEADER_NAME'] = 'X-XSRF-TOKEN'
 app.config['CSRF_COOKIE_PATH'] = '/locator-tool/'
 SeaSurf(app)
 
-mwoauth = MWOAuth(base_url='https://commons.wikimedia.org/w',
-                  clean_url='https://commons.wikimedia.org/wiki',
-                  consumer_key=app.config['OAUTH_CONSUMER_KEY'],
-                  consumer_secret=app.config['OAUTH_CONSUMER_SECRET'])
-app.register_blueprint(mwoauth.bp)
+flask_mwoauth = mwoauth.flask.MWOAuth(
+    host='https://commons.wikimedia.org/w',
+    consumer_token=mwoauth.ConsumerToken(
+        app.config['OAUTH_CONSUMER_KEY'], app.config['OAUTH_CONSUMER_SECRET']),
+)
+app.register_blueprint(flask_mwoauth.bp)
 
 
 @app.route('/')
@@ -36,16 +62,9 @@ def index():
     return app.send_static_file('index.html')
 
 
-@app.route('/user')
-def user():
-    r = jsonify(user=mwoauth.get_current_user(False))
-    return r
-
-
 @app.route('/edit', methods=['POST'])
+@mwoauth.flask.authorized
 def edit():
-    if not mwoauth.get_current_user():
-        abort(401)
     data = request.get_json()
     if 'pageid' not in data or 'type' not in data \
             or 'lat' not in data or 'lng' not in data:
@@ -56,13 +75,17 @@ def edit():
     lng = float(data['lng'])
     app.logger.info('Received request %s', str(data))
 
-    r1 = mwoauth_request({
-        'action': 'query',
-        'pageids': pageid,
-        'prop': 'revisions',
-        'rvprop': 'content',
-        'meta': 'tokens'
-    })
+    mwapi_session = flask_mwoauth.mwapi_session(
+        host='https://commons.wikimedia.org',
+    )
+    r1 = mwapi_session.post(
+        action='query',
+        pageids=pageid,
+        prop='revisions',
+        rvprop='content',
+        meta='tokens',
+        format='json',
+    )
     try:
         wikitext = r1['query']['pages'][str(pageid)]['revisions'][0]['*']
         wikitext = to_unicode(wikitext)
@@ -77,20 +100,16 @@ def edit():
     from location_to_wikitext import add_location_to_wikitext
     new_wikitext = add_location_to_wikitext(type, lat, lng, wikitext)
 
-    r2 = mwoauth_request({
-        'action': 'edit',
-        'pageid': str(pageid),
-        'summary': '{{%s}}' % type,
-        'text': new_wikitext,
-        'token': token
-    })
+    r2 = mwapi_session.post(
+        action='edit',
+        pageid=str(pageid),
+        summary='{{%s}}' % type,
+        text=new_wikitext,
+        token=token,
+        format='json',
+    )
 
     return jsonify(result=r2)
-
-
-def mwoauth_request(api_query):
-    api_query['format'] = 'json'
-    return mwoauth.mwoauth.post(mwoauth.base_url + '/api.php?', data=api_query).data
 
 
 if __name__ == '__main__':
