@@ -3,8 +3,10 @@ from flask_mwoauth import MWOAuth
 from talisman import Talisman
 from flask_seasurf import SeaSurf
 from oauthlib.common import to_unicode
+
 import logging
-from logging.handlers import TimedRotatingFileHandler
+import sys
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
 app = Flask(__name__, static_url_path='', static_folder='static/')
 app.config.from_pyfile('config.py')
@@ -17,14 +19,6 @@ app.config['CSRF_COOKIE_NAME'] = 'XSRF-TOKEN'
 app.config['CSRF_HEADER_NAME'] = 'X-XSRF-TOKEN'
 app.config['CSRF_COOKIE_PATH'] = '/locator-tool/'
 SeaSurf(app)
-
-logfile = TimedRotatingFileHandler(
-    filename='locator-tool.log', when='midnight')
-logfile.setFormatter(logging.Formatter(
-    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-logfile.setLevel(logging.INFO)
-app.logger.addHandler(logfile)
-logging.getLogger('werkzeug').addHandler(logfile)
 
 mwoauth = MWOAuth(base_url='https://commons.wikimedia.org/w',
                   clean_url='https://commons.wikimedia.org/wiki',
