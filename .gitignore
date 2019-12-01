@@ -1,5 +1,6 @@
 backend/config.py
 backend/locator-tool.log
 backend/static/
+backend/venv/
 dist/
 node_modules/
