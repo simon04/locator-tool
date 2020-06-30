@@ -21,22 +21,22 @@ For improving the frontend of the web application without requiring save operati
 
 ### Read-write frontend development
 
-When also want to test/improve the interaction with the Python backend, you can run a local webserver for https://tools.wmflabs.org/ which serves the local frontend code and proxies all requests to the actual server:
+When also want to test/improve the interaction with the Python backend, you can run a local webserver for https://locator-tool.toolforge.org/ which serves the local frontend code and proxies all requests to the actual server:
 
 ```sh
 cd dev/
 
-# generate TLS keys for CN=tools.wmflabs.org
+# generate TLS keys for CN=locator-tool.toolforge.org
 openssl req -new -x509 -nodes -newkey rsa:4096 -keyout server.key -out server.crt
 
-# add tools.wmflabs.org entry to hosts file
-echo 127.0.0.1 tools.wmflabs.org | sudo tee -a /etc/hosts
+# add locator-tool.toolforge.org entry to hosts file
+echo 127.0.0.1 locator-tool.toolforge.org | sudo tee -a /etc/hosts
 
-# run server for tools.wmflabs.org on port 443
+# run server for locator-tool.toolforge.org on port 443
 sudo caddy
 ```
 
-Afterwards, open https://tools.wmflabs.org/locator-tool/ in the browser.
+Afterwards, open https://locator-tool.toolforge.org/locator-tool/ in the browser.
 
 ### Local backend development
 

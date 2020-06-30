@@ -1,4 +1,4 @@
-https://tools.wmflabs.org/ {
+https://locator-tool.toolforge.org/ {
     tls self_signed
     proxy /locator-tool http://localhost:5000/ {
         transparent
