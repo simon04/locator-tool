@@ -221,7 +221,7 @@ export default class LtData {
       json: 1
     };
     return this.$http
-      .get<CommonsTitle[]>('https://tools.wmflabs.org/cats-php/', {params})
+      .get<CommonsTitle[]>('https://cats-php.toolforge.org/', {params})
       .then(d => d.data.map(f => `File:${f}`));
   }
 
