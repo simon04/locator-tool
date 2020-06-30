@@ -237,7 +237,7 @@ export default class LtData {
       doit: 1
     };
     return this.$http
-      .get<any[]>('https://petscan1.wmflabs.org/', {params})
+      .get<any[]>('https://petscan.wmflabs.org/', {params})
       .then(d => d.data['*'][0]['a']['*'] as CommonsTitle[]);
   }
 
