@@ -14,7 +14,8 @@ Usage
 -----
 
 * [Commons:Locator-tool](https://commons.wikimedia.org/wiki/Commons:Locator-tool)
-* [Edits using locator-tool](https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&tagfilter=OAuth+CID%3A+496)
+* [Edits using locator-tool](https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&tagfilter=OAuth+CID%3A+1857)
+* [Edits using locator-tool till 2020-06-30](https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&tagfilter=OAuth+CID%3A+496)
 
 Translate
 ---------
