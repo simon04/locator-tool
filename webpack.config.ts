@@ -80,12 +80,6 @@ const config: webpack.Configuration = {
   ].filter(plugin => !!plugin),
   devtool: productionBuild ? 'source-map' : 'cheap-module-eval-source-map',
   devServer: {
-    proxy: {
-      '/render/tlgbe/**': {
-        target: 'https://tools.wmflabs.org/',
-        changeOrigin: true
-      }
-    },
     port: 8184
   }
 };
