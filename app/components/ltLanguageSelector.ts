@@ -7,6 +7,7 @@ import '../../po/es.po';
 import '../../po/fa_IR.po';
 import '../../po/fr.po';
 import '../../po/it.po';
+import '../../po/mk.po';
 import '../../po/ml.po';
 import '../../po/pt.po';
 import '../../po/ru.po';
@@ -22,6 +23,7 @@ const languageCodes = [
   'fa_IR',
   'fr',
   'it',
+  'mk',
   'ml',
   'pt',
   'ru',
