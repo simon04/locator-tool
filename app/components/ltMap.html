@@ -1,0 +1,13 @@
+<div class="fill" ll-map="" ll-init="$ctrl.mapInit" ll-click="$ctrl.mapClick($event)" ll-baselayerchange="$ctrl.mapLayerChange($event)">
+  <ll-view ll-view="$ctrl.mapView"></ll-view>
+  <ll-marker ll-lat-lng="$ctrl.mapMarker" ll-marker="{draggable: true}" ll-moveend="$ctrl.markerMoveend($event, $ctrl.mapMarker)" ng-if="$ctrl.mapMarker.lat"></ll-marker>
+  <ll-marker ll-lat-lng="$ctrl.mapObjectLocation" ll-marker="{draggable: true}" ll-moveend="$ctrl.markerMoveend($event, $ctrl.mapObjectLocation)" ng-if="$ctrl.mapObjectLocation.lat">
+    <ll-div-icon ll-div-icon="{iconSize: [12, 12], iconAnchor: [6, 6]}">
+      <div title="Object location">
+        <svg class="octicon" style="color: red;">
+          <use xlink:href="#squirrel"></use>
+        </svg>
+      </div>
+    </ll-div-icon>
+  </ll-marker>
+</div>

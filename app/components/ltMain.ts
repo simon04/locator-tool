@@ -1,5 +1,5 @@
 import * as angular from 'angular';
-import template from './ltMain.pug';
+import template from './ltMain.html';
 import {StateParams} from '@uirouter/core';
 import LtData from '../api/ltData';
 import LtDataAuth from '../api/ltDataAuth';

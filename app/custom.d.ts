@@ -2,7 +2,7 @@ declare module '*.png' {
 
 }
 
-declare module '*.pug' {
+declare module '*.html' {
   const content: string;
   export default content;
 }

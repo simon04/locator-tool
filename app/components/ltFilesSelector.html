@@ -1,0 +1,94 @@
+<h2 ng-hide="$ctrl.userInfo" translate="translate">Sign in</h2>
+<p ng-hide="$ctrl.userInfo"><span translate="translate">In order to allow locator-tool to modify file description pages, sign in first:</span><a class="btn btn-success navbar-btn ml-2" href="/locator-tool/login?next=/locator-tool/">
+    <svg class="octicon">
+      <use xlink:href="#sign-in"></use>
+    </svg><span translate="translate">Log in</span></a></p>
+<p ng-show="$ctrl.userInfo" translate="translate">Hello {{$ctrl.userInfo}}!</p>
+<h2 translate="translate">Select files to geolocate</h2>
+<ul class="nav nav-pills my-3">
+  <li class="nav-item"><a class="nav-link" translate="translate" ng-click="$ctrl.$tab = $ctrl.$tabs.CATEGORY" ng-class="{active: $ctrl.$tab === $ctrl.$tabs.CATEGORY}">Category</a></li>
+  <li class="nav-item"><a class="nav-link" translate="translate" ng-click="$ctrl.$tab = $ctrl.$tabs.USER" ng-class="{active: $ctrl.$tab === $ctrl.$tabs.USER}">User files</a></li>
+  <li class="nav-item"><a class="nav-link" translate="translate" ng-click="$ctrl.$tab = $ctrl.$tabs.FILES" ng-class="{active: $ctrl.$tab === $ctrl.$tabs.FILES}">File list</a></li>
+</ul>
+<form name="formUser" ng-submit="$ctrl.nextForUser()" ng-show="$ctrl.$tab === $ctrl.$tabs.USER">
+  <div class="form-group">
+    <label for="inputUser" translate="translate">User</label>
+    <input class="form-control" id="inputUser" ng-model="$ctrl.user" placeholder="User:…"/>
+  </div>
+  <div class="row">
+    <div class="form-group col-sm-4">
+      <label for="inputUserLimit" translate="translate" translate-comment="maximum number of files">Limit</label>
+      <input class="form-control" id="inputUserLimit" ng-model="$ctrl.userLimit" type="number"/>
+    </div>
+    <div class="form-group col-sm-4">
+      <label for="inputUserStart" translate="translate">Start timestamp</label>
+      <input class="form-control" id="inputUserStart" ng-model="$ctrl.userStart" type="date"/>
+    </div>
+    <div class="form-group col-sm-4">
+      <label for="inputUserEnd" translate="translate">End timestamp</label>
+      <input class="form-control" id="inputUserEnd" ng-model="$ctrl.userEnd" type="date"/>
+    </div>
+  </div>
+  <div class="form-group btn-group">
+    <button class="btn btn-success" ng-click="$ctrl.nextForUser()" ng-disabled="!$ctrl.user">
+      <svg class="octicon">
+        <use xlink:href="#location"></use>
+      </svg><span translate="translate">Load User files to geolocate</span>
+    </button>
+    <button class="btn btn-secondary" ng-click="$ctrl.nextForUser('map')" ng-disabled="!$ctrl.user">
+      <svg class="octicon">
+        <use xlink:href="#globe"></use>
+      </svg><span translate="translate">Show User files on map</span>
+    </button>
+    <input class="invisible" type="submit" ng-disabled="!$ctrl.user"/>
+  </div>
+  <lt-spinner ng-if="$ctrl.getFilesForUser$q &amp;&amp; !$ctrl.getFilesForUser$q.$$state.status"></lt-spinner>
+</form>
+<form name="formCategory" ng-submit="$ctrl.nextForCategory()" ng-show="$ctrl.$tab === $ctrl.$tabs.CATEGORY">
+  <div class="row">
+    <div class="form-group col-lg-10">
+      <label for="inputCategory" translate="translate">Category</label>
+      <input class="form-control" id="inputCategory" list="datalistCategory" ng-model="$ctrl.category" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, change: 0, blur: 0}}" ng-change="$ctrl.getCategoriesForPrefix()" placeholder="Category:…"/>
+    </div>
+    <div class="form-group col-lg-2">
+      <label for="inputCategoryDepth" translate-comment="Depth of category tree" translate-context="Category" translate="translate">Depth</label>
+      <input class="form-control" id="inputCategoryDepth" type="number" ng-model="$ctrl.categoryDepth"/>
+    </div>
+  </div>
+  <div class="form-group btn-group">
+    <button class="btn btn-success" ng-click="$ctrl.nextForCategory()" ng-disabled="!$ctrl.category">
+      <svg class="octicon">
+        <use xlink:href="#location"></use>
+      </svg><span translate="translate">Load Category to geolocate</span>
+    </button>
+    <button class="btn btn-secondary" ng-click="$ctrl.nextForCategory('map')" ng-disabled="!$ctrl.category">
+      <svg class="octicon">
+        <use xlink:href="#globe"></use>
+      </svg><span translate="translate">Show Category on map</span>
+    </button>
+    <input class="invisible" type="submit" ng-disabled="!$ctrl.category"/>
+  </div>
+  <lt-spinner ng-if="$ctrl.getFilesForCategory$q &amp;&amp; !$ctrl.getFilesForCategory$q.$$state.status"></lt-spinner>
+  <datalist id="datalistCategory">
+    <option ng-repeat="i in $ctrl.categorySuggestions" ng-value="i"></option>
+  </datalist>
+</form>
+<form name="formTitles" ng-show="$ctrl.$tab === $ctrl.$tabs.FILES">
+  <div class="form-group">
+    <label for="inputTitles" translate="translate">File list</label>
+    <textarea class="form-control" id="inputTitles" rows="10" ng-model="$ctrl.titles" placeholder="File:…" ng-paste="$ctrl.onFilesPaste($event)"></textarea>
+    <p class="form-text" translate="translate">When a clipboard content containing HTML code (for instance a copied selection from a Commons gallery) is pasted here, locator-tool tries to extract <code>File:</code>s from the code.</p>
+  </div>
+  <div class="form-group btn-group">
+    <button class="btn btn-success" ng-disabled="!$ctrl.titleList.length" ng-click="$ctrl.next()">
+      <svg class="octicon">
+        <use xlink:href="#location"></use>
+      </svg><span translate="translate">Load {{$ctrl.titleList.length}} files to geolocate</span>
+    </button>
+    <button class="btn btn-secondary" ng-disabled="!$ctrl.titleList.length" ng-click="$ctrl.next('map')">
+      <svg class="octicon">
+        <use xlink:href="#location"></use>
+      </svg><span translate="translate">Show {{$ctrl.titleList.length}} files on map</span>
+    </button>
+  </div>
+</form>

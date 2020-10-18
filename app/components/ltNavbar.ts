@@ -1,4 +1,4 @@
-import template from './ltNavbar.pug';
+import template from './ltNavbar.html';
 import {TransitionService} from '@uirouter/core';
 
 class LtNavbarController implements ng.IComponentController {

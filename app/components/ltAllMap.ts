@@ -1,7 +1,7 @@
 import {CommonsFile, LatLng} from '../model';
 import LtData from '../api/ltData';
 import {LtMapController} from './ltMap';
-import template from './ltAllMap.pug';
+import template from './ltAllMap.html';
 import * as L from 'leaflet';
 
 const DEFAULT_MAP_VIEW = {

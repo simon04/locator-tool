@@ -1,0 +1,15 @@
+<div class="input-group" ng-form="coordinatesForm" ng-class="{'has-error': !coordinatesForm.$valid}">
+  <input class="form-control" type="text" ng-model="$ctrl.latLng" ng-model-options="{updateOn: 'default blur', debounce: {default: 2000, blur: 0}}" ng-change="coordinatesForm.$valid &amp;&amp; $ctrl.fireChanged($ctrl.latLng)" smart-coordinate=""/>
+  <div class="input-group-append">
+    <button class="btn btn-secondary" type="button" ng-click="$ctrl.fireChanged($ctrl.latLng.withLatLng(undefined))" title="{{'Discard'|translate}}">
+      <svg class="octicon">
+        <use xlink:href="#x"></use>
+      </svg>
+    </button>
+    <button class="btn btn-success" type="button" ng-click="$ctrl.editLocation()" title="{{'Save'|translate}}" ng-disabled="!$ctrl.latLng.isChanged">
+      <svg class="octicon">
+        <use xlink:href="#git-commit"></use>
+      </svg>
+    </button>
+  </div>
+</div>
