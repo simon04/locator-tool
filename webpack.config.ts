@@ -42,8 +42,8 @@ const config: webpack.Configuration = {
         loader: ['angular-gettext-loader']
       },
       {
-        test: /\.pug$/,
-        loader: ['html-loader?exportAsEs6Default=true', './pug-loader']
+        test: /\.html$/,
+        loader: ['html-loader?exportAsEs6Default=true']
       },
       {
         test: /\.css$/,
@@ -64,7 +64,7 @@ const config: webpack.Configuration = {
       filename: '[name].[contenthash].css'
     }),
     new HtmlWebpackPlugin({
-      template: './app/index.pug',
+      template: './app/index.html',
       favicon: './app/locator-tool.svg',
       inject: 'body'
     }),

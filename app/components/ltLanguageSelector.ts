@@ -1,4 +1,4 @@
-import template from './ltLanguageSelector.pug';
+import template from './ltLanguageSelector.html';
 
 import '../../po/bn.po';
 import '../../po/cs.po';

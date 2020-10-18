@@ -1,4 +1,4 @@
-import template from './ltFileThumbnail.pug';
+import template from './ltFileThumbnail.html';
 import {CommonsFile} from '../model';
 
 class LtFileThumbnailController implements ng.IComponentController {

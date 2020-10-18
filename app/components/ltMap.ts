@@ -1,4 +1,4 @@
-import template from './ltMap.pug';
+import template from './ltMap.html';
 import * as L from 'leaflet';
 import * as iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import * as iconUrl from 'leaflet/dist/images/marker-icon.png';

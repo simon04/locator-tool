@@ -1,4 +1,4 @@
-import template from './ltFileDetails.pug';
+import template from './ltFileDetails.html';
 import LtDataAuth from '../api/ltDataAuth';
 import {CommonsFile} from '../model';
 

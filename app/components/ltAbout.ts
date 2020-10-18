@@ -1,4 +1,4 @@
-import template from './ltAbout.pug';
+import template from './ltAbout.html';
 
 declare const __BUILD_DATE__;
 declare const __BUILD_VERSION__;

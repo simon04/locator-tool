@@ -1,4 +1,4 @@
-import template from './ltSpinner.pug';
+import template from './ltSpinner.html';
 
 export default {
   template

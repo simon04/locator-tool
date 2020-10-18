@@ -1,4 +1,4 @@
-import template from './ltLocationInput.pug';
+import template from './ltLocationInput.html';
 
 class LtLocationInputController implements ng.IComponentController {
   public static $inject = ['$scope'];
