@@ -5,11 +5,16 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@master
-      - name: Perform yarn install, build, and test
-        run: |
-          yarn --no-progress
-          yarn build
-          yarn test
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - run: yarn install --no-progress --frozen-lockfile
+      - run: yarn test
+      - run: yarn build
+      - uses: peaceiris/actions-gh-pages@v3
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
