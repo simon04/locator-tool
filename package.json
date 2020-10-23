@@ -7,7 +7,6 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack -p",
-    "publish": "gh-pages -d dist -b gh-pages",
     "test": "prettier --list-different $(git ls-files '*.js' '*.ts') && eslint $(git ls-files '*.ts')",
     "fix:style": "prettier --write $(git ls-files '*.js' '*.ts')",
     "po": "angular-gettext-cli --compile --files 'po/*.po' --dest app/i18n.js --module app",
@@ -61,7 +60,6 @@
     "eslint-config-google": "^0.12.0",
     "eslint-config-prettier": "^4.2.0",
     "file-loader": "^1.1.11",
-    "gh-pages": "^1.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^2.2.0",
