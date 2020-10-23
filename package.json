@@ -67,6 +67,7 @@
     "husky": "^2.2.0",
     "mini-css-extract-plugin": "^0.4.4",
     "prettier": "^1.14.2",
+    "raw-loader": "2.0.0",
     "style-loader": "^0.22.1",
     "ts-loader": "^5.3.3",
     "ts-node": "^8.0.3",

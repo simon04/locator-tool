@@ -50,7 +50,12 @@ const config: webpack.Configuration = {
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
+        test: /sprite.octicons.svg$/,
+        loader: 'raw-loader'
+      },
+      {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        exclude: /sprite.octicons.svg$/,
         loader: 'url-loader',
         options: {
           limit: 10000

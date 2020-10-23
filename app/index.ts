@@ -4,6 +4,7 @@ import * as localStorage from 'angular-local-storage';
 import uiRouter, {StateProvider, UrlRouterProvider, LocationConfig} from '@uirouter/angularjs';
 import * as gettext from 'angular-gettext';
 import 'angular-lazy-img/dist/angular-lazy-img';
+import octicons from 'octicons/build/sprite.octicons.svg';
 
 import './style.css';
 import appApi from './api';
@@ -69,5 +70,6 @@ function routes(
 
 /* eslint-env browser */
 angular.element(document).ready(() => {
+  document.getElementById('octicons').innerHTML = octicons;
   angular.bootstrap(document, ['app'], {strictDi: true});
 });
