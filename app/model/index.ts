@@ -15,8 +15,6 @@ export interface CommonsFile {
 
 export type CommonsTitle = string;
 
-export type User = string;
-
 export const WikidataProperty = {
   // coordinate location (P625)
   '*': 'P625',

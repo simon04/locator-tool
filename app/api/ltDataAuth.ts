@@ -13,14 +13,6 @@ interface EditApiResponse {
   };
 }
 
-export function getUserInfo() {
-  return useFetch<UserApiResponse>('/user', {
-    headers: {
-      'X-XSRF-TOKEN': xsrfToken() || ''
-    }
-  }).json();
-}
-
 export function editLocation(title: CommonsFile, coordinates: LatLng[]) {
   const {pageid} = title;
   return useFetch<EditApiResponse>(
