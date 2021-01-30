@@ -1,8 +1,13 @@
 <h2 ng-hide="$ctrl.userInfo" translate="translate">Sign in</h2>
-<p ng-hide="$ctrl.userInfo"><span translate="translate">In order to allow locator-tool to modify file description pages, sign in first:</span><a class="btn btn-success navbar-btn ml-2" href="/locator-tool/login?next=/locator-tool/">
+<p ng-hide="$ctrl.userInfo">
+  <span translate="translate">In order to allow locator-tool to modify file description pages, sign in first:</span>
+  <a class="btn btn-success navbar-btn ml-2" href="/locator-tool/login?next=/locator-tool/">
     <svg class="octicon">
       <use xlink:href="#sign-in"></use>
-    </svg><span translate="translate">Log in</span></a></p>
+    </svg>
+    <span translate="translate">Log in</span>
+  </a>
+</p>
 <p ng-show="$ctrl.userInfo" translate="translate">Hello {{$ctrl.userInfo}}!</p>
 <h2 translate="translate">Select files to geolocate</h2>
 <ul class="nav nav-pills my-3">
