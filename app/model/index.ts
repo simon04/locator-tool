@@ -27,8 +27,6 @@ export function imageUrls(f: CommonsFile): string {
 
 export type CommonsTitle = string;
 
-export type User = string;
-
 export const WikidataProperty = {
   // coordinate location (P625)
   '*': 'P625',
