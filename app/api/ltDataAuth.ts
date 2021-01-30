@@ -1,8 +1,4 @@
-import {CommonsFile, LatLng, User} from '../model';
-
-interface UserApiResponse {
-  user: string;
-}
+import {CommonsFile, LatLng} from '../model';
 
 interface EditApiResponse {
   result: {
@@ -15,10 +11,6 @@ interface EditApiResponse {
 export default class LtDataAuth {
   public static $inject = ['$http'];
   constructor(private $http: ng.IHttpService) {}
-
-  getUserInfo(): ng.IPromise<User> {
-    return this.$http.get<UserApiResponse>('/locator-tool/user').then(d => d.data && d.data.user);
-  }
 
   editLocation(title: CommonsFile, coordinates: LatLng): ng.IPromise<void> {
     const {pageid} = title;
