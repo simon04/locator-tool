@@ -2,6 +2,6 @@
   "compilerOptions": {
     "module": "commonjs",
     "sourceMap": true,
-    "target": "es5"
+    "target": "es2017"
   }
 }

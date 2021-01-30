@@ -3,6 +3,8 @@ import llLeaflet from 'angular-ll-leaflet';
 
 import ltAbout from './ltAbout';
 import ltAllMap from './ltAllMap';
+import ltAuthLogin from './ltAuthLogin';
+import ltAuthLogout from './ltAuthLogout';
 import ltFileDetails from './ltFileDetails';
 import ltFileThumbnail from './ltFileThumbnail';
 import ltFilesSelector from './ltFilesSelector';
@@ -20,6 +22,8 @@ export default angular
   .component({
     ltAbout,
     ltAllMap,
+    ltAuthLogin,
+    ltAuthLogout,
     ltFileDetails,
     ltFileThumbnail,
     ltFilesSelector,

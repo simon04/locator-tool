@@ -9,6 +9,7 @@ import octicons from 'octicons/build/sprite.octicons.svg';
 import './style.css';
 import appApi from './api';
 import appComponents from './components';
+import {finishAuthorization, getProfile} from './api/OAuth2';
 
 angular.module('app', [
   animate,
@@ -65,11 +66,37 @@ function routes(
     component: 'ltAllMap'
   });
 
+  $stateProvider.state('login', {
+    url: '/login',
+    component: 'ltAuthLogin'
+  });
+  $stateProvider.state('logout', {
+    url: '/logout',
+    component: 'ltAuthLogout'
+  });
+
   $urlRouterProvider.otherwise('/');
 }
 
-/* eslint-env browser */
-angular.element(document).ready(() => {
+bootstrap();
+
+async function bootstrap() {
+  const params = new URL(window.location.href).searchParams;
+  if (params.has('code') && params.has('state')) {
+    await finishAuthorization(params.get('code'), params.get('state'));
+    window.location.search = '';
+  }
+  try {
+    const ltProfile = await getProfile();
+    angular.module('app').constant({
+      ltProfile
+    });
+  } catch (error) {
+    angular.module('app').constant({
+      ltProfile: undefined
+    });
+  }
+
   document.getElementById('octicons').innerHTML = octicons;
   angular.bootstrap(document, ['app'], {strictDi: true});
-});
+}

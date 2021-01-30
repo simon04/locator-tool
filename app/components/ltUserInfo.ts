@@ -1,16 +1,12 @@
 import template from './ltUserInfo.html';
-import LtDataAuth from '../api/ltDataAuth';
+import {Profile} from '../api/OAuth2';
 
 class LtUserInfoController implements ng.IComponentController {
-  user: string;
+  public static $inject = ['ltProfile'];
+  constructor(private ltProfile: Profile) {}
 
-  public static $inject = ['ltDataAuth'];
-  constructor(private ltDataAuth: LtDataAuth) {}
-
-  $onInit() {
-    this.ltDataAuth.getUserInfo().then(user => {
-      this.user = user;
-    });
+  get user(): string {
+    return (this.ltProfile || {}).username;
   }
 }
 

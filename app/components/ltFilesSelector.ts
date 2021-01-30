@@ -2,8 +2,8 @@ import * as angular from 'angular';
 import {StateService, StateParams} from '@uirouter/angularjs';
 
 import template from './ltFilesSelector.html';
-import LtDataAuth from '../api/ltDataAuth';
 import LtData from '../api/ltData';
+import {Profile} from '../api/OAuth2';
 
 enum Tab {
   CATEGORY = 1,
@@ -20,14 +20,13 @@ class LtFilesSelectorController implements ng.IComponentController {
   titles: string;
   user: string;
   userEnd: Date;
-  userInfo: string;
   userLimit: number;
   userStart: Date;
 
-  public static $inject = ['ltData', 'ltDataAuth', '$log', '$state', '$stateParams'];
+  public static $inject = ['ltData', 'ltProfile', '$log', '$state', '$stateParams'];
   constructor(
     private ltData: LtData,
-    private ltDataAuth: LtDataAuth,
+    private ltProfile: Profile,
     private $log: ng.ILogService,
     private $state: StateService,
     $stateParams: StateParams
@@ -35,7 +34,7 @@ class LtFilesSelectorController implements ng.IComponentController {
     this.$tab = $stateParams.user ? Tab.USER : Tab.CATEGORY;
     this.category = $stateParams.category;
     this.categoryDepth = tryParse(parseInt, $stateParams.categoryDepth, 3);
-    this.user = $stateParams.user;
+    this.user = $stateParams.user || this.userInfo;
     this.userLimit = tryParse(parseInt, $stateParams.userLimit, undefined);
     this.userStart = tryParse(s => new Date(s), $stateParams.userStart, undefined);
     this.userEnd = tryParse(s => new Date(s), $stateParams.userEnd, undefined);
@@ -53,11 +52,8 @@ class LtFilesSelectorController implements ng.IComponentController {
     }
   }
 
-  $onInit() {
-    this.ltDataAuth.getUserInfo().then(userInfo => {
-      this.userInfo = userInfo;
-      this.user = this.user || userInfo;
-    });
+  get userInfo(): string {
+    return (this.ltProfile || {}).username;
   }
 
   getCategoriesForPrefix() {
