@@ -18,7 +18,7 @@ class LtMainController implements ng.IComponentController {
   files: string;
   filter = '';
   loading$q: ng.IPromise<unknown>;
-  mapView = DEFAULT_MAP_VIEW;
+  mapView: MapView = DEFAULT_MAP_VIEW;
   showGeolocated: boolean;
   title: CommonsFile;
   titles: CommonsFile[];
@@ -51,6 +51,7 @@ class LtMainController implements ng.IComponentController {
   }
 
   $onInit() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const files$q = this.ltData.getFiles(this.$stateParams as any);
     const fileDetails$q = files$q
       .then(titles => this.ltData.getCoordinates(titles))
@@ -63,7 +64,7 @@ class LtMainController implements ng.IComponentController {
     this.loading$q = this.$q.all([files$q, fileDetails$q]);
 
     this.$scope.$watch('$ctrl.title', (title: CommonsFile) => this.titleChanged(title));
-    this.$scope.$watch('$ctrl.mapView', mapView => this.mapViewChanged(mapView as any), true);
+    this.$scope.$watch('$ctrl.mapView', (mapView: MapView) => this.mapViewChanged(mapView), true);
     this.$scope.$on('coordinatesChanged', (_event, coordinates) =>
       this.coordinatesChanged(coordinates)
     );
@@ -71,6 +72,7 @@ class LtMainController implements ng.IComponentController {
 
   get isLoading() {
     const promise = this.loading$q;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return promise && !(promise as any).$$state.status;
   }
 

@@ -314,9 +314,12 @@ export default class LtData {
       sparse: 1,
       doit: 1
     };
-    return this.$http
-      .get<any[]>('https://petscan.wmflabs.org/', {params})
-      .then(d => d.data['*'][0]['a']['*'] as CommonsTitle[]);
+    return (
+      this.$http
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .get<any[]>('https://petscan.wmflabs.org/', {params})
+        .then(d => d.data['*'][0]['a']['*'] as CommonsTitle[])
+    );
   }
 
   private $query<T>(

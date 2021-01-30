@@ -26,6 +26,7 @@ class LtAllMapController implements ng.IComponentController {
   ) {
     this.mapView = localStorageService.get('mapView') || DEFAULT_MAP_VIEW;
     ltData
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .getFiles($stateParams as any)
       .then(titles => ltData.getCoordinates(titles))
       .then(titles => {

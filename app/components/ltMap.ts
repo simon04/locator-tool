@@ -27,6 +27,7 @@ export class LtMapController implements ng.IComponentController {
 
   static _mapInit(map: L.Map): void {
     // https://github.com/Leaflet/Leaflet/issues/4968#issuecomment-269750768
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     delete (L.Icon.Default.prototype as any)._getIconUrl;
     L.Icon.Default.mergeOptions({
       iconRetinaUrl,
@@ -60,6 +61,7 @@ export class LtMapController implements ng.IComponentController {
     const layersControl = L.control.layers().addTo(map);
     Object.keys(layers).forEach(name => layersControl.addBaseLayer(layers[name], name));
     (layers[layerFromLocalStorage] || layers[osm]).addTo(map);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const geocoder = new (L.Control as any).Geocoder({
       placeholder: '…',
       position: 'topleft',
