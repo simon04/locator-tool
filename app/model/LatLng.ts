@@ -1,10 +1,12 @@
+export type LocationType = 'Location' | 'Object location';
+
 export class LatLng {
   public lat?: number;
   public lng?: number;
   _latOriginal?: number;
   _lngOriginal?: number;
 
-  constructor(public type: string, {lat, lng}: {lat?: number; lng?: number}) {
+  constructor(public type: LocationType, {lat, lng}: {lat?: number; lng?: number}) {
     this.lat = lat;
     this.lng = lng;
     this._latOriginal = lat;
