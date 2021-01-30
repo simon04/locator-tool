@@ -4,6 +4,7 @@ import getFilePath from 'wikimedia-commons-file-path';
 
 import {CommonsFile, CommonsTitle, LatLng} from '../model';
 
+export const API_URL = 'https://commons.wikimedia.org/w/api.php';
 const maxTitlesPerRequest = 50;
 
 interface ApiResponse<P = never> {
@@ -337,7 +338,7 @@ export default class LtData {
       origin: '*'
     };
     return this.$http
-      .post('https://commons.wikimedia.org/w/api.php', data, {
+      .post(API_URL, data, {
         headers,
         params
       })
