@@ -1,3 +1,4 @@
-export {CommonsFile} from './CommonsFile';
-export {CommonsTitle} from './CommonsTitle';
-export {LatLng} from './LatLng';
+export * from './CommonsFile';
+export * from './CommonsTitle';
+export * from './LatLng';
+export * from './WikiText';
