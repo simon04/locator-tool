@@ -88,7 +88,7 @@ export default class LtData {
     private $parse: ng.IParseService,
     private $sce: ng.ISCEService,
     private $q: ng.IQService,
-    private gettextCatalog: ng.gettext.gettextCatalog,
+    private gettextCatalog: gettextCatalog,
     private limitToFilter: ng.IFilterLimitTo
   ) {}
 
