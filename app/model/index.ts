@@ -4,6 +4,8 @@ import {LatLng} from './LatLng';
 
 export {LatLng} from './LatLng';
 
+export * from './WikiText';
+
 export interface CommonsFile {
   pageid: number;
   file: string;
