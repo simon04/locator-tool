@@ -37,8 +37,8 @@ class ltLanguageSelector implements ng.IComponentController {
   constructor(
     private $window: ng.IWindowService,
     private localStorageService: angular.local.storage.ILocalStorageService,
-    private gettext: any,
-    private gettextCatalog: any
+    private gettext: ng.gettext.gettextFunction,
+    private gettextCatalog: ng.gettext.gettextCatalog
   ) {
     this.languages = languageCodes.reduce((obj, lang) => {
       obj[lang] = this.getDisplayString(lang);
@@ -47,7 +47,7 @@ class ltLanguageSelector implements ng.IComponentController {
   }
 
   $onInit() {
-    const language = this.localStorageService.get('language');
+    const language: string = this.localStorageService.get('language');
     if (language) {
       this.gettextCatalog.setCurrentLanguage(language);
     } else if (this.$window.navigator && this.$window.navigator.languages) {

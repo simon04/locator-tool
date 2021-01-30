@@ -1,15 +1,15 @@
 import template from './ltFileDetails.html';
 import LtDataAuth from '../api/ltDataAuth';
-import {CommonsFile} from '../model';
+import {CommonsFile, LatLng} from '../model';
 
 class LtFileDetailsController implements ng.IComponentController {
-  error: any;
+  error: unknown;
   file: CommonsFile;
 
   public static $inject = ['ltDataAuth'];
   constructor(private ltDataAuth: LtDataAuth) {}
 
-  editLocation(coordinates) {
+  editLocation(coordinates: LatLng) {
     this.error = undefined;
     return this.ltDataAuth.editLocation(this.file, coordinates).then(
       () => {

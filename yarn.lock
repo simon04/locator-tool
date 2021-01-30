@@ -55,6 +55,13 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
+"@types/angular-gettext@^2.1.34":
+  version "2.1.34"
+  resolved "https://registry.yarnpkg.com/@types/angular-gettext/-/angular-gettext-2.1.34.tgz#69ebaeae33e0b4a74708268ed7d9554704c1357f"
+  integrity sha512-OzyVYRwiEI4HP+FXxvtFgK/+qnDuA7886iBzYdCdXEVqewg75R6Y5pFR1eC3N8HmxYDT8UND072dKj0cxgHZUw==
+  dependencies:
+    "@types/angular" "*"
+
 "@types/angular-local-storage@^0.6.1":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@types/angular-local-storage/-/angular-local-storage-0.6.1.tgz#15ed7974b0e4d6eba64ceede1cf2436bc5995d24"
@@ -185,10 +192,10 @@
   dependencies:
     "@types/leaflet" "*"
 
-"@types/leaflet@*", "@types/leaflet@^1.5.2":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.5.2.tgz#3f3964642a68a36f3d4ef669e1595062cc2d4b2d"
-  integrity sha512-P6Ldzmu0UKE+nbQlEQb4+jukpAVFp4Xc8xkIwUJWft2KXvlFux+ofRMbFxHQhqRyW1+kh/q8g4WgoJCq/gjRVA==
+"@types/leaflet@*", "@types/leaflet@^1.5.21":
+  version "1.5.21"
+  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.5.21.tgz#994c44f2bfc45744120f01924c8973c5e960e051"
+  integrity sha512-b+BOkwJDq6DK4m+jFUOHNCFinIkO4CF1MjnOwYgZFX+oElpYpXCCIsxZ3+zQWIRSLVUbRXvaQq2K935jGIyp7A==
   dependencies:
     "@types/geojson" "*"
 

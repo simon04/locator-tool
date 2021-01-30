@@ -3,7 +3,8 @@ import template from './ltMain.html';
 import {StateParams} from '@uirouter/core';
 import LtData from '../api/ltData';
 import LtDataAuth from '../api/ltDataAuth';
-import {CommonsFile} from '../model';
+import {CommonsFile, LatLng} from '../model';
+import {MapView} from './ltAllMap';
 
 const DEFAULT_MAP_VIEW = {
   lat: 51.505,
@@ -13,10 +14,10 @@ const DEFAULT_MAP_VIEW = {
 
 class LtMainController implements ng.IComponentController {
   category: string;
-  error: any;
+  error: unknown;
   files: string;
   filter = '';
-  loading$q: ng.IPromise<any>;
+  loading$q: ng.IPromise<unknown>;
   mapView = DEFAULT_MAP_VIEW;
   showGeolocated: boolean;
   title: CommonsFile;
@@ -62,39 +63,36 @@ class LtMainController implements ng.IComponentController {
     this.loading$q = this.$q.all([files$q, fileDetails$q]);
 
     this.$scope.$watch('$ctrl.title', (title: CommonsFile) => this.titleChanged(title));
-    this.$scope.$watch('$ctrl.mapView', mapView => this.mapViewChanged(mapView), true);
+    this.$scope.$watch('$ctrl.mapView', mapView => this.mapViewChanged(mapView as any), true);
     this.$scope.$on('coordinatesChanged', (_event, coordinates) =>
       this.coordinatesChanged(coordinates)
     );
   }
 
   get isLoading() {
-    const promise: any = this.loading$q;
-    return promise && !promise.$$state.status;
+    const promise = this.loading$q;
+    return promise && !(promise as any).$$state.status;
   }
 
-  _hasLocation(title) {
+  _hasLocation(title: CommonsFile) {
     return title.coordinates.isDefinedAndSaved || title.objectLocation.isDefinedAndSaved;
   }
 
-  get filteredTitles() {
-    let titles =
-      this.showGeolocated || !this.titles
-        ? this.titles
-        : this.titles.filter(t => !this._hasLocation(t));
+  get filteredTitles(): CommonsFile[] {
+    let titles = this.showGeolocated || !this.titles ? this.titles : this.titlesDefinedAndSaved;
     titles = this.filterFilter(titles, this.filter);
     return titles;
   }
 
-  get titlesDefinedAndSaved() {
+  get titlesDefinedAndSaved(): CommonsFile[] {
     return this.titles ? this.titles.filter(this._hasLocation) : [];
   }
 
-  get titlesDefinedAndSavedPercent() {
+  get titlesDefinedAndSavedPercent(): number {
     return (100 * this.titlesDefinedAndSaved.length) / (this.titles || []).length;
   }
 
-  keyPressedInList($event: KeyboardEvent) {
+  keyPressedInList($event: KeyboardEvent): void {
     const titles = this.filteredTitles;
     const direction = keydownToDirection($event);
     const index = titles.indexOf(this.title);
@@ -104,7 +102,7 @@ class LtMainController implements ng.IComponentController {
     }
   }
 
-  titleChanged(title: CommonsFile) {
+  titleChanged(title: CommonsFile): void {
     this.error = undefined;
     if (title && title.coordinates) {
       this.updateMapView(title.coordinates);
@@ -120,18 +118,18 @@ class LtMainController implements ng.IComponentController {
     }
   }
 
-  mapViewChanged(mapView) {
+  mapViewChanged(mapView: MapView): void {
     this.localStorageService.set('mapView', mapView);
   }
 
-  updateMapView({lat, lng}: {lat?: number; lng?: number}) {
+  updateMapView({lat, lng}: {lat?: number; lng?: number}): void {
     if (lat && lng) {
       this.mapView.lat = lat;
       this.mapView.lng = lng;
     }
   }
 
-  coordinatesChanged(coordinates) {
+  coordinatesChanged(coordinates: LatLng): void {
     if (!coordinates) {
       return;
     } else if (coordinates.type === 'Location') {

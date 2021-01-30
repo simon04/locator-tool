@@ -2,7 +2,7 @@ import template from './ltNavbar.html';
 import {TransitionService} from '@uirouter/core';
 
 class LtNavbarController implements ng.IComponentController {
-  params: any;
+  params: Record<string, string>;
 
   public static $inject = ['$transitions'];
   constructor(private $transitions: TransitionService) {}

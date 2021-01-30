@@ -11,31 +11,33 @@ export class LatLng {
     this._lngOriginal = lng;
   }
 
-  withLatLng({lat, lng} = {lat: this._latOriginal, lng: this._lngOriginal}) {
+  withLatLng(
+    {lat, lng}: {lat?: number; lng?: number} = {lat: this._latOriginal, lng: this._lngOriginal}
+  ): LatLng {
     const coordinates = new LatLng(this.type, {lat, lng});
     coordinates._latOriginal = this._latOriginal;
     coordinates._lngOriginal = this._lngOriginal;
     return coordinates;
   }
 
-  markAsSaved() {
+  markAsSaved(): void {
     this._latOriginal = this.lat;
     this._lngOriginal = this.lng;
   }
 
-  get isDefined() {
+  get isDefined(): boolean {
     return this.lat !== undefined && this.lng !== undefined;
   }
 
-  get isChanged() {
+  get isChanged(): boolean {
     return this.lat !== this._latOriginal || this.lng !== this._lngOriginal;
   }
 
-  get isDefinedAndSaved() {
+  get isDefinedAndSaved(): boolean {
     return this.isDefined && !this.isChanged;
   }
 
-  get csv() {
+  get csv(): string {
     return this.isDefined ? [this.lat, this.lng].map(atLeastOneDecimalPlace).join(', ') : '';
   }
 }

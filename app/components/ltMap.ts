@@ -4,11 +4,12 @@ import * as iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import * as iconUrl from 'leaflet/dist/images/marker-icon.png';
 import * as shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import {LatLng} from '../model';
+import {MapView} from './ltAllMap';
 
 let layerFromLocalStorage: string;
 
 export class LtMapController implements ng.IComponentController {
-  mapView: any;
+  mapView: MapView;
   mapMarker: LatLng;
   mapObjectLocation: LatLng;
 
@@ -20,11 +21,11 @@ export class LtMapController implements ng.IComponentController {
     layerFromLocalStorage = this.localStorageService.get('mapLayer') || 'OSM';
   }
 
-  mapInit(_L, map: L.Map) {
+  mapInit(_L: unknown, map: L.Map): void {
     LtMapController._mapInit(map);
   }
 
-  static _mapInit(map: L.Map) {
+  static _mapInit(map: L.Map): void {
     // https://github.com/Leaflet/Leaflet/issues/4968#issuecomment-269750768
     delete (L.Icon.Default.prototype as any)._getIconUrl;
     L.Icon.Default.mergeOptions({
@@ -32,7 +33,7 @@ export class LtMapController implements ng.IComponentController {
       iconUrl,
       shadowUrl
     });
-    ((map as any).attributionControl as L.Control.Attribution).setPrefix(
+    map.attributionControl.setPrefix(
       [
         '<a href="https://github.com/simon04/locator-tool/" ',
         'target="_blank">@simon04/locator-tool</a>',
@@ -68,7 +69,7 @@ export class LtMapController implements ng.IComponentController {
     geocoder.addTo(map);
   }
 
-  mapClick($event: L.LeafletMouseEvent) {
+  mapClick($event: L.LeafletMouseEvent): void {
     // http://leafletjs.com/reference.html#mouse-event
     const {
       latlng: {lat, lng},
@@ -84,7 +85,7 @@ export class LtMapController implements ng.IComponentController {
     }
   }
 
-  markerMoveend($event: L.LeafletMouseEvent, target: LatLng) {
+  markerMoveend($event: L.LeafletMouseEvent, target: LatLng): void {
     const {lat, lng} = ($event.target as L.Marker).getLatLng();
     if (lat && lng) {
       const coordinates = target.withLatLng({
@@ -95,7 +96,7 @@ export class LtMapController implements ng.IComponentController {
     }
   }
 
-  mapLayerChange($event: L.LayersControlEvent) {
+  mapLayerChange($event: L.LayersControlEvent): void {
     this.localStorageService.set('mapLayer', $event.name);
   }
 }

@@ -6,6 +6,72 @@ import {CommonsFile, CommonsTitle, LatLng} from '../model';
 
 const maxTitlesPerRequest = 50;
 
+interface ApiResponse<P = never> {
+  batchcomplete: string;
+  query: {
+    pages: {[key: string]: P};
+    allpages?: P[];
+  };
+}
+
+interface Page {
+  pageid: number;
+  ns: number;
+  title: string;
+}
+
+interface CoordinatePage {
+  pageid: number;
+  ns: number;
+  title: string;
+  coordinates?: Coordinate[];
+}
+
+interface Coordinate {
+  lat: number;
+  lon: number;
+  primary?: string;
+  type: 'camera' | 'object';
+}
+
+interface DetailsPage {
+  pageid: number;
+  ns: number;
+  title: string;
+  categories?: Category[];
+  imagerepository: string;
+  imageinfo: ImageInfo[];
+  revisions?: Revision[];
+}
+
+interface Category {
+  ns: number;
+  title: string;
+}
+
+interface ImageInfo {
+  url: string;
+  descriptionurl: string;
+  descriptionshorturl: string;
+  extmetadata: ExtMetadata;
+}
+
+interface ExtMetadata {
+  ImageDescription: Artist;
+  DateTimeOriginal: Artist;
+  Artist: Artist;
+}
+
+interface Artist {
+  value: string;
+  source: string;
+}
+
+interface Revision {
+  contentformat: string;
+  contentmodel: string;
+  '*': string;
+}
 export default class LtData {
   public static $inject = [
     '$http',
@@ -22,7 +88,7 @@ export default class LtData {
     private $parse: ng.IParseService,
     private $sce: ng.ISCEService,
     private $q: ng.IQService,
-    private gettextCatalog: any,
+    private gettextCatalog: ng.gettext.gettextCatalog,
     private limitToFilter: ng.IFilterLimitTo
   ) {}
 
@@ -40,10 +106,10 @@ export default class LtData {
       coprimary: 'all',
       titles: titles.join('|').replace(/_/g, ' ')
     };
-    return this.$query<any>(params).then(data => {
+    return this.$query<ApiResponse<CoordinatePage>>(params).then(data => {
       const pages = (data && data.query && data.query.pages) || {};
       return Object.keys(pages).map(pageid => {
-        const page = pages[pageid];
+        const page: CoordinatePage = pages[pageid];
         const coordinates = page.coordinates || [];
         return {
           pageid: parseInt(pageid),
@@ -54,15 +120,16 @@ export default class LtData {
           },
           coordinates: new LatLng(
             'Location',
-            toLatLng(coordinates.find(c => c.primary === '' && c.type === 'camera'))
+            toLatLng(coordinates.filter(c => c.primary === '' && c.type === 'camera'))
           ),
           objectLocation: new LatLng(
             'Object location',
-            toLatLng(coordinates.find(c => c.type === 'object'))
+            toLatLng(coordinates.filter(c => c.type === 'object'))
           )
         } as CommonsFile;
       });
-      function toLatLng(c) {
+      function toLatLng(cc: Coordinate[]): {lat?: number; lng?: number} {
+        const c: Coordinate = cc && cc.length ? cc[0] : undefined;
         return angular.isObject(c) ? {lat: c.lat, lng: c.lon} : {};
       }
     });
@@ -83,7 +150,16 @@ export default class LtData {
     }
   }
 
-  getFileDetails(pageid) {
+  getFileDetails(
+    pageid: number
+  ): ng.IPromise<{
+    categories: string[];
+    description: string;
+    author: string;
+    timestamp: string;
+    url: string;
+    objectLocation: LatLng;
+  }> {
     const params = {
       prop: 'categories|imageinfo|revisions',
       clshow: '!hidden',
@@ -97,8 +173,9 @@ export default class LtData {
     const authorGetter = this.$parse('imageinfo[0].extmetadata.Artist.value');
     const timestampGetter = this.$parse('imageinfo[0].extmetadata.DateTimeOriginal.value');
     const urlGetter = this.$parse('imageinfo[0].descriptionurl');
-    return this.$query<any>(params).then(data => {
-      const page = (data && data.query && data.query.pages && data.query.pages[pageid]) || {};
+    return this.$query<ApiResponse<DetailsPage>>(params).then(data => {
+      const page: DetailsPage | undefined =
+        data && data.query && data.query.pages && data.query.pages[pageid];
       const categories = ((page && page.categories) || []).map(category =>
         category.title.replace(/^Category:/, '')
       );
@@ -112,9 +189,9 @@ export default class LtData {
       };
     });
 
-    function extractObjectLocation(page) {
+    function extractObjectLocation(page: DetailsPage) {
       try {
-        const wikitext = page.revisions[0]['*'];
+        const wikitext: string = page.revisions[0]['*'];
         const locDeg = wikitext.match(
           /\{\{Object location( dec)?\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([NS])\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([WE])/i
         );
@@ -145,7 +222,7 @@ export default class LtData {
       apfrom: prefix,
       apprefix: prefix
     };
-    return this.$query<any>(params, {}, () => false).then(data =>
+    return this.$query<ApiResponse<Page>>(params, {}, () => false).then(data =>
       data.query.allpages.map(i => i.title.replace(/^Category:/, '' as CommonsTitle))
     );
   }
@@ -196,10 +273,11 @@ export default class LtData {
       gaisort: 'timestamp',
       gaidir: 'older'
     };
-    const toPageArray = data => Object.keys(data.query.pages).map(id => data.query.pages[id]);
+    const toPageArray = (data: ApiResponse<Page>): Page[] =>
+      Object.keys(data.query.pages).map(id => data.query.pages[id]);
     const shouldContinue = data =>
       data.continue && (!userLimit || toPageArray(data).length < userLimit);
-    return this.$query(params, {}, shouldContinue)
+    return this.$query<ApiResponse<Page>>(params, {}, shouldContinue)
       .then(data => toPageArray(data).map(page => page.title as CommonsTitle))
       .then(pages => (userLimit ? this.limitToFilter(pages, userLimit) : pages));
   }

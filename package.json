@@ -40,11 +40,12 @@
   },
   "devDependencies": {
     "@types/angular": "^1.6.51",
+    "@types/angular-gettext": "^2.1.34",
     "@types/angular-local-storage": "^0.6.1",
     "@types/clean-webpack-plugin": "^0.1.2",
     "@types/compression-webpack-plugin": "^0.4.2",
     "@types/html-webpack-plugin": "^3.2.0",
-    "@types/leaflet": "^1.5.2",
+    "@types/leaflet": "^1.5.21",
     "@types/leaflet-providers": "^1.2.0",
     "@types/mini-css-extract-plugin": "^0.2.0",
     "@types/node": "^10.12.1",

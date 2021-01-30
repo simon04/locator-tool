@@ -4,6 +4,14 @@ interface UserApiResponse {
   user: string;
 }
 
+interface EditApiResponse {
+  result: {
+    edit: {
+      result: string;
+    };
+  };
+}
+
 export default class LtDataAuth {
   public static $inject = ['$http'];
   constructor(private $http: ng.IHttpService) {}
@@ -12,10 +20,10 @@ export default class LtDataAuth {
     return this.$http.get<UserApiResponse>('/locator-tool/user').then(d => d.data && d.data.user);
   }
 
-  editLocation(title: CommonsFile, coordinates: LatLng) {
+  editLocation(title: CommonsFile, coordinates: LatLng): ng.IPromise<void> {
     const {pageid} = title;
     const {type, lat, lng} = coordinates;
-    return this.$http<any>({
+    return this.$http<EditApiResponse>({
       method: 'POST',
       url: '/locator-tool/edit',
       data: {type, lat, lng, pageid}
