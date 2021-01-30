@@ -32,7 +32,7 @@ const languageCodes = [
 ];
 
 class ltLanguageSelector implements ng.IComponentController {
-  languages: object;
+  languages: Record<string, string>;
   public static $inject = ['$window', 'localStorageService', 'gettext', 'gettextCatalog'];
   constructor(
     private $window: ng.IWindowService,
