@@ -1,6 +1,8 @@
+export type LocationType = 'Location' | 'Object location';
+
 export class LatLng {
   constructor(
-    public type: 'Location' | 'Object location',
+    public type: LocationType,
     public lat: number | undefined,
     public lng: number | undefined,
     private readonly latOriginal?: number,
