@@ -6,19 +6,17 @@ class LtFileDetailsController implements ng.IComponentController {
   error: unknown;
   file: CommonsFile;
 
-  public static $inject = ['ltDataAuth'];
-  constructor(private ltDataAuth: LtDataAuth) {}
+  public static $inject = ['$scope', 'ltDataAuth'];
+  constructor(private $scope: ng.IScope, private ltDataAuth: LtDataAuth) {}
 
-  editLocation(coordinates: LatLng) {
+  async editLocation(coordinates: LatLng) {
     this.error = undefined;
-    return this.ltDataAuth.editLocation(this.file, coordinates).then(
-      () => {
-        coordinates.markAsSaved();
-      },
-      error => {
-        this.error = error;
-      }
-    );
+    try {
+      await this.ltDataAuth.editLocation(this.file, coordinates);
+      this.$scope.$applyAsync(() => coordinates.markAsSaved());
+    } catch (error) {
+      this.$scope.$applyAsync(() => (this.error = error));
+    }
   }
 }
 

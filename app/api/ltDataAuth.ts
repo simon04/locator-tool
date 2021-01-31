@@ -22,7 +22,7 @@ export default class LtDataAuth {
     // Reference: https://www.mediawiki.org/wiki/API:REST_API/Reference
     const pageUrl = `${API_URL}/v1/page/${title.file}`;
     const pageResponse = await fetch(pageUrl, {cache: 'no-cache'});
-    if (!pageResponse.ok) throw Error(pageResponse.statusText);
+    if (!pageResponse.ok) throw pageResponse;
     const page: Page = await pageResponse.json();
 
     const wikitext = addLocationToWikiText(coordinates, page.source);
@@ -38,6 +38,6 @@ export default class LtDataAuth {
         latest: page.latest
       })
     });
-    if (!response.ok) throw Error(response.statusText);
+    if (!response.ok) throw response;
   }
 }
