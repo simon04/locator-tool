@@ -1,7 +1,7 @@
 import {LoginToken} from './LoginToken';
 import {PKCE} from './PKCE';
 
-const API_URL = 'https://meta.wikimedia.beta.wmflabs.org/w/rest.php';
+export const API_URL = 'https://commons.wikimedia.beta.wmflabs.org/w/rest.php';
 const config = {
   client_id: '19fa35277a8db0be5742d1b32c5f7083',
   // redirect_uri: 'http://localhost:8184/callback',

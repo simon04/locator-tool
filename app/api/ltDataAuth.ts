@@ -1,32 +1,43 @@
-import {useFetch} from '@vueuse/core';
+import {addLocationToWikiText, type CommonsFile, LatLng} from '../model';
+import {API_URL, getAuthorizationHeader} from './OAuth2';
 
-import {type CommonsFile, LatLng} from '../model';
-
-interface UserApiResponse {
-  user: string;
-}
-
-interface EditApiResponse {
-  result: {
-    edit: {
-      result: string;
-    };
+export interface Page {
+  id: number;
+  key: string;
+  title: string;
+  latest: {
+    id: number;
+    timestamp: Date;
   };
+  content_model: string;
+  license: {
+    url: string;
+    title: string;
+  };
+  source: string;
 }
 
-export function editLocation(title: CommonsFile, coordinates: LatLng[]) {
-  const {pageid} = title;
-  return useFetch<EditApiResponse>('/edit', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-XSRF-TOKEN': xsrfToken() || ''
-    },
+export async function editLocation(title: CommonsFile, coordinates: LatLng): Promise<void> {
+  // Reference: https://www.mediawiki.org/wiki/API:REST_API/Reference
+  const pageUrl = `${API_URL}/v1/page/${title.file}`;
+  const pageResponse = await fetch(pageUrl);
+  if (!pageResponse.ok) throw Error(pageResponse.statusText);
+  const page: Page = await pageResponse.json();
+
+  const wikitext = addLocationToWikiText(coordinates, page.source);
+
+  const headers = await getAuthorizationHeader();
+  headers['Content-Type'] = 'application/json';
+  const response = await fetch(pageUrl, {
+    method: 'PUT',
+    headers,
     body: JSON.stringify({
-      pageid,
-      locations: coordinates.map(({type, lat, lng}) => ({type, lat, lng}))
+      source: wikitext,
+      comment: `{{${coordinates.type}}}`,
+      latest: page.latest
     })
-  }).json();
+  });
+  if (!response.ok) throw Error(response.statusText);
 }
 
 function xsrfToken() {
