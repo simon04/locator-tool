@@ -17,7 +17,7 @@ export function addLocationToWikiText(ll: LatLng, text: string): string {
   if (pattern.exec(text)) {
     return text.replace(pattern, location);
   }
-  pattern = /\{\{\s*Information.*/im;
+  pattern = /\{\{\s*Information.*/is;
   if (pattern.exec(text)) {
     return text.replace(pattern, information => {
       let braceCount = 2;

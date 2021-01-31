@@ -59,6 +59,15 @@ test('', () =>
     type: 'Location',
     lat: 12.3,
     lng: 45.6,
+    text: 'Foo\n{{Information\n|foo={{de|sdf}}\n|bar={{lic}}}}Bar',
+    expected: 'Foo\n{{Information\n|foo={{de|sdf}}\n|bar={{lic}}}}\n{{Location|12.3|45.6}}\nBar'
+  }));
+
+test('', () =>
+  testLocation({
+    type: 'Location',
+    lat: 12.3,
+    lng: 45.6,
     text: 'X\n{{Location dec|50.917385|13.342268}}\nX',
     expected: 'X\n{{Location|12.3|45.6}}\nX'
   }));
