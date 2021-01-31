@@ -21,7 +21,7 @@ export default class LtDataAuth {
   async editLocation(title: CommonsFile, coordinates: LatLng): Promise<void> {
     // Reference: https://www.mediawiki.org/wiki/API:REST_API/Reference
     const pageUrl = `${API_URL}/v1/page/${title.file}`;
-    const pageResponse = await fetch(pageUrl);
+    const pageResponse = await fetch(pageUrl, {cache: 'no-cache'});
     if (!pageResponse.ok) throw Error(pageResponse.statusText);
     const page: Page = await pageResponse.json();
 
