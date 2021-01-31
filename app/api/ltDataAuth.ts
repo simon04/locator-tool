@@ -1,29 +1,43 @@
-import {CommonsFile, LatLng} from '../model';
+import {addLocationToWikiText, CommonsFile, LatLng} from '../model';
+import {API_URL, getAuthorizationHeader} from './OAuth2';
 
-interface EditApiResponse {
-  result: {
-    edit: {
-      result: string;
-    };
+export interface Page {
+  id: number;
+  key: string;
+  title: string;
+  latest: {
+    id: number;
+    timestamp: Date;
   };
+  content_model: string;
+  license: {
+    url: string;
+    title: string;
+  };
+  source: string;
 }
 
 export default class LtDataAuth {
-  public static $inject = ['$http'];
-  constructor(private $http: ng.IHttpService) {}
+  async editLocation(title: CommonsFile, coordinates: LatLng): Promise<void> {
+    // Reference: https://www.mediawiki.org/wiki/API:REST_API/Reference
+    const pageUrl = `${API_URL}/v1/page/${title.file}`;
+    const pageResponse = await fetch(pageUrl);
+    if (!pageResponse.ok) throw Error(pageResponse.statusText);
+    const page: Page = await pageResponse.json();
 
-  editLocation(title: CommonsFile, coordinates: LatLng): ng.IPromise<void> {
-    const {pageid} = title;
-    const {type, lat, lng} = coordinates;
-    return this.$http<EditApiResponse>({
-      method: 'POST',
-      url: '/locator-tool/edit',
-      data: {type, lat, lng, pageid}
-    }).then(response => {
-      const data = response.data;
-      if (!data.result || !data.result.edit || data.result.edit.result !== 'Success') {
-        throw data;
-      }
+    const wikitext = addLocationToWikiText(coordinates, page.source);
+
+    const headers = await getAuthorizationHeader();
+    headers['Content-Type'] = 'application/json';
+    const response = await fetch(pageUrl, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({
+        source: wikitext,
+        comment: `{{${coordinates.type}}}`,
+        latest: page.latest
+      })
     });
+    if (!response.ok) throw Error(response.statusText);
   }
 }
