@@ -81,7 +81,8 @@ class LtMainController implements ng.IComponentController {
   }
 
   get filteredTitles(): CommonsFile[] {
-    let titles = this.showGeolocated || !this.titles ? this.titles : this.titlesDefinedAndSaved;
+    let titles = this.titles || [];
+    titles = this.showGeolocated ? titles : titles.filter(t => !this._hasLocation(t));
     titles = this.filterFilter(titles, this.filter);
     return titles;
   }
