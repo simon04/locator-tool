@@ -47,7 +47,7 @@ Watchers fired in the last 5 iterations: {1}`,e,Ot)}while(Z||k.length);for(ot();
     <a ng-href="https://github.com/simon04/locator-tool/commit/{{$ctrl.buildVersion}}"><code>{{::$ctrl.buildVersion}}</code></a>
   </li>
 </ul>
-`;var Op=class{constructor(){this.buildDate="2021-05-25 21:56:03 +0200";this.buildVersion="3ef8a2b"}},zp={controller:Op,template:Ap};var Rp=`<div class="fill" ll-map="" ll-init="$ctrl.mapInit" ll-click="$ctrl.mapClick($event)" ll-baselayerchange="$ctrl.mapLayerChange($event)">
+`;var Op=class{constructor(){this.buildDate="2021-05-25 22:06:44 +0200";this.buildVersion="9df74d5"}},zp={controller:Op,template:Ap};var Rp=`<div class="fill" ll-map="" ll-init="$ctrl.mapInit" ll-click="$ctrl.mapClick($event)" ll-baselayerchange="$ctrl.mapLayerChange($event)">
   <ll-view ll-view="$ctrl.mapView"></ll-view>
   <ll-marker ll-lat-lng="$ctrl.mapMarker" ll-marker="{draggable: true}" ll-moveend="$ctrl.markerMoveend($event, $ctrl.mapMarker)" ng-if="$ctrl.mapMarker.lat"></ll-marker>
   <ll-marker ll-lat-lng="$ctrl.mapObjectLocation" ll-marker="{draggable: true}" ll-moveend="$ctrl.markerMoveend($event, $ctrl.mapObjectLocation)" ng-if="$ctrl.mapObjectLocation.lat">
