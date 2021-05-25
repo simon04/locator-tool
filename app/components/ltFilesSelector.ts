@@ -41,7 +41,7 @@ class LtFilesSelectorController implements ng.IComponentController {
     this.userEnd = tryParse(s => new Date(s), $stateParams.userEnd, undefined);
     this.titles = '';
 
-    function tryParse<T>(parser: (string) => T, text: string, fallback: T): T {
+    function tryParse<T>(parser: (string: string) => T, text: string, fallback: T): T {
       if (!text) {
         return fallback;
       }
@@ -94,7 +94,7 @@ class LtFilesSelectorController implements ng.IComponentController {
     this.titles = files && files.join('\n');
   }
 
-  onFilesPaste($event) {
+  onFilesPaste($event: ClipboardEvent) {
     /* eslint-env browser */
     try {
       if (!$event.clipboardData) return;
@@ -103,9 +103,8 @@ class LtFilesSelectorController implements ng.IComponentController {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
       const links = doc.getElementsByTagName('a');
-      const files = {};
-      [].slice
-        .call(links)
+      const files: Record<string, boolean> = {};
+      ([].slice.call(links) as HTMLAnchorElement[])
         .map(a => decodeURI(a.href))
         .filter(href => !!href)
         .map(href => href.replace(/.*File:/, 'File:'))

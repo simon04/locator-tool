@@ -8,6 +8,7 @@ export const API_URL = 'https://commons.wikimedia.org/w/api.php';
 const maxTitlesPerRequest = 50;
 
 interface ApiResponse<P = never> {
+  continue: unknown;
   batchcomplete: string;
   query: {
     pages: {[key: string]: P};
@@ -276,7 +277,7 @@ export default class LtData {
     };
     const toPageArray = (data: ApiResponse<Page>): Page[] =>
       Object.keys(data.query.pages).map(id => data.query.pages[id]);
-    const shouldContinue = data =>
+    const shouldContinue = (data: ApiResponse<Page>): boolean =>
       data.continue && (!userLimit || toPageArray(data).length < userLimit);
     return this.$query<ApiResponse<Page>>(params, {}, shouldContinue)
       .then(data => toPageArray(data).map(page => page.title as CommonsTitle))
@@ -318,15 +319,15 @@ export default class LtData {
     return (
       this.$http
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .get<any[]>('https://petscan.wmflabs.org/', {params})
+        .get<any>('https://petscan.wmflabs.org/', {params})
         .then(d => d.data['*'][0]['a']['*'] as CommonsTitle[])
     );
   }
 
-  private $query<T>(
-    query,
+  private $query<T extends ApiResponse<any>>(
+    query: Record<string, unknown>,
     previousResults = {},
-    shouldContinue = data => !!data.continue
+    shouldContinue = (data: T) => !!data.continue
   ): ng.IPromise<T> {
     const data = this.$httpParamSerializer(query);
     const headers = {
@@ -338,16 +339,18 @@ export default class LtData {
       origin: '*'
     };
     return this.$http
-      .post(API_URL, data, {
+      .post<T>(API_URL, data, {
         headers,
         params
       })
       .then(d => d.data)
-      .then(data => deepmerge(previousResults, data, {arrayMerge: (x, y) => [].concat(...x, ...y)}))
+      .then(
+        data => deepmerge(previousResults, data, {arrayMerge: (x, y) => [].concat(...x, ...y)}) as T
+      )
       .then(
         data =>
           shouldContinue(data)
-            ? this.$query(
+            ? this.$query<T>(
                 angular.extend(query, {continue: undefined}, data.continue),
                 angular.extend(data, {continue: undefined}),
                 shouldContinue

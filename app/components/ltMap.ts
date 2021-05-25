@@ -67,7 +67,7 @@ export class LtMapController implements ng.IComponentController {
       position: 'topleft',
       defaultMarkGeocode: false
     });
-    geocoder.on('markgeocode', result => map.fitBounds((result.geocode || result).bbox));
+    geocoder.on('markgeocode', (result: any) => map.fitBounds((result.geocode || result).bbox));
     geocoder.addTo(map);
   }
 

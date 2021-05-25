@@ -1,8 +1,8 @@
 import angular from 'angular';
-import animate from 'angular-animate';
+import 'angular-animate';
 import 'angular-local-storage';
 import uiRouter, {StateProvider, UrlRouterProvider, LocationConfig} from '@uirouter/angularjs';
-import gettext from 'angular-gettext';
+import 'angular-gettext';
 import 'angular-lazy-img/dist/angular-lazy-img';
 import octicons from 'octicons/build/sprite.octicons.svg';
 
@@ -14,10 +14,10 @@ import appApi from './api';
 import appComponents from './components';
 
 angular.module('app', [
-  animate,
+  'ngAnimate',
   uiRouter,
   'LocalStorageModule',
-  gettext,
+  'gettext',
   'angularLazyImg',
   appApi,
   appComponents

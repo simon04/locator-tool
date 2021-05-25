@@ -1,5 +1,5 @@
 import angular from 'angular';
-import llLeaflet from 'angular-ll-leaflet';
+import 'angular-ll-leaflet';
 
 import ltAbout from './ltAbout';
 import ltAllMap from './ltAllMap';
@@ -16,7 +16,7 @@ import ltUserInfo from './ltUserInfo';
 import smartCoordinate from './smartCoordinate';
 
 export default angular
-  .module('app.components', [llLeaflet])
+  .module('app.components', ['ll-leaflet'])
   .component({
     ltAbout,
     ltAllMap,
