@@ -1619,10 +1619,10 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
-wikimedia-commons-file-path@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/wikimedia-commons-file-path/-/wikimedia-commons-file-path-1.2.0.tgz#5331a430629700012203efeee3572270b280e525"
-  integrity sha512-nUFMGHmZIUiat6YcX82SIUf7NRzYFCVw8UZSfH0XcUm+BF6+i8POj9C1idMj4OPTgc6ZtGhElDCS0ovphJXGaw==
+wikimedia-commons-file-path@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/wikimedia-commons-file-path/-/wikimedia-commons-file-path-2.1.0.tgz#380a8351517fbc1c473cbcc50c7c106dcf6b3f6e"
+  integrity sha512-XP+v+f7FnaJ/SNdxGmbBmyqnv88+ITFmAKtuG+8EPQl/esM1HwhCXcG+To599e1FhSuXI8hsiBPj8zPB3IW57w==
   dependencies:
     blueimp-md5 "^2.10.0"
 
