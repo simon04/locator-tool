@@ -10,7 +10,7 @@
     "test": "prettier --list-different $(git ls-files '*.js' '*.ts') && eslint $(git ls-files '*.ts')",
     "fix:style": "prettier --write $(git ls-files '*.js' '*.ts')",
     "po": "angular-gettext-cli --compile --files 'po/*.po' --dest app/i18n.js --module app",
-    "pot": "node ./pot-extract.js"
+    "pot": "angular-gettext-cli --files '{,./app/**/}*.{js,html}' --dest po/locator-tool.pot --no-line-numbers"
   },
   "repository": {
     "type": "git",
