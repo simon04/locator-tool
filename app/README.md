@@ -7,8 +7,8 @@ To start a development server
 -----------------------------
 
 1. `$ yarn`
-2. `$ yarn run start`
-3. Open your browser at http://localhost:8184/webpack-dev-server/
+2. `$ yarn run serve`
+3. Open your browser at http://localhost:8000/
 
 To build the application
 ------------------------

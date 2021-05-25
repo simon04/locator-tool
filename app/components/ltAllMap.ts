@@ -39,7 +39,7 @@ class LtAllMapController implements ng.IComponentController {
   }
 
   mapInit(_L: unknown, map: L.Map) {
-    new LtMapController._mapInit(map);
+    LtMapController._mapInit(map);
   }
 }
 
