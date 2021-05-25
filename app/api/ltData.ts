@@ -152,9 +152,7 @@ export default class LtData {
     }
   }
 
-  getFileDetails(
-    pageid: number
-  ): ng.IPromise<{
+  getFileDetails(pageid: number): ng.IPromise<{
     categories: string[];
     description: string;
     author: string;
@@ -347,15 +345,14 @@ export default class LtData {
       .then(
         data => deepmerge(previousResults, data, {arrayMerge: (x, y) => [].concat(...x, ...y)}) as T
       )
-      .then(
-        data =>
-          shouldContinue(data)
-            ? this.$query<T>(
-                angular.extend(query, {continue: undefined}, data.continue),
-                angular.extend(data, {continue: undefined}),
-                shouldContinue
-              )
-            : data
+      .then(data =>
+        shouldContinue(data)
+          ? this.$query<T>(
+              angular.extend(query, {continue: undefined}, data.continue),
+              angular.extend(data, {continue: undefined}),
+              shouldContinue
+            )
+          : data
       );
   }
 

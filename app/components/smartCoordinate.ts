@@ -5,7 +5,7 @@ export default function directive(): ng.IDirective {
 
   return {
     require: 'ngModel',
-    link: function(
+    link: function (
       _scope: ng.IScope,
       _elm: JQLite,
       _attrs: ng.IAttributes,

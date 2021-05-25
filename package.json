@@ -55,7 +55,7 @@
     "esbuild": "^0.12.2",
     "eslint": "^7.18.0",
     "husky": "^2.2.0",
-    "prettier": "^1.14.2",
+    "prettier": "^2.3.0",
     "typescript": "^4.1.3"
   },
   "husky": {

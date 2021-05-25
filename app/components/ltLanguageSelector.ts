@@ -28,13 +28,10 @@ class ltLanguageSelector implements ng.IComponentController {
     private gettextCatalog: gettextCatalog
   ) {
     languageCodes.forEach(lang => this.gettextCatalog.setStrings(lang, (i18n as any)[lang]));
-    this.languages = languageCodes.reduce(
-      (obj, lang) => {
-        obj[lang] = this.getDisplayString(lang);
-        return obj;
-      },
-      {} as Record<string, string>
-    );
+    this.languages = languageCodes.reduce((obj, lang) => {
+      obj[lang] = this.getDisplayString(lang);
+      return obj;
+    }, {} as Record<string, string>);
   }
 
   $onInit() {

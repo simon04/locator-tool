@@ -1,6 +1,4 @@
-declare module '*.png' {
-
-}
+declare module '*.png' {}
 
 declare module '*.html' {
   const content: string;

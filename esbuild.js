@@ -2,9 +2,7 @@
 /* eslint-env node */
 /* eslint-disable @typescript-eslint/no-var-requires */
 function git(command) {
-  return require('child_process')
-    .execSync(`git ${command}`, {encoding: 'utf8'})
-    .trim();
+  return require('child_process').execSync(`git ${command}`, {encoding: 'utf8'}).trim();
 }
 
 const esbuild = require('esbuild');
