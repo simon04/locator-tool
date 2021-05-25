@@ -6,10 +6,11 @@
   "main": "app/index.js",
   "scripts": {
     "start": "webpack-dev-server",
+    "postinstall": "yarn po",
     "build": "webpack -p",
     "test": "prettier --list-different $(git ls-files '*.js' '*.ts') && eslint $(git ls-files '*.ts')",
     "fix:style": "prettier --write $(git ls-files '*.js' '*.ts')",
-    "po": "angular-gettext-cli --compile --files 'po/*.po' --dest app/i18n.js --module app",
+    "po": "angular-gettext-cli --compile --files 'po/*.po' --dest app/i18n.json --format json",
     "pot": "angular-gettext-cli --files '{,./app/**/}*.{js,html}' --dest po/locator-tool.pot --no-line-numbers"
   },
   "repository": {
@@ -54,7 +55,6 @@
     "@typescript-eslint/eslint-plugin": "^4.14.1",
     "@typescript-eslint/parser": "^4.14.1",
     "angular-gettext-cli": "^1.2.0",
-    "angular-gettext-loader": "^1.0.1",
     "angular-gettext-tools": "^2.3.5",
     "clean-webpack-plugin": "^0.1.19",
     "compression-webpack-plugin": "^2.0.0",

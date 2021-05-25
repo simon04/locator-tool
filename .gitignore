@@ -1,3 +1,4 @@
+app/i18n.json
 backend/config.py
 backend/locator-tool.log
 backend/static/

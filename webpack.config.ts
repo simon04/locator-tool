@@ -38,10 +38,6 @@ const config: webpack.Configuration = {
         exclude: /node_modules/
       },
       {
-        test: /\.po$/,
-        loader: ['angular-gettext-loader']
-      },
-      {
         test: /\.html$/,
         loader: ['html-loader?exportAsEs6Default=true']
       },

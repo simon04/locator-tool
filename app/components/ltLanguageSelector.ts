@@ -1,18 +1,6 @@
 import template from './ltLanguageSelector.html';
 
-import '../../po/bn.po';
-import '../../po/cs.po';
-import '../../po/de.po';
-import '../../po/es.po';
-import '../../po/fa_IR.po';
-import '../../po/fr.po';
-import '../../po/it.po';
-import '../../po/mk.po';
-import '../../po/ml.po';
-import '../../po/pt.po';
-import '../../po/ru.po';
-import '../../po/uk.po';
-import '../../po/zh_TW.po';
+import * as i18n from '../i18n.json';
 
 const languageCodes = [
   'bn',
@@ -39,6 +27,7 @@ class ltLanguageSelector implements ng.IComponentController {
     private localStorageService: angular.local.storage.ILocalStorageService,
     private gettextCatalog: gettextCatalog
   ) {
+    languageCodes.forEach(lang => this.gettextCatalog.setStrings(lang, i18n[lang]));
     this.languages = languageCodes.reduce((obj, lang) => {
       obj[lang] = this.getDisplayString(lang);
       return obj;
