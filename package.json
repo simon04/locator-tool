@@ -37,7 +37,7 @@
     "bootstrap": "^4.3.1",
     "deepmerge": "^4.2.2",
     "leaflet": "^1.5.1",
-    "leaflet-control-geocoder": "^1.9.0",
+    "leaflet-control-geocoder": "^2.3.0",
     "leaflet-providers": "^1.9.0",
     "octicons": "^5.0.1",
     "wikimedia-commons-file-path": "^2.1.0"

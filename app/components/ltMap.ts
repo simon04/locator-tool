@@ -5,6 +5,7 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import {LatLng} from '../model';
 import {MapView} from './ltAllMap';
+import ControlGeocoder from 'leaflet-control-geocoder';
 
 let layerFromLocalStorage: string;
 
@@ -62,12 +63,12 @@ export class LtMapController implements ng.IComponentController {
     Object.keys(layers).forEach(name => layersControl.addBaseLayer(layers[name], name));
     (layers[layerFromLocalStorage] || layers[osm]).addTo(map);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const geocoder = new (L.Control as any).Geocoder({
+    const geocoder = new ControlGeocoder({
       placeholder: '…',
       position: 'topleft',
       defaultMarkGeocode: false
     });
-    geocoder.on('markgeocode', (result: any) => map.fitBounds((result.geocode || result).bbox));
+    geocoder.on('markgeocode', result => map.fitBounds(result.geocode.bbox));
     geocoder.addTo(map);
   }
 

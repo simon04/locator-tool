@@ -1032,10 +1032,10 @@ json-stable-stringify-without-jsonify@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
 
-leaflet-control-geocoder@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/leaflet-control-geocoder/-/leaflet-control-geocoder-1.9.0.tgz#d837569de7762953cd4f9543850602bab9f82230"
-  integrity sha512-yY6v8wly5Z+S4avTedgEGlDiW1HNPUS+1Eggus0k8UFxoSg7doZZv23T/1wQjix5hJZBEnlEgyHv4HAW1D8W+A==
+leaflet-control-geocoder@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/leaflet-control-geocoder/-/leaflet-control-geocoder-2.3.0.tgz#4212d6d67f73eeda3b900773cd2f229b2fe66aa8"
+  integrity sha512-Zi5cebDsfAq6B0ZilDGn/W5oNM8pQu6cltEHBxfR56XnN3f/Lmez1+qrdyRY6oTlP740caBHHCmd35Z/eif7/w==
   optionalDependencies:
     open-location-code "^1.0.0"
 
