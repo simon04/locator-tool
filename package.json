@@ -6,9 +6,8 @@
   "main": "app/index.js",
   "scripts": {
     "postinstall": "yarn po",
-    "esbuild": "esbuild --bundle --loader:.html=text --loader:.svg=text --loader:.gif=file --loader:.png=file --outdir=dist/ app/index.ts",
-    "serve": "yarn esbuild --servedir=dist/",
-    "build": "yarn esbuild --minify --sourcemap",
+    "serve": "node ./esbuild.js serve",
+    "build": "node ./esbuild.js",
     "test": "prettier --list-different $(git ls-files '*.js' '*.ts') && eslint $(git ls-files '*.ts')",
     "fix:style": "prettier --write $(git ls-files '*.js' '*.ts')",
     "po": "angular-gettext-cli --compile --files 'po/*.po' --dest app/i18n.json --format json",
