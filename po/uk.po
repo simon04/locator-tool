@@ -5,97 +5,97 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2019-09-25 15:02+0000\n"
-"Last-Translator: Vira Motorko <ato4ka@i.ua>\n"
+"PO-Revision-Date: 2020-10-23 05:15+0000\n"
+"Last-Translator: Transifex Bot <>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/locator-tool/locator-tool/language/uk/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#. Depth of category tree
+#: ./app/components/ltFilesSelector.html
+msgctxt "Category"
+msgid "Depth"
+msgstr "Глибина"
+
+#: ./app/components/ltAbout.html
 msgid ""
 "<a ui-sref=\"select\">Select files to geolocate</a> by querying a category "
 "or inputting a list of <code>File:</code>s."
 msgstr "<a ui-sref=\"select\">Щоб відібрати файли для геолокації</a>, вкажіть категорію або список файлів. У випадку списку, назва кожного файлу має починатись префіксом <code>File:</code>."
 
-#: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltAbout.html ./app/components/ltNavbar.html
 msgid "About"
 msgstr "Про"
 
-#: ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltNavbar.html
 msgid "About locator-tool"
 msgstr "Про Локатор"
 
-#: ./app/components/ltMain/ltMain.pug
+#: ./app/components/ltMain.html
 msgid "Also show geolocated files"
 msgstr "Також показати файли з координатами"
 
-#: ./app/components/ltFileDetails/ltFileDetails.pug
+#: ./app/components/ltFileDetails.html
 msgid ""
 "Camera location via\n"
 "<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
 msgstr "Розташування камери з\n<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Розташування</code></a>"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Category"
 msgstr "Категорія"
 
-#. Depth of category tree
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgctxt "Category"
-msgid "Depth"
-msgstr "Глибина"
-
-#: ./app/components/ltLocationInput/ltLocationInput.pug
+#: ./app/components/ltLocationInput.html
 msgid "Discard"
 msgstr "Відкинути"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Edits using locator-tool"
 msgstr "Редагування, зроблені у Локаторі"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "End timestamp"
 msgstr "Кінцева мітка часу"
 
-#: ./app/components/ltFileDetails/ltFileDetails.pug
+#: ./app/components/ltFileDetails.html
 msgid "Failed to save: {{$ctrl.error.statusText}}"
 msgstr "Помилка збереження: {{$ctrl.error.statusText}}"
 
-#: ./app/components/ltMain/ltMain.pug
+#: ./app/components/ltMain.html
 msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
 msgstr "Вибрано 0 файлів з категорії <code>{{$ctrl.category}}</code>!"
 
-#: ./app/components/ltMain/ltMain.pug
+#: ./app/components/ltMain.html
 msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
 msgstr "Вибрано 0 файлів для користувача <code>{{$ctrl.user}}</code>!"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "File list"
 msgstr "Список файлів"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid ""
 "From the list of files provided, select one and click its location on an "
 "interactive map."
 msgstr "Із наданого списку файлів виберіть один і натисніть на місце його розташування на інтерактивній карті."
 
-#: ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltNavbar.html
 msgid "Geolocate files"
 msgstr "Вказати координати файлів"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Hello {{$ctrl.userInfo}}!"
 msgstr "Вітаємо, {{$ctrl.userInfo}}!"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid ""
 "In order to allow locator-tool to modify file description pages, sign in "
 "first:"
 msgstr "Щоб дозволити Локатору змінювати сторінки опису файлів, спочатку увійдіть:"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid ""
 "Its source code is available on <a href=\"https://github.com/simon04"
 "/locator-tool\">GitHub</a> and <a "
@@ -103,148 +103,150 @@ msgid ""
 msgstr "Вихідний код доступний на <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> і ліцензований під <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>."
 
 #. Your language in your language (e.g. 'English', 'Deutsch')
-#: ./app/components/ltLanguageSelector/ltLanguageSelector.pug
+#: ./app/components/ltLanguageSelector.html
 msgid "LANGUAGE"
 msgstr "Українською"
 
-#: ./app/components/ltFileDetails/ltFileDetails.pug
+#: ./app/components/ltFileDetails.html
 msgid "Left click on map to set the location."
 msgstr "Натисніть на карті, щоб задати розташування."
 
 #. maximum number of files
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Limit"
 msgstr "Ліміт"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Load Category to geolocate"
 msgstr "Завантажити категорію для геолокації"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Load User files to geolocate"
 msgstr "Завантажити файли користувача для геолокації"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Load {{$ctrl.titleList.length}} files to geolocate"
 msgstr "Завантажити {{$ctrl.titleList.length}} файлів для геолокації"
 
-#: ./app/components/ltMain/ltMain.pug
+#: ./app/components/ltMain.html
 msgid "Loading file details …"
 msgstr "Завантаження деталей файлів…"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-#: ./app/components/ltUserInfo/ltUserInfo.pug
+#: ./app/components/ltFilesSelector.html ./app/components/ltUserInfo.html
 msgid "Log in"
 msgstr "Авторизуватись"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Log in using the button on the upper right corner"
 msgstr "Увійдіть, скориставшись кнопкою у правому верхньому кутку"
 
-#: ./app/components/ltUserInfo/ltUserInfo.pug
+#: ./app/components/ltUserInfo.html
 msgid "Log out"
 msgstr "Вийти"
 
-#: ./app/components/ltUserInfo/ltUserInfo.pug
+#: ./app/components/ltUserInfo.html
 msgid "Logged in as {{$ctrl.user}}"
 msgstr "Авторизовано як {{$ctrl.user}}"
 
-#: ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltNavbar.html
 msgid "Map"
 msgstr "Карта"
 
-#: ./app/components/ltFileDetails/ltFileDetails.pug
+#: ./app/components/ltFileDetails.html
 msgid ""
 "Object location via\n"
 "<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
 msgstr "Розташування об'єкта через\n<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Розташування об'єкта</code></a>"
 
-#: ./app/components/ltFileDetails/ltFileDetails.pug
+#: ./app/components/ltFileDetails.html
 msgid "Press shift and click on map to set the object location."
 msgstr "Натисніть shift та клікніть на карті, щоб задати розташування об'єкта."
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Repeat …"
 msgstr "Повторити…"
 
-#: ./app/components/ltLocationInput/ltLocationInput.pug
+#: ./app/components/ltLocationInput.html
 msgid "Save"
 msgstr "Зберегти"
 
-#: ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltNavbar.html
 msgid "Select files"
 msgstr "Обрати файли"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-#: ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltFilesSelector.html ./app/components/ltNavbar.html
 msgid "Select files to geolocate"
 msgstr "Обрати файли для геолокації"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Show Category on map"
 msgstr "Показати категорію на карті"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Show User files on map"
 msgstr "Показати файли користувача на карті"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Show {{$ctrl.titleList.length}} files on map"
 msgstr "Показати {{$ctrl.titleList.length}} файлів на карті"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Sign in"
 msgstr "Увійти"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Start timestamp"
 msgstr "Початкова мітка часу"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid ""
 "This tool has been created by <a "
 "href=\"https://github.com/simon04/\">simon04</a>."
 msgstr "Цей інструмент створив <a href=\"https://github.com/simon04/\">simon04</a>."
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid ""
 "This tool helps to add <code class=\"mediawiki-template\">Coordinate</code> "
 "information to images on <a "
 "href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
 msgstr "Цей інструмент допомагає додавати інформацію про <code class=\"mediawiki-template\">координати</code> до зображень у  <a href=\"https://commons.wikimedia.org/\">Вікісховищі</a>."
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Translate locator-tool on Transifex"
 msgstr "Перекласти інтерфейс Локатора на сайті Transifex"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Tutorial"
 msgstr "Посібник"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Usage"
 msgstr "Використання"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "User"
 msgstr "Користувач"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "User files"
 msgstr "Файли користувача"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltAbout.html
+msgid "Version:"
+msgstr ""
+
+#: ./app/components/ltFilesSelector.html
 msgid ""
 "When a clipboard content containing HTML code (for instance a copied "
 "selection from a Commons gallery) is pasted here, locator-tool tries to "
 "extract <code>File:</code>s from the code."
 msgstr "Коли тут вставити вміст буфера обміну, що містить HTML-код (наприклад, скопійоване виділення з галереї Вікісховища), Локатор намагається дістати з нього те, що починається з <code>File:</code>."
 
-#: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltAbout.html ./app/components/ltNavbar.html
 msgid "locator-tool"
 msgstr "Локатор"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid ""
 "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
 "tool\">Commons:Locator-tool</a>"

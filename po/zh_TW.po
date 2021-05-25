@@ -4,97 +4,97 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2018-07-11 13:21+0000\n"
-"Last-Translator: R. Z. Huang <dong12of@gmail.com>\n"
+"PO-Revision-Date: 2020-10-23 05:15+0000\n"
+"Last-Translator: Transifex Bot <>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/locator-tool/locator-tool/language/zh_TW/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#. Depth of category tree
+#: ./app/components/ltFilesSelector.html
+msgctxt "Category"
+msgid "Depth"
+msgstr "深度"
+
+#: ./app/components/ltAbout.html
 msgid ""
 "<a ui-sref=\"select\">Select files to geolocate</a> by querying a category "
 "or inputting a list of <code>File:</code>s."
 msgstr "查詢分類或輸入<code>File:</code>清單以<a ui-sref=\"select\">選擇要定位的檔案</a>"
 
-#: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltAbout.html ./app/components/ltNavbar.html
 msgid "About"
 msgstr "關於"
 
-#: ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltNavbar.html
 msgid "About locator-tool"
 msgstr "關於定位小工具"
 
-#: ./app/components/ltMain/ltMain.pug
+#: ./app/components/ltMain.html
 msgid "Also show geolocated files"
 msgstr "亦顯示已定位檔案"
 
-#: ./app/components/ltFileDetails/ltFileDetails.pug
+#: ./app/components/ltFileDetails.html
 msgid ""
 "Camera location via\n"
 "<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
 msgstr "以<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>標記拍攝地點"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Category"
 msgstr "分類"
 
-#. Depth of category tree
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-msgctxt "Category"
-msgid "Depth"
-msgstr "深度"
-
-#: ./app/components/ltLocationInput/ltLocationInput.pug
+#: ./app/components/ltLocationInput.html
 msgid "Discard"
 msgstr "棄用"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Edits using locator-tool"
 msgstr "使用定位小工具來編輯"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "End timestamp"
 msgstr "結束於"
 
-#: ./app/components/ltFileDetails/ltFileDetails.pug
+#: ./app/components/ltFileDetails.html
 msgid "Failed to save: {{$ctrl.error.statusText}}"
 msgstr "保存失敗：{{$ctrl.error.statusText}}"
 
-#: ./app/components/ltMain/ltMain.pug
+#: ./app/components/ltMain.html
 msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
 msgstr "<code>{{$ctrl.category}}</code>分類中找不到任何檔案啊啊啊！"
 
-#: ./app/components/ltMain/ltMain.pug
+#: ./app/components/ltMain.html
 msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
 msgstr "<code>{{$ctrl.user}}</code>沒有上傳任何檔案！"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "File list"
 msgstr "檔案清單"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid ""
 "From the list of files provided, select one and click its location on an "
 "interactive map."
 msgstr "從檔案清單提供的檔案中選擇一個，並在互動式地圖上點擊其位置。"
 
-#: ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltNavbar.html
 msgid "Geolocate files"
 msgstr "定位檔案"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Hello {{$ctrl.userInfo}}!"
 msgstr "您好，{{$ctrl.userInfo}}！"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid ""
 "In order to allow locator-tool to modify file description pages, sign in "
 "first:"
 msgstr "要允許定位小工具修改檔案描述頁，請先登入："
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid ""
 "Its source code is available on <a href=\"https://github.com/simon04"
 "/locator-tool\">GitHub</a> and <a "
@@ -102,148 +102,150 @@ msgid ""
 msgstr "其原始碼以<a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>釋出，可在<a href=\"https://github.com/simon04/locator-tool\">GitHub</a>上存取。"
 
 #. Your language in your language (e.g. 'English', 'Deutsch')
-#: ./app/components/ltLanguageSelector/ltLanguageSelector.pug
+#: ./app/components/ltLanguageSelector.html
 msgid "LANGUAGE"
 msgstr "正體中文（臺灣）"
 
-#: ./app/components/ltFileDetails/ltFileDetails.pug
+#: ./app/components/ltFileDetails.html
 msgid "Left click on map to set the location."
 msgstr "左鍵單擊地圖來設定拍攝地點。"
 
 #. maximum number of files
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Limit"
 msgstr "最大檔案載入量"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Load Category to geolocate"
 msgstr "載入該分類中的檔案以定位"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Load User files to geolocate"
 msgstr "載入該使用者上傳的檔案以定位"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Load {{$ctrl.titleList.length}} files to geolocate"
 msgstr "載入{{$ctrl.titleList.length}}個檔案來定位"
 
-#: ./app/components/ltMain/ltMain.pug
+#: ./app/components/ltMain.html
 msgid "Loading file details …"
 msgstr "檔案細節載入中……"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-#: ./app/components/ltUserInfo/ltUserInfo.pug
+#: ./app/components/ltFilesSelector.html ./app/components/ltUserInfo.html
 msgid "Log in"
 msgstr "登入"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Log in using the button on the upper right corner"
 msgstr "使用右上角的按鈕來登入"
 
-#: ./app/components/ltUserInfo/ltUserInfo.pug
+#: ./app/components/ltUserInfo.html
 msgid "Log out"
 msgstr "登出"
 
-#: ./app/components/ltUserInfo/ltUserInfo.pug
+#: ./app/components/ltUserInfo.html
 msgid "Logged in as {{$ctrl.user}}"
 msgstr "以{{$ctrl.user}}的身分登入"
 
-#: ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltNavbar.html
 msgid "Map"
 msgstr "地圖"
 
-#: ./app/components/ltFileDetails/ltFileDetails.pug
+#: ./app/components/ltFileDetails.html
 msgid ""
 "Object location via\n"
 "<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
 msgstr "以<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>標記目標位置"
 
-#: ./app/components/ltFileDetails/ltFileDetails.pug
+#: ./app/components/ltFileDetails.html
 msgid "Press shift and click on map to set the object location."
 msgstr "按住 Shift 並點擊地圖來設定目標位置。"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Repeat …"
 msgstr "重複上述動作……"
 
-#: ./app/components/ltLocationInput/ltLocationInput.pug
+#: ./app/components/ltLocationInput.html
 msgid "Save"
 msgstr "保存"
 
-#: ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltNavbar.html
 msgid "Select files"
 msgstr "選擇檔案"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
-#: ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltFilesSelector.html ./app/components/ltNavbar.html
 msgid "Select files to geolocate"
 msgstr "選擇檔案以進行地理編碼"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Show Category on map"
 msgstr "在地圖上顯示該分類中的檔案"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Show User files on map"
 msgstr "在地圖上顯示該使用者上傳的檔案"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Show {{$ctrl.titleList.length}} files on map"
 msgstr "在地圖上顯示{{$ctrl.titleList.length}}個檔案"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Sign in"
 msgstr "登入"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "Start timestamp"
 msgstr "開始於"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid ""
 "This tool has been created by <a "
 "href=\"https://github.com/simon04/\">simon04</a>."
 msgstr "此工具由<a href=\"https://github.com/simon04/\">simon04</a>創建。"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid ""
 "This tool helps to add <code class=\"mediawiki-template\">Coordinate</code> "
 "information to images on <a "
 "href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
 msgstr "此工具用以添加<code class=\"mediawiki-template\">Coordinate</code>資訊到<a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>的檔案。"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Translate locator-tool on Transifex"
 msgstr "在Transifex上翻譯定位小工具"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Tutorial"
 msgstr "教學"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid "Usage"
 msgstr "使用方式"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "User"
 msgstr "使用者"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltFilesSelector.html
 msgid "User files"
 msgstr "由上傳者"
 
-#: ./app/components/ltFilesSelector/ltFilesSelector.pug
+#: ./app/components/ltAbout.html
+msgid "Version:"
+msgstr ""
+
+#: ./app/components/ltFilesSelector.html
 msgid ""
 "When a clipboard content containing HTML code (for instance a copied "
 "selection from a Commons gallery) is pasted here, locator-tool tries to "
 "extract <code>File:</code>s from the code."
 msgstr ""
 
-#: ./app/components/ltAbout/ltAbout.pug ./app/components/ltNavbar/ltNavbar.pug
+#: ./app/components/ltAbout.html ./app/components/ltNavbar.html
 msgid "locator-tool"
 msgstr "定位小工具"
 
-#: ./app/components/ltAbout/ltAbout.pug
+#: ./app/components/ltAbout.html
 msgid ""
 "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
 "tool\">Commons:Locator-tool</a>"
