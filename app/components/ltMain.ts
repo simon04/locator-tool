@@ -59,7 +59,7 @@ class LtMainController implements ng.IComponentController {
         this.titles = this.orderByFilter(titles, title => title.file);
         this.showGeolocated = this.titles.length <= 5;
         // select first visible title
-        this.title = this.titles.filter(title => this.showGeolocated || !title.coordinates.lat)[0];
+        this.title = this.filteredTitles[0];
       });
     this.loading$q = this.$q.all([files$q, fileDetails$q]);
 
