@@ -1,5 +1,5 @@
-import * as angular from 'angular';
-import * as deepmerge from 'deepmerge';
+import angular from 'angular';
+import deepmerge from 'deepmerge';
 import getFilePath from 'wikimedia-commons-file-path';
 
 import {CommonsFile, CommonsTitle, LatLng} from '../model';

@@ -1,8 +1,8 @@
-import * as angular from 'angular';
-import * as animate from 'angular-animate';
-import * as localStorage from 'angular-local-storage';
+import angular from 'angular';
+import animate from 'angular-animate';
+import localStorage from 'angular-local-storage';
 import uiRouter, {StateProvider, UrlRouterProvider, LocationConfig} from '@uirouter/angularjs';
-import * as gettext from 'angular-gettext';
+import gettext from 'angular-gettext';
 import 'angular-lazy-img/dist/angular-lazy-img';
 import octicons from 'octicons/build/sprite.octicons.svg';
 

@@ -1,4 +1,4 @@
-import * as angular from 'angular';
+import angular from 'angular';
 import llLeaflet from 'angular-ll-leaflet';
 
 import ltAbout from './ltAbout';

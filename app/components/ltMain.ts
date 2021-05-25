@@ -1,4 +1,4 @@
-import * as angular from 'angular';
+import angular from 'angular';
 import template from './ltMain.html';
 import {StateParams} from '@uirouter/core';
 import LtData from '../api/ltData';

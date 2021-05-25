@@ -1,8 +1,8 @@
 import template from './ltMap.html';
-import * as L from 'leaflet';
-import * as iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-import * as iconUrl from 'leaflet/dist/images/marker-icon.png';
-import * as shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import L from 'leaflet';
+import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+import iconUrl from 'leaflet/dist/images/marker-icon.png';
+import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import {LatLng} from '../model';
 import {MapView} from './ltAllMap';
 

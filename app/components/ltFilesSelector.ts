@@ -1,4 +1,4 @@
-import * as angular from 'angular';
+import angular from 'angular';
 import {StateService, StateParams} from '@uirouter/angularjs';
 
 import template from './ltFilesSelector.html';

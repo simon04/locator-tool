@@ -1,6 +1,6 @@
 import template from './ltLanguageSelector.html';
 
-import * as i18n from '../i18n.json';
+import i18n from '../i18n.json';
 
 const languageCodes = [
   'bn',

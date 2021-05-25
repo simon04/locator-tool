@@ -1,4 +1,4 @@
-import * as L from 'leaflet';
+import L from 'leaflet';
 import 'leaflet-providers';
 import 'leaflet-control-geocoder';
 

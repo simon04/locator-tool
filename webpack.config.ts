@@ -1,12 +1,12 @@
 /* eslint-env node */
-import * as webpack from 'webpack';
-import * as path from 'path';
+import webpack from 'webpack';
+import path from 'path';
 import {execSync} from 'child_process';
 
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as CleanWebpackPlugin from 'clean-webpack-plugin';
-import * as CompressionPlugin from 'compression-webpack-plugin';
-import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import CompressionPlugin from 'compression-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const productionBuild = process.env.npm_lifecycle_script !== 'webpack-dev-server';
 
