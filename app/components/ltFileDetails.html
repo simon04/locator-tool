@@ -27,16 +27,18 @@
 <div class="card mt-2">
   <div class="card-block p-2">
     <div class="card-content">
-      <div class="form-group">
+      <div class="form-group mb-0">
         <label>
           <svg class="octicon">
             <use xlink:href="#device-camera"></use>
           </svg><span translate="translate">
             Camera location via
 <a href="https://commons.wikimedia.org/wiki/Template:Location" target="_blank"><code class="mediawiki-template">Location</code></a></span>
+            <abbr title="{{'Left click on map to set the location.' | translate}}">
+              <svg class="octicon"><use xlink:href="#question"></use></svg>
+            </abbr>
         </label>
         <lt-location-input lat-lng="$ctrl.file.coordinates" edit-location="$ctrl.editLocation($ctrl.file.coordinates)"></lt-location-input>
-        <p class="help-block" translate="translate">Left click on map to set the location.</p>
       </div>
     </div>
   </div>
@@ -44,16 +46,18 @@
 <div class="card mt-2">
   <div class="card-block p-2">
     <div class="card-content">
-      <div class="form-group">
+      <div class="form-group mb-0">
         <label>
           <svg class="octicon">
             <use xlink:href="#squirrel"></use>
           </svg><span translate="translate">
             Object location via
 <a href="https://commons.wikimedia.org/wiki/Template:Object_location" target="_blank"><code class="mediawiki-template">Object location</code></a></span>
+            <abbr title="{{'Press shift and click on map to set the object location.' | translate}}">
+              <svg class="octicon"><use xlink:href="#question"></use></svg>
+            </abbr>
         </label>
         <lt-location-input lat-lng="$ctrl.file.objectLocation" edit-location="$ctrl.editLocation($ctrl.file.objectLocation)"></lt-location-input>
-        <p class="help-block" translate="translate">Press shift and click on map to set the object location.</p>
       </div>
     </div>
   </div>
