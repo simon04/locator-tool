@@ -37,7 +37,10 @@ const options = {
 };
 
 if (process.argv.includes('serve')) {
-  esbuild.serve({servedir: 'dist/'}, options).catch(() => process.exit(1));
+  esbuild
+    .serve({servedir: 'dist/'}, options)
+    .then(result => console.log(`Serving application on http://${result.host}:${result.port}/`))
+    .catch(() => process.exit(1));
 } else {
   esbuild.build(options).catch(() => process.exit(1));
   const index = 'dist/index.html';
