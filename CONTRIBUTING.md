@@ -1,5 +1,4 @@
-Contributing to locator-tool
-============================
+# Contributing to locator-tool
 
 ## Obtain the source code
 

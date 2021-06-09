@@ -1,7 +1,8 @@
 *[ng-click] {
   cursor: pointer;
 }
-html, body {
+html,
+body {
   height: 100%;
 }
 .fill {
@@ -9,7 +10,7 @@ html, body {
 }
 .fill-absolute {
   position: absolute;
-  top:0;
+  top: 0;
   bottom: 0;
   left: 15px;
   right: 15px;
@@ -23,7 +24,8 @@ html, body {
     height: 60%;
   }
 }
-a[href="https://github.com/simon04/locator-tool"] {
+a[href="https://github.com/simon04/locator-tool"]
+{
   background: url(../node_modules/octicons/build/svg/mark-github.svg);
   background-position: center left;
   background-repeat: no-repeat;

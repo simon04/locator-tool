@@ -1,29 +1,25 @@
-locator-tool
-============
+# locator-tool
 
-This tool helps to add ``{{Location}}`` information to images on [Wikimedia Commons](https://commons.wikimedia.org/).
+This tool helps to add `{{Location}}` information to images on [Wikimedia Commons](https://commons.wikimedia.org/).
 
-Structure
----------
+## Structure
 
 The application consists of:
-* a backend written in Python/flask, located at [`backend/`](https://github.com/simon04/locator-tool/tree/master/backend)
-* a frontend written in JavaScript/AngularJS, located at [`app/`](https://github.com/simon04/locator-tool/tree/master/app)
 
-Usage
------
+- a backend written in Python/flask, located at [`backend/`](https://github.com/simon04/locator-tool/tree/master/backend)
+- a frontend written in JavaScript/AngularJS, located at [`app/`](https://github.com/simon04/locator-tool/tree/master/app)
 
-* [Commons:Locator-tool](https://commons.wikimedia.org/wiki/Commons:Locator-tool)
-* [Edits using locator-tool](https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&tagfilter=OAuth+CID%3A+1857)
-* [Edits using locator-tool till 2020-06-30](https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&tagfilter=OAuth+CID%3A+496)
+## Usage
 
-Translate
----------
+- [Commons:Locator-tool](https://commons.wikimedia.org/wiki/Commons:Locator-tool)
+- [Edits using locator-tool](https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&tagfilter=OAuth+CID%3A+1857)
+- [Edits using locator-tool till 2020-06-30](https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&tagfilter=OAuth+CID%3A+496)
 
-* Translations are done at [transifex.com/locator-tool](https://www.transifex.com/locator-tool/locator-tool/dashboard/)
+## Translate
 
-Author and License
-------------------
+- Translations are done at [transifex.com/locator-tool](https://www.transifex.com/locator-tool/locator-tool/dashboard/)
 
-* Author: simon04
-* License: [GPL v3](https://www.gnu.org/licenses/gpl.html)
+## Author and License
+
+- Author: simon04
+- License: [GPL v3](https://www.gnu.org/licenses/gpl.html)

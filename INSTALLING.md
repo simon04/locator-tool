@@ -1,5 +1,4 @@
-Installing locator-tool
-=======================
+# Installing locator-tool
 
 ```sh
 $ git clone https://github.com/simon04/locator-tool.git $HOME/locator-tool
@@ -29,6 +28,6 @@ Register tool at https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistrati
 
 For more details, see:
 
-* https://wikitech.wikimedia.org/wiki/Help:Tool_Labs/Python_application_stub
-* https://www.mediawiki.org/wiki/Extension:OAuth
-* https://www.github.com/valhallasw/flask-mwoauth
+- https://wikitech.wikimedia.org/wiki/Help:Tool_Labs/Python_application_stub
+- https://www.mediawiki.org/wiki/Extension:OAuth
+- https://www.github.com/valhallasw/flask-mwoauth

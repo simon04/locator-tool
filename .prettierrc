@@ -1,6 +1,7 @@
 {
   "arrowParens": "avoid",
   "bracketSpacing": false,
+  "htmlWhitespaceSensitivity": "ignore",
   "printWidth": 100,
   "singleQuote": true,
   "trailingComma": "none"

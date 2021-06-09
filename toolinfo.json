@@ -1,9 +1,9 @@
 {
-  "name" : "locator-tool",
-  "title" : "locator-tool",
-  "description" : "Add {{Location}} and {{Object location}} to images on Wikimedia Commons",
-  "url" : "https://locator-tool.toolforge.org/",
-  "keywords" : "geolocation, coordinates, map, Commons",
-  "author" : "Simon04",
-  "repository" : "https://github.com/simon04/locator-tool"
+  "name": "locator-tool",
+  "title": "locator-tool",
+  "description": "Add {{Location}} and {{Object location}} to images on Wikimedia Commons",
+  "url": "https://locator-tool.toolforge.org/",
+  "keywords": "geolocation, coordinates, map, Commons",
+  "author": "Simon04",
+  "repository": "https://github.com/simon04/locator-tool"
 }

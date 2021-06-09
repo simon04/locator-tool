@@ -4,7 +4,9 @@
   </svg>
   <span translate="translate">Log in</span>
 </a>
-<span class="navbar-text ms-2" ng-show="$ctrl.user" translate="translate">Logged in as {{$ctrl.user}}</span>
+<span class="navbar-text ms-2" ng-show="$ctrl.user" translate="translate">
+  Logged in as {{$ctrl.user}}
+</span>
 <a class="btn btn-secondary ms-2" ng-href="{{$ctrl.ltDataAuth.logoutURL}}" ng-show="$ctrl.user">
   <svg class="octicon">
     <use xlink:href="#sign-out"></use>
