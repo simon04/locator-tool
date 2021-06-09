@@ -34,7 +34,7 @@
     "angular-lazy-img": "^1.2.0",
     "angular-ll-leaflet": "^1.0.0",
     "angular-local-storage": "^0.5.2",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^5.0.1",
     "deepmerge": "^4.2.2",
     "leaflet": "^1.5.1",
     "leaflet-control-geocoder": "^2.3.0",
