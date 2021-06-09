@@ -1,7 +1,7 @@
 <h2 ng-hide="$ctrl.userInfo" translate="translate">Sign in</h2>
 <p ng-hide="$ctrl.userInfo">
   <span translate="translate">In order to allow locator-tool to modify file description pages, sign in first:</span>
-  <a class="btn btn-success navbar-btn ml-2" href="/locator-tool/login?next=/locator-tool/">
+  <a class="btn btn-success navbar-btn ml-2" ng-href="{{$ctrl.ltDataAuth.loginURL}}">
     <svg class="octicon">
       <use xlink:href="#sign-in"></use>
     </svg>

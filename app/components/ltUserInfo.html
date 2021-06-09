@@ -1,11 +1,11 @@
-<a class="btn btn-success navbar-btn ml-2" href="/locator-tool/login?next=/locator-tool/" ng-hide="$ctrl.user">
+<a class="btn btn-success navbar-btn ml-2" ng-href="{{$ctrl.ltDataAuth.loginURL}}" ng-hide="$ctrl.user">
   <svg class="octicon">
     <use xlink:href="#sign-in"></use>
   </svg>
   <span translate="translate">Log in</span>
 </a>
 <span class="navbar-text ml-2" ng-show="$ctrl.user" translate="translate">Logged in as {{$ctrl.user}}</span>
-<a class="btn btn-secondary navbar-btn ml-2" href="/locator-tool/logout?next=/locator-tool/" ng-show="$ctrl.user">
+<a class="btn btn-secondary navbar-btn ml-2" ng-href="{{$ctrl.ltDataAuth.logoutURL}}" ng-show="$ctrl.user">
   <svg class="octicon">
     <use xlink:href="#sign-out"></use>
   </svg>

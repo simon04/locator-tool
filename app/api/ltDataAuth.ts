@@ -34,4 +34,12 @@ export default class LtDataAuth {
       }
     });
   }
+
+  get loginURL(): string {
+    return '/login?next=' + encodeURIComponent('/' + location.hash);
+  }
+
+  get logoutURL(): string {
+    return '/logout?next=' + encodeURIComponent('/' + location.hash);
+  }
 }
