@@ -142,6 +142,10 @@ msgid ""
 "<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
 msgstr ""
 
+#: ./app/components/ltAbout.html
+msgid "Open Source Licenses"
+msgstr ""
+
 #: ./app/components/ltFileDetails.html
 msgid "Press shift and click on map to set the object location."
 msgstr ""
