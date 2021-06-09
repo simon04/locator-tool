@@ -71,7 +71,7 @@ Watchers fired in the last 5 iterations: {1}`,i,At)}while(K||E.length);for(lt();
     </a>
   </li>
 </ul>
-`;var mp=class{constructor(){this.buildDate="2021-06-09 20:44:08 +0200";this.buildVersion="ec3c5a0"}},vp={controller:mp,template:pp};var gp=`<div
+`;var mp=class{constructor(){this.buildDate="2021-06-09 21:06:01 +0200";this.buildVersion="3bb58cb"}},vp={controller:mp,template:pp};var gp=`<div
   class="fill"
   ll-map=""
   ll-init="$ctrl.mapInit"
