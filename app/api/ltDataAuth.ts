@@ -17,7 +17,7 @@ export default class LtDataAuth {
   constructor(private $http: ng.IHttpService) {}
 
   getUserInfo(): ng.IPromise<User> {
-    return this.$http.get<UserApiResponse>('/locator-tool/user').then(d => d.data && d.data.user);
+    return this.$http.get<UserApiResponse>('/user').then(d => d.data && d.data.user);
   }
 
   editLocation(title: CommonsFile, coordinates: LatLng): ng.IPromise<void> {
@@ -25,7 +25,7 @@ export default class LtDataAuth {
     const {type, lat, lng} = coordinates;
     return this.$http<EditApiResponse>({
       method: 'POST',
-      url: '/locator-tool/edit',
+      url: '/edit',
       data: {type, lat, lng, pageid}
     }).then(response => {
       const data = response.data;

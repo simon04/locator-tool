@@ -36,7 +36,7 @@ echo 127.0.0.1 locator-tool.toolforge.org | sudo tee -a /etc/hosts
 sudo caddy
 ```
 
-Afterwards, open https://locator-tool.toolforge.org/locator-tool/ in the browser.
+Afterwards, open https://locator-tool.toolforge.org/ in the browser.
 
 ### Local backend development
 
