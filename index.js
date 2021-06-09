@@ -82,7 +82,7 @@ Watchers fired in the last 5 iterations: {1}`,i,zt)}while(Y||E.length);for(ut();
     </ul>
   </li>
 </ul>
-`;var gp=class{constructor(){this.appDependencies=pt;this.buildDate="2021-06-09 21:34:05 +0200";this.buildVersion="3930552"}},yp={controller:gp,template:vp};O();O();var _p=`<div
+`;var gp=class{constructor(){this.appDependencies=pt;this.buildDate="2021-06-09 21:44:37 +0200";this.buildVersion="8aaf162"}},yp={controller:gp,template:vp};O();O();var _p=`<div
   class="fill"
   ll-map=""
   ll-init="$ctrl.mapInit"
