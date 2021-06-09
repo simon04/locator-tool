@@ -20,6 +20,8 @@ def add_location_to_wikitext(type, lat, lng, wikitext):
     '{{Information}}{{Location|12.3|45.6|region:XY-Z}}'
     >>> add_location_to_wikitext('Location', 12.3, 45.6, "{{Information}}{{Location|34|1|27.37|N|116|9|29.88|W|region:XY}}")
     '{{Information}}{{Location|12.3|45.6|region:XY}}'
+    >>> add_location_to_wikitext('Location', 12.3, 45.6, "{{Information}}{{Location|87.65|-43.21|region:XY-Z}}{{Location possible}}")
+    '{{Information}}{{Location|12.3|45.6|region:XY-Z}}'
     >>> add_location_to_wikitext('Location', 12.3, 45.6, "Foo\n{{Information|foo={{de|sdf}}|bar={{lic}}}}Bar")
     'Foo\n{{Information|foo={{de|sdf}}|bar={{lic}}}}\n{{Location|12.3|45.6}}\nBar'
     >>> add_location_to_wikitext('Location', 12.3, 45.6, "X\n{{Location dec|50.917385|13.342268}}\nX")
@@ -37,6 +39,8 @@ def add_location_to_wikitext(type, lat, lng, wikitext):
     """
     if type not in ['Location', 'Object location']:
         raise ValueError('Invalid location type')
+    pattern = re.compile(r'\{\{\s*Location possible\s*\}\}', flags=re.IGNORECASE)
+    wikitext = pattern.sub('', wikitext)
     location = "{{%s|%s|%s}}" % (type, lat, lng)
     numeric_arg = r'(\|\s*([1-9]\s*=\s*)?[-+.0-9]+\s*)'
     pattern = re.compile(
