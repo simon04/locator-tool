@@ -1,14 +1,14 @@
 # 
 # Translators:
 # frettie <frettie@gmail.com>, 2017,2020
-# trendspotter, 2019
-# trendspotter, 2019
+# trendspotter <jirka.p@volny.cz>, 2019
+# trendspotter <jirka.p@volny.cz>, 2019
 # Simon Legner <simon.legner@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2020-11-12 09:19+0000\n"
-"Last-Translator: frettie <frettie@gmail.com>\n"
+"PO-Revision-Date: 2021-06-09 20:19+0000\n"
+"Last-Translator: Transifex Bot <>\n"
 "Language-Team: Czech (http://www.transifex.com/locator-tool/locator-tool/language/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -159,6 +159,10 @@ msgid ""
 "Object location via\n"
 "<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
 msgstr "Umístění objektu pomocí\n<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Umístění objektu</code></a>"
+
+#: ./app/components/ltAbout.html
+msgid "Open Source Licenses"
+msgstr ""
 
 #: ./app/components/ltFileDetails.html
 msgid "Press shift and click on map to set the object location."

@@ -1,11 +1,11 @@
 # 
 # Translators:
-# Bojan Jankuloski, 2020
+# Bojan Jankuloski, 2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2020-10-23 05:15+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"PO-Revision-Date: 2021-06-10 10:18+0000\n"
+"Last-Translator: Bojan Jankuloski\n"
 "Language-Team: Macedonian (http://www.transifex.com/locator-tool/locator-tool/language/mk/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -157,6 +157,10 @@ msgid ""
 "<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
 msgstr "Местоположба на предметот преку\n<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
 
+#: ./app/components/ltAbout.html
+msgid "Open Source Licenses"
+msgstr "Отворени лиценци"
+
 #: ./app/components/ltFileDetails.html
 msgid "Press shift and click on map to set the object location."
 msgstr "Држете Shift и стиснете на картата за да ја укажете местоположбата на предметот."
@@ -191,7 +195,7 @@ msgstr "Прикажи {{$ctrl.titleList.length}} податотеки на ка
 
 #: ./app/components/ltFilesSelector.html
 msgid "Sign in"
-msgstr "Зачленете се"
+msgstr "Најавете се"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Start timestamp"
@@ -232,7 +236,7 @@ msgstr "Кориснички податотек"
 
 #: ./app/components/ltAbout.html
 msgid "Version:"
-msgstr ""
+msgstr "Верзија:"
 
 #: ./app/components/ltFilesSelector.html
 msgid ""
