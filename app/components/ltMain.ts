@@ -102,6 +102,10 @@ class LtMainController implements ng.IComponentController {
     const newIndex = direction + index;
     if (newIndex >= 0 && titles[newIndex]) {
       this.title = titles[newIndex];
+      const target = $event.target as HTMLElement;
+      window.requestAnimationFrame(() =>
+        target.querySelectorAll('.list-group-item')?.[newIndex]?.scrollIntoView?.({block: 'center'})
+      );
     }
   }
 
