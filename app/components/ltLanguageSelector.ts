@@ -27,6 +27,7 @@ class ltLanguageSelector implements ng.IComponentController {
     private localStorageService: angular.local.storage.ILocalStorageService,
     private gettextCatalog: gettextCatalog
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     languageCodes.forEach(lang => this.gettextCatalog.setStrings(lang, (i18n as any)[lang]));
     this.languages = languageCodes.reduce((obj, lang) => {
       obj[lang] = this.getDisplayString(lang);

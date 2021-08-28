@@ -322,6 +322,7 @@ export default class LtData {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private $query<T extends ApiResponse<any>>(
     query: Record<string, unknown>,
     previousResults = {},
