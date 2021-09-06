@@ -6,4 +6,5 @@ backend/venv/
 dist/*
 !dist/index.html
 !dist/locator-tool.svg
+!dist/robots.txt
 node_modules/
