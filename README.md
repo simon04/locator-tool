@@ -1,6 +1,6 @@
 # locator-tool
 
-This tool helps to add `{{Location}}` information to images on [Wikimedia Commons](https://commons.wikimedia.org/).
+A tool to add `{{Location}}` or `{{Object location}}` to images on [Wikimedia Commons](https://commons.wikimedia.org/).
 
 ## Structure
 
