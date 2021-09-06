@@ -14,7 +14,7 @@ class LtNavbarController implements ng.IComponentController {
   }
 
   get activateLinks() {
-    return this.params && (this.params.files || this.params.user || this.params.category);
+    return this.params?.files || this.params?.user || this.params?.category;
   }
 }
 

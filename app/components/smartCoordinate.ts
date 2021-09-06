@@ -19,7 +19,7 @@ export default function directive(): ng.IDirective {
         if (!type) {
           // keep track of coordinate type since it is lost
           // when returning undefined on invalid input
-          type = ctrl.$modelValue && ctrl.$modelValue.type;
+          type = ctrl.$modelValue?.type;
         }
         const m = viewValue.match(REGEXP);
         ctrl.$setValidity('coordinate', !!m || ctrl.$isEmpty(viewValue));
@@ -34,7 +34,7 @@ export default function directive(): ng.IDirective {
       }
 
       function formatter(coordinate: LatLng) {
-        return coordinate && coordinate.csv;
+        return coordinate?.csv;
       }
     }
   };

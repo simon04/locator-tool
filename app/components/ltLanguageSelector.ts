@@ -39,7 +39,7 @@ class ltLanguageSelector implements ng.IComponentController {
     const language: string = this.localStorageService.get('language');
     if (language) {
       this.gettextCatalog.setCurrentLanguage(language);
-    } else if (this.$window.navigator && this.$window.navigator.languages) {
+    } else if (this.$window.navigator?.languages) {
       const langs = this.$window.navigator.languages.filter(lang => this.languages[lang]);
       if (langs.length) {
         this.gettextCatalog.setCurrentLanguage(langs[0]);

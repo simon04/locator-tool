@@ -111,14 +111,14 @@ class LtMainController implements ng.IComponentController {
 
   titleChanged(title: CommonsFile): void {
     this.error = undefined;
-    if (title && title.coordinates) {
+    if (title?.coordinates) {
       this.updateMapView(title.coordinates);
     }
-    if (title && title.pageid) {
+    if (title?.pageid) {
       this.ltData.getFileDetails(title.pageid).then(fileDetails => {
         angular.extend(title, fileDetails);
         const {lat, lng} = title.objectLocation;
-        if (!(title.coordinates && title.coordinates.lat)) {
+        if (!title.coordinates?.lat) {
           this.updateMapView({lat, lng});
         }
       });

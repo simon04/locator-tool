@@ -109,7 +109,7 @@ export default class LtData {
       titles: titles.join('|').replace(/_/g, ' ')
     };
     return this.$query<ApiResponse<CoordinatePage>>(params).then(data => {
-      const pages = (data && data.query && data.query.pages) || {};
+      const pages = data?.query?.pages || {};
       return Object.keys(pages).map(pageid => {
         const page: CoordinatePage = pages[pageid];
         const coordinates = page.coordinates || [];
@@ -131,7 +131,7 @@ export default class LtData {
         } as CommonsFile;
       });
       function toLatLng(cc: Coordinate[]): {lat?: number; lng?: number} {
-        const c: Coordinate = cc && cc.length ? cc[0] : undefined;
+        const c: Coordinate = cc?.[0];
         return angular.isObject(c) ? {lat: c.lat, lng: c.lon} : {};
       }
     });
@@ -174,9 +174,8 @@ export default class LtData {
     const timestampGetter = this.$parse('imageinfo[0].extmetadata.DateTimeOriginal.value');
     const urlGetter = this.$parse('imageinfo[0].descriptionurl');
     return this.$query<ApiResponse<DetailsPage>>(params).then(data => {
-      const page: DetailsPage | undefined =
-        data && data.query && data.query.pages && data.query.pages[pageid];
-      const categories = ((page && page.categories) || []).map(category =>
+      const page: DetailsPage | undefined = data?.query?.pages?.[pageid];
+      const categories = (page?.categories || []).map(category =>
         category.title.replace(/^Category:/, '')
       );
       return {
