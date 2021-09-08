@@ -225,7 +225,7 @@ export default class LtData {
       apfrom: prefix,
       apprefix: prefix
     };
-    return this.$query<ApiResponse<Page>>(params, {}, () => false).then(data =>
+    return this.$query<ApiResponse<Page>>(params, {}, undefined, () => false).then(data =>
       data.query.allpages.map(i => i.title.replace(/^Category:/, '' as CommonsTitle))
     );
   }
@@ -280,33 +280,38 @@ export default class LtData {
       Object.keys(data.query.pages).map(id => data.query.pages[id]);
     const shouldContinue = (data: ApiResponse<Page>): boolean =>
       data.continue && (!userLimit || toPageArray(data).length < userLimit);
-    return this.$query<ApiResponse<Page>>(params, {}, shouldContinue)
+    return this.$query<ApiResponse<Page>>(params, {}, undefined, shouldContinue)
       .then(data => toPageArray(data).map(page => page.title as CommonsTitle))
       .then(pages => (userLimit ? this.limitToFilter(pages, userLimit) : pages));
   }
 
   getFilesForCategory(cat: string, depth = 3): ng.IPromise<CommonsTitle[]> {
     cat = cat.replace(/^Category:/, '');
+    const timeout = this.$q.defer();
     return this.successRace([
-      depth <= 0 ? this.getFilesForCategory0(cat) : undefined,
-      this.getFilesForCategory1(cat, depth),
-      this.getFilesForCategory3(cat, depth)
-    ]);
+      depth <= 0 ? this.getFilesForCategory0(cat, timeout.promise) : undefined,
+      this.getFilesForCategory1(cat, depth, timeout.promise),
+      this.getFilesForCategory3(cat, depth, timeout.promise)
+    ]).finally(() => timeout.resolve());
   }
 
-  getFilesForCategory0(cat: string): ng.IPromise<CommonsTitle[]> {
+  getFilesForCategory0(cat: string, timeout: ng.IPromise<unknown>): ng.IPromise<CommonsTitle[]> {
     const params = {
       list: 'categorymembers',
       cmlimit: 500,
       cmnamespace: NS_FILE,
       cmtitle: 'Category:' + cat
     };
-    return this.$query<ApiResponse<Page>>(params).then(data =>
+    return this.$query<ApiResponse<Page>>(params, {}, timeout).then(data =>
       data.query.categorymembers.map(cm => cm.title)
     );
   }
 
-  getFilesForCategory1(cat: string, depth: number): ng.IPromise<CommonsTitle[]> {
+  getFilesForCategory1(
+    cat: string,
+    depth: number,
+    timeout: ng.IPromise<unknown>
+  ): ng.IPromise<CommonsTitle[]> {
     const params = {
       lang: 'commons',
       cat: cat.replace(/^Category:/, ''),
@@ -315,11 +320,15 @@ export default class LtData {
       json: 1
     };
     return this.$http
-      .get<CommonsTitle[]>('https://cats-php.toolforge.org/', {params})
+      .get<CommonsTitle[]>('https://cats-php.toolforge.org/', {params, timeout})
       .then(d => d.data.map(f => `File:${f}`));
   }
 
-  getFilesForCategory3(categories: string, depth: number): ng.IPromise<CommonsTitle[]> {
+  getFilesForCategory3(
+    categories: string,
+    depth: number,
+    timeout: ng.IPromise<unknown>
+  ): ng.IPromise<CommonsTitle[]> {
     const params = {
       language: 'commons',
       project: 'wikimedia',
@@ -333,7 +342,7 @@ export default class LtData {
     return (
       this.$http
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .get<any>('https://petscan.wmflabs.org/', {params})
+        .get<any>('https://petscan.wmflabs.org/', {params, timeout})
         .then(d => d.data['*'][0]['a']['*'] as CommonsTitle[])
     );
   }
@@ -342,6 +351,7 @@ export default class LtData {
   private $query<T extends ApiResponse<any>>(
     query: Record<string, unknown>,
     previousResults = {},
+    timeout?: ng.IPromise<unknown>,
     shouldContinue = (data: T) => !!data.continue
   ): ng.IPromise<T> {
     const data = this.$httpParamSerializer(query);
@@ -355,6 +365,7 @@ export default class LtData {
     };
     return this.$http
       .post<T>(API_URL, data, {
+        timeout,
         headers,
         params
       })
@@ -367,6 +378,7 @@ export default class LtData {
           ? this.$query<T>(
               angular.extend(query, {continue: undefined}, data.continue),
               angular.extend(data, {continue: undefined}),
+              timeout,
               shouldContinue
             )
           : data
