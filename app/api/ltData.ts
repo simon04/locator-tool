@@ -14,6 +14,7 @@ interface ApiResponse<P = never> {
   batchcomplete: string;
   query: {
     pages: {[key: string]: P};
+    categorymembers?: P[];
     allpages?: P[];
   };
 }
@@ -287,9 +288,22 @@ export default class LtData {
   getFilesForCategory(cat: string, depth = 3): ng.IPromise<CommonsTitle[]> {
     cat = cat.replace(/^Category:/, '');
     return this.successRace([
+      depth <= 0 ? this.getFilesForCategory0(cat) : undefined,
       this.getFilesForCategory1(cat, depth),
       this.getFilesForCategory3(cat, depth)
     ]);
+  }
+
+  getFilesForCategory0(cat: string): ng.IPromise<CommonsTitle[]> {
+    const params = {
+      list: 'categorymembers',
+      cmlimit: 500,
+      cmnamespace: NS_FILE,
+      cmtitle: 'Category:' + cat
+    };
+    return this.$query<ApiResponse<Page>>(params).then(data =>
+      data.query.categorymembers.map(cm => cm.title)
+    );
   }
 
   getFilesForCategory1(cat: string, depth: number): ng.IPromise<CommonsTitle[]> {
@@ -360,6 +374,7 @@ export default class LtData {
   }
 
   private successRace<T>(promises: ng.IPromise<T>[]): ng.IPromise<T> {
+    promises = promises.filter(p => !!p);
     return this.$q<T>((resolve, reject) => {
       // resolve first successful one
       promises.forEach(promise => promise.then(resolve));
