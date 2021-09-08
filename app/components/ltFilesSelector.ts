@@ -86,12 +86,12 @@ class LtFilesSelectorController implements ng.IComponentController {
   get titleList() {
     return this.titles
       .split('\n')
-      .map(file => file && file.split('|')[0])
+      .map(file => file?.split('|')[0])
       .filter(x => x);
   }
 
   set titleList(files) {
-    this.titles = files && files.join('\n');
+    this.titles = files?.join('\n');
   }
 
   onFilesPaste($event: ClipboardEvent) {

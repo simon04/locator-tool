@@ -73,7 +73,7 @@ class LtMainController implements ng.IComponentController {
   get isLoading() {
     const promise = this.loading$q;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return promise && !(promise as any).$$state.status;
+    return !(promise as any)?.$$state?.status;
   }
 
   _hasLocation(title: CommonsFile) {

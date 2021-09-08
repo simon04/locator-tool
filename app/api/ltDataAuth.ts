@@ -17,7 +17,7 @@ export default class LtDataAuth {
   constructor(private $http: ng.IHttpService) {}
 
   getUserInfo(): ng.IPromise<User> {
-    return this.$http.get<UserApiResponse>('/user').then(d => d.data && d.data.user);
+    return this.$http.get<UserApiResponse>('/user').then(d => d?.data?.user);
   }
 
   editLocation(title: CommonsFile, coordinates: LatLng): ng.IPromise<void> {
