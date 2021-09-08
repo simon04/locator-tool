@@ -167,6 +167,7 @@ export default class LtData {
       iiprop: 'url|extmetadata',
       iiextmetadatafilter: 'ImageDescription|Artist|DateTimeOriginal',
       iiextmetadatalanguage: this.gettextCatalog.getCurrentLanguage(),
+      rvslots: 'main',
       rvprop: 'content'
     };
     const descriptionGetter = this.$parse('imageinfo[0].extmetadata.ImageDescription.value');
