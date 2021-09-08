@@ -5,6 +5,8 @@ import getFilePath from 'wikimedia-commons-file-path';
 import {CommonsFile, CommonsTitle, LatLng} from '../model';
 
 export const API_URL = 'https://commons.wikimedia.org/w/api.php';
+const NS_FILE = 6;
+const NS_CATEGORY = 14;
 const maxTitlesPerRequest = 50;
 
 interface ApiResponse<P = never> {
@@ -217,7 +219,7 @@ export default class LtData {
   getCategoriesForPrefix(prefix: string): ng.IPromise<CommonsTitle[]> {
     const params = {
       list: 'allpages',
-      apnamespace: 14,
+      apnamespace: NS_CATEGORY,
       aplimit: 30,
       apfrom: prefix,
       apprefix: prefix
@@ -294,7 +296,7 @@ export default class LtData {
     const params = {
       lang: 'commons',
       cat: cat.replace(/^Category:/, ''),
-      type: 6, // File:
+      type: NS_FILE,
       depth: depth,
       json: 1
     };
@@ -309,7 +311,7 @@ export default class LtData {
       project: 'wikimedia',
       depth,
       categories,
-      'ns[6]': 1,
+      [`ns[${NS_FILE}]`]: 1,
       format: 'json',
       sparse: 1,
       doit: 1
