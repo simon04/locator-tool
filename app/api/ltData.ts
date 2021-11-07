@@ -263,12 +263,25 @@ export default class LtData {
     });
   }
 
+  private removeCommonsPrefix(string: string, prefix: string): string {
+    const urlPrefix = 'https://commons.wikimedia.org/wiki/';
+    if (string.indexOf(urlPrefix) === 0) {
+      string = string.slice(urlPrefix.length);
+      string = decodeURI(string);
+    }
+    if (string.indexOf(prefix) === 0) {
+      string = string.slice(prefix.length);
+    }
+    return string;
+  }
+
   getFilesForUser(
     user: string,
     userLimit: number,
     userStart: number,
     userEnd: number
   ): ng.IPromise<CommonsTitle[]> {
+    user = this.removeCommonsPrefix(user, 'User:');
     // https://commons.wikimedia.org/w/api.php?action=help&modules=query%2Ballimages
     const params = {
       generator: 'allimages',
@@ -289,7 +302,7 @@ export default class LtData {
   }
 
   getFilesForCategory(cat: string, depth = 3): ng.IPromise<CommonsTitle[]> {
-    cat = cat.replace(/^Category:/, '');
+    cat = this.removeCommonsPrefix(cat, 'Category:');
     const timeout = this.$q.defer();
     const requests = [
       this.getFilesForCategory1(cat, depth, timeout.promise),
