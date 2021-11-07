@@ -16,11 +16,11 @@ class LtFilesSelectorController implements ng.IComponentController {
   $tabs = Tab;
   category: string;
   categoryDepth: number;
-  categorySuggestions: string[];
+  categorySuggestions: string[] = [];
   titles: string;
   user: string;
   userEnd: Date | undefined;
-  userInfo: string;
+  userInfo: string | undefined;
   userLimit: number | undefined;
   userStart: Date | undefined;
 

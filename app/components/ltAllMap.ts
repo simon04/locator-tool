@@ -14,9 +14,9 @@ const DEFAULT_MAP_VIEW = {
 export type MapView = typeof DEFAULT_MAP_VIEW;
 
 class LtAllMapController implements ng.IComponentController {
-  bounds: LatLng[];
+  bounds: LatLng[] | undefined;
   mapView: MapView = DEFAULT_MAP_VIEW;
-  titles: CommonsFile[];
+  titles: CommonsFile[] = [];
 
   public static $inject = ['ltData', '$stateParams', 'localStorageService'];
   constructor(

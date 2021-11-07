@@ -27,7 +27,7 @@
   },
   "homepage": "https://locator-tool.toolforge.org/",
   "dependencies": {
-    "@uirouter/angularjs": "^1.0.12",
+    "@uirouter/angularjs": "^1.0.29",
     "angular": "1.6.8",
     "angular-animate": "1.6.8",
     "angular-gettext": "^2.3.8",

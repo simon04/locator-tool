@@ -4,7 +4,7 @@ import {CommonsFile, LatLng} from '../model';
 
 class LtFileDetailsController implements ng.IComponentController {
   error: unknown;
-  file: CommonsFile;
+  file!: CommonsFile;
 
   public static $inject = ['ltDataAuth'];
   constructor(private ltDataAuth: LtDataAuth) {}

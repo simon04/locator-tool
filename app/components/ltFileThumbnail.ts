@@ -2,7 +2,7 @@ import template from './ltFileThumbnail.html';
 import {CommonsFile} from '../model';
 
 class LtFileThumbnailController implements ng.IComponentController {
-  file: CommonsFile;
+  file!: CommonsFile;
 
   public static $inject = ['$window'];
   constructor(private $window: ng.IWindowService) {}

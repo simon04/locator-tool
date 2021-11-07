@@ -17,11 +17,11 @@ class LtGeolocateController implements ng.IComponentController {
   error: unknown;
   files: string;
   filter = '';
-  loading$q: ng.IPromise<unknown>;
+  loading$q: ng.IPromise<unknown> | undefined;
   mapView: MapView = DEFAULT_MAP_VIEW;
-  showGeolocated: boolean;
-  title: CommonsFile;
-  titles: CommonsFile[];
+  showGeolocated = false;
+  title: CommonsFile | undefined;
+  titles: CommonsFile[] | undefined;
   user: string;
 
   public static $inject = [
@@ -98,7 +98,7 @@ class LtGeolocateController implements ng.IComponentController {
   keyPressedInList($event: KeyboardEvent): void {
     const titles = this.filteredTitles;
     const direction = keydownToDirection($event);
-    if (direction === undefined) {
+    if (direction === undefined || this.title === undefined) {
       return;
     }
     const index = titles.indexOf(this.title);
@@ -140,7 +140,7 @@ class LtGeolocateController implements ng.IComponentController {
   }
 
   coordinatesChanged(coordinates: LatLng): void {
-    if (!coordinates) {
+    if (!coordinates || !this.title) {
       return;
     } else if (coordinates.type === 'Location') {
       this.title.coordinates = this.title.coordinates.withLatLng(coordinates);

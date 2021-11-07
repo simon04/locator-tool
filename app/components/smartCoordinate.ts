@@ -5,12 +5,8 @@ export default function directive(): ng.IDirective {
 
   return {
     require: 'ngModel',
-    link: function (
-      _scope: ng.IScope,
-      _elm: JQLite,
-      _attrs: ng.IAttributes,
-      ctrl: ng.INgModelController
-    ) {
+    link: function (_scope: ng.IScope, _elm: JQLite, _attrs: ng.IAttributes, c?: ng.IController) {
+      const ctrl = c as ng.INgModelController;
       let type: 'camera' | 'object';
       ctrl.$parsers.push(parser as ng.IModelParser);
       ctrl.$formatters.push(formatter as ng.IModelFormatter);

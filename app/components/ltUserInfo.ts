@@ -2,7 +2,7 @@ import template from './ltUserInfo.html';
 import LtDataAuth from '../api/ltDataAuth';
 
 class LtUserInfoController implements ng.IComponentController {
-  user: string;
+  user: string | undefined;
 
   public static $inject = ['ltDataAuth'];
   constructor(private ltDataAuth: LtDataAuth) {}

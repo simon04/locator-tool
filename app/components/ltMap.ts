@@ -10,9 +10,9 @@ import ControlGeocoder from 'leaflet-control-geocoder';
 let layerFromLocalStorage: string;
 
 export class LtMapController implements ng.IComponentController {
-  mapView: MapView;
-  mapMarker: LatLng;
-  mapObjectLocation: LatLng;
+  mapView!: MapView;
+  mapMarker!: LatLng;
+  mapObjectLocation!: LatLng;
 
   public static $inject = ['$scope', 'localStorageService'];
   constructor(

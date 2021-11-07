@@ -38,7 +38,9 @@ export class LatLng {
   }
 
   get csv(): string {
-    return this.isDefined ? [this.lat, this.lng].map(atLeastOneDecimalPlace).join(', ') : '';
+    return this.lat !== undefined && this.lng !== undefined
+      ? [this.lat, this.lng].map(atLeastOneDecimalPlace).join(', ')
+      : '';
   }
 }
 
