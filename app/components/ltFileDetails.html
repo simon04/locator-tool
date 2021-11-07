@@ -16,7 +16,7 @@
         <use xlink:href="#calendar"></use>
       </svg>
 
-      <time>{{$ctrl.file.timestamp}}</time>
+      <time ng-bind-html="$ctrl.file.timestamp"></time>
     </div>
     <div class="small" ng-if="$ctrl.file.author">
       <svg class="octicon">

@@ -186,7 +186,7 @@ export default class LtData {
         categories,
         description: this.$sce.trustAsHtml(descriptionGetter(page)),
         author: this.$sce.trustAsHtml(authorGetter(page)),
-        timestamp: timestampGetter(page),
+        timestamp: this.$sce.trustAsHtml(timestampGetter(page)),
         url: urlGetter(page),
         objectLocation: extractObjectLocation(page)
       };
