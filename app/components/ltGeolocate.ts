@@ -1,5 +1,5 @@
 import angular from 'angular';
-import template from './ltMain.html';
+import template from './ltGeolocate.html';
 import {StateParams} from '@uirouter/core';
 import LtData from '../api/ltData';
 import LtDataAuth from '../api/ltDataAuth';
@@ -12,7 +12,7 @@ const DEFAULT_MAP_VIEW = {
   zoom: 13
 };
 
-class LtMainController implements ng.IComponentController {
+class LtGeolocateController implements ng.IComponentController {
   category: string;
   error: unknown;
   files: string;
@@ -149,7 +149,7 @@ class LtMainController implements ng.IComponentController {
 
 export default {
   template,
-  controller: LtMainController
+  controller: LtGeolocateController
 } as ng.IComponentOptions;
 
 function keydownToDirection($event: KeyboardEvent) {

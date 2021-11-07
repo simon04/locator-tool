@@ -8,7 +8,7 @@ import ltFileThumbnail from './ltFileThumbnail';
 import ltFilesSelector from './ltFilesSelector';
 import ltLanguageSelector from './ltLanguageSelector';
 import ltLocationInput from './ltLocationInput';
-import ltMain from './ltMain';
+import ltGeolocate from './ltGeolocate';
 import ltMap from './ltMap';
 import ltNavbar from './ltNavbar';
 import ltSpinner from './ltSpinner';
@@ -25,7 +25,7 @@ export default angular
     ltFilesSelector,
     ltLanguageSelector,
     ltLocationInput,
-    ltMain,
+    ltGeolocate,
     ltMap,
     ltNavbar,
     ltSpinner,

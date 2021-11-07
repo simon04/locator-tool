@@ -60,7 +60,7 @@ function routes(
 
   $stateProvider.state('geolocate', {
     url: '/geolocate?' + params,
-    component: 'ltMain'
+    component: 'ltGeolocate'
   });
 
   $stateProvider.state('map', {
