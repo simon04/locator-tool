@@ -40,7 +40,7 @@
     "leaflet-control-geocoder": "^2.3.0",
     "leaflet-providers": "^1.9.0",
     "octicons": "^5.0.1",
-    "wikimedia-commons-file-path": "^2.1.0"
+    "wikimedia-commons-file-path": "^2.1.1"
   },
   "devDependencies": {
     "@types/angular": "^1.6.51",

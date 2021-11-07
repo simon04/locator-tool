@@ -19,10 +19,10 @@ class LtFilesSelectorController implements ng.IComponentController {
   categorySuggestions: string[];
   titles: string;
   user: string;
-  userEnd: Date;
+  userEnd: Date | undefined;
   userInfo: string;
-  userLimit: number;
-  userStart: Date;
+  userLimit: number | undefined;
+  userStart: Date | undefined;
 
   public static $inject = ['ltData', 'ltDataAuth', '$log', '$state', '$stateParams'];
   constructor(

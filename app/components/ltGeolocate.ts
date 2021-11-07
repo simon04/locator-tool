@@ -98,6 +98,9 @@ class LtGeolocateController implements ng.IComponentController {
   keyPressedInList($event: KeyboardEvent): void {
     const titles = this.filteredTitles;
     const direction = keydownToDirection($event);
+    if (direction === undefined) {
+      return;
+    }
     const index = titles.indexOf(this.title);
     const newIndex = direction + index;
     if (newIndex >= 0 && titles[newIndex]) {

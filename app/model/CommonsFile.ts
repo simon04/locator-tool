@@ -6,5 +6,5 @@ export interface CommonsFile {
   url: string;
   coordinates: LatLng;
   objectLocation: LatLng;
-  imageUrl(width: number): string;
+  imageUrl(width?: number): string;
 }

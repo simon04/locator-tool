@@ -15,7 +15,7 @@ export default function directive(): ng.IDirective {
       ctrl.$parsers.push(parser as ng.IModelParser);
       ctrl.$formatters.push(formatter as ng.IModelFormatter);
 
-      function parser(viewValue: string): LatLng {
+      function parser(viewValue: string): LatLng | undefined {
         if (!type) {
           // keep track of coordinate type since it is lost
           // when returning undefined on invalid input

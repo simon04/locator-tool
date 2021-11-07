@@ -73,6 +73,9 @@ function routes(
 
 /* eslint-env browser */
 angular.element(document).ready(() => {
-  document.getElementById('octicons').innerHTML = octicons;
+  const octiconsDiv = document.createElement('div');
+  octiconsDiv.hidden = true;
+  octiconsDiv.innerHTML = octicons;
+  document.body.appendChild(octiconsDiv);
   angular.bootstrap(document, ['app'], {strictDi: true});
 });

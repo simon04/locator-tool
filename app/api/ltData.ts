@@ -120,7 +120,7 @@ export default class LtData {
           pageid: parseInt(pageid),
           file: page.title,
           url: `https://commons.wikimedia.org/wiki/${page.title}`,
-          imageUrl(width: number) {
+          imageUrl(width?: number) {
             return getFilePath(this.file, width);
           },
           coordinates: new LatLng(
@@ -193,6 +193,9 @@ export default class LtData {
     });
 
     function extractObjectLocation(page: DetailsPage) {
+      if (!page.revisions?.length) {
+        return new LatLng('Object location', {});
+      }
       try {
         const wikitext: string = page.revisions[0]['*'];
         const locDeg = wikitext.match(
@@ -226,7 +229,7 @@ export default class LtData {
       apprefix: prefix
     };
     return this.$query<ApiResponse<Page>>(params, {}, undefined, () => false).then(data =>
-      data.query.allpages.map(i => i.title.replace(/^Category:/, '' as CommonsTitle))
+      (data.query.allpages || []).map(i => i.title.replace(/^Category:/, '' as CommonsTitle))
     );
   }
 
@@ -279,7 +282,7 @@ export default class LtData {
     const toPageArray = (data: ApiResponse<Page>): Page[] =>
       Object.keys(data.query.pages).map(id => data.query.pages[id]);
     const shouldContinue = (data: ApiResponse<Page>): boolean =>
-      data.continue && (!userLimit || toPageArray(data).length < userLimit);
+      data.continue ? !userLimit || toPageArray(data).length < userLimit : false;
     return this.$query<ApiResponse<Page>>(params, {}, undefined, shouldContinue)
       .then(data => toPageArray(data).map(page => page.title as CommonsTitle))
       .then(pages => (userLimit ? this.limitToFilter(pages, userLimit) : pages));
@@ -288,11 +291,14 @@ export default class LtData {
   getFilesForCategory(cat: string, depth = 3): ng.IPromise<CommonsTitle[]> {
     cat = cat.replace(/^Category:/, '');
     const timeout = this.$q.defer();
-    return this.successRace([
-      depth <= 0 ? this.getFilesForCategory0(cat, timeout.promise) : undefined,
+    const requests = [
       this.getFilesForCategory1(cat, depth, timeout.promise),
       this.getFilesForCategory3(cat, depth, timeout.promise)
-    ]).finally(() => timeout.resolve());
+    ];
+    if (depth <= 0) {
+      requests.unshift(this.getFilesForCategory0(cat, timeout.promise));
+    }
+    return this.successRace(requests).finally(() => timeout.resolve());
   }
 
   getFilesForCategory0(cat: string, timeout: ng.IPromise<unknown>): ng.IPromise<CommonsTitle[]> {
@@ -303,7 +309,7 @@ export default class LtData {
       cmtitle: 'Category:' + cat
     };
     return this.$query<ApiResponse<Page>>(params, {}, timeout).then(data =>
-      data.query.categorymembers.map(cm => cm.title)
+      (data.query.categorymembers || []).map(cm => cm.title)
     );
   }
 
