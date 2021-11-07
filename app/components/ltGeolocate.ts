@@ -143,9 +143,12 @@ class LtGeolocateController implements ng.IComponentController {
     if (!coordinates || !this.title) {
       return;
     } else if (coordinates.type === 'Location') {
-      this.title.coordinates = this.title.coordinates.withLatLng(coordinates);
+      this.title.coordinates = this.title.coordinates.withLatLng(coordinates.lat, coordinates.lng);
     } else if (coordinates.type === 'Object location') {
-      this.title.objectLocation = this.title.objectLocation.withLatLng(coordinates);
+      this.title.objectLocation = this.title.objectLocation.withLatLng(
+        coordinates.lat,
+        coordinates.lng
+      );
     }
   }
 }

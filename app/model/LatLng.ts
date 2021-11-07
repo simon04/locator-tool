@@ -1,28 +1,39 @@
 export class LatLng {
-  public lat?: number;
-  public lng?: number;
-  _latOriginal?: number;
-  _lngOriginal?: number;
-
-  constructor(public type: string, {lat, lng}: {lat?: number; lng?: number}) {
-    this.lat = lat;
-    this.lng = lng;
-    this._latOriginal = lat;
-    this._lngOriginal = lng;
+  constructor(
+    public type: 'Location' | 'Object location',
+    public lat: number | undefined,
+    public lng: number | undefined,
+    private readonly latOriginal?: number | undefined,
+    private readonly lngOriginal?: number | undefined
+  ) {
+    if (arguments.length === 3) {
+      // cannot use fallback value in constructor (latOriginal=lat) since latOriginal may need to be undefined
+      this.latOriginal = lat;
+      this.lngOriginal = lng;
+    }
   }
 
-  withLatLng(
-    {lat, lng}: {lat?: number; lng?: number} = {lat: this._latOriginal, lng: this._lngOriginal}
-  ): LatLng {
-    const coordinates = new LatLng(this.type, {lat, lng});
-    coordinates._latOriginal = this._latOriginal;
-    coordinates._lngOriginal = this._lngOriginal;
-    return coordinates;
+  withLatLng(lat: number | undefined, lng: number | undefined): LatLng {
+    return new LatLng(this.type, lat, lng, this.latOriginal, this.lngOriginal);
   }
 
-  markAsSaved(): void {
-    this._latOriginal = this.lat;
-    this._lngOriginal = this.lng;
+  roundToPrecision(): LatLng {
+    return new LatLng(
+      this.type,
+      roundToPrecision(this.lat),
+      roundToPrecision(this.lng),
+      this.latOriginal,
+      this.lngOriginal
+    );
+  }
+
+  rollback(): void {
+    this.lat = this.latOriginal;
+    this.lng = this.lngOriginal;
+  }
+
+  commit(): LatLng {
+    return new LatLng(this.type, this.lat, this.lng, this.lat, this.lng);
   }
 
   get isDefined(): boolean {
@@ -30,7 +41,7 @@ export class LatLng {
   }
 
   get isChanged(): boolean {
-    return this.lat !== this._latOriginal || this.lng !== this._lngOriginal;
+    return this.lat !== this.latOriginal || this.lng !== this.lngOriginal;
   }
 
   get isDefinedAndSaved(): boolean {
@@ -46,4 +57,8 @@ export class LatLng {
 
 function atLeastOneDecimalPlace(value: number) {
   return value % 1 === 0 ? value.toFixed(1) : value;
+}
+
+function roundToPrecision(value: number | undefined, fractionDigits = 5): number | undefined {
+  return typeof value === 'number' ? +value.toFixed(fractionDigits) : value;
 }

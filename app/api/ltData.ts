@@ -125,17 +125,17 @@ export default class LtData {
           },
           coordinates: new LatLng(
             'Location',
-            toLatLng(coordinates.filter(c => c.primary === '' && c.type === 'camera'))
+            ...toLatLng(coordinates.filter(c => c.primary === '' && c.type === 'camera'))
           ),
           objectLocation: new LatLng(
             'Object location',
-            toLatLng(coordinates.filter(c => c.type === 'object'))
+            ...toLatLng(coordinates.filter(c => c.type === 'object'))
           )
         } as CommonsFile;
       });
-      function toLatLng(cc: Coordinate[]): {lat?: number; lng?: number} {
+      function toLatLng(cc: Coordinate[]): [number?, number?] {
         const c: Coordinate = cc?.[0];
-        return angular.isObject(c) ? {lat: c.lat, lng: c.lon} : {};
+        return angular.isObject(c) ? [c.lat, c.lon] : [undefined, undefined];
       }
     });
   }
@@ -194,7 +194,7 @@ export default class LtData {
 
     function extractObjectLocation(page: DetailsPage) {
       if (!page.revisions?.length) {
-        return new LatLng('Object location', {});
+        return new LatLng('Object location', undefined, undefined);
       }
       try {
         const wikitext: string = page.revisions[0]['*'];
@@ -213,9 +213,9 @@ export default class LtData {
           lat = parseFloat(loc[2]);
           lng = parseFloat(loc[3]);
         }
-        return new LatLng('Object location', {lat, lng});
+        return new LatLng('Object location', lat, lng);
       } catch (e) {
-        return new LatLng('Object location', {});
+        return new LatLng('Object location', undefined, undefined);
       }
     }
   }

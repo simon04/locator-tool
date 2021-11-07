@@ -80,10 +80,7 @@ export class LtMapController implements ng.IComponentController {
     } = $event;
     if (lat && lng) {
       const target = shiftKey ? this.mapObjectLocation : this.mapMarker;
-      const coordinates = target.withLatLng({
-        lat: roundToPrecision(lat),
-        lng: roundToPrecision(lng)
-      });
+      const coordinates = target.withLatLng(lat, lng).roundToPrecision();
       this.$scope.$emit('coordinatesChanged', coordinates);
     }
   }
@@ -91,10 +88,7 @@ export class LtMapController implements ng.IComponentController {
   markerMoveend($event: L.LeafletMouseEvent, target: LatLng): void {
     const {lat, lng} = ($event.target as L.Marker).getLatLng();
     if (lat && lng) {
-      const coordinates = target.withLatLng({
-        lat: roundToPrecision(lat),
-        lng: roundToPrecision(lng)
-      });
+      const coordinates = target.withLatLng(lat, lng).roundToPrecision();
       this.$scope.$emit('coordinatesChanged', coordinates);
     }
   }
@@ -113,7 +107,3 @@ export default {
   template,
   controller: LtMapController
 } as ng.IComponentOptions;
-
-function roundToPrecision(value: number, fractionDigits = 5): number {
-  return typeof value === 'number' ? +value.toFixed(fractionDigits) : value;
-}

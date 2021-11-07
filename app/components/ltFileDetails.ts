@@ -13,7 +13,11 @@ class LtFileDetailsController implements ng.IComponentController {
     this.error = undefined;
     return this.ltDataAuth.editLocation(this.file, coordinates).then(
       () => {
-        coordinates.markAsSaved();
+        if (coordinates.type === 'Location') {
+          this.file.coordinates = coordinates.commit();
+        } else if (coordinates.type === 'Object location') {
+          this.file.objectLocation = coordinates.commit();
+        }
       },
       error => {
         this.error = error;
