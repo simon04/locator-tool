@@ -153,14 +153,18 @@ export default {
 } as ng.IComponentOptions;
 
 function keydownToDirection($event: KeyboardEvent) {
-  if ($event && $event.keyCode) {
-    switch ($event.keyCode) {
-      case 39: // right
-      case 40: // down
+  if ($event && $event.key) {
+    switch ($event.key) {
+      case 'Right':
+      case 'ArrowRight':
+      case 'Down':
+      case 'ArrowDown':
         $event.preventDefault();
         return 1;
-      case 37: // left
-      case 38: // up
+      case 'Left':
+      case 'ArrowLeft':
+      case 'Up':
+      case 'ArrowUp':
         $event.preventDefault();
         return -1;
     }
