@@ -73,10 +73,19 @@ interface Artist {
 }
 
 interface Revision {
+  slots: Slots;
+}
+
+export interface Slots {
+  main: MainSlot;
+}
+
+export interface MainSlot {
   contentformat: string;
   contentmodel: string;
   '*': string;
 }
+
 export default class LtData {
   public static $inject = [
     '$http',
@@ -189,11 +198,8 @@ export default class LtData {
     });
 
     function extractObjectLocation(page: DetailsPage) {
-      if (!page.revisions?.length) {
-        return new LatLng('Object location', undefined, undefined);
-      }
       try {
-        const wikitext: string = page.revisions[0]['*'];
+        const wikitext: string = page?.revisions?.[0]?.slots?.main['*'] || '';
         const locDeg = wikitext.match(
           /\{\{Object location( dec)?\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([NS])\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([WE])/i
         );
