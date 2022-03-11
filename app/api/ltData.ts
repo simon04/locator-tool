@@ -81,7 +81,6 @@ export default class LtData {
   public static $inject = [
     '$http',
     '$httpParamSerializer',
-    '$parse',
     '$sce',
     '$q',
     'gettextCatalog',
@@ -90,7 +89,6 @@ export default class LtData {
   constructor(
     private $http: ng.IHttpService,
     private $httpParamSerializer: ng.IHttpParamSerializer,
-    private $parse: ng.IParseService,
     private $sce: ng.ISCEService,
     private $q: ng.IQService,
     private gettextCatalog: gettextCatalog,
@@ -173,10 +171,6 @@ export default class LtData {
       rvslots: 'main',
       rvprop: 'content'
     };
-    const descriptionGetter = this.$parse('imageinfo[0].extmetadata.ImageDescription.value');
-    const authorGetter = this.$parse('imageinfo[0].extmetadata.Artist.value');
-    const timestampGetter = this.$parse('imageinfo[0].extmetadata.DateTimeOriginal.value');
-    const urlGetter = this.$parse('imageinfo[0].descriptionurl');
     return this.$query<ApiResponse<DetailsPage>>(params).then(data => {
       const page: DetailsPage | undefined = data?.query?.pages?.[pageid];
       const categories = (page?.categories || []).map(category =>
@@ -184,10 +178,12 @@ export default class LtData {
       );
       return {
         categories,
-        description: this.$sce.trustAsHtml(descriptionGetter(page)),
-        author: this.$sce.trustAsHtml(authorGetter(page)),
-        timestamp: this.$sce.trustAsHtml(timestampGetter(page)),
-        url: urlGetter(page),
+        description: this.$sce.trustAsHtml(
+          page?.imageinfo?.[0]?.extmetadata?.ImageDescription?.value
+        ),
+        author: this.$sce.trustAsHtml(page?.imageinfo[0]?.extmetadata?.Artist?.value),
+        timestamp: this.$sce.trustAsHtml(page?.imageinfo[0]?.extmetadata?.DateTimeOriginal?.value),
+        url: page?.imageinfo[0]?.descriptionurl,
         objectLocation: extractObjectLocation(page)
       };
     });
