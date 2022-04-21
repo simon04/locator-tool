@@ -34,6 +34,14 @@
           <span translate="translate">Map</span>
         </a>
       </li>
+      <li class="nav-item" ui-sref-active="active">
+        <a class="nav-link" ng-show="$ctrl.activateLinks" ui-sref="gallery($ctrl.params)">
+          <svg class="octicon">
+            <use xlink:href="#file-media"></use>
+          </svg>
+          <span translate="translate">Gallery</span>
+        </a>
+      </li>
       <li class="nav-item" ui-sref-active="active" title="{{'About locator-tool' | translate}}">
         <a class="nav-link" ui-sref="about"><span translate="translate">About</span></a>
       </li>

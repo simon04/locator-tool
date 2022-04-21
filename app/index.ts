@@ -68,6 +68,11 @@ function routes(
     component: 'ltAllMap'
   });
 
+  $stateProvider.state('gallery', {
+    url: '/gallery?' + params,
+    component: 'ltGallery'
+  });
+
   $urlRouterProvider.otherwise('/');
 }
 

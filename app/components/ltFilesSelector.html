@@ -65,7 +65,7 @@
       <input class="form-control" id="inputUserEnd" ng-model="$ctrl.userEnd" type="date" />
     </div>
   </div>
-  <div class="mb-4 btn-group">
+  <div class="mb-4">
     <button class="btn btn-success" ng-click="$ctrl.nextForUser()" ng-disabled="!$ctrl.user">
       <svg class="octicon">
         <use xlink:href="#location"></use>
@@ -77,6 +77,16 @@
         <use xlink:href="#globe"></use>
       </svg>
       <span translate="translate">Show User files on map</span>
+    </button>
+    <button
+      class="btn btn-secondary"
+      ng-click="$ctrl.nextForUser('gallery')"
+      ng-disabled="!$ctrl.user"
+    >
+      <svg class="octicon">
+        <use xlink:href="#file-media"></use>
+      </svg>
+      <span translate="translate">Show User files as gallery</span>
     </button>
     <input class="invisible" type="submit" ng-disabled="!$ctrl.user" />
   </div>
@@ -119,7 +129,7 @@
       />
     </div>
   </div>
-  <div class="mb-4 btn-group">
+  <div class="mb-4">
     <button
       class="btn btn-success"
       ng-click="$ctrl.nextForCategory()"
@@ -139,6 +149,16 @@
         <use xlink:href="#globe"></use>
       </svg>
       <span translate="translate">Show Category on map</span>
+    </button>
+    <button
+      class="btn btn-secondary"
+      ng-click="$ctrl.nextForCategory('gallery')"
+      ng-disabled="!$ctrl.category"
+    >
+      <svg class="octicon">
+        <use xlink:href="#file-media"></use>
+      </svg>
+      <span translate="translate">Show Category as gallery</span>
     </button>
     <input class="invisible" type="submit" ng-disabled="!$ctrl.category" />
   </div>
@@ -163,7 +183,7 @@
     <!-- prettier-ignore -->
     <p class="form-text" translate="translate">When a clipboard content containing HTML code (for instance a copied selection from a Commons gallery) is pasted here, locator-tool tries to extract <code>File:</code>s from the code.</p>
   </div>
-  <div class="mb-4 btn-group">
+  <div class="mb-4">
     <button class="btn btn-success" ng-disabled="!$ctrl.titleList.length" ng-click="$ctrl.next()">
       <svg class="octicon">
         <use xlink:href="#location"></use>
@@ -176,9 +196,19 @@
       ng-click="$ctrl.next('map')"
     >
       <svg class="octicon">
-        <use xlink:href="#location"></use>
+        <use xlink:href="#globe"></use>
       </svg>
       <span translate="translate">Show {{$ctrl.titleList.length}} files on map</span>
+    </button>
+    <button
+      class="btn btn-secondary"
+      ng-disabled="!$ctrl.titleList.length"
+      ng-click="$ctrl.next('gallery')"
+    >
+      <svg class="octicon">
+        <use xlink:href="#file-media"></use>
+      </svg>
+      <span translate="translate">Show {{$ctrl.titleList.length}} files as gallery</span>
     </button>
   </div>
 </form>

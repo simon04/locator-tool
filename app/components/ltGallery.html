@@ -1,0 +1,22 @@
+<div class="row fill" ng-if="$ctrl.isLoading">
+  <div class="col-sm-12">
+    <div class="jumbotron">
+      <p translate="translate">Loading file details …</p>
+      <lt-spinner></lt-spinner>
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+  <div ng-repeat="title in $ctrl.titles" class="col">
+    <div class="card">
+      <lt-file-thumbnail file="title"></lt-file-thumbnail>
+      <div class="card-body">
+        {{file}}
+        <p class="card-text">
+          <a href="{{title.url}}" target="_blank">{{title.file}}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
