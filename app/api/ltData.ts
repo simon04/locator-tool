@@ -10,7 +10,7 @@ const NS_CATEGORY = 14;
 const maxTitlesPerRequest = 50;
 
 interface ApiResponse<P = never> {
-  continue: unknown;
+  continue: {[key: string]: string} | undefined;
   batchcomplete: string;
   query: {
     pages: {[key: string]: P};
@@ -401,8 +401,8 @@ export default class LtData {
       .then(data =>
         shouldContinue(data)
           ? this.$query<T>(
-              angular.extend(query, {continue: undefined}, data.continue),
-              angular.extend(data, {continue: undefined}),
+              {...query, continue: undefined, ...data.continue},
+              {...data, continue: undefined},
               timeout,
               shouldContinue
             )
