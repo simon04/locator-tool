@@ -246,18 +246,22 @@ export default class LtData {
   }: {
     files: CommonsTitle[];
     user: string;
-    userLimit: number;
-    userStart: number;
-    userEnd: number;
+    userLimit: string | number | undefined;
+    userStart: string | number | undefined;
+    userEnd: string | number | undefined;
     category: string;
-    categoryDepth: number;
+    categoryDepth: string | number | undefined;
   }): ng.IPromise<CommonsTitle[]> {
     return this.$q((resolve, reject) => {
       if (files) {
         resolve(files);
       } else if (user) {
+        userLimit = typeof userLimit === 'string' ? +userLimit : userLimit;
+        userStart = typeof userStart === 'string' ? +userStart : userStart;
+        userEnd = typeof userEnd === 'string' ? +userEnd : userEnd;
         this.getFilesForUser(user, userLimit, userStart, userEnd).then(resolve);
       } else if (category) {
+        categoryDepth = typeof categoryDepth === 'string' ? +categoryDepth : categoryDepth;
         this.getFilesForCategory(category, categoryDepth).then(resolve);
       } else {
         reject();
@@ -279,9 +283,9 @@ export default class LtData {
 
   getFilesForUser(
     user: string,
-    userLimit: number,
-    userStart: number,
-    userEnd: number
+    userLimit: number | undefined,
+    userStart: number | undefined,
+    userEnd: number | undefined
   ): ng.IPromise<CommonsTitle[]> {
     user = this.removeCommonsPrefix(user, 'User:');
     // https://commons.wikimedia.org/w/api.php?action=help&modules=query%2Ballimages
