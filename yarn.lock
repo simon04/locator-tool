@@ -84,20 +84,6 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.7.tgz#98a993516c859eb0d5c4c8f098317a9ea68db9ad"
   integrity sha512-cxWFQVseBm6O9Gbw1IWb8r6OS4OhSt3hPZLkFApLjM8TEXROBuQGLAH2i2gZpcXdLBIrpXuTDhH7Vbm1iXmNGA==
 
-"@types/leaflet-providers@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@types/leaflet-providers/-/leaflet-providers-1.2.0.tgz#185fbf91e2f60726f556293d3278c23dd736fafc"
-  integrity sha512-xuIUo0rEtuKdKIWwtLH0mD+dgSy/CRspVPa0nI/SuPLS29H7q+GPO4Qluxzkk+u9qvMtTjxqkrJjtnsx96+aPQ==
-  dependencies:
-    "@types/leaflet" "*"
-
-"@types/leaflet@*":
-  version "1.5.21"
-  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.5.21.tgz#994c44f2bfc45744120f01924c8973c5e960e051"
-  integrity sha512-b+BOkwJDq6DK4m+jFUOHNCFinIkO4CF1MjnOwYgZFX+oElpYpXCCIsxZ3+zQWIRSLVUbRXvaQq2K935jGIyp7A==
-  dependencies:
-    "@types/geojson" "*"
-
 "@types/leaflet@^1.7.9":
   version "1.7.9"
   resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.7.9.tgz#7993d34f14cfa88c45b3d490daba39a3a1be9a2b"
@@ -1045,11 +1031,6 @@ leaflet-control-geocoder@^2.3.0:
   integrity sha512-Zi5cebDsfAq6B0ZilDGn/W5oNM8pQu6cltEHBxfR56XnN3f/Lmez1+qrdyRY6oTlP740caBHHCmd35Z/eif7/w==
   optionalDependencies:
     open-location-code "^1.0.0"
-
-leaflet-providers@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/leaflet-providers/-/leaflet-providers-1.9.0.tgz#94c089cafbd3bdd88a74e68b34af9f19abdf6e35"
-  integrity sha512-S7rGelBezzjH7vXLa0uA9dQ3lYgdqvmt8JZLjcm63VBcnRNz/c897mCycYp6AtDfkH2b0rz9eFzzkWHfHaoozg==
 
 leaflet@^1.8.0:
   version "1.8.0"

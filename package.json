@@ -38,7 +38,6 @@
     "deepmerge": "^4.2.2",
     "leaflet": "^1.8.0",
     "leaflet-control-geocoder": "^2.3.0",
-    "leaflet-providers": "^1.9.0",
     "octicons": "^5.0.1",
     "wikimedia-commons-file-path": "^2.1.1"
   },
@@ -47,7 +46,6 @@
     "@types/angular-gettext": "^2.1.34",
     "@types/angular-local-storage": "^0.6.1",
     "@types/leaflet": "^1.7.9",
-    "@types/leaflet-providers": "^1.2.0",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
     "@typescript-eslint/parser": "^4.14.1",
     "angular-gettext-cli": "^1.2.0",

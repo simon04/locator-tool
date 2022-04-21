@@ -50,14 +50,31 @@ export class LtMapController implements ng.IComponentController {
       maxNativeZoom: 19
     };
     const layers = {
-      [osm]: L.tileLayer.provider('OpenStreetMap', maxZoomOptions),
-      ['OSM @wmflabs.org']: L.tileLayer.provider('HikeBike', {
-        name: 'OSM @wmflabs.org',
-        variant: 'osm'
+      [osm]: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        ...maxZoomOptions,
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }),
-      ['Wikimedia Maps']: L.tileLayer.provider('Wikimedia', maxZoomOptions),
-      [`basemap.at 🇦🇹 ${external}`]: L.tileLayer.provider('BasemapAT.orthofoto', maxZoomOptions),
-      [`Mapy.cz Photo 🇨🇿 ${external}`]: L.tileLayer.provider('mapyCZ')
+      OpenTopoMap: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        ...maxZoomOptions,
+        maxNativeZoom: 17,
+        attribution:
+          '&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>), <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      }),
+      ['Wikimedia Maps']: L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', {
+        ...maxZoomOptions,
+        maxNativeZoom: 19,
+        attribution:
+          '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>'
+      }),
+      [`basemap.at 🇦🇹 ${external}`]: L.tileLayer(
+        `//maps.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg`,
+        {
+          ...maxZoomOptions,
+          maxZoom: 19,
+          attribution: '&copy; <a href="https://basemap.at/">basemap.at</a>'
+        }
+      )
     };
     const layersControl = L.control.layers().addTo(map);
     Object.keys(layers).forEach(name => layersControl.addBaseLayer(layers[name], name));
