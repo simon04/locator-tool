@@ -12,14 +12,14 @@
   ng-if="$ctrl.dialogShown"
   ng-click="$ctrl.dialogShown = false"
 >
-  <div class="modal-dialog" style="max-width: 90%; max-height: 90%; overflow-y: scroll">
+  <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
-      <div class="modal-body">
+      <div class="modal-body text-center">
         <img
           class="img-fluid"
           ng-src="{{$ctrl.thumbnailUrl}}"
           lazy-img="{{$ctrl.imageUrl}}"
-          style="margin: auto; width: 100%"
+          style="width: 100%; height: 100%; object-fit: contain"
         />
       </div>
     </div>
