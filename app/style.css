@@ -78,3 +78,7 @@ img.ng-leave {
 label {
   font-weight: bold;
 }
+
+.leaflet-control-geocoder-form input {
+  color: var(--bs-black);
+}
