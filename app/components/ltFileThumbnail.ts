@@ -16,7 +16,7 @@ class LtFileThumbnailController implements ng.IComponentController {
   }
 
   get imageUrl() {
-    const width = this.$window.innerWidth;
+    const width = this.$window.innerWidth * (this.$window.devicePixelRatio || 1);
     return this.file.imageUrl(width > 2048 ? undefined : width > 1280 ? 2048 : 1024);
   }
 }
