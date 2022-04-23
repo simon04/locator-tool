@@ -1,11 +1,12 @@
 # 
 # Translators:
 # Simon Legner <simon.legner@gmail.com>, 2016-2017
+# Simon Legner <simon.legner@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2021-06-09 20:19+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"PO-Revision-Date: 2016-05-19 10:23+0000\n"
+"Last-Translator: Simon Legner <simon.legner@gmail.com>, 2022\n"
 "Language-Team: German (http://www.transifex.com/locator-tool/locator-tool/language/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,7 +33,7 @@ msgstr "Über"
 msgid "About locator-tool"
 msgstr "Über locator-tool"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Also show geolocated files"
 msgstr "Auch georeferenzierte Dateien anzeigen"
 
@@ -62,11 +63,11 @@ msgstr "Endzeitpunkt"
 msgid "Failed to save: {{$ctrl.error.statusText}}"
 msgstr "Fehler beim Speichern: {{$ctrl.error.statusText}}"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
 msgstr "0 Dateien für Kategorie <code>{{$ctrl.category}}</code> geladen!"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
 msgstr "0 Dateien für Benutzer <code>{{$ctrl.user}}</code> geladen!"
 
@@ -79,6 +80,10 @@ msgid ""
 "From the list of files provided, select one and click its location on an "
 "interactive map."
 msgstr "Eine Datei in der Dateiliste auswählen und deren Position durch Klick auf die interaktive Karte auswählen."
+
+#: ./app/components/ltNavbar.html
+msgid "Gallery"
+msgstr "Galerie"
 
 #: ./app/components/ltNavbar.html
 msgid "Geolocate files"
@@ -96,8 +101,8 @@ msgstr "Bitte anmelden, damit locator-tool Änderungen an Dateibeschreibungsseit
 
 #: ./app/components/ltAbout.html
 msgid ""
-"Its source code is available on <a href=\"https://github.com/simon04"
-"/locator-tool\">GitHub</a> and <a "
+"Its source code is available on <a "
+"href=\"https://github.com/simon04/locator-tool\">GitHub</a> and <a "
 "href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
 msgstr "Der Quellcode ist auf <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> verfügbar. Das Tool steht unter der Lizenz <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>."
 
@@ -127,7 +132,7 @@ msgstr "Dateien des Benutzers laden zum Georeferenzieren"
 msgid "Load {{$ctrl.titleList.length}} files to geolocate"
 msgstr "{{$ctrl.titleList.length}} Dateien laden zum Georeferenzieren"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGallery.html ./app/components/ltGeolocate.html
 msgid "Loading file details …"
 msgstr "Dateiinformationen werden geladen …"
 
@@ -158,8 +163,8 @@ msgid ""
 msgstr "Objektposition mittels\n <a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
 
 #: ./app/components/ltAbout.html
-msgid "Open Source Licenses"
-msgstr ""
+msgid "Open Source Licenses:"
+msgstr "Open-Source-Lizenzen:"
 
 #: ./app/components/ltFileDetails.html
 msgid "Press shift and click on map to set the object location."
@@ -182,12 +187,24 @@ msgid "Select files to geolocate"
 msgstr "Dateien zum Georeferenzieren auswählen"
 
 #: ./app/components/ltFilesSelector.html
+msgid "Show Category as gallery"
+msgstr "Kategorie auf Galerie anzeigen"
+
+#: ./app/components/ltFilesSelector.html
 msgid "Show Category on map"
 msgstr "Kategorie auf Karte anzeigen"
 
 #: ./app/components/ltFilesSelector.html
+msgid "Show User files as gallery"
+msgstr "Dateien des Benutzers als Galerie anzeigen"
+
+#: ./app/components/ltFilesSelector.html
 msgid "Show User files on map"
 msgstr "Dateien des Benutzers auf Karte anzeigen"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show {{$ctrl.titleList.length}} files as gallery"
+msgstr "{{$ctrl.titleList.length}} Dateien als Galerie anzeigen"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show {{$ctrl.titleList.length}} files on map"
@@ -236,7 +253,7 @@ msgstr "Dateien des Benutzers"
 
 #: ./app/components/ltAbout.html
 msgid "Version:"
-msgstr ""
+msgstr "Version:"
 
 #: ./app/components/ltFilesSelector.html
 msgid ""
