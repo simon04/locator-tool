@@ -23,7 +23,7 @@ msgstr ""
 msgid "About locator-tool"
 msgstr ""
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Also show geolocated files"
 msgstr ""
 
@@ -53,11 +53,11 @@ msgstr ""
 msgid "Failed to save: {{$ctrl.error.statusText}}"
 msgstr ""
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
 msgstr ""
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
 msgstr ""
 
@@ -67,6 +67,10 @@ msgstr ""
 
 #: ./app/components/ltAbout.html
 msgid "From the list of files provided, select one and click its location on an interactive map."
+msgstr ""
+
+#: ./app/components/ltNavbar.html
+msgid "Gallery"
 msgstr ""
 
 #: ./app/components/ltNavbar.html
@@ -111,7 +115,8 @@ msgstr ""
 msgid "Load {{$ctrl.titleList.length}} files to geolocate"
 msgstr ""
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGallery.html
+#: ./app/components/ltGeolocate.html
 msgid "Loading file details …"
 msgstr ""
 
@@ -143,7 +148,7 @@ msgid ""
 msgstr ""
 
 #: ./app/components/ltAbout.html
-msgid "Open Source Licenses"
+msgid "Open Source Licenses:"
 msgstr ""
 
 #: ./app/components/ltFileDetails.html
@@ -168,11 +173,23 @@ msgid "Select files to geolocate"
 msgstr ""
 
 #: ./app/components/ltFilesSelector.html
+msgid "Show Category as gallery"
+msgstr ""
+
+#: ./app/components/ltFilesSelector.html
 msgid "Show Category on map"
 msgstr ""
 
 #: ./app/components/ltFilesSelector.html
+msgid "Show User files as gallery"
+msgstr ""
+
+#: ./app/components/ltFilesSelector.html
 msgid "Show User files on map"
+msgstr ""
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show {{$ctrl.titleList.length}} files as gallery"
 msgstr ""
 
 #: ./app/components/ltFilesSelector.html
