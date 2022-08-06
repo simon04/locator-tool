@@ -12,6 +12,7 @@ jobs:
           node-version: '16'
       - run: yarn install --no-progress --frozen-lockfile
       - run: yarn test
+      - run: yarn po
       - run: yarn build
       - uses: peaceiris/actions-gh-pages@v3
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
