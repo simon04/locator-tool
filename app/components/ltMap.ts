@@ -77,7 +77,7 @@ export class LtMapController implements ng.IComponentController {
       )
     };
     const layersControl = L.control.layers().addTo(map);
-    Object.keys(layers).forEach(name => layersControl.addBaseLayer(layers[name], name));
+    Object.entries(layers).forEach(([name, layer]) => layersControl.addBaseLayer(layer, name));
     (layers[layerFromLocalStorage] || layers[osm]).addTo(map);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const geocoder = new ControlGeocoder({

@@ -120,8 +120,7 @@ export default class LtData {
     };
     return this.$query<ApiResponse<CoordinatePage>>(params).then(data => {
       const pages = data?.query?.pages || {};
-      return Object.keys(pages).map(pageid => {
-        const page: CoordinatePage = pages[pageid];
+      return Object.entries(pages).map(([pageid, page]) => {
         const coordinates = page.coordinates || [];
         return {
           pageid: parseInt(pageid),
@@ -296,8 +295,7 @@ export default class LtData {
       gaisort: 'timestamp',
       gaidir: 'older'
     };
-    const toPageArray = (data: ApiResponse<Page>): Page[] =>
-      Object.keys(data.query.pages).map(id => data.query.pages[id]);
+    const toPageArray = (data: ApiResponse<Page>): Page[] => Object.values(data.query.pages);
     const shouldContinue = (data: ApiResponse<Page>): boolean =>
       data.continue ? !userLimit || toPageArray(data).length < userLimit : false;
     return this.$query<ApiResponse<Page>>(params, {}, undefined, shouldContinue)
