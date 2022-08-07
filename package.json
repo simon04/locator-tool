@@ -12,7 +12,7 @@
     "lint": "eslint app/",
     "test": "yarn test:ts && yarn test:style && yarn lint",
     "test:style": "prettier --ignore-unknown --list-different .",
-    "test:ts": "tsc --noEmit --target es5",
+    "test:ts": "tsc --noEmit",
     "fix:style": "prettier --ignore-unknown --write .",
     "po": "angular-gettext-cli --compile --files 'po/*.po' --dest app/i18n.json --format json",
     "pot": "angular-gettext-cli --files {,./app/**/}*.{js,html} --dest po/locator-tool.pot --no-line-numbers"
