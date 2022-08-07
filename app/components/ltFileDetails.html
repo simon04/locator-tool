@@ -9,30 +9,7 @@
       </a>
     </small>
   </h3>
-  <div class="card-body p-2">
-    <div ng-bind-html="$ctrl.file.description"></div>
-    <div class="small" ng-if="$ctrl.file.timestamp">
-      <svg class="octicon">
-        <use xlink:href="#calendar"></use>
-      </svg>
-
-      <time ng-bind-html="$ctrl.file.timestamp"></time>
-    </div>
-    <div class="small" ng-if="$ctrl.file.author">
-      <svg class="octicon">
-        <use xlink:href="#person"></use>
-      </svg>
-
-      <span ng-bind-html="$ctrl.file.author"></span>
-    </div>
-    <a
-      ng-repeat="category in $ctrl.file.categories"
-      ng-href="https://commons.wikimedia.org/wiki/Category:{{category}}"
-      target="_blank"
-    >
-      <span class="badge bg-secondary me-1">{{::category}}</span>
-    </a>
-  </div>
+  <lt-file-metadata class="card-body p-2" file="$ctrl.file"></lt-file-metadata>
 </div>
 <div class="card mt-2">
   <div class="card-body p-2">

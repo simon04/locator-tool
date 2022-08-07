@@ -1,3 +1,4 @@
+import angular from 'angular';
 import {CommonsFile} from '../model';
 import LtData from '../api/ltData';
 import template from './ltGallery.html';
@@ -14,7 +15,14 @@ class LtGalleryController implements ng.IComponentController {
       .getFiles($stateParams as any)
       .then(titles => ltData.getCoordinates(titles))
       .then(titles => (this.titles = titles))
-      .finally(() => (this.isLoading = false));
+      .finally(() => {
+        this.isLoading = false;
+        this.titles.forEach(title =>
+          ltData
+            .getFileDetails(title.pageid, 'categories|imageinfo', 'extmetadata')
+            .then(fileDetails => angular.extend(title, fileDetails))
+        );
+      });
   }
 }
 

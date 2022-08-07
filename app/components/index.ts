@@ -4,6 +4,7 @@ import 'angular-ll-leaflet';
 import ltAbout from './ltAbout';
 import ltAllMap from './ltAllMap';
 import ltFileDetails from './ltFileDetails';
+import ltFileMetadata from './ltFileMetadata';
 import ltFileThumbnail from './ltFileThumbnail';
 import ltFilesSelector from './ltFilesSelector';
 import ltLanguageSelector from './ltLanguageSelector';
@@ -22,6 +23,7 @@ export default angular
     ltAbout,
     ltAllMap,
     ltFileDetails,
+    ltFileMetadata,
     ltFileThumbnail,
     ltFilesSelector,
     ltLanguageSelector,

@@ -10,12 +10,17 @@
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
   <div ng-repeat="title in $ctrl.titles" class="col">
     <div class="card">
-      <lt-file-thumbnail file="title"></lt-file-thumbnail>
+      <lt-file-thumbnail file="title" class="card-img-top"></lt-file-thumbnail>
       <div class="card-body">
-        {{file}}
-        <p class="card-text">
-          <a href="{{title.url}}" target="_blank">{{title.file}}</a>
-        </p>
+        <h5 class="card-title">
+          {{title.file}}
+          <a href="{{title.url}}" target="_blank">
+            <svg class="octicon">
+              <use xlink:href="#link-external"></use>
+            </svg>
+          </a>
+        </h5>
+        <lt-file-metadata class="card-text" file="title" description="false"></lt-file-metadata>
       </div>
     </div>
   </div>

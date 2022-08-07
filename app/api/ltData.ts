@@ -161,23 +161,26 @@ export default class LtData {
     }
   }
 
-  getFileDetails(pageid: number): ng.IPromise<{
+  getFileDetails(
+    pageid: number,
+    prop = 'categories|imageinfo|revisions',
+    iiprop = 'url|extmetadata'
+  ): ng.IPromise<{
     categories: string[];
     description: string;
     author: string;
     timestamp: string;
-    url: string;
+    url?: string;
     objectLocation: LatLng;
   }> {
     const params = {
-      prop: 'categories|imageinfo|revisions',
-      clshow: '!hidden',
+      prop,
       pageids: pageid,
-      iiprop: 'url|extmetadata',
+      iiprop,
       iiextmetadatafilter: 'ImageDescription|Artist|DateTimeOriginal',
       iiextmetadatalanguage: this.gettextCatalog.getCurrentLanguage(),
-      rvslots: 'main',
-      rvprop: 'content'
+      ...(prop.includes('categories') ? {clshow: '!hidden'} : {}),
+      ...(prop.includes('revisions') ? {rvslots: 'main', rvprop: 'content'} : {})
     };
     return this.$query<ApiResponse<DetailsPage>>(params).then(data => {
       const page: DetailsPage | undefined = data?.query?.pages?.[pageid];
@@ -190,7 +193,7 @@ export default class LtData {
         description: this.$sce.trustAsHtml(extmetadata?.ImageDescription?.value),
         author: this.$sce.trustAsHtml(extmetadata?.Artist?.value),
         timestamp: this.$sce.trustAsHtml(extmetadata?.DateTimeOriginal?.value),
-        url: page?.imageinfo[0]?.descriptionurl,
+        ...(iiprop.includes('url') ? {url: page?.imageinfo[0]?.descriptionurl} : {}),
         objectLocation: extractObjectLocation(page)
       };
     });
