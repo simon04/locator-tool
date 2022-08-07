@@ -104,7 +104,7 @@ class LtFilesSelectorController implements ng.IComponentController {
       const doc = parser.parseFromString(html, 'text/html');
       const links = doc.getElementsByTagName('a');
       const files: Record<string, boolean> = {};
-      ([].slice.call(links) as HTMLAnchorElement[])
+      [...links]
         .map(a => decodeURI(a.href))
         .filter(href => !!href)
         .map(href => href.replace(/.*File:/, 'File:'))
