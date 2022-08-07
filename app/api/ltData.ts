@@ -184,13 +184,12 @@ export default class LtData {
       const categories = (page?.categories || []).map(category =>
         category.title.replace(/^Category:/, '')
       );
+      const extmetadata = page?.imageinfo[0]?.extmetadata;
       return {
         categories,
-        description: this.$sce.trustAsHtml(
-          page?.imageinfo?.[0]?.extmetadata?.ImageDescription?.value
-        ),
-        author: this.$sce.trustAsHtml(page?.imageinfo[0]?.extmetadata?.Artist?.value),
-        timestamp: this.$sce.trustAsHtml(page?.imageinfo[0]?.extmetadata?.DateTimeOriginal?.value),
+        description: this.$sce.trustAsHtml(extmetadata?.ImageDescription?.value),
+        author: this.$sce.trustAsHtml(extmetadata?.Artist?.value),
+        timestamp: this.$sce.trustAsHtml(extmetadata?.DateTimeOriginal?.value),
         url: page?.imageinfo[0]?.descriptionurl,
         objectLocation: extractObjectLocation(page)
       };
