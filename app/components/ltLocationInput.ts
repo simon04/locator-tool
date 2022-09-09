@@ -1,5 +1,5 @@
 import {LatLng} from 'leaflet';
-import template from './ltLocationInput.html';
+import template from './ltLocationInput.html?raw';
 
 class LtLocationInputController implements ng.IComponentController {
   public static $inject = ['$scope'];

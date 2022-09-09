@@ -1,4 +1,4 @@
-import template from './ltFileMetadata.html';
+import template from './ltFileMetadata.html?raw';
 
 class LtFileMetadataController implements ng.IComponentController {}
 

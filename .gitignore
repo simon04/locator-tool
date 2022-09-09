@@ -3,8 +3,5 @@ backend/config.py
 backend/locator-tool.log
 backend/static/
 backend/venv/
-dist/*
-!dist/index.html
-!dist/locator-tool.svg
-!dist/robots.txt
+dist/
 node_modules/

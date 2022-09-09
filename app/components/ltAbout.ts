@@ -1,13 +1,9 @@
-import template from './ltAbout.html';
-
-declare const __APP_DEPENDENCIES__: string;
-declare const __BUILD_DATE__: string;
-declare const __BUILD_VERSION__: string;
+import template from './ltAbout.html?raw';
 
 class LtAboutController implements ng.IComponentController {
-  appDependencies = __APP_DEPENDENCIES__;
-  buildDate = __BUILD_DATE__;
-  buildVersion = __BUILD_VERSION__;
+  appDependencies = import.meta.env.VITE_APP_DEPENDENCIES;
+  buildDate = import.meta.env.VITE_BUILD_DATE;
+  buildVersion = import.meta.env.VITE_BUILD_VERSION;
 }
 
 export default {

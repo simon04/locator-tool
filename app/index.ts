@@ -4,7 +4,7 @@ import 'angular-local-storage';
 import uiRouter, {StateProvider, UrlRouterProvider, LocationConfig} from '@uirouter/angularjs';
 import 'angular-gettext';
 import 'angular-lazy-img/dist/angular-lazy-img';
-import octicons from 'octicons/build/sprite.octicons.svg';
+import octicons from 'octicons/build/sprite.octicons.svg?raw';
 
 import './vendor';
 import './vendor-leaflet';

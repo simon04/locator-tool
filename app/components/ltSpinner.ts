@@ -1,4 +1,4 @@
-import template from './ltSpinner.html';
+import template from './ltSpinner.html?raw';
 
 export default {
   template

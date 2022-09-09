@@ -1,4 +1,4 @@
-import template from './ltLanguageSelector.html';
+import template from './ltLanguageSelector.html?raw';
 
 import i18n from '../i18n.json';
 

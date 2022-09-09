@@ -1,4 +1,4 @@
-import template from './ltMap.html';
+import template from './ltMap.html?raw';
 import L from 'leaflet';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';

@@ -1,4 +1,4 @@
-import template from './ltFileThumbnail.html';
+import template from './ltFileThumbnail.html?raw';
 import {CommonsFile} from '../model';
 
 class LtFileThumbnailController implements ng.IComponentController {

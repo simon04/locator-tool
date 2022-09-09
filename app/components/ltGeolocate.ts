@@ -1,5 +1,5 @@
 import angular from 'angular';
-import template from './ltGeolocate.html';
+import template from './ltGeolocate.html?raw';
 import {StateParams} from '@uirouter/core';
 import LtData from '../api/ltData';
 import LtDataAuth from '../api/ltDataAuth';

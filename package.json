@@ -7,8 +7,8 @@
   "scripts": {
     "prepare": "husky install",
     "postinstall": "yarn po",
-    "serve": "node ./esbuild.js serve",
-    "build": "node ./esbuild.js",
+    "dev": "vite dev",
+    "build": "vite build",
     "lint": "eslint app/",
     "test": "yarn test:ts && yarn test:style && yarn lint",
     "test:style": "prettier --ignore-unknown --list-different .",
@@ -52,12 +52,12 @@
     "@typescript-eslint/parser": "^5.20.0",
     "angular-gettext-cli": "^1.2.0",
     "angular-gettext-tools": "^2.3.5",
-    "esbuild": "^0.14.51",
     "eslint": "^8.14.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.4.0",
     "prettier": "^2.6.2",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "vite": "^3.1.0"
   },
   "husky": {
     "hooks": {

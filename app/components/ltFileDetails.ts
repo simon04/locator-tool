@@ -1,4 +1,4 @@
-import template from './ltFileDetails.html';
+import template from './ltFileDetails.html?raw';
 import LtDataAuth from '../api/ltDataAuth';
 import {CommonsFile, LatLng} from '../model';
 

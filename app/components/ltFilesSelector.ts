@@ -1,7 +1,7 @@
 import angular from 'angular';
 import {StateService, StateParams} from '@uirouter/angularjs';
 
-import template from './ltFilesSelector.html';
+import template from './ltFilesSelector.html?raw';
 import LtDataAuth from '../api/ltDataAuth';
 import LtData from '../api/ltData';
 

@@ -1,7 +1,7 @@
 import {CommonsFile, LatLng} from '../model';
 import LtData from '../api/ltData';
 import {LtMapController} from './ltMap';
-import template from './ltAllMap.html';
+import template from './ltAllMap.html?raw';
 import L from 'leaflet';
 import {StateParams} from '@uirouter/angularjs';
 

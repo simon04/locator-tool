@@ -1,7 +1,7 @@
 import angular from 'angular';
 import {CommonsFile} from '../model';
 import LtData from '../api/ltData';
-import template from './ltGallery.html';
+import template from './ltGallery.html?raw';
 import {StateParams} from '@uirouter/angularjs';
 
 class LtGalleryController implements ng.IComponentController {

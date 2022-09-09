@@ -1,4 +1,4 @@
-import template from './ltUserInfo.html';
+import template from './ltUserInfo.html?raw';
 import LtDataAuth from '../api/ltDataAuth';
 
 class LtUserInfoController implements ng.IComponentController {
