@@ -245,7 +245,7 @@ export default class LtData {
     category,
     categoryDepth
   }: {
-    files: CommonsTitle[];
+    files: CommonsTitle | CommonsTitle[];
     user: string;
     userLimit: string | number | undefined;
     userStart: string | undefined;
@@ -254,8 +254,11 @@ export default class LtData {
     categoryDepth: string | number | undefined;
   }): ng.IPromise<CommonsTitle[]> {
     return this.$q((resolve, reject) => {
+      if (angular.isString(files)) {
+        files = files.split('|');
+      }
       if (files) {
-        resolve(files);
+        resolve(files.map(file => (file.startsWith('File:') ? file : `File:${file}`)));
       } else if (user) {
         userLimit = typeof userLimit === 'string' ? +userLimit : userLimit;
         this.getFilesForUser(user, userLimit, userStart, userEnd).then(resolve);
