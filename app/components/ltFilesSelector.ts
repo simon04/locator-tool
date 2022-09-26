@@ -99,7 +99,7 @@ class LtFilesSelectorController implements ng.IComponentController {
     try {
       if (!$event.clipboardData) return;
       const html = $event.clipboardData.getData('text/html');
-      if (!html) return;
+      if (!html || !/<a/.test(html)) return;
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
       const links = doc.getElementsByTagName('a');
