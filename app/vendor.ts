@@ -5,5 +5,5 @@ import 'angular-gettext';
 import '@uirouter/angularjs';
 import 'angular-ll-leaflet';
 
-import 'bootstrap-dark-5/dist/css/bootstrap-dark.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import 'octicons/build/octicons.css';
