@@ -67,6 +67,12 @@ export class LtMapController implements ng.IComponentController {
         attribution:
           '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>'
       }),
+      ['Esri World Imagery']: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        ...maxZoomOptions,
+        maxNativeZoom: 19,
+        attribution:
+          'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+      }),
       [`basemap.at 🇦🇹 ${external}`]: L.tileLayer(
         `//maps.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg`,
         {
