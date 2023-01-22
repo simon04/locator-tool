@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2021-06-09 20:19+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"PO-Revision-Date: 2016-05-19 10:23+0000\n"
+"Last-Translator: Praveen P <me.praveen@gmail.com>, 2018\n"
 "Language-Team: Malayalam (http://www.transifex.com/locator-tool/locator-tool/language/ml/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,7 +32,7 @@ msgstr "വിവരണം"
 msgid "About locator-tool"
 msgstr "ലൊക്കേറ്റർ-ഉപകരണത്തിന്റെ വിവരണം"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Also show geolocated files"
 msgstr "ഭൗമസ്ഥാനങ്ങൾ ഉള്ള പ്രമാണങ്ങളും കാണിക്കുക"
 
@@ -62,11 +62,11 @@ msgstr "സമയമുദ്ര അവസാനിപ്പിക്കുക"
 msgid "Failed to save: {{$ctrl.error.statusText}}"
 msgstr "സേവ് ചെയ്യൽ പരാജയപ്പെട്ടു: {{$ctrl.error.statusText}}"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
 msgstr "ഈ വർഗ്ഗത്തിലെ  0 പ്രമാണങ്ങൾ എടുത്തു <code>{{$ctrl.category}}</code>!"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
 msgstr "ഈ ഉപയോക്താവിന്റെ 0 പ്രമാണങ്ങൾ എടുത്തു <code>{{$ctrl.user}}</code>!"
 
@@ -79,6 +79,10 @@ msgid ""
 "From the list of files provided, select one and click its location on an "
 "interactive map."
 msgstr "നൽകിയ പ്രമാണങ്ങളുടെ പട്ടികയിൽ ഒരെണ്ണം തിരഞ്ഞെടുത്ത ശേഷം, സംവേദനക്ഷമമായ ഭൂപടത്തിൽ സ്ഥാനം ഞെക്കിക്കാണിച്ച് നൽകുക"
+
+#: ./app/components/ltNavbar.html
+msgid "Gallery"
+msgstr ""
 
 #: ./app/components/ltNavbar.html
 msgid "Geolocate files"
@@ -96,8 +100,8 @@ msgstr "ലൊക്കേറ്റർ ഉപകരണമുപയോഗിച�
 
 #: ./app/components/ltAbout.html
 msgid ""
-"Its source code is available on <a href=\"https://github.com/simon04"
-"/locator-tool\">GitHub</a> and <a "
+"Its source code is available on <a "
+"href=\"https://github.com/simon04/locator-tool\">GitHub</a> and <a "
 "href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
 msgstr "സ്രോതസ്സ് കോഡ് <a href=\"https://github.com/simon04/locator-tool\">ഗിറ്റ്‌ഹബിൽ</a> ലഭ്യമാണ്, ഉപയോഗാനുമതി <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> ആണ്."
 
@@ -127,7 +131,7 @@ msgstr "ഭൗമസ്ഥാനനിർണ്ണയം ചെയ്യേണ�
 msgid "Load {{$ctrl.titleList.length}} files to geolocate"
 msgstr "ഭൗമസ്ഥാനനിർണ്ണയത്തിനായി {{$ctrl.titleList.length}} പ്രമാണങ്ങൾ എടുക്കുക"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGallery.html ./app/components/ltGeolocate.html
 msgid "Loading file details …"
 msgstr "പ്രമാണത്തിന്റെ വിശദാംശങ്ങൾ എടുക്കുന്നു ..."
 
@@ -158,7 +162,7 @@ msgid ""
 msgstr "വസ്തുവിന്റെ സ്ഥാനം ചേർത്ത വിധം\n<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
 
 #: ./app/components/ltAbout.html
-msgid "Open Source Licenses"
+msgid "Open Source Licenses:"
 msgstr ""
 
 #: ./app/components/ltFileDetails.html
@@ -182,12 +186,24 @@ msgid "Select files to geolocate"
 msgstr "ഭൗമസ്ഥാനനിർണ്ണയത്തിനായി പ്രമാണങ്ങൾ തിരഞ്ഞെടുക്കുക"
 
 #: ./app/components/ltFilesSelector.html
+msgid "Show Category as gallery"
+msgstr ""
+
+#: ./app/components/ltFilesSelector.html
 msgid "Show Category on map"
 msgstr "വർഗ്ഗം ഭൂപടത്തിൽ കാണിക്കുക"
 
 #: ./app/components/ltFilesSelector.html
+msgid "Show User files as gallery"
+msgstr ""
+
+#: ./app/components/ltFilesSelector.html
 msgid "Show User files on map"
 msgstr "ഉപയോക്തൃപ്രമാണങ്ങൾ ഭൂപടത്തിൽ കാണിക്കുക"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show {{$ctrl.titleList.length}} files as gallery"
+msgstr ""
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show {{$ctrl.titleList.length}} files on map"

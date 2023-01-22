@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2021-06-09 20:19+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"PO-Revision-Date: 2016-05-19 10:23+0000\n"
+"Last-Translator: R. Z. Huang <dong12of@gmail.com>, 2018\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/locator-tool/locator-tool/language/zh_TW/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,7 +32,7 @@ msgstr "關於"
 msgid "About locator-tool"
 msgstr "關於定位小工具"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Also show geolocated files"
 msgstr "亦顯示已定位檔案"
 
@@ -62,11 +62,11 @@ msgstr "結束於"
 msgid "Failed to save: {{$ctrl.error.statusText}}"
 msgstr "保存失敗：{{$ctrl.error.statusText}}"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
 msgstr "<code>{{$ctrl.category}}</code>分類中找不到任何檔案啊啊啊！"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
 msgstr "<code>{{$ctrl.user}}</code>沒有上傳任何檔案！"
 
@@ -79,6 +79,10 @@ msgid ""
 "From the list of files provided, select one and click its location on an "
 "interactive map."
 msgstr "從檔案清單提供的檔案中選擇一個，並在互動式地圖上點擊其位置。"
+
+#: ./app/components/ltNavbar.html
+msgid "Gallery"
+msgstr ""
 
 #: ./app/components/ltNavbar.html
 msgid "Geolocate files"
@@ -96,8 +100,8 @@ msgstr "要允許定位小工具修改檔案描述頁，請先登入："
 
 #: ./app/components/ltAbout.html
 msgid ""
-"Its source code is available on <a href=\"https://github.com/simon04"
-"/locator-tool\">GitHub</a> and <a "
+"Its source code is available on <a "
+"href=\"https://github.com/simon04/locator-tool\">GitHub</a> and <a "
 "href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
 msgstr "其原始碼以<a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>釋出，可在<a href=\"https://github.com/simon04/locator-tool\">GitHub</a>上存取。"
 
@@ -127,7 +131,7 @@ msgstr "載入該使用者上傳的檔案以定位"
 msgid "Load {{$ctrl.titleList.length}} files to geolocate"
 msgstr "載入{{$ctrl.titleList.length}}個檔案來定位"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGallery.html ./app/components/ltGeolocate.html
 msgid "Loading file details …"
 msgstr "檔案細節載入中……"
 
@@ -158,7 +162,7 @@ msgid ""
 msgstr "以<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>標記目標位置"
 
 #: ./app/components/ltAbout.html
-msgid "Open Source Licenses"
+msgid "Open Source Licenses:"
 msgstr ""
 
 #: ./app/components/ltFileDetails.html
@@ -182,12 +186,24 @@ msgid "Select files to geolocate"
 msgstr "選擇檔案以進行地理編碼"
 
 #: ./app/components/ltFilesSelector.html
+msgid "Show Category as gallery"
+msgstr ""
+
+#: ./app/components/ltFilesSelector.html
 msgid "Show Category on map"
 msgstr "在地圖上顯示該分類中的檔案"
 
 #: ./app/components/ltFilesSelector.html
+msgid "Show User files as gallery"
+msgstr ""
+
+#: ./app/components/ltFilesSelector.html
 msgid "Show User files on map"
 msgstr "在地圖上顯示該使用者上傳的檔案"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show {{$ctrl.titleList.length}} files as gallery"
+msgstr ""
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show {{$ctrl.titleList.length}} files on map"

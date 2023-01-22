@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
-"PO-Revision-Date: 2021-06-09 20:19+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"PO-Revision-Date: 2016-05-19 10:23+0000\n"
+"Last-Translator: Yevgeniy Movsesov <yevhen.movsesov@gmail.com>, 2018\n"
 "Language-Team: Russian (http://www.transifex.com/locator-tool/locator-tool/language/ru/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -34,7 +34,7 @@ msgstr "Об инструменте"
 msgid "About locator-tool"
 msgstr "Об инструменте locator-tool"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Also show geolocated files"
 msgstr "Также показывать файлы с геометками"
 
@@ -64,11 +64,11 @@ msgstr "Конечная отметка времени"
 msgid "Failed to save: {{$ctrl.error.statusText}}"
 msgstr "Ошибка сохранения: {{$ctrl.error.statusText}}"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
 msgstr "Выбрано 0 файлов из категории <code>{{$ctrl.category}}</code>!"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGeolocate.html
 msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
 msgstr "Выбрано 0 файлов для пользователя <code>{{$ctrl.user}}</code>!"
 
@@ -81,6 +81,10 @@ msgid ""
 "From the list of files provided, select one and click its location on an "
 "interactive map."
 msgstr "Из списка файлов выберите один и отметьте расположение изображённых объектов на интерактивной карте."
+
+#: ./app/components/ltNavbar.html
+msgid "Gallery"
+msgstr ""
 
 #: ./app/components/ltNavbar.html
 msgid "Geolocate files"
@@ -98,8 +102,8 @@ msgstr "Чтобы разрешить инструменту locator-tool изм
 
 #: ./app/components/ltAbout.html
 msgid ""
-"Its source code is available on <a href=\"https://github.com/simon04"
-"/locator-tool\">GitHub</a> and <a "
+"Its source code is available on <a "
+"href=\"https://github.com/simon04/locator-tool\">GitHub</a> and <a "
 "href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
 msgstr "Исходный код доступен на <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> под <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> лицензией."
 
@@ -129,7 +133,7 @@ msgstr "Загрузить пользовательские файлы для г
 msgid "Load {{$ctrl.titleList.length}} files to geolocate"
 msgstr "Загрузить {{$ctrl.titleList.length}} файлов для геопозиционирования"
 
-#: ./app/components/ltMain.html
+#: ./app/components/ltGallery.html ./app/components/ltGeolocate.html
 msgid "Loading file details …"
 msgstr "Загрузка описания файла ..."
 
@@ -160,7 +164,7 @@ msgid ""
 msgstr "Расположение объекта\n<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
 
 #: ./app/components/ltAbout.html
-msgid "Open Source Licenses"
+msgid "Open Source Licenses:"
 msgstr ""
 
 #: ./app/components/ltFileDetails.html
@@ -184,12 +188,24 @@ msgid "Select files to geolocate"
 msgstr "Выберите файлы для геопозиционирования"
 
 #: ./app/components/ltFilesSelector.html
+msgid "Show Category as gallery"
+msgstr ""
+
+#: ./app/components/ltFilesSelector.html
 msgid "Show Category on map"
 msgstr "Показать категорию на карте"
 
 #: ./app/components/ltFilesSelector.html
+msgid "Show User files as gallery"
+msgstr ""
+
+#: ./app/components/ltFilesSelector.html
 msgid "Show User files on map"
 msgstr "Показать пользовательские файлы на карте"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show {{$ctrl.titleList.length}} files as gallery"
+msgstr ""
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show {{$ctrl.titleList.length}} files on map"
