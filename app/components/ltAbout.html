@@ -61,9 +61,9 @@
     <ul class="list-inline">
       <li class="list-inline-item"><span translate="translate">Open Source Licenses:</span></li>
       <li class="list-inline-item" ng-repeat="dependency in $ctrl.appDependencies">
-        <a ng-href="{{::dependency.homepage}}" target="_blank" rel="external noopener noreferrer">
-          {{::dependency.name}}
-        </a>
+        <a ng-href="{{::dependency.homepage}}" target="_blank" rel="external noopener noreferrer"
+          >{{::dependency.name}}</a
+        >
         {{::dependency.version}} ({{::dependency.license}})
       </li>
     </ul>
