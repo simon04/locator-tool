@@ -12,10 +12,10 @@
   <link rel="icon" type="image/svg+xml" href="locator-tool.svg" />
   <link rel="stylesheet" href="./app/style.css" />
 </head>
-<body>
+<body class="d-flex flex-column">
   <lt-navbar></lt-navbar>
-  <div class="container-fluid" style="height: calc(100% - 76px)">
-    <ui-view class="fill"></ui-view>
+  <div class="d-flex flex-grow-1 container-fluid">
+    <ui-view class="d-flex flex-grow-1"></ui-view>
   </div>
   <script src="./app/index.ts" type="module"></script>
 </body>

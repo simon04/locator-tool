@@ -82,3 +82,13 @@ label {
 .leaflet-control-geocoder-form input {
   color: var(--bs-black);
 }
+
+.flex-grow-1 {
+  /* https://stackoverflow.com/a/36247448 */
+  min-height: 0;
+}
+
+lt-geolocate lt-map,
+lt-geolocate lt-map > div {
+  height: 100%;
+}

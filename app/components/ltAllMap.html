@@ -1,4 +1,12 @@
-<div class="fill" ll-map="" ll-init="$ctrl.mapInit" style="margin-left: -15px; margin-right: -15px">
+<div
+  ll-map=""
+  ll-init="$ctrl.mapInit"
+  style="
+    height: 100%;
+    margin-left: calc(var(--bs-gutter-x) * -0.5);
+    margin-right: calc(var(--bs-gutter-x) * -0.5);
+  "
+>
   <ll-view ll-view="$ctrl.mapView"></ll-view>
   <ll-fit-bounds ll-bounds="$ctrl.bounds"></ll-fit-bounds>
   <ll-marker
