@@ -11,6 +11,7 @@ const languageCodes = [
   'fa_IR',
   'fr',
   'it',
+  'ja',
   'mk',
   'ml',
   'pt',
