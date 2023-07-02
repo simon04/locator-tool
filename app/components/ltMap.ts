@@ -80,7 +80,7 @@ export class LtMapController implements ng.IComponentController {
         `//maps.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg`,
         {
           ...maxZoomOptions,
-          maxZoom: 19,
+          maxNativeZoom: 19,
           attribution: '&copy; <a href="https://basemap.at/">basemap.at</a>'
         }
       )
