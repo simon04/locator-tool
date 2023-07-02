@@ -7,6 +7,7 @@ from flask_seasurf import SeaSurf
 from location_to_wikitext import add_location_to_wikitext
 from oauthlib.common import to_unicode
 from talisman import Talisman
+from types_query import QueryResult
 
 logging.basicConfig(
     filename=os.path.join(os.path.dirname(__file__), "locator-tool.log"),
@@ -66,7 +67,7 @@ def edit():
     lng = float(data["lng"])
     app.logger.info("Received request %s", str(data))
 
-    r1 = mwoauth_request(
+    r1: QueryResult = mwoauth_request(
         format="json",
         formatversion="2",
         action="query",
@@ -76,6 +77,7 @@ def edit():
         rvslots="*",
         meta="tokens",
     )
+    r1["query"]["pages"]
     try:
         wikitext = r1["query"]["pages"][0]["revisions"][0]["slots"]["main"]["content"]
         wikitext = to_unicode(wikitext)
