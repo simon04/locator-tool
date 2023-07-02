@@ -67,14 +67,16 @@ def edit():
 
     r1 = mwoauth_request(
         format="json",
+        formatversion="2",
         action="query",
         pageids=str(pageid),
         prop="revisions",
         rvprop="content",
+        rvslots="*",
         meta="tokens",
     )
     try:
-        wikitext = r1["query"]["pages"][str(pageid)]["revisions"][0]["*"]
+        wikitext = r1["query"]["pages"][0]["revisions"][0]["slots"]["main"]["content"]
         wikitext = to_unicode(wikitext)
     except KeyError:
         abort(404)
