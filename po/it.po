@@ -1,14 +1,14 @@
 # 
 # Translators:
 # Dario Crespi <dario.crespi@gmail.com>, 2018
-# Marco <marcxosm@gmail.com>, 2020-2021
+# Marco <marcxosm@gmail.com>, 2020-2021,2023
 # Simon Legner <simon.legner@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
 "PO-Revision-Date: 2016-05-19 10:23+0000\n"
-"Last-Translator: Marco <marcxosm@gmail.com>, 2020-2021\n"
-"Language-Team: Italian (http://www.transifex.com/locator-tool/locator-tool/language/it/)\n"
+"Last-Translator: Marco <marcxosm@gmail.com>, 2020-2021,2023\n"
+"Language-Team: Italian (http://app.transifex.com/locator-tool/locator-tool/language/it/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
@@ -84,7 +84,7 @@ msgstr "Dall'elenco di file, scegline uno e clicca sulla sua posizione nella map
 
 #: ./app/components/ltNavbar.html
 msgid "Gallery"
-msgstr ""
+msgstr "Galleria"
 
 #: ./app/components/ltNavbar.html
 msgid "Geolocate files"
@@ -165,7 +165,7 @@ msgstr "Posizione dell'oggetto tramite <a href=\"https://commons.wikimedia.org/w
 
 #: ./app/components/ltAbout.html
 msgid "Open Source Licenses:"
-msgstr ""
+msgstr "Licenze open source:"
 
 #: ./app/components/ltFileDetails.html
 msgid "Press shift and click on map to set the object location."
@@ -189,7 +189,7 @@ msgstr "Seleziona file da geolocalizzare"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show Category as gallery"
-msgstr ""
+msgstr "Mostra categoria come galleria"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show Category on map"
@@ -197,7 +197,7 @@ msgstr "Mostra la categoria sulla mappa"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show User files as gallery"
-msgstr ""
+msgstr "Mostra file utente come galleria"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show User files on map"
@@ -205,7 +205,7 @@ msgstr "Mostra i file dell'utente sulla mappa"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show {{$ctrl.titleList.length}} files as gallery"
-msgstr ""
+msgstr "Mostra {{$ctrl.titleList.length}} file come galleria"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show {{$ctrl.titleList.length}} files on map"
