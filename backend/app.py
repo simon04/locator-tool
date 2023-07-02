@@ -102,15 +102,23 @@ def edit():
         token=token,
     )
 
+    mediainfo = r1["query"]["pages"][0]["revisions"][0]["slots"].get("mediainfo", None)
+    if mediainfo:
+        mediainfo: Mediainfo = json.loads(mediainfo["content"])
+        r3 = edit_mediainfo(type, lat, lng, mediainfo, token)
+    else:
+        r3 = None
+
+    return jsonify(result=r2, sdc=r3)
+
+
+def edit_mediainfo(type, lat: float, lng: float, mediainfo: Mediainfo, token: str):
     property = {
         # coordinates of the point of view (P1259)
         "Location": "P1259",
         # coordinates of depicted place (P9149)
         "Object location": "P9149",
     }[type]
-    mediainfo: Mediainfo = json.loads(
-        r1["query"]["pages"][0]["revisions"][0]["slots"]["mediainfo"]["content"]
-    )
     statements = mediainfo["statements"]
     coordinates = {
         "latitude": lat,
@@ -128,7 +136,7 @@ def edit():
             property,
             claim["id"],
         )
-        r3 = mwoauth_request(
+        return mwoauth_request(
             format="json",
             action="wbsetclaimvalue",
             claim=claim["id"],
@@ -143,7 +151,7 @@ def edit():
             mediainfo["id"],
             property,
         )
-        r3 = mwoauth_request(
+        return mwoauth_request(
             format="json",
             action="wbcreateclaim",
             entity=mediainfo["id"],
@@ -152,8 +160,6 @@ def edit():
             value=json.dumps(coordinates),
             token=token,
         )
-
-    return jsonify(result=r2, sdc=r3)
 
 
 def mwoauth_request(**kwargs):
