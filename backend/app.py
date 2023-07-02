@@ -3,6 +3,7 @@ from flask_mwoauth import MWOAuth
 from talisman import Talisman
 from flask_seasurf import SeaSurf
 from oauthlib.common import to_unicode
+from location_to_wikitext import add_location_to_wikitext
 
 import logging
 import os
@@ -83,12 +84,9 @@ def edit():
 
     try:
         token = r1["query"]["tokens"]["csrftoken"]
+        app.logger.info("Obtained token=%s for pageid=%d", token, pageid)
     except KeyError:
         abort(401)
-
-    app.logger.info("Obtained token=%s for pageid=%d", token, pageid)
-
-    from location_to_wikitext import add_location_to_wikitext
 
     new_wikitext = add_location_to_wikitext(type, lat, lng, wikitext)
 
