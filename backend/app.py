@@ -1,12 +1,12 @@
-from flask import Flask, jsonify, request, abort
-from flask_mwoauth import MWOAuth
-from talisman import Talisman
-from flask_seasurf import SeaSurf
-from oauthlib.common import to_unicode
-from location_to_wikitext import add_location_to_wikitext
-
 import logging
 import os
+
+from flask import Flask, abort, jsonify, request
+from flask_mwoauth import MWOAuth
+from flask_seasurf import SeaSurf
+from location_to_wikitext import add_location_to_wikitext
+from oauthlib.common import to_unicode
+from talisman import Talisman
 
 logging.basicConfig(
     filename=os.path.join(os.path.dirname(__file__), "locator-tool.log"),
