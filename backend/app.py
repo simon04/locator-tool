@@ -66,13 +66,12 @@ def edit():
     app.logger.info("Received request %s", str(data))
 
     r1 = mwoauth_request(
-        {
-            "action": "query",
-            "pageids": pageid,
-            "prop": "revisions",
-            "rvprop": "content",
-            "meta": "tokens",
-        }
+        format="json",
+        action="query",
+        pageids=str(pageid),
+        prop="revisions",
+        rvprop="content",
+        meta="tokens",
     )
     try:
         wikitext = r1["query"]["pages"][str(pageid)]["revisions"][0]["*"]
@@ -92,21 +91,19 @@ def edit():
     new_wikitext = add_location_to_wikitext(type, lat, lng, wikitext)
 
     r2 = mwoauth_request(
-        {
-            "action": "edit",
-            "pageid": str(pageid),
-            "summary": "{{%s}}" % type,
-            "text": new_wikitext,
-            "token": token,
-        }
+        format="json",
+        action="edit",
+        pageid=str(pageid),
+        summary="{{%s}}" % type,
+        text=new_wikitext,
+        token=token,
     )
 
     return jsonify(result=r2)
 
 
-def mwoauth_request(api_query):
-    api_query["format"] = "json"
-    return mwoauth.mwoauth.post(mwoauth.base_url + "/api.php?", data=api_query).data
+def mwoauth_request(**kwargs):
+    return mwoauth.mwoauth.post(mwoauth.base_url + "/api.php?", data=kwargs).data
 
 
 if __name__ == "__main__":
