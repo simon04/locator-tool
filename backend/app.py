@@ -79,12 +79,6 @@ def edit():
         rvslots="*",
         meta="tokens",
     )
-    r1["query"]["pages"]
-    try:
-        wikitext = r1["query"]["pages"][0]["revisions"][0]["slots"]["main"]["content"]
-        wikitext = to_unicode(wikitext)
-    except KeyError:
-        abort(404)
 
     try:
         token = r1["query"]["tokens"]["csrftoken"]
@@ -92,6 +86,11 @@ def edit():
     except KeyError:
         abort(401)
 
+    try:
+        wikitext = r1["query"]["pages"][0]["revisions"][0]["slots"]["main"]["content"]
+        wikitext = to_unicode(wikitext)
+    except KeyError:
+        abort(404)
     new_wikitext = add_location_to_wikitext(type, lat, lng, wikitext)
 
     r2 = mwoauth_request(
