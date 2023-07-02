@@ -14,7 +14,9 @@
 <div class="card mt-2">
   <div class="card-body p-2">
     <div>
-      <label>
+      <label ng-click="$ctrl.collapseCameraLocation = !$ctrl.collapseCameraLocation">
+        <span class="text-secondary" ng-hide="$ctrl.collapseCameraLocation">▼</span>
+        <span class="text-secondary" ng-show="$ctrl.collapseCameraLocation">▶</span>
         <svg class="octicon">
           <use xlink:href="#device-camera"></use>
         </svg>
@@ -22,21 +24,28 @@
         <span translate="translate">
           Camera location via
 <a href="https://commons.wikimedia.org/wiki/Template:Location" target="_blank"><code class="mediawiki-template">Location</code></a></span>
-        <abbr title="{{'Left click on map to set the location.' | translate}}">
+        <abbr
+          ng-hide="$ctrl.collapseCameraLocation"
+          title="{{'Left click on map to set the location.' | translate}}"
+        >
           <svg class="octicon"><use xlink:href="#question"></use></svg>
         </abbr>
       </label>
-      <lt-location-input
-        lat-lng="$ctrl.file.coordinates"
-        edit-location="$ctrl.editLocation($ctrl.file.coordinates)"
-      ></lt-location-input>
+      <div ng-hide="$ctrl.collapseCameraLocation">
+        <lt-location-input
+          lat-lng="$ctrl.file.coordinates"
+          edit-location="$ctrl.editLocation($ctrl.file.coordinates)"
+        ></lt-location-input>
+      </div>
     </div>
   </div>
 </div>
 <div class="card mt-2">
   <div class="card-body p-2">
     <div>
-      <label>
+      <label ng-click="$ctrl.collapseObjectLocation = !$ctrl.collapseObjectLocation">
+        <span class="text-secondary" ng-hide="$ctrl.collapseObjectLocation">▼</span>
+        <span class="text-secondary" ng-show="$ctrl.collapseObjectLocation">▶</span>
         <svg class="octicon">
           <use xlink:href="#squirrel"></use>
         </svg>
@@ -44,14 +53,19 @@
         <span translate="translate">
           Object location via
 <a href="https://commons.wikimedia.org/wiki/Template:Object_location" target="_blank"><code class="mediawiki-template">Object location</code></a></span>
-        <abbr title="{{'Press shift and click on map to set the object location.' | translate}}">
+        <abbr
+          ng-hide="$ctrl.collapseObjectLocation"
+          title="{{'Press shift and click on map to set the object location.' | translate}}"
+        >
           <svg class="octicon"><use xlink:href="#question"></use></svg>
         </abbr>
       </label>
-      <lt-location-input
-        lat-lng="$ctrl.file.objectLocation"
-        edit-location="$ctrl.editLocation($ctrl.file.objectLocation)"
-      ></lt-location-input>
+      <div ng-hide="$ctrl.collapseObjectLocation">
+        <lt-location-input
+          lat-lng="$ctrl.file.objectLocation"
+          edit-location="$ctrl.editLocation($ctrl.file.objectLocation)"
+        ></lt-location-input>
+      </div>
     </div>
   </div>
 </div>
