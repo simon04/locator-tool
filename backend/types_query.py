@@ -1,4 +1,4 @@
-from typing import List, TypedDict
+from typing import Any, Dict, List, TypedDict
 
 
 class Slot(TypedDict):
@@ -21,6 +21,7 @@ class Page(TypedDict):
     ns: int
     title: str
     revisions: List[Revision]
+    wbentityusage: Dict[str, Any]
 
 
 class Tokens(TypedDict):

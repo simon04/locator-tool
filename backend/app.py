@@ -9,7 +9,7 @@ from location_to_wikitext import add_location_to_wikitext
 from oauthlib.common import to_unicode
 from talisman import Talisman
 from types_mediainfo import Mediainfo
-from types_query import QueryResult
+from types_query import Page, QueryResult
 
 logging.basicConfig(
     filename=os.path.join(os.path.dirname(__file__), "locator-tool.log"),
@@ -74,7 +74,7 @@ def edit():
         formatversion="2",
         action="query",
         pageids=str(pageid),
-        prop="revisions",
+        prop="revisions|wbentityusage",
         rvprop="content",
         rvslots="*",
         meta="tokens",
@@ -86,8 +86,9 @@ def edit():
     except KeyError:
         abort(401)
 
+    page = r1["query"]["pages"][0]
     try:
-        wikitext = r1["query"]["pages"][0]["revisions"][0]["slots"]["main"]["content"]
+        wikitext = page["revisions"][0]["slots"]["main"]["content"]
         wikitext = to_unicode(wikitext)
     except KeyError:
         abort(404)
@@ -102,17 +103,27 @@ def edit():
         token=token,
     )
 
-    mediainfo = r1["query"]["pages"][0]["revisions"][0]["slots"].get("mediainfo", None)
-    if mediainfo:
-        mediainfo: Mediainfo = json.loads(mediainfo["content"])
-        r3 = edit_mediainfo(type, lat, lng, mediainfo, token)
-    else:
-        r3 = None
+    r3 = edit_mediainfo(type, lat, lng, page, token)
 
     return jsonify(result=r2, sdc=r3)
 
 
-def edit_mediainfo(type, lat: float, lng: float, mediainfo: Mediainfo, token: str):
+def get_mediainfo(page: Page) -> Mediainfo:
+    slots = page["revisions"][0]["slots"]
+    if "mediainfo" in slots:
+        return json.loads(slots["mediainfo"]["content"])
+    ids = (k for k in page.get("wbentityusage", {}).keys() if k.startswith("M"))
+    id = next(ids, None)
+    if id:
+        return {"id": id, "statements": {}}
+    return None
+
+
+def edit_mediainfo(type, lat: float, lng: float, page: Page, token: str):
+    mediainfo = get_mediainfo(page)
+    if not mediainfo:
+        return None
+
     property = {
         # coordinates of the point of view (P1259)
         "Location": "P1259",
