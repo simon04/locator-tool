@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 
@@ -7,6 +8,7 @@ from flask_seasurf import SeaSurf
 from location_to_wikitext import add_location_to_wikitext
 from oauthlib.common import to_unicode
 from talisman import Talisman
+from types_mediainfo import Mediainfo
 from types_query import QueryResult
 
 logging.basicConfig(
@@ -101,7 +103,58 @@ def edit():
         token=token,
     )
 
-    return jsonify(result=r2)
+    property = {
+        # coordinates of the point of view (P1259)
+        "Location": "P1259",
+        # coordinates of depicted place (P9149)
+        "Object location": "P9149",
+    }[type]
+    mediainfo: Mediainfo = json.loads(
+        r1["query"]["pages"][0]["revisions"][0]["slots"]["mediainfo"]["content"]
+    )
+    statements = mediainfo["statements"]
+    coordinates = {
+        "latitude": lat,
+        "longitude": lng,
+        "globe": "http://www.wikidata.org/entity/Q2",
+        "precision": 0.000001,
+    }
+
+    if property in statements and len(statements[property]):
+        # https://www.wikidata.org/w/api.php?action=help&modules=wbsetclaimvalue
+        claim = statements[property][0]
+        app.logger.info(
+            "For mediaitem %s, updating claim %s/%s",
+            mediainfo["id"],
+            property,
+            claim["id"],
+        )
+        r3 = mwoauth_request(
+            format="json",
+            action="wbsetclaimvalue",
+            claim=claim["id"],
+            snaktype="value",
+            value=json.dumps(coordinates),
+            token=token,
+        )
+    else:
+        # https://www.wikidata.org/w/api.php?action=help&modules=wbcreateclaim
+        app.logger.info(
+            "For mediaitem %s, creating claim %s",
+            mediainfo["id"],
+            property,
+        )
+        r3 = mwoauth_request(
+            format="json",
+            action="wbcreateclaim",
+            entity=mediainfo["id"],
+            property=property,
+            snaktype="value",
+            value=json.dumps(coordinates),
+            token=token,
+        )
+
+    return jsonify(result=r2, sdc=r3)
 
 
 def mwoauth_request(**kwargs):

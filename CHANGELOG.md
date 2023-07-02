@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- 2023-07-02: Update [structured data on Commons](https://commons.wikimedia.org/wiki/Commons:Structured_data/Modeling/Location)
+- 2022-04-21: Gallery of images (including metadata)
 - 2020-06-30: Migrate to [locator-tool.toolforge.org](https://locator-tool.toolforge.org/)
 - 2019-05-17: Round coordinates to 5 digits – https://xkcd.com/2170/
 - 2018-11-01: Migrate source code to TypeScript
