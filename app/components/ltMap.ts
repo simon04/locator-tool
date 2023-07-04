@@ -107,7 +107,7 @@ export class LtMapController implements ng.IComponentController {
     if (lat && lng) {
       const target = shiftKey ? this.mapObjectLocation : this.mapMarker;
       const coordinates = target.withLatLng(lat, lng).roundToPrecision();
-      this.$scope.$emit('coordinatesChanged', coordinates);
+      this.$scope.$emit('coordinatesChanged', coordinates, $event);
     }
   }
 
@@ -115,7 +115,7 @@ export class LtMapController implements ng.IComponentController {
     const {lat, lng} = ($event.target as L.Marker).getLatLng();
     if (lat && lng) {
       const coordinates = target.withLatLng(lat, lng).roundToPrecision();
-      this.$scope.$emit('coordinatesChanged', coordinates);
+      this.$scope.$emit('coordinatesChanged', coordinates, $event);
     }
   }
 

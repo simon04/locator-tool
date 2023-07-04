@@ -65,8 +65,14 @@ class LtGeolocateController implements ng.IComponentController {
 
     this.$scope.$watch('$ctrl.title', (title: CommonsFile) => this.titleChanged(title));
     this.$scope.$watch('$ctrl.mapView', (mapView: MapView) => this.mapViewChanged(mapView), true);
-    this.$scope.$on('coordinatesChanged', (_event, coordinates) =>
-      this.coordinatesChanged(coordinates)
+    this.$scope.$on(
+      'coordinatesChanged',
+      (_event, coordinates: LatLng, $event?: L.LeafletMouseEvent) => {
+        this.coordinatesChanged(coordinates);
+        if (!$event?.type) {
+          this.updateMapView(coordinates);
+        }
+      }
     );
   }
 
