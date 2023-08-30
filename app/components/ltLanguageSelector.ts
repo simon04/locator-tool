@@ -30,10 +30,13 @@ class ltLanguageSelector implements ng.IComponentController {
   ) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     languageCodes.forEach(lang => this.gettextCatalog.setStrings(lang, (i18n as any)[lang]));
-    this.languages = languageCodes.reduce((obj, lang) => {
-      obj[lang] = this.getDisplayString(lang);
-      return obj;
-    }, {} as Record<string, string>);
+    this.languages = languageCodes.reduce(
+      (obj, lang) => {
+        obj[lang] = this.getDisplayString(lang);
+        return obj;
+      },
+      {} as Record<string, string>
+    );
   }
 
   $onInit() {

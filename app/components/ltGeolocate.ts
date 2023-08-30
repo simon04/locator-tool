@@ -112,8 +112,11 @@ class LtGeolocateController implements ng.IComponentController {
     if (newIndex >= 0 && titles[newIndex]) {
       this.title = titles[newIndex];
       const target = $event.target as HTMLElement;
-      window.requestAnimationFrame(() =>
-        target.querySelectorAll('.list-group-item')?.[newIndex]?.scrollIntoView?.({block: 'center'})
+      window.requestAnimationFrame(
+        () =>
+          target
+            .querySelectorAll('.list-group-item')
+            ?.[newIndex]?.scrollIntoView?.({block: 'center'})
       );
     }
   }
