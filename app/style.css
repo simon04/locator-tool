@@ -92,3 +92,10 @@ lt-geolocate lt-map,
 lt-geolocate lt-map > div {
   height: 100%;
 }
+
+lt-all-map {
+  display: flex;
+  flex-grow: 1;
+  margin-left: calc(var(--bs-gutter-x) * -0.5);
+  margin-right: calc(var(--bs-gutter-x) * -0.5);
+}
