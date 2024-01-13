@@ -88,11 +88,6 @@ label {
   min-height: 0;
 }
 
-lt-geolocate lt-map,
-lt-geolocate lt-map > div {
-  height: 100%;
-}
-
 lt-all-map {
   display: flex;
   flex-grow: 1;

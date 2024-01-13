@@ -1,7 +1,7 @@
 <template>
   <lt-navbar></lt-navbar>
   <div class="d-flex flex-grow-1 container-fluid flex-column">
-    <router-view class="d-flex flex-grow-1" />
+    <router-view />
   </div>
 </template>
 

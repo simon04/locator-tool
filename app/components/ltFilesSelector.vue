@@ -1,6 +1,6 @@
 <template>
-  <h2 v-hide="userInfo" class="mt-4" translate="translate">Sign in</h2>
-  <p v-hide="userInfo">
+  <h2 v-show="!userInfo" class="mt-4" translate="translate">Sign in</h2>
+  <p v-show="!userInfo">
     <span translate="translate">
       In order to allow locator-tool to modify file description pages, sign in first:
     </span>
@@ -71,19 +71,19 @@
       </div>
     </div>
     <div class="mb-4">
-      <button class="btn btn-success" :disabled="!user" @click="nextForUser()">
+      <button class="btn btn-success me-2" :disabled="!user" @click="nextForUser()">
         <svg class="octicon">
           <use xlink:href="#location"></use>
         </svg>
         <span translate="translate">Load User files to geolocate</span>
       </button>
-      <button class="btn btn-secondary" :disabled="!user" @click="nextForUser('map')">
+      <button class="btn btn-secondary me-2" :disabled="!user" @click="nextForUser('map')">
         <svg class="octicon">
           <use xlink:href="#globe"></use>
         </svg>
         <span translate="translate">Show User files on map</span>
       </button>
-      <button class="btn btn-secondary" :disabled="!user" @click="nextForUser('gallery')">
+      <button class="btn btn-secondary me-2" :disabled="!user" @click="nextForUser('gallery')">
         <svg class="octicon">
           <use xlink:href="#file-media"></use>
         </svg>
@@ -91,7 +91,7 @@
       </button>
       <input class="invisible" type="submit" :disabled="!user" />
     </div>
-    <lt-spinner v-if="getFilesForUser$q && !getFilesForUser$q.$$state.status"></lt-spinner>
+    <lt-spinner v-if="getFilesForUser$q && !getFilesForUser$q.$$state.status" />
   </form>
   <form v-show="$tab === Tab.CATEGORY" name="formCategory" @submit="nextForCategory()">
     <div class="row">
@@ -100,7 +100,7 @@
         <input
           id="inputCategory"
           v-model="category"
-          v-model-options="{updateOn: 'default blur', debounce: {default: 500, change: 0, blur: 0}}"
+          :model-options="{updateOn: 'default blur', debounce: {default: 500, change: 0, blur: 0}}"
           class="form-control"
           list="datalistCategory"
           placeholder="Category:…"
@@ -120,19 +120,23 @@
       </div>
     </div>
     <div class="mb-4">
-      <button class="btn btn-success" :disabled="!category" @click="nextForCategory()">
+      <button class="btn btn-success me-2" :disabled="!category" @click="nextForCategory()">
         <svg class="octicon">
           <use xlink:href="#location"></use>
         </svg>
         <span translate="translate">Load Category to geolocate</span>
       </button>
-      <button class="btn btn-secondary" :disabled="!category" @click="nextForCategory('map')">
+      <button class="btn btn-secondary me-2" :disabled="!category" @click="nextForCategory('map')">
         <svg class="octicon">
           <use xlink:href="#globe"></use>
         </svg>
         <span translate="translate">Show Category on map</span>
       </button>
-      <button class="btn btn-secondary" :disabled="!category" @click="nextForCategory('gallery')">
+      <button
+        class="btn btn-secondary me-2"
+        :disabled="!category"
+        @click="nextForCategory('gallery')"
+      >
         <svg class="octicon">
           <use xlink:href="#file-media"></use>
         </svg>
@@ -140,7 +144,7 @@
       </button>
       <input class="invisible" type="submit" :disabled="!category" />
     </div>
-    <lt-spinner v-if="getFilesForCategory$q && !getFilesForCategory$q.$$state.status"></lt-spinner>
+    <lt-spinner v-if="getFilesForCategory$q && !getFilesForCategory$q.$$state.status" />
     <datalist id="datalistCategory">
       <option v-for="i in categorySuggestions" :key="i" :value="i"></option>
     </datalist>
@@ -160,19 +164,19 @@
       <p class="form-text" translate="translate">When a clipboard content containing HTML code (for instance a copied selection from a Commons gallery) is pasted here, locator-tool tries to extract <code>File:</code>s from the code.</p>
     </div>
     <div class="mb-4">
-      <button class="btn btn-success pointer" :disabled="!titleList.length" @click="next()">
+      <button class="btn btn-success me-2" :disabled="!titleList.length" @click="next()">
         <svg class="octicon">
           <use xlink:href="#location"></use>
         </svg>
         <span translate="translate">Load {{ titleList.length }} files to geolocate</span>
       </button>
-      <button class="btn btn-secondary" :disabled="!titleList.length" @click="next('map')">
+      <button class="btn btn-secondary me-2" :disabled="!titleList.length" @click="next('map')">
         <svg class="octicon">
           <use xlink:href="#globe"></use>
         </svg>
         <span translate="translate">Show {{ titleList.length }} files on map</span>
       </button>
-      <button class="btn btn-secondary" :disabled="!titleList.length" @click="next('gallery')">
+      <button class="btn btn-secondary me-2" :disabled="!titleList.length" @click="next('gallery')">
         <svg class="octicon">
           <use xlink:href="#file-media"></use>
         </svg>
@@ -184,8 +188,10 @@
 
 <script setup lang="ts">
 import {computed, ref} from 'vue';
+import * as ltData from '../api/ltData';
 import {getUserInfo, loginURL} from '../api/ltDataAuth';
 import {useRoute, useRouter} from 'vue-router';
+import ltSpinner from './ltSpinner.vue';
 
 enum Tab {
   CATEGORY = 1,
@@ -199,7 +205,7 @@ const $routes = useRouter();
 const $tab = ref<Tab>($route.query.user ? Tab.USER : Tab.CATEGORY);
 const category = ref<string>($route.query.category as string);
 const categoryDepth = ref(tryParse(parseInt, $route.query.categoryDepth as string, 3));
-// categorySuggestions: string[] = [];
+const categorySuggestions = ref<string[]>([]);
 const user = ref<string>($route.query.user as string);
 const userLimit = ref(tryParse(parseInt, $route.query.userLimit as string, undefined));
 const userStart = ref<Date | undefined>(
@@ -224,26 +230,36 @@ function tryParse<T>(parser: (string: string) => T, text: string, fallback: T): 
 const {data: userInfo} = getUserInfo();
 
 function getCategoriesForPrefix() {
-  this.ltData.getCategoriesForPrefix(this.category).then(categories => {
-    this.categorySuggestions = categories;
+  ltData.getCategoriesForPrefix(category.value).then(categories => {
+    categorySuggestions.value = categories;
   });
 }
 
 function next(name = 'geolocate') {
   const files = titleList.value.join('|');
-  $routes.push({name, params: {files}});
+  $routes.push({name, query: {files}});
 }
 
 function nextForUser(name = 'geolocate') {
-  const {user, userLimit} = this;
-  const userStart = this.userStart instanceof Date ? this.userStart.toISOString() : undefined;
-  const userEnd = this.userEnd instanceof Date ? this.userEnd.toISOString() : undefined;
-  $routes.push({name, params: {user, userLimit, userStart, userEnd}});
+  $routes.push({
+    name,
+    query: {
+      user: user.value,
+      userLimit: userLimit.value,
+      userStart: userStart.value instanceof Date ? userStart.value.toISOString() : undefined,
+      userEnd: userEnd.value instanceof Date ? userEnd.value.toISOString() : undefined
+    }
+  });
 }
 
 function nextForCategory(name = 'geolocate') {
-  const {category, categoryDepth} = this;
-  $routes.push({name, params: {category, categoryDepth}});
+  $routes.push({
+    name,
+    query: {
+      category: category.value,
+      categoryDepth: categoryDepth.value
+    }
+  });
 }
 
 const titleList = computed<string[]>({
@@ -256,7 +272,6 @@ const titleList = computed<string[]>({
 });
 
 function onFilesPaste($event: ClipboardEvent) {
-  /* eslint-env browser */
   try {
     if (!$event.clipboardData) return;
     const html = $event.clipboardData.getData('text/html');

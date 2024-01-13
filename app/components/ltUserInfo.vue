@@ -1,5 +1,5 @@
 <template>
-  <a v-hide="userInfo?.user" class="btn btn-success ms-2" :href="loginURL()">
+  <a v-show="!userInfo?.user" class="btn btn-success ms-2" :href="loginURL()">
     <svg class="octicon">
       <use xlink:href="#sign-in"></use>
     </svg>

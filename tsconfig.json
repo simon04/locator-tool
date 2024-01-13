@@ -7,7 +7,7 @@
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "target": "ES2017"
+    "target": "ES2018"
   },
   "include": ["app/**/*.ts"]
 }

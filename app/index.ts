@@ -25,7 +25,7 @@ const router = createRouter({
     {
       name: 'about',
       path: '/about',
-      component: () => import('./components/ltAbout')
+      component: () => import('./components/ltAbout.vue')
     },
     {
       name: 'select',
@@ -38,7 +38,7 @@ const router = createRouter({
       // path: '/geolocate?' + params,
       path: '/geolocate',
       // template: '<lt-geolocate class="d-flex flex-grow-1"></lt-geolocate>'
-      component: () => import('./components/ltGeolocate')
+      component: () => import('./components/ltGeolocate.vue')
     },
     {
       name: 'map',
@@ -50,7 +50,7 @@ const router = createRouter({
       name: 'gallery',
       // path: '/gallery?' + params,
       path: '/gallery',
-      component: () => import('./components/ltGallery')
+      component: () => import('./components/ltGallery.vue')
     }
   ]
 });

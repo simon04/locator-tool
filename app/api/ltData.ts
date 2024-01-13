@@ -1,4 +1,3 @@
-import angular from 'angular';
 import deepmerge from 'deepmerge';
 import getFilePath from 'wikimedia-commons-file-path';
 
@@ -86,338 +85,323 @@ export interface MainSlot {
   '*': string;
 }
 
-export default class LtData {
-  public static $inject = [
-    '$http',
-    '$httpParamSerializer',
-    '$sce',
-    '$q',
-    'gettextCatalog',
-    'limitToFilter'
-  ];
-  constructor(
-    private $http: ng.IHttpService,
-    private $httpParamSerializer: ng.IHttpParamSerializer,
-    private $sce: ng.ISCEService,
-    private $q: ng.IQService,
-    private gettextCatalog: gettextCatalog,
-    private limitToFilter: ng.IFilterLimitTo
-  ) {}
-
-  getCoordinates(titles: CommonsTitle[]): ng.IPromise<CommonsFile[]> {
-    if (angular.isString(titles)) {
-      titles = titles.split('|');
-    }
-    if (titles.length > maxTitlesPerRequest) {
-      return this.getCoordinatesChunkByChunk(titles);
-    }
-    const params = {
-      prop: 'coordinates',
-      colimit: 500,
-      coprop: 'type|name',
-      coprimary: 'all',
-      titles: titles.join('|').replace(/_/g, ' ')
-    };
-    return this.$query<ApiResponse<CoordinatePage>>(params).then(data => {
-      const pages = data?.query?.pages || {};
-      return Object.entries(pages).map(([pageid, page]) => {
-        const coordinates = page.coordinates || [];
-        return {
-          pageid: parseInt(pageid),
-          file: page.title,
-          url: `https://commons.wikimedia.org/wiki/${page.title}`,
-          imageUrl(width?: number) {
-            return getFilePath(this.file, width);
-          },
-          coordinates: new LatLng(
-            'Location',
-            ...toLatLng(coordinates.filter(c => c.primary === '' && c.type === 'camera'))
-          ),
-          objectLocation: new LatLng(
-            'Object location',
-            ...toLatLng(coordinates.filter(c => c.type === 'object'))
-          )
-        } as CommonsFile;
-      });
-      function toLatLng(cc: Coordinate[]): [number?, number?] {
-        const c: Coordinate = cc?.[0];
-        return angular.isObject(c) ? [c.lat, c.lon] : [undefined, undefined];
-      }
-    });
+export function getCoordinates(titles: CommonsTitle[]): Promise<CommonsFile[]> {
+  if (typeof titles === 'string') {
+    titles = titles.split('|');
   }
-
-  getCoordinatesChunkByChunk(titles: CommonsTitle[]): ng.IPromise<CommonsFile[]> {
-    const t = [...titles];
-    const requests: CommonsTitle[][] = [];
-    while (t.length) {
-      requests.push(t.splice(0, Math.min(maxTitlesPerRequest, t.length)));
-    }
-    const coordinatesPromises = requests.map(x => this.getCoordinates(x));
-    return this.$q.all(coordinatesPromises).then(x => flatten(x));
-
-    function flatten<T>(array: T[][]) {
-      const result: T[] = [];
-      return result.concat(...array);
-    }
+  if (titles.length > maxTitlesPerRequest) {
+    return getCoordinatesChunkByChunk(titles);
   }
-
-  getFileDetails(
-    pageid: number,
-    prop = 'categories|imageinfo|revisions',
-    iiprop = 'url|extmetadata'
-  ): ng.IPromise<{
-    categories: string[];
-    description: string;
-    author: string;
-    timestamp: string;
-    url?: string;
-    objectLocation: LatLng;
-  }> {
-    const params = {
-      prop,
-      pageids: pageid,
-      iiprop,
-      iiextmetadatafilter: 'ImageDescription|Artist|DateTimeOriginal',
-      iiextmetadatalanguage: this.gettextCatalog.getCurrentLanguage(),
-      ...(prop.includes('categories') ? {clshow: '!hidden'} : {}),
-      ...(prop.includes('revisions') ? {rvslots: 'main', rvprop: 'content'} : {})
-    };
-    return this.$query<ApiResponse<DetailsPage>>(params).then(data => {
-      const page: DetailsPage | undefined = data?.query?.pages?.[pageid];
-      const categories = (page?.categories || []).map(category =>
-        category.title.replace(/^Category:/, '')
-      );
-      const extmetadata = page?.imageinfo[0]?.extmetadata;
+  const params = {
+    prop: 'coordinates',
+    colimit: 500,
+    coprop: 'type|name',
+    coprimary: 'all',
+    titles: titles.join('|').replace(/_/g, ' ')
+  };
+  return $query<ApiResponse<CoordinatePage>>(params).then(data => {
+    const pages = data?.query?.pages || {};
+    return Object.entries(pages).map(([pageid, page]) => {
+      const coordinates = page.coordinates || [];
       return {
-        categories,
-        description: this.$sce.trustAsHtml(extmetadata?.ImageDescription?.value),
-        author: this.$sce.trustAsHtml(extmetadata?.Artist?.value),
-        timestamp: this.$sce.trustAsHtml(extmetadata?.DateTimeOriginal?.value),
-        ...(iiprop.includes('url') ? {url: page?.imageinfo[0]?.descriptionurl} : {}),
-        objectLocation: extractObjectLocation(page)
-      };
+        pageid: parseInt(pageid),
+        file: page.title,
+        url: `https://commons.wikimedia.org/wiki/${page.title}`,
+        imageUrl(width?: number) {
+          return getFilePath(this.file, width);
+        },
+        coordinates: new LatLng(
+          'Location',
+          ...toLatLng(coordinates.filter(c => c.primary === '' && c.type === 'camera'))
+        ),
+        objectLocation: new LatLng(
+          'Object location',
+          ...toLatLng(coordinates.filter(c => c.type === 'object'))
+        )
+      } as CommonsFile;
     });
-
-    function extractObjectLocation(page: DetailsPage) {
-      try {
-        const wikitext: string = page?.revisions?.[0]?.slots?.main['*'] || '';
-        const locDeg = wikitext.match(
-          /\{\{Object location( dec)?\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([NS])\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([WE])/i
-        );
-        const loc = wikitext.match(/\{\{Object location( dec)?\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)/i);
-        let lat;
-        let lng;
-        if (locDeg) {
-          lat = parseInt(locDeg[2]) + parseInt(locDeg[3]) / 60 + parseFloat(locDeg[4]) / 3600;
-          lat *= locDeg[5] === 'N' ? 1 : -1;
-          lng = parseInt(locDeg[6]) + parseInt(locDeg[7]) / 60 + parseFloat(locDeg[8]) / 3600;
-          lng *= locDeg[9] === 'E' ? 1 : -1;
-        } else if (loc) {
-          lat = parseFloat(loc[2]);
-          lng = parseFloat(loc[3]);
-        }
-        return new LatLng('Object location', lat, lng);
-      } catch (e) {
-        return new LatLng('Object location', undefined, undefined);
-      }
+    function toLatLng(cc: Coordinate[]): [number?, number?] {
+      const c: Coordinate = cc?.[0];
+      return typeof c === 'object' ? [c.lat, c.lon] : [undefined, undefined];
     }
-  }
+  });
+}
 
-  getCategoriesForPrefix(prefix: string): ng.IPromise<CommonsTitle[]> {
-    const params = {
-      list: 'allpages',
-      apnamespace: NS_CATEGORY,
-      aplimit: 30,
-      apfrom: prefix,
-      apprefix: prefix
-    };
-    return this.$query<ApiResponse<Page>>(params, {}, undefined, () => false).then(data =>
-      (data.query.allpages || []).map(i => i.title.replace(/^Category:/, '' as CommonsTitle))
+export function getCoordinatesChunkByChunk(titles: CommonsTitle[]): Promise<CommonsFile[]> {
+  const t = [...titles];
+  const requests: CommonsTitle[][] = [];
+  while (t.length) {
+    requests.push(t.splice(0, Math.min(maxTitlesPerRequest, t.length)));
+  }
+  const coordinatesPromises = requests.map(x => getCoordinates(x));
+  return Promise.all(coordinatesPromises).then(x => flatten(x));
+
+  function flatten<T>(array: T[][]) {
+    const result: T[] = [];
+    return result.concat(...array);
+  }
+}
+
+export interface FileDetails {
+  categories: string[];
+  description: string;
+  author: string;
+  timestamp: string;
+  url?: string;
+  objectLocation: LatLng;
+}
+
+export function getFileDetails(
+  pageid: number,
+  prop = 'categories|imageinfo|revisions',
+  iiprop = 'url|extmetadata'
+): Promise<FileDetails> {
+  const params = {
+    prop,
+    pageids: pageid,
+    iiprop,
+    iiextmetadatafilter: 'ImageDescription|Artist|DateTimeOriginal',
+    iiextmetadatalanguage: document.body.parentElement.lang,
+    ...(prop.includes('categories') ? {clshow: '!hidden'} : {}),
+    ...(prop.includes('revisions') ? {rvslots: 'main', rvprop: 'content'} : {})
+  };
+  return $query<ApiResponse<DetailsPage>>(params).then(data => {
+    const page: DetailsPage | undefined = data?.query?.pages?.[pageid];
+    const categories = (page?.categories || []).map(category =>
+      category.title.replace(/^Category:/, '')
     );
-  }
-
-  getFiles({
-    files,
-    user,
-    userLimit,
-    userStart,
-    userEnd,
-    category,
-    categoryDepth
-  }: {
-    files: CommonsTitle | CommonsTitle[];
-    user: string;
-    userLimit: string | number | undefined;
-    userStart: string | undefined;
-    userEnd: string | undefined;
-    category: string;
-    categoryDepth: string | number | undefined;
-  }): ng.IPromise<CommonsTitle[]> {
-    return this.$q((resolve, reject) => {
-      if (angular.isString(files)) {
-        files = files.split('|');
-      }
-      if (files) {
-        resolve(files.map(file => (file.startsWith('File:') ? file : `File:${file}`)));
-      } else if (user) {
-        userLimit = typeof userLimit === 'string' ? +userLimit : userLimit;
-        this.getFilesForUser(user, userLimit, userStart, userEnd).then(resolve);
-      } else if (category) {
-        categoryDepth = typeof categoryDepth === 'string' ? +categoryDepth : categoryDepth;
-        this.getFilesForCategory(category, categoryDepth).then(resolve);
-      } else {
-        reject();
-      }
-    });
-  }
-
-  private removeCommonsPrefix(string: string, prefix: string): string {
-    const urlPrefix = 'https://commons.wikimedia.org/wiki/';
-    if (string.indexOf(urlPrefix) === 0) {
-      string = string.slice(urlPrefix.length);
-      string = decodeURI(string);
-    }
-    if (string.indexOf(prefix) === 0) {
-      string = string.slice(prefix.length);
-    }
-    return string;
-  }
-
-  getFilesForUser(
-    user: string,
-    userLimit: number | undefined,
-    userStart: string | undefined,
-    userEnd: string | undefined
-  ): ng.IPromise<CommonsTitle[]> {
-    user = this.removeCommonsPrefix(user, 'User:');
-    // https://commons.wikimedia.org/w/api.php?action=help&modules=query%2Ballimages
-    const params = {
-      generator: 'allimages',
-      gaiuser: user,
-      gailimit: typeof userLimit === 'number' && userLimit <= 500 ? userLimit : 'max',
-      gaistart: userEnd, // sic! (due to gaidir)
-      gaiend: userStart, // sic! (due to gaidir)
-      gaisort: 'timestamp',
-      gaidir: 'older'
-    };
-    const toPageArray = (data: ApiResponse<Page>): Page[] => Object.values(data.query.pages);
-    const shouldContinue = (data: ApiResponse<Page>): boolean =>
-      data.continue ? !userLimit || toPageArray(data).length < userLimit : false;
-    return this.$query<ApiResponse<Page>>(params, {}, undefined, shouldContinue)
-      .then(data => toPageArray(data).map(page => page.title as CommonsTitle))
-      .then(pages => (userLimit ? this.limitToFilter(pages, userLimit) : pages));
-  }
-
-  getFilesForCategory(cat: string, depth = 3): ng.IPromise<CommonsTitle[]> {
-    cat = this.removeCommonsPrefix(cat, 'Category:');
-    const timeout = this.$q.defer();
-    const requests = [
-      this.getFilesForCategory1(cat, depth, timeout.promise),
-      this.getFilesForCategory3(cat, depth, timeout.promise)
-    ];
-    if (depth <= 0) {
-      requests.unshift(this.getFilesForCategory0(cat, timeout.promise));
-    }
-    return this.successRace(requests).finally(() => timeout.resolve());
-  }
-
-  getFilesForCategory0(cat: string, timeout: ng.IPromise<unknown>): ng.IPromise<CommonsTitle[]> {
-    const params = {
-      list: 'categorymembers',
-      cmlimit: 500,
-      cmnamespace: NS_FILE,
-      cmtitle: 'Category:' + cat
-    };
-    return this.$query<ApiResponse<Page>>(params, {}, timeout).then(data =>
-      (data.query.categorymembers || []).map(cm => cm.title)
-    );
-  }
-
-  getFilesForCategory1(
-    cat: string,
-    depth: number,
-    timeout: ng.IPromise<unknown>
-  ): ng.IPromise<CommonsTitle[]> {
-    const params = {
-      lang: 'commons',
-      cat: cat.replace(/^Category:/, ''),
-      type: NS_FILE,
-      depth: depth,
-      json: 1
-    };
-    return this.$http
-      .get<CommonsTitle[]>('https://cats-php.toolforge.org/', {params, timeout})
-      .then(d => d.data.map(f => `File:${f}`));
-  }
-
-  getFilesForCategory3(
-    categories: string,
-    depth: number,
-    timeout: ng.IPromise<unknown>
-  ): ng.IPromise<CommonsTitle[]> {
-    const params = {
-      language: 'commons',
-      project: 'wikimedia',
-      depth,
+    const extmetadata = page?.imageinfo[0]?.extmetadata;
+    return {
       categories,
-      [`ns[${NS_FILE}]`]: 1,
-      format: 'json',
-      sparse: 1,
-      doit: 1
+      description: extmetadata?.ImageDescription?.value,
+      author: extmetadata?.Artist?.value,
+      timestamp: extmetadata?.DateTimeOriginal?.value,
+      ...(iiprop.includes('url') ? {url: page?.imageinfo[0]?.descriptionurl} : {}),
+      objectLocation: extractObjectLocation(page)
     };
-    return (
-      this.$http
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .get<any>('https://petscan.wmflabs.org/', {params, timeout})
-        .then(d => d.data['*'][0]['a']['*'] as CommonsTitle[])
+  });
+
+  function extractObjectLocation(page: DetailsPage) {
+    try {
+      const wikitext: string = page?.revisions?.[0]?.slots?.main['*'] || '';
+      const locDeg = wikitext.match(
+        /\{\{Object location( dec)?\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([NS])\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([WE])/i
+      );
+      const loc = wikitext.match(/\{\{Object location( dec)?\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)/i);
+      let lat;
+      let lng;
+      if (locDeg) {
+        lat = parseInt(locDeg[2]) + parseInt(locDeg[3]) / 60 + parseFloat(locDeg[4]) / 3600;
+        lat *= locDeg[5] === 'N' ? 1 : -1;
+        lng = parseInt(locDeg[6]) + parseInt(locDeg[7]) / 60 + parseFloat(locDeg[8]) / 3600;
+        lng *= locDeg[9] === 'E' ? 1 : -1;
+      } else if (loc) {
+        lat = parseFloat(loc[2]);
+        lng = parseFloat(loc[3]);
+      }
+      return new LatLng('Object location', lat, lng);
+    } catch (e) {
+      return new LatLng('Object location', undefined, undefined);
+    }
+  }
+}
+
+export function getCategoriesForPrefix(prefix: string): Promise<CommonsTitle[]> {
+  const params = {
+    list: 'allpages',
+    apnamespace: NS_CATEGORY,
+    aplimit: 30,
+    apfrom: prefix,
+    apprefix: prefix
+  };
+  return $query<ApiResponse<Page>>(params, {}, undefined, () => false).then(data =>
+    (data.query.allpages || []).map(i => i.title.replace(/^Category:/, '' as CommonsTitle))
+  );
+}
+
+export async function getFiles({
+  files,
+  user,
+  userLimit,
+  userStart,
+  userEnd,
+  category,
+  categoryDepth
+}: {
+  files: CommonsTitle | CommonsTitle[];
+  user: string;
+  userLimit: string | number | undefined;
+  userStart: string | undefined;
+  userEnd: string | undefined;
+  category: string;
+  categoryDepth: string | number | undefined;
+}): Promise<CommonsTitle[]> {
+  if (typeof files === 'string') {
+    files = files.split('|');
+  }
+  if (files) {
+    return files.map(file => (file.startsWith('File:') ? file : `File:${file}`));
+  } else if (user) {
+    userLimit = typeof userLimit === 'string' ? +userLimit : userLimit;
+    return getFilesForUser(user, userLimit, userStart, userEnd);
+  } else if (category) {
+    categoryDepth = typeof categoryDepth === 'string' ? +categoryDepth : categoryDepth;
+    return getFilesForCategory(category, categoryDepth);
+  } else {
+    throw new Error();
+  }
+}
+
+function removeCommonsPrefix(string: string, prefix: string): string {
+  const urlPrefix = 'https://commons.wikimedia.org/wiki/';
+  if (string.indexOf(urlPrefix) === 0) {
+    string = string.slice(urlPrefix.length);
+    string = decodeURI(string);
+  }
+  if (string.indexOf(prefix) === 0) {
+    string = string.slice(prefix.length);
+  }
+  return string;
+}
+
+export function getFilesForUser(
+  user: string,
+  userLimit: number | undefined,
+  userStart: string | undefined,
+  userEnd: string | undefined
+): Promise<CommonsTitle[]> {
+  user = removeCommonsPrefix(user, 'User:');
+  // https://commons.wikimedia.org/w/api.php?action=help&modules=query%2Ballimages
+  const params = {
+    generator: 'allimages',
+    gaiuser: user,
+    gailimit: typeof userLimit === 'number' && userLimit <= 500 ? userLimit : 'max',
+    gaistart: userEnd, // sic! (due to gaidir)
+    gaiend: userStart, // sic! (due to gaidir)
+    gaisort: 'timestamp',
+    gaidir: 'older'
+  };
+  const toPageArray = (data: ApiResponse<Page>): Page[] => Object.values(data.query.pages);
+  const shouldContinue = (data: ApiResponse<Page>): boolean =>
+    data.continue ? !userLimit || toPageArray(data).length < userLimit : false;
+  return $query<ApiResponse<Page>>(params, {}, undefined, shouldContinue)
+    .then(data => toPageArray(data).map(page => page.title as CommonsTitle))
+    .then(pages => (userLimit ? pages.slice(0, userLimit) : pages));
+}
+
+export function getFilesForCategory(cat: string, depth = 3): Promise<CommonsTitle[]> {
+  cat = removeCommonsPrefix(cat, 'Category:');
+  const timeout = $q.defer();
+  const requests = [
+    getFilesForCategory1(cat, depth, timeout.promise),
+    getFilesForCategory3(cat, depth, timeout.promise)
+  ];
+  if (depth <= 0) {
+    requests.unshift(getFilesForCategory0(cat, timeout.promise));
+  }
+  return successRace(requests).finally(() => timeout.resolve());
+}
+
+export function getFilesForCategory0(
+  cat: string,
+  timeout: Promise<unknown>
+): Promise<CommonsTitle[]> {
+  const params = {
+    list: 'categorymembers',
+    cmlimit: 500,
+    cmnamespace: NS_FILE,
+    cmtitle: 'Category:' + cat
+  };
+  return $query<ApiResponse<Page>>(params, {}, timeout).then(data =>
+    (data.query.categorymembers || []).map(cm => cm.title)
+  );
+}
+
+export function getFilesForCategory1(
+  cat: string,
+  depth: number,
+  timeout: Promise<unknown>
+): Promise<CommonsTitle[]> {
+  const params = {
+    lang: 'commons',
+    cat: cat.replace(/^Category:/, ''),
+    type: NS_FILE,
+    depth: depth,
+    json: 1
+  };
+  return $http
+    .get<CommonsTitle[]>('https://cats-php.toolforge.org/', {params, timeout})
+    .then(d => d.data.map(f => `File:${f}`));
+}
+
+export function getFilesForCategory3(
+  categories: string,
+  depth: number,
+  timeout: Promise<unknown>
+): Promise<CommonsTitle[]> {
+  const params = {
+    language: 'commons',
+    project: 'wikimedia',
+    depth,
+    categories,
+    [`ns[${NS_FILE}]`]: 1,
+    format: 'json',
+    sparse: 1,
+    doit: 1
+  };
+  return (
+    $http
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .get<any>('https://petscan.wmflabs.org/', {params, timeout})
+      .then(d => d.data['*'][0]['a']['*'] as CommonsTitle[])
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function $query<T extends ApiResponse<any>>(
+  query: Record<string, unknown>,
+  previousResults = {},
+  timeout?: AbortController,
+  shouldContinue = (data: T) => !!data.continue
+): Promise<T> {
+  const params = {
+    action: 'query',
+    format: 'json',
+    origin: '*'
+  };
+
+  const response = await fetch(API_URL + '?' + new URLSearchParams(params), {
+    body: toFormData(query),
+    method: 'POST',
+    signal: timeout?.signal
+  });
+  let data: T = await response.json();
+  data = deepmerge(previousResults, data, {arrayMerge: (x, y) => [].concat(...x, ...y)}) as T;
+  if (shouldContinue(data)) {
+    return $query<T>(
+      {...query, continue: undefined, ...data.continue},
+      {...data, continue: undefined},
+      timeout,
+      shouldContinue
     );
   }
+  return data;
+}
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private $query<T extends ApiResponse<any>>(
-    query: Record<string, unknown>,
-    previousResults = {},
-    timeout?: ng.IPromise<unknown>,
-    shouldContinue = (data: T) => !!data.continue
-  ): ng.IPromise<T> {
-    const data = this.$httpParamSerializer(query);
-    const headers = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    } as angular.IHttpRequestConfigHeaders;
-    const params = {
-      action: 'query',
-      format: 'json',
-      origin: '*'
-    };
-    return this.$http
-      .post<T>(API_URL, data, {
-        timeout,
-        headers,
-        params
-      })
-      .then(d => d.data)
-      .then(
-        data => deepmerge(previousResults, data, {arrayMerge: (x, y) => [].concat(...x, ...y)}) as T
-      )
-      .then(data =>
-        shouldContinue(data)
-          ? this.$query<T>(
-              {...query, continue: undefined, ...data.continue},
-              {...data, continue: undefined},
-              timeout,
-              shouldContinue
-            )
-          : data
-      );
-  }
+function toFormData(query: Record<string, unknown>): FormData {
+  const formData = new FormData();
+  Object.entries(query).forEach(
+    ([key, value]) => value === undefined || formData.append(key, String(value))
+  );
+  return formData;
+}
 
-  private successRace<T>(promises: ng.IPromise<T>[]): ng.IPromise<T> {
-    promises = promises.filter(p => !!p);
-    return this.$q<T>((resolve, reject) => {
-      // resolve first successful one
-      promises.forEach(promise => promise.then(resolve));
-      // reject when all fail
-      this.$q.all(promises).catch(reject);
-    });
-  }
+function successRace<T>(promises: Promise<T>[]): Promise<T> {
+  promises = promises.filter(p => !!p);
+  return $q<T>((resolve, reject) => {
+    // resolve first successful one
+    promises.forEach(promise => promise.then(resolve));
+    // reject when all fail
+    $q.all(promises).catch(reject);
+  });
 }
