@@ -1,6 +1,6 @@
 <template>
-  <select class="form-select" v-model="language">
-    <option v-for="(label, key) in languages" :value="key">{{ label }}</option>
+  <select v-model="language" class="form-select">
+    <option v-for="(label, key) in languages" :key="key" :value="key">{{ label }}</option>
   </select>
   <span
     hidden="hidden"

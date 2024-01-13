@@ -8,15 +8,15 @@ import './vendor';
 import './vendor-leaflet';
 import './style.css';
 
-const params = [
-  'files',
-  'user',
-  'userLimit',
-  'userStart',
-  'userEnd',
-  'category',
-  'categoryDepth'
-].join('&');
+// const params = [
+//   'files',
+//   'user',
+//   'userLimit',
+//   'userStart',
+//   'userEnd',
+//   'category',
+//   'categoryDepth'
+// ].join('&');
 
 const router = createRouter({
   history: createWebHashHistory(),

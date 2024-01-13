@@ -1,14 +1,14 @@
 <template>
-  <a class="btn btn-success ms-2" :href="loginURL()" v-hide="userInfo?.user">
+  <a v-hide="userInfo?.user" class="btn btn-success ms-2" :href="loginURL()">
     <svg class="octicon">
       <use xlink:href="#sign-in"></use>
     </svg>
     <span translate="translate">Log in</span>
   </a>
-  <span class="navbar-text ms-2" v-show="userInfo?.user" translate="translate">
+  <span v-show="userInfo?.user" class="navbar-text ms-2" translate="translate">
     Logged in as {{ userInfo?.user }}
   </span>
-  <a class="btn btn-secondary ms-2" :href="logoutURL()" v-show="userInfo?.user">
+  <a v-show="userInfo?.user" class="btn btn-secondary ms-2" :href="logoutURL()">
     <svg class="octicon">
       <use xlink:href="#sign-out"></use>
     </svg>

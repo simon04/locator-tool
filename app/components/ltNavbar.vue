@@ -25,8 +25,8 @@
         </li>
         <li class="nav-item">
           <router-link
-            class="nav-link"
             v-show="activateLinks"
+            class="nav-link"
             :to="{name: 'geolocate', params: $route.query}"
           >
             <svg class="octicon">
@@ -37,8 +37,8 @@
         </li>
         <li class="nav-item">
           <router-link
-            class="nav-link"
             v-show="activateLinks"
+            class="nav-link"
             :to="{name: 'map', params: $route.query}"
           >
             <svg class="octicon">
@@ -49,8 +49,8 @@
         </li>
         <li class="nav-item">
           <router-link
-            class="nav-link"
             v-show="activateLinks"
+            class="nav-link"
             :to="{name: 'gallery', params: $route.query}"
           >
             <svg class="octicon">

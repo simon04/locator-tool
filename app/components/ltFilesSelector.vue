@@ -1,5 +1,5 @@
 <template>
-  <h2 class="mt-4" v-hide="userInfo" translate="translate">Sign in</h2>
+  <h2 v-hide="userInfo" class="mt-4" translate="translate">Sign in</h2>
   <p v-hide="userInfo">
     <span translate="translate">
       In order to allow locator-tool to modify file description pages, sign in first:
@@ -18,8 +18,8 @@
       <button
         class="nav-link"
         translate="translate"
-        @click="$tab = Tab.CATEGORY"
         :class="{active: $tab === Tab.CATEGORY}"
+        @click="$tab = Tab.CATEGORY"
       >
         Category
       </button>
@@ -28,8 +28,8 @@
       <button
         class="nav-link"
         translate="translate"
-        @click="$tab = Tab.USER"
         :class="{active: $tab === Tab.USER}"
+        @click="$tab = Tab.USER"
       >
         User files
       </button>
@@ -38,17 +38,17 @@
       <button
         class="nav-link"
         translate="translate"
-        @click="$tab = Tab.FILES"
         :class="{active: $tab === Tab.FILES}"
+        @click="$tab = Tab.FILES"
       >
         File list
       </button>
     </li>
   </ul>
-  <form name="formUser" @submit="nextForUser()" v-show="$tab === Tab.USER">
+  <form v-show="$tab === Tab.USER" name="formUser" @submit="nextForUser()">
     <div class="mb-4">
       <label for="inputUser" translate="translate">User</label>
-      <input class="form-control" id="inputUser" v-model="user" placeholder="User:…" />
+      <input id="inputUser" v-model="user" class="form-control" placeholder="User:…" />
     </div>
     <div class="row">
       <div class="mb-4 col-sm-4">
@@ -59,31 +59,31 @@
         >
           Limit
         </label>
-        <input class="form-control" id="inputUserLimit" v-model="userLimit" type="number" />
+        <input id="inputUserLimit" v-model="userLimit" class="form-control" type="number" />
       </div>
       <div class="mb-4 col-sm-4">
         <label for="inputUserStart" translate="translate">Start timestamp</label>
-        <input class="form-control" id="inputUserStart" v-model="userStart" type="date" />
+        <input id="inputUserStart" v-model="userStart" class="form-control" type="date" />
       </div>
       <div class="mb-4 col-sm-4">
         <label for="inputUserEnd" translate="translate">End timestamp</label>
-        <input class="form-control" id="inputUserEnd" v-model="userEnd" type="date" />
+        <input id="inputUserEnd" v-model="userEnd" class="form-control" type="date" />
       </div>
     </div>
     <div class="mb-4">
-      <button class="btn btn-success" @click="nextForUser()" :disabled="!user">
+      <button class="btn btn-success" :disabled="!user" @click="nextForUser()">
         <svg class="octicon">
           <use xlink:href="#location"></use>
         </svg>
         <span translate="translate">Load User files to geolocate</span>
       </button>
-      <button class="btn btn-secondary" @click="nextForUser('map')" :disabled="!user">
+      <button class="btn btn-secondary" :disabled="!user" @click="nextForUser('map')">
         <svg class="octicon">
           <use xlink:href="#globe"></use>
         </svg>
         <span translate="translate">Show User files on map</span>
       </button>
-      <button class="btn btn-secondary" @click="nextForUser('gallery')" :disabled="!user">
+      <button class="btn btn-secondary" :disabled="!user" @click="nextForUser('gallery')">
         <svg class="octicon">
           <use xlink:href="#file-media"></use>
         </svg>
@@ -93,18 +93,18 @@
     </div>
     <lt-spinner v-if="getFilesForUser$q && !getFilesForUser$q.$$state.status"></lt-spinner>
   </form>
-  <form name="formCategory" @submit="nextForCategory()" v-show="$tab === Tab.CATEGORY">
+  <form v-show="$tab === Tab.CATEGORY" name="formCategory" @submit="nextForCategory()">
     <div class="row">
       <div class="mb-4 col-lg-10">
         <label for="inputCategory" translate="translate">Category</label>
         <input
-          class="form-control"
           id="inputCategory"
-          list="datalistCategory"
           v-model="category"
           v-model-options="{updateOn: 'default blur', debounce: {default: 500, change: 0, blur: 0}}"
-          @change="getCategoriesForPrefix()"
+          class="form-control"
+          list="datalistCategory"
           placeholder="Category:…"
+          @change="getCategoriesForPrefix()"
         />
       </div>
       <div class="mb-4 col-lg-2">
@@ -116,23 +116,23 @@
         >
           Depth
         </label>
-        <input class="form-control" id="inputCategoryDepth" type="number" v-model="categoryDepth" />
+        <input id="inputCategoryDepth" v-model="categoryDepth" class="form-control" type="number" />
       </div>
     </div>
     <div class="mb-4">
-      <button class="btn btn-success" @click="nextForCategory()" :disabled="!category">
+      <button class="btn btn-success" :disabled="!category" @click="nextForCategory()">
         <svg class="octicon">
           <use xlink:href="#location"></use>
         </svg>
         <span translate="translate">Load Category to geolocate</span>
       </button>
-      <button class="btn btn-secondary" @click="nextForCategory('map')" :disabled="!category">
+      <button class="btn btn-secondary" :disabled="!category" @click="nextForCategory('map')">
         <svg class="octicon">
           <use xlink:href="#globe"></use>
         </svg>
         <span translate="translate">Show Category on map</span>
       </button>
-      <button class="btn btn-secondary" @click="nextForCategory('gallery')" :disabled="!category">
+      <button class="btn btn-secondary" :disabled="!category" @click="nextForCategory('gallery')">
         <svg class="octicon">
           <use xlink:href="#file-media"></use>
         </svg>
@@ -142,17 +142,17 @@
     </div>
     <lt-spinner v-if="getFilesForCategory$q && !getFilesForCategory$q.$$state.status"></lt-spinner>
     <datalist id="datalistCategory">
-      <option v-for="i in categorySuggestions" :value="i"></option>
+      <option v-for="i in categorySuggestions" :key="i" :value="i"></option>
     </datalist>
   </form>
-  <form name="formTitles" v-show="$tab === Tab.FILES">
+  <form v-show="$tab === Tab.FILES" name="formTitles">
     <div class="mb-4">
       <label for="inputTitles" translate="translate">File list</label>
       <textarea
-        class="form-control"
         id="inputTitles"
-        rows="10"
         v-model="titles"
+        class="form-control"
+        rows="10"
         placeholder="File:…"
         @paste="onFilesPaste($event)"
       ></textarea>
