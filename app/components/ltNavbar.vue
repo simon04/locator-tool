@@ -14,7 +14,7 @@
         <li class="nav-item">
           <router-link
             class="nav-link"
-            :to="{name: 'select', params: $route.query}"
+            :to="{name: 'select', query: $route.query}"
             title="{{'Select files to geolocate' | translate}}"
           >
             <svg class="octicon">
@@ -27,7 +27,7 @@
           <router-link
             v-show="activateLinks"
             class="nav-link"
-            :to="{name: 'geolocate', params: $route.query}"
+            :to="{name: 'geolocate', query: $route.query}"
           >
             <svg class="octicon">
               <use xlink:href="#location"></use>
@@ -39,7 +39,7 @@
           <router-link
             v-show="activateLinks"
             class="nav-link"
-            :to="{name: 'map', params: $route.query}"
+            :to="{name: 'map', query: $route.query}"
           >
             <svg class="octicon">
               <use xlink:href="#globe"></use>
@@ -51,7 +51,7 @@
           <router-link
             v-show="activateLinks"
             class="nav-link"
-            :to="{name: 'gallery', params: $route.query}"
+            :to="{name: 'gallery', query: $route.query}"
           >
             <svg class="octicon">
               <use xlink:href="#file-media"></use>

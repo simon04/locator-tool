@@ -7,12 +7,7 @@ import L from 'leaflet';
 import {LatLng} from '../model';
 import {onMounted, ref, watch} from 'vue';
 import {useLeafletMap} from './useLeafletMap';
-
-type MapView = {
-  lat: number;
-  lng: number;
-  zoom: number;
-};
+import type {MapView} from './useLeafletMapView';
 
 const props = defineProps<{
   mapView: MapView;
@@ -31,11 +26,17 @@ onMounted(() => {
   const map = useLeafletMap(mapRef);
 
   map.on('click', $event => mapClick($event));
-  map.on('zoomend moveend', () => mapViewChange(map));
-  map.on('zoomend', () => mapViewChange(map));
+  map.on('zoomend modeend', () => {
+    emit('mapViewChanged', {
+      lat: map.getCenter().lat,
+      lng: map.getCenter().lng,
+      zoom: map.getZoom()
+    });
+  });
   watch(
     () => props.mapView,
-    mapView => map.setView([mapView.lat, mapView.lng], mapView.zoom)
+    mapView => map.setView([mapView.lat, mapView.lng], mapView.zoom),
+    {immediate: true}
   );
 
   watch(() => props.mapMarker, mapMarkerUpdater(map));
@@ -85,13 +86,5 @@ function markerMoveend($event: L.LeafletMouseEvent, target: LatLng): void {
   if (!lat || !lng) return;
   const coordinates = target.withLatLng(lat, lng).roundToPrecision();
   emit('coordinatesChanged', coordinates, $event);
-}
-
-function mapViewChange(map: L.Map): void {
-  emit('mapViewChanged', {
-    lat: map.getCenter().lat,
-    lng: map.getCenter().lng,
-    zoom: map.getZoom()
-  });
 }
 </script>

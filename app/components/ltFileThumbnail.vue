@@ -5,6 +5,7 @@
     :lazy-img="thumbnailUrl"
     style="max-height: 100%; cursor: zoom-in; width: 100%"
     @click="dialogShown = true"
+    @load="setLazyImg($event)"
   />
   <div
     v-if="dialogShown"
@@ -20,6 +21,7 @@
             :src="thumbnailUrl"
             :lazy-img="imageUrl"
             style="width: 100%; height: 100%; object-fit: contain"
+            @load="setLazyImg($event)"
           />
         </div>
       </div>
@@ -45,4 +47,11 @@ const imageUrl = computed(() => {
   const width = window.innerWidth * (window.devicePixelRatio || 1);
   return props.file.imageUrl(width > 2048 ? undefined : width > 1280 ? 2048 : 1024);
 });
+
+function setLazyImg($event) {
+  const img = $event.target as HTMLImageElement;
+  const lazy = img.getAttribute('lazy-img');
+  if (img.src === lazy) return;
+  img.src = lazy;
+}
 </script>

@@ -110,27 +110,20 @@
 <script setup lang="ts">
 import {ref, computed, onMounted, watch} from 'vue';
 import {useRoute} from 'vue-router';
-import {useLocalStorage} from '@vueuse/core';
 import * as ltData from '../api/ltData';
 import {CommonsFile, LatLng} from '../model';
-import {MapView} from './ltAllMap';
 import ltSpinner from './ltSpinner.vue';
 import ltFileDetails from './ltFileDetails.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';
 import ltMap from './ltMap.vue';
-
-const DEFAULT_MAP_VIEW = {
-  lat: 51.505,
-  lng: -0.09,
-  zoom: 13
-};
+import {useLeafletMapView} from './useLeafletMapView';
 
 const $route = useRoute();
 const category: string = $route.query.category as string;
 const user: string = $route.query.user as string;
 const $error = ref<unknown>();
 const $filter = ref('');
-const $mapView = useLocalStorage<MapView>('mapView', DEFAULT_MAP_VIEW);
+const $mapView = useLeafletMapView();
 const $showGeolocated = ref(false);
 const $title = ref<CommonsFile | undefined>(undefined);
 const $titles = ref<CommonsFile[] | undefined>(undefined);

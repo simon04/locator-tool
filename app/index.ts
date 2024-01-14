@@ -37,14 +37,13 @@ const router = createRouter({
       name: 'geolocate',
       // path: '/geolocate?' + params,
       path: '/geolocate',
-      // template: '<lt-geolocate class="d-flex flex-grow-1"></lt-geolocate>'
       component: () => import('./components/ltGeolocate.vue')
     },
     {
       name: 'map',
       // path: '/map?' + params,
       path: '/map',
-      component: () => import('./components/ltAllMap')
+      component: () => import('./components/ltAllMap.vue')
     },
     {
       name: 'gallery',

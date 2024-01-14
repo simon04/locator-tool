@@ -1,6 +1,6 @@
 <template>
-  <h2 v-show="!userInfo" class="mt-4" translate="translate">Sign in</h2>
-  <p v-show="!userInfo">
+  <h2 v-show="!userInfo?.user" class="mt-4" translate="translate">Sign in</h2>
+  <p v-show="!userInfo?.user">
     <span translate="translate">
       In order to allow locator-tool to modify file description pages, sign in first:
     </span>
