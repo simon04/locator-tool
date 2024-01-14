@@ -476,31 +476,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/angular-gettext@npm:^2.1.34":
-  version: 2.1.34
-  resolution: "@types/angular-gettext@npm:2.1.34"
-  dependencies:
-    "@types/angular": "npm:*"
-  checksum: 959615a3222e954453e32eafe2b45a182fb9db839f07d5a9f09b3fbc1e903c2b606ba9d2c75763ba36687059f2d451940ac564c81007e6ac447b3368905666eb
-  languageName: node
-  linkType: hard
-
-"@types/angular-local-storage@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "@types/angular-local-storage@npm:0.6.1"
-  dependencies:
-    "@types/angular": "npm:*"
-  checksum: 636fb67b919b6c5a74c752a29db52754e47e8ae854b8b5eaf9de6c41db06a427b05d2367ca570a4dee558109d83f2e1577dd43494410bc7795895197592d11b5
-  languageName: node
-  linkType: hard
-
-"@types/angular@npm:*, @types/angular@npm:^1.6.51":
-  version: 1.6.51
-  resolution: "@types/angular@npm:1.6.51"
-  checksum: cc7cc19b24011b129bd9591bad8d394dcbbae4031d9f74e8d354c68f13ffc55342006e9c99923f52b9cee2a9dbf7431fd681df05510d74da6bc803b4baad3536
-  languageName: node
-  linkType: hard
-
 "@types/estree@npm:1.0.5":
   version: 1.0.5
   resolution: "@types/estree@npm:1.0.5"
@@ -790,24 +765,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uirouter/angularjs@npm:^1.0.29":
-  version: 1.0.29
-  resolution: "@uirouter/angularjs@npm:1.0.29"
-  dependencies:
-    "@uirouter/core": "npm:6.0.7"
-  peerDependencies:
-    angular: ">=1.2.0"
-  checksum: 105d6688b06fe26cd7e3c248d4ec5e4b1dd12f6d277c259f7e3549c7a8d7460982e3e30a95301d4c452f0229c86294754e3fcc1961c54122d0de2ef115f91eb6
-  languageName: node
-  linkType: hard
-
-"@uirouter/core@npm:6.0.7":
-  version: 6.0.7
-  resolution: "@uirouter/core@npm:6.0.7"
-  checksum: f83bd1c24bf02316d905c73e70cab9b453eb115345e950172cfe91b9c172d1c929b1e32f5c837d44cdb7ae20e39ca85f94ff0e963e8ec991cd8ebb5dcbe6e01b
-  languageName: node
-  linkType: hard
-
 "@vitejs/plugin-vue@npm:^5.0.3":
   version: 5.0.3
   resolution: "@vitejs/plugin-vue@npm:5.0.3"
@@ -1039,13 +996,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-animate@npm:1.6.8":
-  version: 1.6.8
-  resolution: "angular-animate@npm:1.6.8"
-  checksum: ebda2a779ebf7ebf0c22237d9bf9acd11ba49066b3fa75b2076f5760783e96cda7753c037178744a8efcb4a80c1af4449b9165a317abcb8b1d1f43f5822ee1e5
-  languageName: node
-  linkType: hard
-
 "angular-gettext-cli@npm:^1.2.0":
   version: 1.2.0
   resolution: "angular-gettext-cli@npm:1.2.0"
@@ -1071,44 +1021,6 @@ __metadata:
     typescript: "npm:~2.3.2"
     typescript-eslint-parser: "npm:^3.0.0"
   checksum: e5d7fd85595f179cfe50070889f722c304ad8e08ac97027c3e3bb4933a952bc91f7f59038d2aa95a2aed67fa7216841d68106ff64e4894be63bf8f9211d5c4e7
-  languageName: node
-  linkType: hard
-
-"angular-gettext@npm:^2.3.8":
-  version: 2.4.1
-  resolution: "angular-gettext@npm:2.4.1"
-  checksum: 69e7e8917e995c6bda75bd2981374a9d4fdfca1f634bd780951f91cd29a051128a76141a40937997088f895f95f47091230f6f3b402416a80131490665c8bedd
-  languageName: node
-  linkType: hard
-
-"angular-lazy-img@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "angular-lazy-img@npm:1.2.0"
-  checksum: ee0fa6324e6b4b518f3d485e46332a1727436308f3957c3c94917c1fcd36e039b5d9f1b60779d40b15f2a18f0e282b893aebb350f70f742eb314f3ecf789aeed
-  languageName: node
-  linkType: hard
-
-"angular-ll-leaflet@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "angular-ll-leaflet@npm:1.0.0"
-  peerDependencies:
-    angular: 1.x
-    leaflet: 0.7.x || 1.x
-  checksum: df937c3d597f1db3206d626b48d807c90fc471ee0bf886be5460d60e26d9139099e126d09a9984e162d8eae5fc23d832f220cfbd916890f393844166668696ad
-  languageName: node
-  linkType: hard
-
-"angular-local-storage@npm:^0.5.2":
-  version: 0.5.2
-  resolution: "angular-local-storage@npm:0.5.2"
-  checksum: 68ed4bd5ae553f6756715bbafd58f7846962f6514b9fdcd519128b6708bfca031b8e461d6ff15b6654dea983c6bb1a64c83e42df2a78286163c48703822361f6
-  languageName: node
-  linkType: hard
-
-"angular@npm:1.6.8":
-  version: 1.6.8
-  resolution: "angular@npm:1.6.8"
-  checksum: 1413f5806268ba9582b5bc22035c56c5c8ac8208ab1fe84b1531d925c08bd13348dc251ebd36031ade1d736bf190c94ccc16df3e263e3a664dcc7fbd14da6fc4
   languageName: node
   linkType: hard
 
@@ -2508,25 +2420,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "locator-tool@workspace:."
   dependencies:
-    "@types/angular": "npm:^1.6.51"
-    "@types/angular-gettext": "npm:^2.1.34"
-    "@types/angular-local-storage": "npm:^0.6.1"
     "@types/leaflet": "npm:^1.9.3"
     "@typescript-eslint/eslint-plugin": "npm:^6.5.0"
     "@typescript-eslint/parser": "npm:^6.5.0"
-    "@uirouter/angularjs": "npm:^1.0.29"
     "@vitejs/plugin-vue": "npm:^5.0.3"
     "@vue/eslint-config-prettier": "npm:^9.0.0"
     "@vue/eslint-config-typescript": "npm:^12.0.0"
     "@vueuse/core": "npm:^10.7.1"
-    angular: "npm:1.6.8"
-    angular-animate: "npm:1.6.8"
-    angular-gettext: "npm:^2.3.8"
     angular-gettext-cli: "npm:^1.2.0"
     angular-gettext-tools: "npm:^2.3.5"
-    angular-lazy-img: "npm:^1.2.0"
-    angular-ll-leaflet: "npm:^1.0.0"
-    angular-local-storage: "npm:^0.5.2"
     bootstrap: "npm:^5.3.0"
     deepmerge: "npm:^4.2.2"
     eslint: "npm:^8.48.0"
