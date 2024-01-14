@@ -17,7 +17,7 @@
         <div class="card-body">
           <h5 class="card-title">
             {{ title.file }}
-            <a href="{{title.url}}" target="_blank">
+            <a :href="title.url" target="_blank">
               <svg class="octicon">
                 <use xlink:href="#link-external"></use>
               </svg>

@@ -98,7 +98,6 @@
 
     <div v-if="$title" class="col-lg-12 col-xl-7 mt-3 mt-lg-0 fill col-lg-h60">
       <lt-map
-        :map-view="$mapView"
         :map-marker="$title.coordinates"
         :map-object-location="$title.objectLocation"
         @coordinates-changed="coordinatesChanged"
@@ -116,14 +115,12 @@ import ltSpinner from './ltSpinner.vue';
 import ltFileDetails from './ltFileDetails.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';
 import ltMap from './ltMap.vue';
-import {useLeafletMapView} from './useLeafletMapView';
 
 const $route = useRoute();
 const category: string = $route.query.category as string;
 const user: string = $route.query.user as string;
 const $error = ref<unknown>();
 const $filter = ref('');
-const $mapView = useLeafletMapView();
 const $showGeolocated = ref(false);
 const $title = ref<CommonsFile | undefined>(undefined);
 const $titles = ref<CommonsFile[] | undefined>(undefined);
@@ -145,7 +142,6 @@ onMounted(() => {
 });
 
 watch($title, title => title && titleChanged(title));
-watch($mapView, mapView => mapViewChanged(mapView));
 
 function _hasLocation(title: CommonsFile) {
   return title.coordinates.isDefinedAndSaved || title.objectLocation.isDefinedAndSaved;
@@ -186,27 +182,17 @@ function keyPressedInList($event: KeyboardEvent): void {
 
 function titleChanged(title: CommonsFile): void {
   $error.value = undefined;
-  if (title?.coordinates) {
-    updateMapView(title.coordinates);
-  }
+  // if (title?.coordinates) {
+  //   updateMapView(title.coordinates);
+  // }
   if (title?.pageid) {
     ltData.getFileDetails(title.pageid).then(fileDetails => {
       Object.assign(title, fileDetails);
-      const {lat, lng} = title.objectLocation;
-      if (!title.coordinates?.lat) {
-        updateMapView({lat, lng});
-      }
+      // const {lat, lng} = title.objectLocation;
+      // if (!title.coordinates?.lat) {
+      //   updateMapView({lat, lng});
+      // }
     });
-  }
-}
-
-function mapViewChanged(mapView: MapView): void {
-  $mapView.value = mapView;
-}
-
-function updateMapView({lat, lng}: {lat?: number; lng?: number}): void {
-  if (lat && lng) {
-    $mapView.value = {...$mapView.value, lat, lng};
   }
 }
 
@@ -224,9 +210,9 @@ function coordinatesChanged(coordinates: LatLng, $event?: L.LeafletMouseEvent): 
       coordinates.lng
     );
   }
-  if (!$event?.type) {
-    updateMapView(coordinates);
-  }
+  // if (!$event?.type) {
+  //   updateMapView(coordinates);
+  // }
 }
 
 function keydownToDirection($event: KeyboardEvent) {

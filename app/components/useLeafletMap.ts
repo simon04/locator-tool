@@ -1,4 +1,4 @@
-import {Ref} from 'vue';
+import {Ref, watch} from 'vue';
 import {useLocalStorage} from '@vueuse/core';
 import L from 'leaflet';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
@@ -6,10 +6,21 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import ControlGeocoder from 'leaflet-control-geocoder';
 
+export type MapView = {
+  lat: number;
+  lng: number;
+  zoom: number;
+};
+
 export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
   const map = new L.Map(mapRef.value!).fitWorld();
 
   const mapLayer = useLocalStorage('mapLayer', '');
+  const mapView = useLocalStorage<MapView>('mapView', {
+    lat: 51.505,
+    lng: -0.09,
+    zoom: 13
+  });
 
   // https://github.com/Leaflet/Leaflet/issues/4968#issuecomment-269750768
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -85,5 +96,20 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
 
   map.on('baselayerchange', $event => (mapLayer.value = $event.name));
 
-  return map;
+  map.on('zoomend modeend', () => {
+    mapView.value = {
+      lat: map.getCenter().lat,
+      lng: map.getCenter().lng,
+      zoom: map.getZoom()
+    };
+  });
+  watch(
+    mapView,
+    mapView => {
+      map.setView([mapView.lat, mapView.lng], mapView.zoom);
+    },
+    {immediate: true}
+  );
+
+  return {map, mapLayer, mapView};
 }

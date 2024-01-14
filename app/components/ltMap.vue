@@ -10,7 +10,6 @@ import {useLeafletMap} from './useLeafletMap';
 import type {MapView} from './useLeafletMapView';
 
 const props = defineProps<{
-  mapView: MapView;
   mapMarker: LatLng;
   mapObjectLocation: LatLng;
 }>();
@@ -23,21 +22,9 @@ const emit = defineEmits<{
 const mapRef = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-  const map = useLeafletMap(mapRef);
+  const {map} = useLeafletMap(mapRef);
 
   map.on('click', $event => mapClick($event));
-  map.on('zoomend modeend', () => {
-    emit('mapViewChanged', {
-      lat: map.getCenter().lat,
-      lng: map.getCenter().lng,
-      zoom: map.getZoom()
-    });
-  });
-  watch(
-    () => props.mapView,
-    mapView => map.setView([mapView.lat, mapView.lng], mapView.zoom),
-    {immediate: true}
-  );
 
   watch(() => props.mapMarker, mapMarkerUpdater(map));
   watch(() => props.mapObjectLocation, mapMarkerUpdater(map));
@@ -48,8 +35,10 @@ function mapMarkerUpdater(map: L.Map): (mapMarker: LatLng) => void {
   return mapMarker => {
     const {lat, lng} = mapMarker;
     if (mapMarker.isDefined && marker) {
+      map.setView({lat, lng});
       marker.setLatLng({lat, lng});
     } else if (mapMarker.isDefined) {
+      map.setView({lat, lng});
       const icon = L.divIcon({
         className: 'b-0',
         html: `<div title="Object location"><svg class="octicon" style="color: red"><use xlink:href="#squirrel"></use></svg></div>`,

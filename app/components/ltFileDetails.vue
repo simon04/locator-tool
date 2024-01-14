@@ -70,7 +70,7 @@
     <h5 class="card-header p-2">
       <strong>{{ file.file }}</strong>
       <small v-if="file.url">
-        <a href="{{file.url}}" target="_blank">
+        <a :href="file.url" target="_blank">
           <svg class="octicon">
             <use xlink:href="#link-external"></use>
           </svg>

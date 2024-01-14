@@ -7,15 +7,13 @@ import {onMounted, ref} from 'vue';
 import {useRoute} from 'vue-router';
 import L from 'leaflet';
 import * as ltData from '../api/ltData';
-import {useLeafletMapView} from './useLeafletMapView';
 import {useLeafletMap} from './useLeafletMap';
 
 const $route = useRoute();
-const mapView = useLeafletMapView();
 const mapRef = ref<HTMLElement | null>(null);
 
 onMounted(async () => {
-  const map = useLeafletMap(mapRef);
+  const {map} = useLeafletMap(mapRef);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const titles = await ltData.getFiles($route.query as any);
   const files = await ltData.getCoordinates(titles);
