@@ -4,8 +4,8 @@ import App from './App.vue';
 
 import octicons from 'octicons/build/sprite.octicons.svg?raw';
 
-import './vendor';
-import './vendor-leaflet';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'octicons/build/octicons.css';
 import './style.css';
 
 // const params = [

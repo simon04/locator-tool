@@ -7,7 +7,7 @@ A tool to add `{{Location}}` or `{{Object location}}` to images on [Wikimedia Co
 The application consists of:
 
 - a backend written in Python/flask, located at [`backend/`](https://github.com/simon04/locator-tool/tree/master/backend)
-- a frontend written in JavaScript/AngularJS, located at [`app/`](https://github.com/simon04/locator-tool/tree/master/app)
+- a frontend written in JavaScript/Vue.js, located at [`app/`](https://github.com/simon04/locator-tool/tree/master/app)
 
 ## Usage
 

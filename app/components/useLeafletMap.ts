@@ -6,6 +6,9 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import ControlGeocoder from 'leaflet-control-geocoder';
 
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
+
 export type MapView = {
   lat: number;
   lng: number;

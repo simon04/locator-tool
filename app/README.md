@@ -1,6 +1,6 @@
 # Locator-tool frontend
 
-The frontend is an [Angular 1](https://angularjs.org/) application.
+The frontend is a [Vue.js 3](https://vuejs.org/) application.
 
 ## To start a development server
 
