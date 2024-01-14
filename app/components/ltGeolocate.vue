@@ -101,6 +101,7 @@
         :map-view="$mapView"
         :map-marker="$title.coordinates"
         :map-object-location="$title.objectLocation"
+        @coordinates-changed="coordinatesChanged"
       />
     </div>
   </div>
@@ -148,17 +149,6 @@ onMounted(() => {
     });
   isLoading.value = true;
   Promise.all([files$q, fileDetails$q]).finally(() => (isLoading.value = false));
-
-  mapViewChanged($mapView.value);
-  // this.$scope.$on(
-  //   'coordinatesChanged',
-  //   (_event, coordinates: LatLng, $event?: L.LeafletMouseEvent) => {
-  //     coordinatesChanged(coordinates);
-  //     if (!$event?.type) {
-  //       updateMapView(coordinates);
-  //     }
-  //   }
-  // );
 });
 
 watch($title, title => title && titleChanged(title));
@@ -227,7 +217,7 @@ function updateMapView({lat, lng}: {lat?: number; lng?: number}): void {
   }
 }
 
-function coordinatesChanged(coordinates: LatLng): void {
+function coordinatesChanged(coordinates: LatLng, $event?: L.LeafletMouseEvent): void {
   if (!coordinates || !$title.value) {
     return;
   } else if (coordinates.type === 'Location') {
@@ -240,6 +230,9 @@ function coordinatesChanged(coordinates: LatLng): void {
       coordinates.lat,
       coordinates.lng
     );
+  }
+  if (!$event?.type) {
+    updateMapView(coordinates);
   }
 }
 
