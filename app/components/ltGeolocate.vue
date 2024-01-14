@@ -2,7 +2,7 @@
   <div v-if="isLoading" class="row mt-3">
     <div class="col-sm-12">
       <div class="jumbotron">
-        <p translate="translate">Loading file details …</p>
+        <p>{{ t('Loading file details …') }}</p>
         <lt-spinner />
       </div>
     </div>
@@ -14,10 +14,10 @@
         <svg class="octicon">
           <use xlink:href="#alert"></use>
         </svg>
-        <!-- prettier-ignore -->
-        <span v-if="category" translate="translate">Fetched 0 files for category <code>{{category}}</code>!</span>
-        <!-- prettier-ignore -->
-        <span v-if="user" translate="translate">Fetched 0 files for user <code>{{user}}</code>!</span>
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <span v-if="category" v-html="msgNoFilesForCategory"></span>
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <span v-if="user" v-html="msgNoFilesForUser"></span>
       </div>
     </div>
   </div>
@@ -44,7 +44,7 @@
         <div class="checkbox">
           <label>
             <input v-model="$showGeolocated" type="checkbox" />
-            <span translate="translate">Also show geolocated files</span>
+            <span>{{ t('Also show geolocated files') }}</span>
           </label>
         </div>
       </div>
@@ -59,23 +59,23 @@
       <div tabindex="1" @keydown="keyPressedInList($event)">
         <ul class="list-group">
           <li
-            v-for="t in filteredTitles"
-            :key="t.file"
+            v-for="title in filteredTitles"
+            :key="title.file"
             class="list-group-item py-1 px-2 text-truncate"
-            :class="{'list-group-item-info': $title === t}"
-            @click="$title = t"
+            :class="{'list-group-item-info': $title === title}"
+            @click="$title = title"
           >
-            <abbr v-if="t.coordinates.isDefinedAndSaved" title="Location ✔">
+            <abbr v-if="title.coordinates.isDefinedAndSaved" title="Location ✔">
               <svg class="octicon">
                 <use xlink:href="#device-camera"></use>
               </svg>
             </abbr>
-            <abbr v-if="t.objectLocation.isDefinedAndSaved" title="Object location ✔">
+            <abbr v-if="title.objectLocation.isDefinedAndSaved" title="Object location ✔">
               <svg class="octicon">
                 <use xlink:href="#squirrel"></use>
               </svg>
             </abbr>
-            <span>{{ t.file }}</span>
+            <span>{{ title.file }}</span>
           </li>
         </ul>
       </div>
@@ -115,6 +115,7 @@ import ltSpinner from './ltSpinner.vue';
 import ltFileDetails from './ltFileDetails.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';
 import ltMap from './ltMap.vue';
+import {t} from './useI18n';
 
 const $route = useRoute();
 const category: string = $route.query.category as string;
@@ -233,4 +234,14 @@ function keydownToDirection($event: KeyboardEvent) {
     }
   }
 }
+
+const msgNoFilesForCategory = computed(() =>
+  t('Fetched 0 files for category <code>{{$ctrl.category}}</code>!').replace(
+    '{{$ctrl.category}}',
+    category
+  )
+);
+const msgNoFilesForUser = computed(() =>
+  t('Fetched 0 files for user <code>{{$ctrl.user}}</code>!').replace('{{$ctrl.user}}', user)
+);
 </script>

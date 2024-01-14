@@ -8,13 +8,11 @@
           <svg class="octicon">
             <use xlink:href="#device-camera"></use>
           </svg>
-          <!-- prettier-ignore -->
-          <span translate="translate">
-          Camera location via
-<a href="https://commons.wikimedia.org/wiki/Template:Location" target="_blank"><code class="mediawiki-template">Location</code></a></span>
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <span v-html="msgCameraLocation"></span>
           <abbr
             v-show="!collapseCameraLocation"
-            title="{{'Left click on map to set the location.' | translate}}"
+            :title="t('Left click on map to set the location.')"
           >
             <svg class="octicon"><use xlink:href="#question"></use></svg>
           </abbr>
@@ -38,13 +36,11 @@
           <svg class="octicon">
             <use xlink:href="#squirrel"></use>
           </svg>
-          <!-- prettier-ignore -->
-          <span translate="translate">
-          Object location via
-<a href="https://commons.wikimedia.org/wiki/Template:Object_location" target="_blank"><code class="mediawiki-template">Object location</code></a></span>
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <span v-html="msgObjectLocation"></span>
           <abbr
             v-show="!collapseObjectLocation"
-            title="{{'Press shift and click on map to set the object location.' | translate}}"
+            :title="t('Press shift and click on map to set the object location.')"
           >
             <svg class="octicon"><use xlink:href="#question"></use></svg>
           </abbr>
@@ -63,7 +59,7 @@
     <svg class="octicon">
       <use xlink:href="#alert"></use>
     </svg>
-    <span translate="translate">Failed to save: {{ error.statusText }}</span>
+    <span>{{ msgErrorStatusText }}</span>
   </div>
 
   <div class="card mt-2">
@@ -84,17 +80,35 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch} from 'vue';
+import {computed, ref, watch} from 'vue';
 import * as ltDataAuth from '../api/ltDataAuth';
 import {CommonsFile, LatLng} from '../model';
 import ltFileMetadata from './ltFileMetadata.vue';
 import ltLocationInput from './ltLocationInput.vue';
 import {FileDetails} from '../api/ltData';
+import {t} from './useI18n';
 
 const props = defineProps<{file: CommonsFile & FileDetails}>();
 const error = ref<undefined>(undefined);
 const collapseCameraLocation = ref(false);
 const collapseObjectLocation = ref(false);
+
+const msgCameraLocation = computed(() =>
+  t(
+    'Camera location via\n<a href="https://commons.wikimedia.org/wiki/Template:Location" target="_blank"><code class="mediawiki-template">Location</code></a>'
+  )
+);
+const msgObjectLocation = computed(() =>
+  t(
+    'Object location via\n<a href="https://commons.wikimedia.org/wiki/Template:Object_location" target="_blank"><code class="mediawiki-template">Object location</code></a>'
+  )
+);
+const msgErrorStatusText = computed(() =>
+  t('Failed to save: {{$ctrl.error.statusText}}').replace(
+    '{{$ctrl.error.statusText}}',
+    error.value?.statusText
+  )
+);
 
 watch(props.file.coordinates, (c1, c2) => console.log(c1, c2));
 

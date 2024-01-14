@@ -2,7 +2,7 @@
   <div v-if="isLoading" class="mt-3 row">
     <div class="col-sm-12">
       <div class="jumbotron">
-        <p translate="translate">Loading file details …</p>
+        <p>{{ t('Loading file details …') }}</p>
         <lt-spinner />
       </div>
     </div>
@@ -42,6 +42,7 @@ import {CommonsFile} from '../model';
 import ltFileMetadata from './ltFileMetadata.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';
 import ltSpinner from './ltSpinner.vue';
+import {t} from './useI18n';
 
 const $route = useRoute();
 const isLoading = ref(true);

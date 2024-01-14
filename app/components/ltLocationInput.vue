@@ -10,7 +10,7 @@
     <button
       class="btn btn-secondary"
       type="button"
-      title="{{'Discard'|translate}}"
+      :title="t('Discard')"
       @click="modelValue && emit('update:modelValue', modelValue.rollback())"
     >
       <svg class="octicon">
@@ -20,7 +20,7 @@
     <button
       class="btn btn-success"
       type="button"
-      title="{{'Save'|translate}}"
+      :title="t('Save')"
       :disabled="!modelValue?.isChanged"
       @click="emit('editLocation')"
     >
@@ -34,6 +34,8 @@
 <script setup lang="ts">
 import {ref, computed} from 'vue';
 import {LatLng} from '../model';
+import {t} from './useI18n';
+
 const REGEXP = /([+-]?\d+\.\d*)[,;\s]+([+-]?\d+\.\d*)/;
 
 const emit = defineEmits<{

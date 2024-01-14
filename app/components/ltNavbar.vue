@@ -8,19 +8,19 @@
         <img src="../../locator-tool.svg" style="height: 30px" />
       </router-link>
       <router-link class="navbar-brand" :to="{name: 'select'}">
-        <span translate="translate">locator-tool</span>
+        <span>{{ t('locator-tool') }}</span>
       </router-link>
       <ul class="navbar-nav">
         <li class="nav-item">
           <router-link
             class="nav-link"
             :to="{name: 'select', query: $route.query}"
-            title="{{'Select files to geolocate' | translate}}"
+            :title="t('Select files to geolocate')"
           >
             <svg class="octicon">
               <use xlink:href="#tasklist"></use>
             </svg>
-            <span translate="translate">Select files</span>
+            <span>{{ t('Select files') }}</span>
           </router-link>
         </li>
         <li class="nav-item">
@@ -32,7 +32,7 @@
             <svg class="octicon">
               <use xlink:href="#location"></use>
             </svg>
-            <span translate="translate">Geolocate files</span>
+            <span>{{ t('Geolocate files') }}</span>
           </router-link>
         </li>
         <li class="nav-item">
@@ -44,7 +44,7 @@
             <svg class="octicon">
               <use xlink:href="#globe"></use>
             </svg>
-            <span translate="translate">Map</span>
+            <span>{{ t('Map') }}</span>
           </router-link>
         </li>
         <li class="nav-item">
@@ -56,12 +56,12 @@
             <svg class="octicon">
               <use xlink:href="#file-media"></use>
             </svg>
-            <span translate="translate">Gallery</span>
+            <span>{{ t('Gallery') }}</span>
           </router-link>
         </li>
-        <li class="nav-item" title="{{'About locator-tool' | translate}}">
+        <li class="nav-item" :title="t('About locator-tool')">
           <router-link class="nav-link" :to="{name: 'about'}">
-            <span translate="translate">About</span>
+            <span>{{ t('About') }}</span>
           </router-link>
         </li>
       </ul>
@@ -77,6 +77,7 @@ import {computed} from 'vue';
 import {useRoute} from 'vue-router';
 import ltLanguageSelector from './ltLanguageSelector.vue';
 import ltUserInfo from './ltUserInfo.vue';
+import {t} from './useI18n';
 
 const $route = useRoute();
 const activateLinks = computed(

@@ -8,16 +8,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'octicons/build/octicons.css';
 import './style.css';
 
-// const params = [
-//   'files',
-//   'user',
-//   'userLimit',
-//   'userStart',
-//   'userEnd',
-//   'category',
-//   'categoryDepth'
-// ].join('&');
-
 const router = createRouter({
   history: createWebHashHistory(),
   linkActiveClass: 'active',
@@ -29,25 +19,21 @@ const router = createRouter({
     },
     {
       name: 'select',
-      // path: '/?' + params,
       path: '/',
       component: () => import('./components/ltFilesSelector.vue')
     },
     {
       name: 'geolocate',
-      // path: '/geolocate?' + params,
       path: '/geolocate',
       component: () => import('./components/ltGeolocate.vue')
     },
     {
       name: 'map',
-      // path: '/map?' + params,
       path: '/map',
       component: () => import('./components/ltAllMap.vue')
     },
     {
       name: 'gallery',
-      // path: '/gallery?' + params,
       path: '/gallery',
       component: () => import('./components/ltGallery.vue')
     }

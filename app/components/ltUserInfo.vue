@@ -3,21 +3,26 @@
     <svg class="octicon">
       <use xlink:href="#sign-in"></use>
     </svg>
-    <span translate="translate">Log in</span>
+    <span>{{ t('Log in') }}</span>
   </a>
-  <span v-show="userInfo?.user" class="navbar-text ms-2" translate="translate">
-    Logged in as {{ userInfo?.user }}
+  <span v-show="userInfo?.user" class="navbar-text ms-2">
+    {{ msgLoggedIn }}
   </span>
   <a v-show="userInfo?.user" class="btn btn-secondary ms-2" :href="logoutURL()">
     <svg class="octicon">
       <use xlink:href="#sign-out"></use>
     </svg>
-    <span translate="translate">Log out</span>
+    <span>{{ t('Log out') }}</span>
   </a>
 </template>
 
 <script setup lang="ts">
+import {computed} from 'vue';
 import {getUserInfo, loginURL, logoutURL} from '../api/ltDataAuth';
+import {t} from './useI18n';
 
 const {data: userInfo} = getUserInfo();
+const msgLoggedIn = computed(() =>
+  t('Logged in as {{$ctrl.user}}').replace('{{$ctrl.user}}', userInfo.value?.user)
+);
 </script>

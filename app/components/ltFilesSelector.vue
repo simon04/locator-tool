@@ -1,72 +1,57 @@
 <template>
-  <h2 v-show="!userInfo?.user" class="mt-4" translate="translate">Sign in</h2>
+  <h2 v-show="!userInfo?.user" class="mt-4">{{ t('Sign in') }}</h2>
   <p v-show="!userInfo?.user">
-    <span translate="translate">
-      In order to allow locator-tool to modify file description pages, sign in first:
+    <span>
+      {{ t('In order to allow locator-tool to modify file description pages, sign in first:') }}
     </span>
     <a class="btn btn-success ms-2" :href="loginURL()">
       <svg class="octicon">
         <use xlink:href="#sign-in"></use>
       </svg>
-      <span translate="translate">Log in</span>
+      <span>{{ t('Log in') }}</span>
     </a>
   </p>
-  <p v-show="userInfo?.user" translate="translate">Hello {{ userInfo?.user }}!</p>
-  <h2 translate="translate">Select files to geolocate</h2>
+  <p v-show="userInfo?.user">{{ msgLoggedIn }}</p>
+  <h2>{{ t('Select files to geolocate') }}</h2>
   <ul class="nav nav-pills my-3">
     <li class="nav-item">
       <button
         class="nav-link"
-        translate="translate"
         :class="{active: $tab === Tab.CATEGORY}"
         @click="$tab = Tab.CATEGORY"
       >
-        Category
+        {{ t('Category') }}
       </button>
     </li>
     <li class="nav-item">
-      <button
-        class="nav-link"
-        translate="translate"
-        :class="{active: $tab === Tab.USER}"
-        @click="$tab = Tab.USER"
-      >
-        User files
+      <button class="nav-link" :class="{active: $tab === Tab.USER}" @click="$tab = Tab.USER">
+        {{ t('User files') }}
       </button>
     </li>
     <li class="nav-item">
-      <button
-        class="nav-link"
-        translate="translate"
-        :class="{active: $tab === Tab.FILES}"
-        @click="$tab = Tab.FILES"
-      >
-        File list
+      <button class="nav-link" :class="{active: $tab === Tab.FILES}" @click="$tab = Tab.FILES">
+        {{ t('File list') }}
       </button>
     </li>
   </ul>
   <form v-show="$tab === Tab.USER" name="formUser" @submit="nextForUser()">
     <div class="mb-4">
-      <label for="inputUser" translate="translate">User</label>
+      <label for="inputUser">{{ t('User') }}</label>
       <input id="inputUser" v-model="user" class="form-control" placeholder="User:…" />
     </div>
     <div class="row">
       <div class="mb-4 col-sm-4">
-        <label
-          for="inputUserLimit"
-          translate="translate"
-          translate-comment="maximum number of files"
-        >
-          Limit
+        <label for="inputUserLimit" translate-comment="maximum number of files">
+          {{ t('Limit') }}
         </label>
         <input id="inputUserLimit" v-model="userLimit" class="form-control" type="number" />
       </div>
       <div class="mb-4 col-sm-4">
-        <label for="inputUserStart" translate="translate">Start timestamp</label>
+        <label for="inputUserStart">{{ t('Start timestamp') }}</label>
         <input id="inputUserStart" v-model="userStart" class="form-control" type="date" />
       </div>
       <div class="mb-4 col-sm-4">
-        <label for="inputUserEnd" translate="translate">End timestamp</label>
+        <label for="inputUserEnd">{{ t('End timestamp') }}</label>
         <input id="inputUserEnd" v-model="userEnd" class="form-control" type="date" />
       </div>
     </div>
@@ -75,19 +60,19 @@
         <svg class="octicon">
           <use xlink:href="#location"></use>
         </svg>
-        <span translate="translate">Load User files to geolocate</span>
+        <span>{{ t('Load User files to geolocate') }}</span>
       </button>
       <button class="btn btn-secondary me-2" :disabled="!user" @click="nextForUser('map')">
         <svg class="octicon">
           <use xlink:href="#globe"></use>
         </svg>
-        <span translate="translate">Show User files on map</span>
+        <span>{{ t('Show User files on map') }}</span>
       </button>
       <button class="btn btn-secondary me-2" :disabled="!user" @click="nextForUser('gallery')">
         <svg class="octicon">
           <use xlink:href="#file-media"></use>
         </svg>
-        <span translate="translate">Show User files as gallery</span>
+        <span>{{ t('Show User files as gallery') }}</span>
       </button>
       <input class="invisible" type="submit" :disabled="!user" />
     </div>
@@ -96,7 +81,7 @@
   <form v-show="$tab === Tab.CATEGORY" name="formCategory" @submit="nextForCategory()">
     <div class="row">
       <div class="mb-4 col-lg-10">
-        <label for="inputCategory" translate="translate">Category</label>
+        <label for="inputCategory">{{ t('Category') }}</label>
         <input
           id="inputCategory"
           v-model="category"
@@ -112,9 +97,8 @@
           for="inputCategoryDepth"
           translate-comment="Depth of category tree"
           translate-context="Category"
-          translate="translate"
         >
-          Depth
+          {{ t('Depth') }}
         </label>
         <input id="inputCategoryDepth" v-model="categoryDepth" class="form-control" type="number" />
       </div>
@@ -124,13 +108,13 @@
         <svg class="octicon">
           <use xlink:href="#location"></use>
         </svg>
-        <span translate="translate">Load Category to geolocate</span>
+        <span>{{ t('Load Category to geolocate') }}</span>
       </button>
       <button class="btn btn-secondary me-2" :disabled="!category" @click="nextForCategory('map')">
         <svg class="octicon">
           <use xlink:href="#globe"></use>
         </svg>
-        <span translate="translate">Show Category on map</span>
+        <span>{{ t('Show Category on map') }}</span>
       </button>
       <button
         class="btn btn-secondary me-2"
@@ -140,7 +124,7 @@
         <svg class="octicon">
           <use xlink:href="#file-media"></use>
         </svg>
-        <span translate="translate">Show Category as gallery</span>
+        <span>{{ t('Show Category as gallery') }}</span>
       </button>
       <input class="invisible" type="submit" :disabled="!category" />
     </div>
@@ -151,7 +135,7 @@
   </form>
   <form v-show="$tab === Tab.FILES" name="formTitles">
     <div class="mb-4">
-      <label for="inputTitles" translate="translate">File list</label>
+      <label for="inputTitles">{{ t('File list') }}</label>
       <textarea
         id="inputTitles"
         v-model="titles"
@@ -160,27 +144,33 @@
         placeholder="File:…"
         @paste="onFilesPaste($event)"
       ></textarea>
-      <!-- prettier-ignore -->
-      <p class="form-text" translate="translate">When a clipboard content containing HTML code (for instance a copied selection from a Commons gallery) is pasted here, locator-tool tries to extract <code>File:</code>s from the code.</p>
+      <p
+        class="form-text"
+        v-html="
+          t(
+            'When a clipboard content containing HTML code (for instance a copied selection from a Commons gallery) is pasted here, locator-tool tries to extract <code>File:</code>s from the code.'
+          )
+        "
+      ></p>
     </div>
     <div class="mb-4">
       <button class="btn btn-success me-2" :disabled="!titleList.length" @click="next()">
         <svg class="octicon">
           <use xlink:href="#location"></use>
         </svg>
-        <span translate="translate">Load {{ titleList.length }} files to geolocate</span>
+        <span>{{ msgLoadGeolocate }}</span>
       </button>
       <button class="btn btn-secondary me-2" :disabled="!titleList.length" @click="next('map')">
         <svg class="octicon">
           <use xlink:href="#globe"></use>
         </svg>
-        <span translate="translate">Show {{ titleList.length }} files on map</span>
+        <span>{{ msgShowMap }}</span>
       </button>
       <button class="btn btn-secondary me-2" :disabled="!titleList.length" @click="next('gallery')">
         <svg class="octicon">
           <use xlink:href="#file-media"></use>
         </svg>
-        <span translate="translate">Show {{ titleList.length }} files as gallery</span>
+        <span>{{ msgShowGallery }}</span>
       </button>
     </div>
   </form>
@@ -192,6 +182,7 @@ import * as ltData from '../api/ltData';
 import {getUserInfo, loginURL} from '../api/ltDataAuth';
 import {useRoute, useRouter} from 'vue-router';
 import ltSpinner from './ltSpinner.vue';
+import {t} from './useI18n';
 
 enum Tab {
   CATEGORY = 1,
@@ -291,4 +282,26 @@ function onFilesPaste($event: ClipboardEvent) {
     console.warn('Could not parse HTML clipboard content', ex);
   }
 }
+
+const msgLoggedIn = computed(() =>
+  t('Hello {{$ctrl.userInfo}}!').replace('{{$ctrl.userInfo}}', userInfo.value?.user)
+);
+const msgLoadGeolocate = computed(() =>
+  t('Load {{$ctrl.titleList.length}} files to geolocate').replace(
+    '{{$ctrl.titleList.length}}',
+    titleList.value.length
+  )
+);
+const msgShowMap = computed(() =>
+  t('Show {{$ctrl.titleList.length}} files on map').replace(
+    '{{$ctrl.titleList.length}}',
+    titleList.value.length
+  )
+);
+const msgShowGallery = computed(() =>
+  t('Show {{$ctrl.titleList.length}} files as gallery').replace(
+    '{{$ctrl.titleList.length}}',
+    titleList.value.length
+  )
+);
 </script>
