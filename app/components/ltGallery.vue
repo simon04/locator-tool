@@ -17,11 +17,13 @@
         <div class="card-body">
           <h5 class="card-title">
             {{ title.file }}
-            <a :href="title.url" target="_blank">
-              <svg class="octicon">
-                <use xlink:href="#link-external"></use>
-              </svg>
-            </a>
+            {{ ' ' }}
+            <small
+              ><a :href="title.url" target="_blank">
+                <svg class="octicon">
+                  <use xlink:href="#link-external"></use>
+                </svg> </a
+            ></small>
           </h5>
           <div class="card-text">
             <lt-file-metadata :file="title" :description="false" />
