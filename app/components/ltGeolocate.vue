@@ -65,12 +65,16 @@
             :class="{'list-group-item-info': $title === title}"
             @click="$title = title"
           >
-            <abbr v-if="title.coordinates.isDefinedAndSaved" title="Location ✔">
+            <abbr v-if="title.coordinates.isDefinedAndSaved" class="pe-1" title="Location ✔">
               <svg class="octicon">
                 <use xlink:href="#device-camera"></use>
               </svg>
             </abbr>
-            <abbr v-if="title.objectLocation.isDefinedAndSaved" title="Object location ✔">
+            <abbr
+              v-if="title.objectLocation.isDefinedAndSaved"
+              class="pe-1"
+              title="Object location ✔"
+            >
               <svg class="octicon">
                 <use xlink:href="#squirrel"></use>
               </svg>

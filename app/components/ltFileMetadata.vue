@@ -5,15 +5,13 @@
     <svg class="octicon">
       <use xlink:href="#calendar"></use>
     </svg>
-
-    <time v-html="file.timestamp"></time>
+    <time class="ps-1" v-html="file.timestamp"></time>
   </div>
   <div v-if="file.author" class="small">
     <svg class="octicon">
       <use xlink:href="#person"></use>
     </svg>
-
-    <span v-html="file.author"></span>
+    <span class="ps-1" v-html="file.author"></span>
   </div>
   <a
     v-for="category in file.categories"
@@ -22,9 +20,9 @@
     :href="`https://commons.wikimedia.org/wiki/Category:${category}`"
     target="_blank"
   >
-    <span class="badge bg-secondary me-1 text-truncate" style="max-width: 100%">{{
-      category
-    }}</span>
+    <span class="badge bg-secondary me-1 text-truncate" style="max-width: 100%">
+      {{ category }}
+    </span>
   </a>
 </template>
 
