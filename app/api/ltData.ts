@@ -289,24 +289,24 @@ export async function getFilesForUser(
 
 export async function getFilesForCategory(cat: string, depth = 3): Promise<CommonsTitle[]> {
   cat = removeCommonsPrefix(cat, 'Category:');
-  const timeout = $q.defer();
+  const abort = new AbortController();
   const requests = [
-    getFilesForCategory1(cat, depth, timeout.promise),
-    getFilesForCategory3(cat, depth, timeout.promise)
+    getFilesForCategory1(cat, depth, abort.signal),
+    getFilesForCategory3(cat, depth, abort.signal)
   ];
   if (depth <= 0) {
-    requests.unshift(getFilesForCategory0(cat, timeout.promise));
+    requests.unshift(getFilesForCategory0(cat, abort.signal));
   }
   try {
     return await successRace(requests);
   } finally {
-    timeout.resolve();
+    abort.abort();
   }
 }
 
 export async function getFilesForCategory0(
   cat: string,
-  timeout: Promise<unknown>
+  signal?: AbortSignal
 ): Promise<CommonsTitle[]> {
   const params = {
     list: 'categorymembers',
@@ -314,14 +314,14 @@ export async function getFilesForCategory0(
     cmnamespace: NS_FILE,
     cmtitle: 'Category:' + cat
   };
-  const data = await $query<ApiResponse<Page>>(params, {}, timeout);
+  const data = await $query<ApiResponse<Page>>(params, {}, signal);
   return (data.query.categorymembers || []).map(cm => cm.title);
 }
 
 export async function getFilesForCategory1(
   cat: string,
   depth: number,
-  timeout: Promise<unknown>
+  signal?: AbortSignal
 ): Promise<CommonsTitle[]> {
   const params = {
     lang: 'commons',
@@ -330,15 +330,15 @@ export async function getFilesForCategory1(
     depth: depth,
     json: 1
   };
-  return $http
-    .get<CommonsTitle[]>('https://cats-php.toolforge.org/', {params, timeout})
-    .then(d => d.data.map(f => `File:${f}`));
+  const url = 'https://cats-php.toolforge.org/?' + new URLSearchParams(params);
+  const data = await fetchJSON<CommonsTitle[]>(url, {signal});
+  return data.map(f => `File:${f}`);
 }
 
-export function getFilesForCategory3(
+export async function getFilesForCategory3(
   categories: string,
   depth: number,
-  timeout: Promise<unknown>
+  signal?: AbortSignal
 ): Promise<CommonsTitle[]> {
   const params = {
     language: 'commons',
@@ -350,19 +350,17 @@ export function getFilesForCategory3(
     sparse: 1,
     doit: 1
   };
-  return (
-    $http
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .get<any>('https://petscan.wmflabs.org/', {params, timeout})
-      .then(d => d.data['*'][0]['a']['*'] as CommonsTitle[])
-  );
+  const url = 'https://petscan.wmflabs.org/?' + new URLSearchParams(params);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const data = await fetchJSON<any>(url, {signal});
+  return data['*'][0]['a']['*'] as CommonsTitle[];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function $query<T extends ApiResponse<any>>(
   query: Record<string, unknown>,
   previousResults = {},
-  timeout?: AbortController,
+  signal?: AbortSignal,
   shouldContinue = (data: T) => !!data.continue
 ): Promise<T> {
   const params = {
@@ -370,19 +368,18 @@ async function $query<T extends ApiResponse<any>>(
     format: 'json',
     origin: '*'
   };
-
-  const response = await fetch(API_URL + '?' + new URLSearchParams(params), {
+  const url = API_URL + '?' + new URLSearchParams(params);
+  let data = await fetchJSON<T>(url, {
     body: toFormData(query),
     method: 'POST',
-    signal: timeout?.signal
+    signal
   });
-  let data: T = await response.json();
   data = deepmerge(previousResults, data, {arrayMerge: (x, y) => [].concat(...x, ...y)}) as T;
   if (shouldContinue(data)) {
     return $query<T>(
       {...query, continue: undefined, ...data.continue},
       {...data, continue: undefined},
-      timeout,
+      signal,
       shouldContinue
     );
   }
@@ -399,10 +396,24 @@ function toFormData(query: Record<string, unknown>): FormData {
 
 function successRace<T>(promises: Promise<T>[]): Promise<T> {
   promises = promises.filter(p => !!p);
-  return $q<T>((resolve, reject) => {
+  return new Promise<T>((resolve, reject) => {
     // resolve first successful one
     promises.forEach(promise => promise.then(resolve));
     // reject when all fail
-    $q.all(promises).catch(reject);
+    Promise.all(promises).catch(reject);
   });
+}
+
+async function fetchJSON<T>(url: RequestInfo, options?: RequestInit): Promise<T> {
+  console.log('Fetching', url);
+  const res = await fetch(url, {
+    cache: 'no-cache',
+    headers: {Accept: 'application/json'},
+    ...options
+  });
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error(res.statusText);
+  }
 }
