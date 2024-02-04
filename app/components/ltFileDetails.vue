@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <div class="card">
     <div class="card-body p-2">
@@ -19,10 +18,12 @@
           </abbr>
         </label>
         <div v-show="!collapseCameraLocation">
+          <!-- eslint-disable vue/no-mutating-props -->
           <lt-location-input
             v-model="file.coordinates"
             @edit-location="editLocation(file.coordinates)"
           />
+          <!-- eslint-enable vue/no-mutating-props -->
         </div>
       </div>
     </div>
@@ -47,10 +48,12 @@
           </abbr>
         </label>
         <div v-show="!collapseObjectLocation">
+          <!-- eslint-disable vue/no-mutating-props -->
           <lt-location-input
             v-model="file.objectLocation"
             @edit-location="editLocation(file.objectLocation)"
           />
+          <!-- eslint-enable vue/no-mutating-props -->
         </div>
       </div>
     </div>
@@ -118,8 +121,10 @@ function editLocation(coordinates: LatLng) {
   return ltDataAuth.editLocation(props.file, coordinates).then(
     () => {
       if (coordinates.type === 'Location') {
+        // eslint-disable-next-line vue/no-mutating-props
         props.file.coordinates = coordinates.commit();
       } else if (coordinates.type === 'Object location') {
+        // eslint-disable-next-line vue/no-mutating-props
         props.file.objectLocation = coordinates.commit();
       }
     },
