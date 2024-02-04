@@ -77,7 +77,6 @@
       </button>
       <input class="invisible" type="submit" :disabled="!user" />
     </div>
-    <lt-spinner v-if="getFilesForUser$q && !getFilesForUser$q.$$state.status" />
   </form>
   <form v-show="$tab === Tab.CATEGORY" name="formCategory" @submit="nextForCategory()">
     <div class="row">
@@ -129,7 +128,7 @@
       </button>
       <input class="invisible" type="submit" :disabled="!category" />
     </div>
-    <lt-spinner v-if="getFilesForCategory$q && !getFilesForCategory$q.$$state.status" />
+    <lt-spinner v-if="isLoading" />
     <datalist id="datalistCategory">
       <option v-for="i in categorySuggestions" :key="i" :value="i"></option>
     </datalist>
@@ -194,6 +193,7 @@ enum Tab {
 const $route = useRoute();
 const $routes = useRouter();
 
+const isLoading = ref(false);
 const $tab = ref<Tab>($route.query.user ? Tab.USER : Tab.CATEGORY);
 const category = ref<string>($route.query.category as string);
 const categoryDepth = ref(tryParse(parseInt, $route.query.categoryDepth as string, 3));
@@ -221,10 +221,14 @@ function tryParse<T>(parser: (string: string) => T, text: string, fallback: T): 
 
 const {data: userInfo} = getUserInfo();
 
-function getCategoriesForPrefix() {
-  ltData.getCategoriesForPrefix(category.value).then(categories => {
+async function getCategoriesForPrefix() {
+  isLoading.value = true;
+  try {
+    const categories = await ltData.getCategoriesForPrefix(category.value);
     categorySuggestions.value = categories;
-  });
+  } finally {
+    isLoading.value = false;
+  }
 }
 
 function next(name = 'geolocate') {
