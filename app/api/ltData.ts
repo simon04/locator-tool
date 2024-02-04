@@ -161,7 +161,7 @@ export async function getFileDetails(
     pageids: pageid,
     iiprop,
     iiextmetadatafilter: 'ImageDescription|Artist|DateTimeOriginal',
-    iiextmetadatalanguage: document.body.parentElement.lang,
+    iiextmetadatalanguage: document.body.parentElement!.lang,
     ...(prop.includes('categories') ? {clshow: '!hidden'} : {}),
     ...(prop.includes('revisions') ? {rvslots: 'main', rvprop: 'content'} : {})
   };
@@ -327,10 +327,10 @@ export async function getFilesForCategory1(
     lang: 'commons',
     cat: cat.replace(/^Category:/, ''),
     type: NS_FILE,
-    depth: depth,
+    depth,
     json: 1
   };
-  const url = 'https://cats-php.toolforge.org/?' + new URLSearchParams(params);
+  const url = 'https://cats-php.toolforge.org/?' + toSearchParams(params);
   const data = await fetchJSON<CommonsTitle[]>(url, {signal});
   return data.map(f => `File:${f}`);
 }
@@ -350,7 +350,7 @@ export async function getFilesForCategory3(
     sparse: 1,
     doit: 1
   };
-  const url = 'https://petscan.wmflabs.org/?' + new URLSearchParams(params);
+  const url = 'https://petscan.wmflabs.org/?' + toSearchParams(params);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = await fetchJSON<any>(url, {signal});
   return data['*'][0]['a']['*'] as CommonsTitle[];
@@ -392,6 +392,14 @@ function toFormData(query: Record<string, unknown>): FormData {
     ([key, value]) => value === undefined || formData.append(key, String(value))
   );
   return formData;
+}
+
+function toSearchParams(query: Record<string, unknown>): URLSearchParams {
+  const searchParams = new URLSearchParams();
+  Object.entries(query).forEach(
+    ([key, value]) => value === undefined || searchParams.append(key, String(value))
+  );
+  return searchParams;
 }
 
 function successRace<T>(promises: Promise<T>[]): Promise<T> {

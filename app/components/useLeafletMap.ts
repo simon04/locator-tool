@@ -86,7 +86,7 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
   };
   const layersControl = L.control.layers().addTo(map);
   Object.entries(layers).forEach(([name, layer]) => layersControl.addBaseLayer(layer, name));
-  (layers[mapLayer.value] || layers[osm]).addTo(map);
+  (layers[mapLayer.value as keyof typeof layers] || layers[osm]).addTo(map);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const geocoder = new ControlGeocoder({

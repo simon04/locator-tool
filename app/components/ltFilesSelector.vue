@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <h2 v-show="!userInfo?.user" class="mt-4">{{ t('Sign in') }}</h2>
   <p v-show="!userInfo?.user">

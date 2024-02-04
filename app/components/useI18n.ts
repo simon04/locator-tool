@@ -42,9 +42,15 @@ export const language = useLocalStorage<Language>(
 
 const templateRe = /\{ *([\w_ -]+) *\}/g;
 
-export function t(key: keyof (typeof i18n)['de'], values?: Record<string, string>): string {
-  let msg: string = language.value === 'en' ? key : i18n[language.value][key] ?? key;
-  if (typeof msg === 'object' && key === 'Depth') msg = msg['Category']; // translate-context
+type I18nCatalog = (typeof i18n)['de'];
+
+export function t(key: keyof I18nCatalog, values?: Record<string, string>): string {
+  const msg = language.value === 'en' ? key : (i18n[language.value] as I18nCatalog)[key] ?? key;
+  if (typeof msg === 'object') {
+    // key === 'Depth'
+    // translate-context
+    return msg['Category'];
+  }
   if (typeof values !== 'object') return msg;
   return msg.replace(templateRe, (_, match) => values[match]);
 }

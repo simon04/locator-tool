@@ -197,7 +197,7 @@ function titleChanged(title: CommonsFile): void {
   }
 }
 
-function coordinatesChanged(coordinates: LatLng, $event?: L.LeafletMouseEvent): void {
+function coordinatesChanged(coordinates: LatLng): void {
   if (!coordinates || !$title.value) {
     return;
   } else if (coordinates.type === 'Location') {
