@@ -1,14 +1,14 @@
 <template>
-  <a v-show="!userInfo?.user" class="btn btn-success ms-2" :href="loginURL()">
+  <a v-if="!userInfo?.user" class="btn btn-success ms-2" :href="loginURL()">
     <svg class="octicon">
       <use xlink:href="#sign-in"></use>
     </svg>
     <span>{{ t('Log in') }}</span>
   </a>
-  <span v-show="userInfo?.user" class="navbar-text ms-2">
+  <span v-if="userInfo?.user" class="navbar-text ms-2">
     {{ msgLoggedIn }}
   </span>
-  <a v-show="userInfo?.user" class="btn btn-secondary ms-2" :href="logoutURL()">
+  <a v-if="userInfo?.user" class="btn btn-secondary ms-2" :href="logoutURL()">
     <svg class="octicon">
       <use xlink:href="#sign-out"></use>
     </svg>
@@ -23,6 +23,6 @@ import {t} from './useI18n';
 
 const {data: userInfo} = getUserInfo();
 const msgLoggedIn = computed(() =>
-  t('Logged in as {{$ctrl.user}}').replace('{{$ctrl.user}}', userInfo.value?.user)
+  t('Logged in as {{$ctrl.user}}').replace('{{$ctrl.user}}', userInfo.value?.user || '')
 );
 </script>

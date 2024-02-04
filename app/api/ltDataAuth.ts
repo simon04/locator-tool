@@ -18,7 +18,7 @@ export function getUserInfo() {
     headers: {
       'X-XSRF-TOKEN': xsrfToken() || ''
     }
-  });
+  }).json();
 }
 
 export function editLocation(title: CommonsFile, coordinates: LatLng) {

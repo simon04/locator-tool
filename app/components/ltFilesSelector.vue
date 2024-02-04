@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <h2 v-show="!userInfo?.user" class="mt-4">{{ t('Sign in') }}</h2>
-  <p v-show="!userInfo?.user">
+  <h2 v-if="!userInfo?.user" class="mt-4">{{ t('Sign in') }}</h2>
+  <p v-if="!userInfo?.user">
     <span>
       {{ t('In order to allow locator-tool to modify file description pages, sign in first:') }}
     </span>
@@ -12,7 +12,7 @@
       <span>{{ t('Log in') }}</span>
     </a>
   </p>
-  <p v-show="userInfo?.user">{{ msgLoggedIn }}</p>
+  <p v-if="userInfo?.user" class="mt-4">{{ msgLoggedIn }}</p>
   <h2>{{ t('Select files to geolocate') }}</h2>
   <ul class="nav nav-pills my-3">
     <li class="nav-item">
