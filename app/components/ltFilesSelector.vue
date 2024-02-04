@@ -85,11 +85,9 @@
         <input
           id="inputCategory"
           v-model="category"
-          :model-options="{updateOn: 'default blur', debounce: {default: 500, change: 0, blur: 0}}"
           class="form-control"
           list="datalistCategory"
           placeholder="Category:…"
-          @change="getCategoriesForPrefix()"
         />
       </div>
       <div class="mb-4 col-lg-2">
@@ -178,6 +176,7 @@
 
 <script setup lang="ts">
 import {computed, ref} from 'vue';
+import {watchDebounced} from '@vueuse/core';
 import * as ltData from '../api/ltData';
 import {getUserInfo, loginURL} from '../api/ltDataAuth';
 import {useRoute, useRouter} from 'vue-router';
@@ -230,6 +229,8 @@ async function getCategoriesForPrefix() {
     isLoading.value = false;
   }
 }
+
+watchDebounced(category, () => getCategoriesForPrefix(), {debounce: 500});
 
 function next(name = 'geolocate') {
   const files = titleList.value.join('|');
