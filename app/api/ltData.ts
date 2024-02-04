@@ -85,7 +85,7 @@ export interface MainSlot {
   '*': string;
 }
 
-export function getCoordinates(titles: CommonsTitle[]): Promise<CommonsFile[]> {
+export async function getCoordinates(titles: string | CommonsTitle[]): Promise<CommonsFile[]> {
   if (typeof titles === 'string') {
     titles = titles.split('|');
   }
@@ -99,42 +99,42 @@ export function getCoordinates(titles: CommonsTitle[]): Promise<CommonsFile[]> {
     coprimary: 'all',
     titles: titles.join('|').replace(/_/g, ' ')
   };
-  return $query<ApiResponse<CoordinatePage>>(params).then(data => {
-    const pages = data?.query?.pages || {};
-    return Object.entries(pages).map(([pageid, page]) => {
-      const coordinates = page.coordinates || [];
-      return {
-        pageid: parseInt(pageid),
-        file: page.title,
-        url: `https://commons.wikimedia.org/wiki/${page.title}`,
-        imageUrl(width?: number) {
-          return getFilePath(this.file, width);
-        },
-        coordinates: new LatLng(
-          'Location',
-          ...toLatLng(coordinates.filter(c => c.primary === '' && c.type === 'camera'))
-        ),
-        objectLocation: new LatLng(
-          'Object location',
-          ...toLatLng(coordinates.filter(c => c.type === 'object'))
-        )
-      } as CommonsFile;
-    });
-    function toLatLng(cc: Coordinate[]): [number?, number?] {
-      const c: Coordinate = cc?.[0];
-      return typeof c === 'object' ? [c.lat, c.lon] : [undefined, undefined];
-    }
+  const data = await $query<ApiResponse<CoordinatePage>>(params);
+  const pages = data?.query?.pages || {};
+  return Object.entries(pages).map(([pageid, page]) => {
+    const coordinates = page.coordinates || [];
+    return {
+      pageid: parseInt(pageid),
+      file: page.title,
+      url: `https://commons.wikimedia.org/wiki/${page.title}`,
+      imageUrl(width?: number) {
+        return getFilePath(this.file, width);
+      },
+      coordinates: new LatLng(
+        'Location',
+        ...toLatLng(coordinates.filter(c => c.primary === '' && c.type === 'camera'))
+      ),
+      objectLocation: new LatLng(
+        'Object location',
+        ...toLatLng(coordinates.filter(c => c.type === 'object'))
+      )
+    } as CommonsFile;
   });
+  function toLatLng(cc: Coordinate[]): [number?, number?] {
+    const c: Coordinate = cc?.[0];
+    return typeof c === 'object' ? [c.lat, c.lon] : [undefined, undefined];
+  }
 }
 
-export function getCoordinatesChunkByChunk(titles: CommonsTitle[]): Promise<CommonsFile[]> {
+export async function getCoordinatesChunkByChunk(titles: CommonsTitle[]): Promise<CommonsFile[]> {
   const t = [...titles];
   const requests: CommonsTitle[][] = [];
   while (t.length) {
     requests.push(t.splice(0, Math.min(maxTitlesPerRequest, t.length)));
   }
   const coordinatesPromises = requests.map(x => getCoordinates(x));
-  return Promise.all(coordinatesPromises).then(x => flatten(x));
+  const x = await Promise.all(coordinatesPromises);
+  return flatten(x);
 
   function flatten<T>(array: T[][]) {
     const result: T[] = [];
@@ -151,7 +151,7 @@ export interface FileDetails {
   objectLocation: LatLng;
 }
 
-export function getFileDetails(
+export async function getFileDetails(
   pageid: number,
   prop = 'categories|imageinfo|revisions',
   iiprop = 'url|extmetadata'
@@ -165,21 +165,20 @@ export function getFileDetails(
     ...(prop.includes('categories') ? {clshow: '!hidden'} : {}),
     ...(prop.includes('revisions') ? {rvslots: 'main', rvprop: 'content'} : {})
   };
-  return $query<ApiResponse<DetailsPage>>(params).then(data => {
-    const page: DetailsPage | undefined = data?.query?.pages?.[pageid];
-    const categories = (page?.categories || []).map(category =>
-      category.title.replace(/^Category:/, '')
-    );
-    const extmetadata = page?.imageinfo[0]?.extmetadata;
-    return {
-      categories,
-      description: extmetadata?.ImageDescription?.value,
-      author: extmetadata?.Artist?.value,
-      timestamp: extmetadata?.DateTimeOriginal?.value,
-      ...(iiprop.includes('url') ? {url: page?.imageinfo[0]?.descriptionurl} : {}),
-      objectLocation: extractObjectLocation(page)
-    };
-  });
+  const data = await $query<ApiResponse<DetailsPage>>(params);
+  const page: DetailsPage | undefined = data?.query?.pages?.[pageid];
+  const categories = (page?.categories || []).map(category =>
+    category.title.replace(/^Category:/, '')
+  );
+  const extmetadata = page?.imageinfo[0]?.extmetadata;
+  return {
+    categories,
+    description: extmetadata?.ImageDescription?.value,
+    author: extmetadata?.Artist?.value,
+    timestamp: extmetadata?.DateTimeOriginal?.value,
+    ...(iiprop.includes('url') ? {url: page?.imageinfo[0]?.descriptionurl} : {}),
+    objectLocation: extractObjectLocation(page)
+  };
 
   function extractObjectLocation(page: DetailsPage) {
     try {
@@ -206,7 +205,7 @@ export function getFileDetails(
   }
 }
 
-export function getCategoriesForPrefix(prefix: string): Promise<CommonsTitle[]> {
+export async function getCategoriesForPrefix(prefix: string): Promise<CommonsTitle[]> {
   const params = {
     list: 'allpages',
     apnamespace: NS_CATEGORY,
@@ -214,9 +213,8 @@ export function getCategoriesForPrefix(prefix: string): Promise<CommonsTitle[]> 
     apfrom: prefix,
     apprefix: prefix
   };
-  return $query<ApiResponse<Page>>(params, {}, undefined, () => false).then(data =>
-    (data.query.allpages || []).map(i => i.title.replace(/^Category:/, '' as CommonsTitle))
-  );
+  const data = await $query<ApiResponse<Page>>(params, {}, undefined, () => false);
+  return (data.query.allpages || []).map(i => i.title.replace(/^Category:/, '' as CommonsTitle));
 }
 
 export async function getFiles({
@@ -264,7 +262,7 @@ function removeCommonsPrefix(string: string, prefix: string): string {
   return string;
 }
 
-export function getFilesForUser(
+export async function getFilesForUser(
   user: string,
   userLimit: number | undefined,
   userStart: string | undefined,
@@ -284,12 +282,12 @@ export function getFilesForUser(
   const toPageArray = (data: ApiResponse<Page>): Page[] => Object.values(data.query.pages);
   const shouldContinue = (data: ApiResponse<Page>): boolean =>
     data.continue ? !userLimit || toPageArray(data).length < userLimit : false;
-  return $query<ApiResponse<Page>>(params, {}, undefined, shouldContinue)
-    .then(data => toPageArray(data).map(page => page.title as CommonsTitle))
-    .then(pages => (userLimit ? pages.slice(0, userLimit) : pages));
+  const data = await $query<ApiResponse<Page>>(params, {}, undefined, shouldContinue);
+  const pages = toPageArray(data).map(page => page.title as CommonsTitle);
+  return userLimit ? pages.slice(0, userLimit) : pages;
 }
 
-export function getFilesForCategory(cat: string, depth = 3): Promise<CommonsTitle[]> {
+export async function getFilesForCategory(cat: string, depth = 3): Promise<CommonsTitle[]> {
   cat = removeCommonsPrefix(cat, 'Category:');
   const timeout = $q.defer();
   const requests = [
@@ -299,10 +297,14 @@ export function getFilesForCategory(cat: string, depth = 3): Promise<CommonsTitl
   if (depth <= 0) {
     requests.unshift(getFilesForCategory0(cat, timeout.promise));
   }
-  return successRace(requests).finally(() => timeout.resolve());
+  try {
+    return await successRace(requests);
+  } finally {
+    timeout.resolve();
+  }
 }
 
-export function getFilesForCategory0(
+export async function getFilesForCategory0(
   cat: string,
   timeout: Promise<unknown>
 ): Promise<CommonsTitle[]> {
@@ -312,12 +314,11 @@ export function getFilesForCategory0(
     cmnamespace: NS_FILE,
     cmtitle: 'Category:' + cat
   };
-  return $query<ApiResponse<Page>>(params, {}, timeout).then(data =>
-    (data.query.categorymembers || []).map(cm => cm.title)
-  );
+  const data = await $query<ApiResponse<Page>>(params, {}, timeout);
+  return (data.query.categorymembers || []).map(cm => cm.title);
 }
 
-export function getFilesForCategory1(
+export async function getFilesForCategory1(
   cat: string,
   depth: number,
   timeout: Promise<unknown>
