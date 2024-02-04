@@ -1,0 +1,272 @@
+# 
+# Translators:
+# HanV <han.velthuis@kpnmail.nl>, 2023
+msgid ""
+msgstr ""
+"Project-Id-Version: locator-tool\n"
+"PO-Revision-Date: 2016-05-19 10:23+0000\n"
+"Last-Translator: HanV <han.velthuis@kpnmail.nl>, 2023\n"
+"Language-Team: Dutch (http://app.transifex.com/locator-tool/locator-tool/language/nl/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Depth of category tree
+#: ./app/components/ltFilesSelector.html
+msgctxt "Category"
+msgid "Depth"
+msgstr "Diepte"
+
+#: ./app/components/ltAbout.html
+msgid ""
+"<a ui-sref=\"select\">Select files to geolocate</a> by querying a category "
+"or inputting a list of <code>File:</code>s."
+msgstr "<a ui-sref=\"select\">Selecteer bestanden voor geolocatie</a> met gebruik van een categorie of met een aantal <code>bestanden:</code>."
+
+#: ./app/components/ltAbout.html ./app/components/ltNavbar.html
+msgid "About"
+msgstr "Over"
+
+#: ./app/components/ltNavbar.html
+msgid "About locator-tool"
+msgstr "Over locator-tool"
+
+#: ./app/components/ltGeolocate.html
+msgid "Also show geolocated files"
+msgstr "Ook bestanden met geolocatie tonen"
+
+#: ./app/components/ltFileDetails.html
+msgid ""
+"Camera location via\n"
+"<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
+msgstr "Camera locatie via\n<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Locatie</code></a>"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Category"
+msgstr "Categorie"
+
+#: ./app/components/ltLocationInput.html
+msgid "Discard"
+msgstr "Verwijderen"
+
+#: ./app/components/ltAbout.html
+msgid "Edits using locator-tool"
+msgstr "Bewerkingen met locater-tool"
+
+#: ./app/components/ltFilesSelector.html
+msgid "End timestamp"
+msgstr "Eind tijdstempel"
+
+#: ./app/components/ltFileDetails.html
+msgid "Failed to save: {{$ctrl.error.statusText}}"
+msgstr "Opslaan {{$ctrl.error.statusText}} mislukt"
+
+#: ./app/components/ltGeolocate.html
+msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
+msgstr "Opgehaald 0 bestanden bij categorie <code>{{$ctrl.category}}</code>!"
+
+#: ./app/components/ltGeolocate.html
+msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
+msgstr "Opgehaald 0 bestanden van gebruiker <code>{{$ctrl.user}}</code>!"
+
+#: ./app/components/ltFilesSelector.html
+msgid "File list"
+msgstr "Bestandslijst"
+
+#: ./app/components/ltAbout.html
+msgid ""
+"From the list of files provided, select one and click its location on an "
+"interactive map."
+msgstr "Kies een bestand uit de lijst bestanden en klik op de locatie van het bestand op de interactieve kaart."
+
+#: ./app/components/ltNavbar.html
+msgid "Gallery"
+msgstr "Galerij"
+
+#: ./app/components/ltNavbar.html
+msgid "Geolocate files"
+msgstr "Geolocatie bestanden"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Hello {{$ctrl.userInfo}}!"
+msgstr "Hallo {{$ctrl.userInfo}}!"
+
+#: ./app/components/ltFilesSelector.html
+msgid ""
+"In order to allow locator-tool to modify file description pages, sign in "
+"first:"
+msgstr "Log eerst in zodat het locator-tool de beschrijvingspagina's mag wijzigen:"
+
+#: ./app/components/ltAbout.html
+msgid ""
+"Its source code is available on <a "
+"href=\"https://github.com/simon04/locator-tool\">GitHub</a> and <a "
+"href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
+msgstr "De broncode is op <a href=\"https://github.com/simon04/locator-tool\">GitHub</a> beschikbaar onder de licentie <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>."
+
+#. Your language in your language (e.g. 'English', 'Deutsch')
+#: ./app/components/ltLanguageSelector.html
+msgid "LANGUAGE"
+msgstr "Nederlands"
+
+#: ./app/components/ltFileDetails.html
+msgid "Left click on map to set the location."
+msgstr "Klik links op de kaart om de locatie te kiezen"
+
+#. maximum number of files
+#: ./app/components/ltFilesSelector.html
+msgid "Limit"
+msgstr "Limiet"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Load Category to geolocate"
+msgstr "Categorie laden voor geolocatie"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Load User files to geolocate"
+msgstr "Gebruikersbestanden laden voor geolocatie"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Load {{$ctrl.titleList.length}} files to geolocate"
+msgstr " {{$ctrl.titleList.length}} bestanden laden voor geolocatie"
+
+#: ./app/components/ltGallery.html ./app/components/ltGeolocate.html
+msgid "Loading file details …"
+msgstr "Bestandsdetails laden..."
+
+#: ./app/components/ltFilesSelector.html ./app/components/ltUserInfo.html
+msgid "Log in"
+msgstr "Inloggen"
+
+#: ./app/components/ltAbout.html
+msgid "Log in using the button on the upper right corner"
+msgstr "Log in met de knop in de rechterbovenhoek"
+
+#: ./app/components/ltUserInfo.html
+msgid "Log out"
+msgstr "Uitloggen"
+
+#: ./app/components/ltUserInfo.html
+msgid "Logged in as {{$ctrl.user}}"
+msgstr "Ingelogd als {{$ctrl.user}}"
+
+#: ./app/components/ltNavbar.html
+msgid "Map"
+msgstr "Kaart"
+
+#: ./app/components/ltFileDetails.html
+msgid ""
+"Object location via\n"
+"<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
+msgstr "Object locatie via\n<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object locatie</code></a>"
+
+#: ./app/components/ltAbout.html
+msgid "Open Source Licenses:"
+msgstr "Open Source Licenties:"
+
+#: ./app/components/ltFileDetails.html
+msgid "Press shift and click on map to set the object location."
+msgstr "Druk op shift en klik op de kaart om de objectlocatie te kiezen."
+
+#: ./app/components/ltAbout.html
+msgid "Repeat …"
+msgstr "Herhaal …"
+
+#: ./app/components/ltLocationInput.html
+msgid "Save"
+msgstr "Opslaan"
+
+#: ./app/components/ltNavbar.html
+msgid "Select files"
+msgstr "Bestanden selecteren"
+
+#: ./app/components/ltFilesSelector.html ./app/components/ltNavbar.html
+msgid "Select files to geolocate"
+msgstr "Bestanden voor geolocatie selecteren"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show Category as gallery"
+msgstr "Categorie als galerij tonen"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show Category on map"
+msgstr "Categorie op kaart tonen"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show User files as gallery"
+msgstr "Gebruikersbestanden als galerij tonen"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show User files on map"
+msgstr "Gebruikersbestanden op kaart tonen"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show {{$ctrl.titleList.length}} files as gallery"
+msgstr "{{$ctrl.titleList.length}} bestanden als galerij tonen"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show {{$ctrl.titleList.length}} files on map"
+msgstr "{{$ctrl.titleList.length}} bestanden op kaart tonen"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Sign in"
+msgstr "Inloggen"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Start timestamp"
+msgstr "Start tijdstempel"
+
+#: ./app/components/ltAbout.html
+msgid ""
+"This tool has been created by <a "
+"href=\"https://github.com/simon04/\">simon04</a>."
+msgstr "Dit hulpmiddel is door <a href=\"https://github.com/simon04/\">simon04</a> gemaakt."
+
+#: ./app/components/ltAbout.html
+msgid ""
+"This tool helps to add <code class=\"mediawiki-template\">Coordinate</code> "
+"information to images on <a "
+"href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgstr "Dit hulpmiddel voegt<code class=\"mediawiki-template\">coördinaten</code> toe aan afbeeldingen op <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+
+#: ./app/components/ltAbout.html
+msgid "Translate locator-tool on Transifex"
+msgstr "Op Transifex vertalen van locator-tool"
+
+#: ./app/components/ltAbout.html
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: ./app/components/ltAbout.html
+msgid "Usage"
+msgstr "Gebruik"
+
+#: ./app/components/ltFilesSelector.html
+msgid "User"
+msgstr "Gebruiker"
+
+#: ./app/components/ltFilesSelector.html
+msgid "User files"
+msgstr "Gebruikersbestanden"
+
+#: ./app/components/ltAbout.html
+msgid "Version:"
+msgstr "Versie:"
+
+#: ./app/components/ltFilesSelector.html
+msgid ""
+"When a clipboard content containing HTML code (for instance a copied "
+"selection from a Commons gallery) is pasted here, locator-tool tries to "
+"extract <code>File:</code>s from the code."
+msgstr "Als hier uit een klembord inhoud met HTML-code (bijvoorbeeld een gekopieerde selectie van een Commons galerij) wordt geplakt, dan probeert locator-tool de <code>Bestanden:</code> uit de code te bepalen."
+
+#: ./app/components/ltAbout.html ./app/components/ltNavbar.html
+msgid "locator-tool"
+msgstr "locator-tool"
+
+#: ./app/components/ltAbout.html
+msgid ""
+"→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
+"tool\">Commons:Locator-tool</a>"
+msgstr "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-tool\">Commons:Locator-tool</a>"
