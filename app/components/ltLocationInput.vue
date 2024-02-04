@@ -1,11 +1,10 @@
 <template>
   <div :class="{'has-error': !$valid}" class="input-group">
     <input
-      v-model="latLngString"
+      :value="modelValue.csv"
       class="form-control"
       type="text"
-      ng-model-options="{updateOn: 'default blur', debounce: {default: 2000, blur: 0}}"
-      xxx-blur="latLngString = modelValue.csv"
+      @blur="event => updateLatLng((event.target as HTMLInputElement).value)"
     />
     <button
       class="btn btn-secondary"
@@ -32,11 +31,11 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed} from 'vue';
+import {ref} from 'vue';
 import {LatLng} from '../model';
 import {t} from './useI18n';
 
-const REGEXP = /([+-]?\d+\.\d*)[,;\s]+([+-]?\d+\.\d*)/;
+const REGEXP = /(?<lat>[+-]?\d+\.?\d*)[,;\s]+(?<lng>[+-]?\d+\.?\d*)/;
 
 const emit = defineEmits<{
   'update:modelValue': [value: LatLng];
@@ -46,25 +45,20 @@ const props = defineProps<{modelValue: LatLng}>();
 const type = ref(props.modelValue?.type);
 const $valid = ref(true);
 
-const latLngString = computed<string>({
-  get: () => props.modelValue?.csv || '',
-  set: viewValue => {
-    if (!type.value) {
-      // keep track of coordinate type since it is lost
-      // when returning undefined on invalid input
-      const t = props.modelValue?.type;
-      if (t) type.value = t;
-    }
-    const m = viewValue.match(REGEXP);
-    $valid.value = !!m || !viewValue;
-    if (m || !viewValue) {
-      emit(
-        'update:modelValue',
-        new LatLng(type.value!, m ? parseFloat(m[1]) : undefined, m ? parseFloat(m[2]) : undefined)
-      );
-    } else {
-      // emit('update:modelValue', new LatLng(type.value!, undefined, undefined));
-    }
+function updateLatLng(viewValue: string) {
+  if (!type.value) {
+    // keep track of coordinate type since it is lost
+    // when returning undefined on invalid input
+    const t = props.modelValue?.type;
+    if (t) type.value = t;
   }
-});
+  const m = viewValue.match(REGEXP);
+  $valid.value = !!m || !viewValue;
+  const newValue = new LatLng(
+    type.value!,
+    m ? parseFloat(m.groups!.lat) : undefined,
+    m ? parseFloat(m.groups!.lng) : undefined
+  );
+  emit('update:modelValue', newValue);
+}
 </script>
