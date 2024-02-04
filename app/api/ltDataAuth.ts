@@ -14,24 +14,23 @@ interface EditApiResponse {
 }
 
 export function getUserInfo() {
-  return useFetch<UserApiResponse>('/user');
+  return useFetch<UserApiResponse>('/user', {
+    headers: {
+      'X-XSRF-TOKEN': xsrfToken() || ''
+    }
+  });
 }
 
 export function editLocation(title: CommonsFile, coordinates: LatLng) {
   const {pageid} = title;
   const {type, lat, lng} = coordinates;
-  const xsrfToken = document.cookie
-    .split(';')
-    .find(item => item.trim().startsWith('XSRF-TOKEN='))
-    ?.trim()
-    ?.slice('XSRF-TOKEN='.length);
   return useFetch<EditApiResponse>(
     '/edit',
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': xsrfToken || ''
+        'X-XSRF-TOKEN': xsrfToken() || ''
       },
       body: JSON.stringify({type, lat, lng, pageid})
     },
@@ -45,6 +44,14 @@ export function editLocation(title: CommonsFile, coordinates: LatLng) {
       }
     }
   );
+}
+
+function xsrfToken() {
+  return document.cookie
+    .split(';')
+    .find(item => item.trim().startsWith('XSRF-TOKEN='))
+    ?.trim()
+    ?.slice('XSRF-TOKEN='.length);
 }
 
 export function loginURL(): string {
