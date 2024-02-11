@@ -199,12 +199,8 @@ const categoryDepth = ref(tryParse(parseInt, $route.query.categoryDepth as strin
 const categorySuggestions = ref<string[]>([]);
 const user = ref<string>($route.query.user as string);
 const userLimit = ref(tryParse(parseInt, $route.query.userLimit as string, undefined));
-const userStart = ref<Date | undefined>(
-  tryParse(s => new Date(s), $route.query.userStart as string, undefined)
-);
-const userEnd = ref<Date | undefined>(
-  tryParse(s => new Date(s), $route.query.userEnd as string, undefined)
-);
+const userStart = ref<string>($route.query.userStart as string);
+const userEnd = ref<string>($route.query.userEnd as string);
 const titles = ref<string>('');
 
 function tryParse<T>(parser: (string: string) => T, text: string, fallback: T): T {
@@ -243,8 +239,8 @@ function nextForUser(name = 'geolocate') {
     query: {
       user: user.value,
       userLimit: userLimit.value,
-      userStart: userStart.value instanceof Date ? userStart.value.toISOString() : undefined,
-      userEnd: userEnd.value instanceof Date ? userEnd.value.toISOString() : undefined
+      userStart: userStart.value,
+      userEnd: userEnd.value
     }
   });
 }
