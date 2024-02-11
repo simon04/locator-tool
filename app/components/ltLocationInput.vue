@@ -57,7 +57,9 @@ function updateLatLng(viewValue: string) {
   const newValue = new LatLng(
     type.value!,
     m ? parseFloat(m.groups!.lat) : undefined,
-    m ? parseFloat(m.groups!.lng) : undefined
+    m ? parseFloat(m.groups!.lng) : undefined,
+    props.modelValue.lat,
+    props.modelValue.lng
   );
   emit('update:modelValue', newValue);
 }
