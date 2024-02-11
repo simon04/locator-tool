@@ -1,9 +1,9 @@
 <template>
   <div class="input-group">
     <input
+      ref="inputElement"
       :value="modelValue.csv"
       class="form-control"
-      :class="{'is-invalid': !$valid}"
       type="text"
       @blur="updateLatLng(($event.target as HTMLInputElement).value)"
       @paste="updateLatLng($event.clipboardData?.getData('text'))"
@@ -45,7 +45,7 @@ const emit = defineEmits<{
 }>();
 const props = defineProps<{modelValue: LatLng}>();
 const type = ref(props.modelValue?.type);
-const $valid = ref(true);
+const inputElement = ref<HTMLInputElement | null>(null);
 
 function updateLatLng(viewValue: string | undefined) {
   if (viewValue === undefined) return;
@@ -56,7 +56,10 @@ function updateLatLng(viewValue: string | undefined) {
     if (t) type.value = t;
   }
   const m = viewValue.match(REGEXP);
-  $valid.value = !!m || !viewValue;
+  const valid = !!m || !viewValue;
+  inputElement.value?.classList?.toggle('is-invalid', !valid);
+  if (!valid) return;
+
   const newValue = new LatLng(
     type.value!,
     m ? parseFloat(m.groups!.lat) : undefined,
