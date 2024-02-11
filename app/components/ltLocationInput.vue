@@ -1,8 +1,9 @@
 <template>
-  <div :class="{'has-error': !$valid}" class="input-group">
+  <div class="input-group">
     <input
       :value="modelValue.csv"
       class="form-control"
+      :class="{'is-invalid': !$valid}"
       type="text"
       @blur="updateLatLng(($event.target as HTMLInputElement).value)"
       @paste="updateLatLng($event.clipboardData?.getData('text'))"
