@@ -4,7 +4,8 @@
       :value="modelValue.csv"
       class="form-control"
       type="text"
-      @blur="event => updateLatLng((event.target as HTMLInputElement).value)"
+      @blur="updateLatLng(($event.target as HTMLInputElement).value)"
+      @paste="updateLatLng($event.clipboardData?.getData('text'))"
     />
     <button
       class="btn btn-secondary"
@@ -45,7 +46,8 @@ const props = defineProps<{modelValue: LatLng}>();
 const type = ref(props.modelValue?.type);
 const $valid = ref(true);
 
-function updateLatLng(viewValue: string) {
+function updateLatLng(viewValue: string | undefined) {
+  if (viewValue === undefined) return;
   if (!type.value) {
     // keep track of coordinate type since it is lost
     // when returning undefined on invalid input
