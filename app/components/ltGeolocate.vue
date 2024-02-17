@@ -178,9 +178,8 @@ function keyPressedInList($event: KeyboardEvent): void {
   if (newIndex >= 0 && titles[newIndex]) {
     $title.value = titles[newIndex];
     const target = $event.target as HTMLElement;
-    window.requestAnimationFrame(
-      () =>
-        target.querySelectorAll('.list-group-item')?.[newIndex]?.scrollIntoView?.({block: 'center'})
+    window.requestAnimationFrame(() =>
+      target.querySelectorAll('.list-group-item')?.[newIndex]?.scrollIntoView?.({block: 'center'})
     );
   }
 }

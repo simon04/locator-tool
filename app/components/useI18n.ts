@@ -33,10 +33,10 @@ export const language = useLocalStorage<Language>(
         languages[lang]
           ? (lang as Language)
           : languages[lang.slice(0, 2)]
-          ? (lang.slice(0, 2) as Language)
-          : lang.startsWith('en')
-          ? 'en'
-          : undefined
+            ? (lang.slice(0, 2) as Language)
+            : lang.startsWith('en')
+              ? 'en'
+              : undefined
       )
       .find(lang => !!lang) ?? 'en'
 );
