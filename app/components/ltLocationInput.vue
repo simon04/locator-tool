@@ -6,7 +6,10 @@
       class="form-control"
       type="text"
       @blur="updateLatLng(($event.target as HTMLInputElement).value)"
-      @paste="updateLatLng($event.clipboardData?.getData('text'))"
+      @paste="
+        updateLatLng($event.clipboardData?.getData('text'));
+        $event.preventDefault();
+      "
     />
     <button
       class="btn btn-secondary"
