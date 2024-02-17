@@ -36,7 +36,7 @@
     "leaflet": "^1.9.4",
     "leaflet-control-geocoder": "^2.3.0",
     "octicons": "^5.0.1",
-    "vue": "^3.4.11",
+    "vue": "^3.4.19",
     "vue-router": "^4.2.5",
     "wikimedia-commons-file-path": "^2.1.1"
   },
