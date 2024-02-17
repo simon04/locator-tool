@@ -274,8 +274,8 @@ export async function getFilesForUser(
     generator: 'allimages',
     gaiuser: user,
     gailimit: typeof userLimit === 'number' && userLimit <= 500 ? userLimit : 'max',
-    gaistart: userEnd ? new Date(userEnd).toISOString() : '', // sic! (due to gaidir)
-    gaiend: userStart ? new Date(userStart).toISOString() : '', // sic! (due to gaidir)
+    gaistart: userEnd ? new Date(userEnd).toISOString() : undefined, // sic! (due to gaidir)
+    gaiend: userStart ? new Date(userStart).toISOString() : undefined, // sic! (due to gaidir)
     gaisort: 'timestamp',
     gaidir: 'older'
   };
