@@ -20,7 +20,7 @@ onMounted(async () => {
   const bounds = files.flatMap(title => {
     if (!title.coordinates.isDefined) return [];
     const {lat, lng} = title.coordinates;
-    const marker = L.marker({lat, lng})
+    const marker = L.circleMarker({lat, lng}, {color: '#2a4b8d'})
       .bindPopup(
         () => `
 <div style="width: 300px">
