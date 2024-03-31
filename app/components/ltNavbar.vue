@@ -81,6 +81,6 @@ import {t} from './useI18n';
 
 const $route = useRoute();
 const activateLinks = computed(
-  () => $route.params?.files || $route.params?.user || $route.params?.category
+  () => $route.query?.files || $route.query?.user || $route.query?.category
 );
 </script>
