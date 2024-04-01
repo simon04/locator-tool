@@ -8,9 +8,13 @@ import {useRoute} from 'vue-router';
 import L from 'leaflet';
 import * as ltData from '../api/ltData';
 import {useLeafletMap} from './useLeafletMap';
+import {t} from './useI18n';
+import {useAppTitle, routeTitlePart} from './useAppTitle';
 
 const $route = useRoute();
 const mapRef = ref<HTMLElement | null>(null);
+
+useAppTitle(routeTitlePart(), t('Map'));
 
 onMounted(async () => {
   const {map} = useLeafletMap(mapRef);

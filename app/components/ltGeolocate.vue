@@ -120,6 +120,7 @@ import ltFileDetails from './ltFileDetails.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';
 import ltMap from './ltMap.vue';
 import {t} from './useI18n';
+import {useAppTitle, routeTitlePart} from './useAppTitle';
 
 const $route = useRoute();
 const category: string = $route.query.category as string;
@@ -130,6 +131,8 @@ const $showGeolocated = ref(false);
 const $title = ref<CommonsFile | undefined>(undefined);
 const $titles = ref<CommonsFile[] | undefined>(undefined);
 const isLoading = ref(false);
+
+useAppTitle(routeTitlePart(), t('Geolocate files'));
 
 onMounted(() => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -45,10 +45,13 @@ import ltFileMetadata from './ltFileMetadata.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';
 import ltSpinner from './ltSpinner.vue';
 import {t} from './useI18n';
+import {useAppTitle, routeTitlePart} from './useAppTitle';
 
 const $route = useRoute();
 const isLoading = ref(true);
 const titles = ref<CommonsFile[]>([]);
+
+useAppTitle(routeTitlePart(), t('Gallery'));
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 getFiles($route.query as any)

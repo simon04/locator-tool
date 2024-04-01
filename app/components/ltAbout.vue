@@ -85,6 +85,9 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import {t} from './useI18n';
+import {useAppTitle} from './useAppTitle';
+
+useAppTitle(t('About'));
 
 const msg = computed(() => ({
   summary: t(
