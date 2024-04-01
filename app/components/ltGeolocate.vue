@@ -63,6 +63,7 @@
             :key="title.file"
             class="list-group-item py-1 px-2 text-truncate"
             :class="{'list-group-item-info': $title === title}"
+            role="button"
             @click="$title = title"
           >
             <abbr v-if="title.coordinates.isDefinedAndSaved" class="pe-1" title="Location ✔">
