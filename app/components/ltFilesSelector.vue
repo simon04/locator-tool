@@ -35,7 +35,7 @@
       </button>
     </li>
   </ul>
-  <form v-show="$tab === Tab.USER" name="formUser" @submit="nextForUser()">
+  <form v-show="$tab === Tab.USER" name="formUser">
     <div class="mb-4">
       <label for="inputUser">{{ t('User') }}</label>
       <input id="inputUser" v-model="user" class="form-control" placeholder="User:…" />
@@ -78,7 +78,7 @@
       <input class="invisible" type="submit" :disabled="!user" />
     </div>
   </form>
-  <form v-show="$tab === Tab.CATEGORY" name="formCategory" @submit="nextForCategory()">
+  <form v-show="$tab === Tab.CATEGORY" name="formCategory">
     <div class="row">
       <div class="mb-4 col-lg-10">
         <label for="inputCategory">{{ t('Category') }}</label>
