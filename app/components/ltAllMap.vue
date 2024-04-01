@@ -25,6 +25,7 @@ onMounted(async () => {
     if (!title.coordinates.isDefined) return [];
     const {lat, lng} = title.coordinates;
     const marker = L.circleMarker({lat, lng}, {color: '#2a4b8d'})
+      .bindTooltip(title.file)
       .bindPopup(
         () => `
 <div style="width: 300px">
