@@ -248,3 +248,23 @@ msgstr ""
 #: ./app/components/ltAbout.html
 msgid "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-tool\">Commons:Locator-tool</a>"
 msgstr ""
+
+#: ./app/components/ltGallery.vue
+msgid "Sorting"
+msgstr ""
+
+#: ./app/components/ltGallery.vue
+msgid "Title"
+msgstr ""
+
+#: ./app/components/ltGallery.vue
+msgid "Description"
+msgstr ""
+
+#: ./app/components/ltGallery.vue
+msgid "Author"
+msgstr ""
+
+#: ./app/components/ltGallery.vue
+msgid "Date"
+msgstr ""
