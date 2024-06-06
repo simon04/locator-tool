@@ -1,0 +1,2 @@
+import{c as o,I as u,s,u as n,t as a}from"./index-QmqdmOmt.js";function i(...t){const r=o(()=>[...t.map(e=>n(e)).filter(e=>!!e),a("locator-tool")].join(" • "));return u(r,{restoreOnUnmount:e=>e})}function l(){const t=s();return o(()=>{var r,e;return((r=t.query.category)==null?void 0:r.replace(/_/," "))||((e=t.query.user)==null?void 0:e.replace(/_/," "))||void 0})}export{l as r,i as u};
+//# sourceMappingURL=uRE4_1B7GvcejlOJzRi.js.map
