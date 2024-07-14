@@ -85,7 +85,7 @@ const sortColumn = ref<SortColumn>('file');
 const sortDirection = ref(1);
 const sortedTitles = useSorted(
   titles,
-  (t1, t2) => sortDirection.value * t1[sortColumn.value]?.localeCompare(t2[sortColumn.value]) ?? 0
+  (t1, t2) => sortDirection.value * (t1[sortColumn.value]?.localeCompare(t2[sortColumn.value]) ?? 0)
 );
 
 useAppTitle(routeTitlePart(), t('Gallery'));

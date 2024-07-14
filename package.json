@@ -41,21 +41,20 @@
     "wikimedia-commons-file-path": "^2.1.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.7.0",
     "@types/leaflet": "^1.9.3",
-    "@typescript-eslint/eslint-plugin": "^6.5.0",
-    "@typescript-eslint/parser": "^6.5.0",
     "@vitejs/plugin-vue": "^5.0.5",
-    "@vue/eslint-config-prettier": "^9.0.0",
-    "@vue/eslint-config-typescript": "^12.0.0",
     "angular-gettext-cli": "^1.2.0",
     "angular-gettext-tools": "^2.3.5",
-    "eslint": "^8.48.0",
+    "eslint": "^9.7.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "eslint-plugin-vue": "^9.20.1",
+    "eslint-plugin-vue": "^9.27.0",
     "husky": "^9.0.10",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "typescript": "^5.3.3",
+    "typescript-eslint": "^7.16.0",
     "vite": "^5.3.3"
   },
   "lint-staged": {
