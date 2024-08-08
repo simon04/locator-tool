@@ -350,7 +350,7 @@ export async function getFilesForCategory3(
     sparse: 1,
     doit: 1
   };
-  const url = 'https://petscan.wmflabs.org/?' + toSearchParams(params);
+  const url = 'https://petscan.wmcloud.org/?' + toSearchParams(params);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = await fetchJSON<any>(url, {signal});
   return data['*'][0]['a']['*'] as CommonsTitle[];
