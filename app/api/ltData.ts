@@ -408,7 +408,7 @@ function successRace<T>(promises: Promise<T>[]): Promise<T> {
     // resolve first successful one
     promises.forEach(promise => promise.then(resolve));
     // reject when all fail
-    Promise.all(promises).catch(reject);
+    Promise.allSettled(promises).catch(reject);
   });
 }
 
