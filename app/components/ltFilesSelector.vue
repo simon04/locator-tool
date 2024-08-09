@@ -35,7 +35,7 @@
       </button>
     </li>
   </ul>
-  <form v-show="$tab === Tab.USER" name="formUser">
+  <form v-show="$tab === Tab.USER" @submit.stop.prevent="nextForCategory()">
     <div class="mb-4">
       <label for="inputUser">{{ t('User') }}</label>
       <input id="inputUser" v-model="user" class="form-control" placeholder="User:…" />
@@ -78,7 +78,7 @@
       <input class="invisible" type="submit" :disabled="!user" />
     </div>
   </form>
-  <form v-show="$tab === Tab.CATEGORY" name="formCategory">
+  <form v-show="$tab === Tab.CATEGORY" @submit.stop.prevent="nextForCategory()">
     <div class="row">
       <div class="mb-4 col-lg-10">
         <label for="inputCategory">{{ t('Category') }}</label>
@@ -131,7 +131,7 @@
       <option v-for="i in categorySuggestions" :key="i" :value="i"></option>
     </datalist>
   </form>
-  <form v-show="$tab === Tab.FILES" name="formTitles">
+  <form v-show="$tab === Tab.FILES" @submit.stop.prevent="nextForCategory()">
     <div class="mb-4">
       <label for="inputTitles">{{ t('File list') }}</label>
       <textarea
