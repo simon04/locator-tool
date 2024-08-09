@@ -12,7 +12,7 @@
       "
     />
     <button
-      class="btn btn-secondary"
+      class="btn btn-outline-secondary"
       type="button"
       :title="t('Discard')"
       @click="modelValue && emit('update:modelValue', modelValue.rollback())"
@@ -22,7 +22,7 @@
       </svg>
     </button>
     <button
-      class="btn btn-success"
+      class="btn btn-outline-success"
       type="button"
       :title="t('Save')"
       :disabled="!modelValue?.isChanged"

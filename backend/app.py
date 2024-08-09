@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import typing
 
 from flask import Flask, abort, jsonify, request
 from flask_mwoauth import MWOAuth
@@ -49,12 +50,19 @@ def user():
     return r
 
 
+class EditRequest(typing.TypedDict):
+    type: typing.Literal["Location", "Object location"]
+    lat: int
+    lng: int
+    pageid: int
+
+
 @app.route("/edit", methods=["POST"])
 def edit():
     if not mwoauth.get_current_user():
         abort(401)
 
-    data = request.get_json()
+    data: list[EditRequest] = request.get_json()
     if (
         "pageid" not in data
         or "type" not in data
