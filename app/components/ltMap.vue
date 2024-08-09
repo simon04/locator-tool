@@ -26,8 +26,8 @@ onMounted(() => {
 
   map.on('click', $event => mapClick($event));
 
-  watch(() => props.mapMarker, mapMarkerUpdater(map));
-  watch(() => props.mapObjectLocation, mapMarkerUpdater(map));
+  watch(() => props.mapMarker, mapMarkerUpdater(map), {immediate: true});
+  watch(() => props.mapObjectLocation, mapMarkerUpdater(map), {immediate: true});
 });
 
 function mapMarkerUpdater(map: L.Map): (mapMarker: LatLng) => void {
