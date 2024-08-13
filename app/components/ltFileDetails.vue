@@ -1,5 +1,16 @@
 <template>
-  <div class="card">
+  <button
+    class="btn btn-success form-control"
+    type="button"
+    :disabled="!(file.coordinates?.isChanged || file.objectLocation?.isChanged)"
+    @click="editLocation()"
+  >
+    <svg class="octicon">
+      <use xlink:href="#git-commit"></use>
+    </svg>
+    {{ t('Save') }}
+  </button>
+  <div class="card mt-2">
     <div class="card-body p-2">
       <div>
         <label @click="collapseCameraLocation = !collapseCameraLocation">
@@ -21,7 +32,7 @@
           <!-- eslint-disable vue/no-mutating-props -->
           <lt-location-input
             v-model="file.coordinates"
-            @edit-location="editLocation(file.coordinates)"
+            @edit-location="editLocation([file.coordinates])"
           />
           <!-- eslint-enable vue/no-mutating-props -->
         </div>
@@ -51,7 +62,7 @@
           <!-- eslint-disable vue/no-mutating-props -->
           <lt-location-input
             v-model="file.objectLocation"
-            @edit-location="editLocation(file.objectLocation)"
+            @edit-location="editLocation([file.objectLocation])"
           />
           <!-- eslint-enable vue/no-mutating-props -->
         </div>
@@ -117,17 +128,28 @@ const msgErrorStatusText = computed(() =>
 
 watch(props.file.coordinates, (c1, c2) => console.log(c1, c2));
 
-function editLocation(coordinates: LatLng) {
+function editLocation(coordinates?: LatLng[]) {
   error.value = undefined;
+  if (coordinates === undefined) {
+    coordinates = [];
+    if (props.file?.coordinates?.isChanged) {
+      coordinates.push(props.file.coordinates);
+    }
+    if (props.file?.objectLocation?.isChanged) {
+      coordinates.push(props.file.objectLocation);
+    }
+  }
   return ltDataAuth.editLocation(props.file, coordinates).then(
     () => {
-      if (coordinates.type === 'Location') {
-        // eslint-disable-next-line vue/no-mutating-props
-        props.file.coordinates = coordinates.commit();
-      } else if (coordinates.type === 'Object location') {
-        // eslint-disable-next-line vue/no-mutating-props
-        props.file.objectLocation = coordinates.commit();
-      }
+      coordinates.forEach(c => {
+        if (c.type === 'Location') {
+          // eslint-disable-next-line vue/no-mutating-props
+          props.file.coordinates = c.commit();
+        } else if (c.type === 'Object location') {
+          // eslint-disable-next-line vue/no-mutating-props
+          props.file.objectLocation = c.commit();
+        }
+      });
     },
     e => {
       error.value = e;

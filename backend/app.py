@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import typing
 
 from flask import Flask, abort, jsonify, request
 from flask_mwoauth import MWOAuth
@@ -49,24 +50,28 @@ def user():
     return r
 
 
+LocationType = typing.Literal["Location", "Object location"]
+
+
+class EditRequest(typing.TypedDict):
+    type: LocationType
+    lat: int
+    lng: int
+    pageid: int
+
+
 @app.route("/edit", methods=["POST"])
 def edit():
     if not mwoauth.get_current_user():
         abort(401)
 
-    data = request.get_json()
-    if (
-        "pageid" not in data
-        or "type" not in data
-        or "lat" not in data
-        or "lng" not in data
+    data: list[EditRequest] = request.get_json()
+    if not data or not all(
+        "pageid" in d or "type" in d or "lat" in d or "lng" in d for d in data
     ):
         abort(400)
 
-    pageid = int(data["pageid"])
-    type = data["type"]
-    lat = float(data["lat"])
-    lng = float(data["lng"])
+    pageid = int(data[0]["pageid"])
     app.logger.info("Received request %s", str(data))
 
     r1: QueryResult = mwoauth_request(
@@ -92,20 +97,32 @@ def edit():
         wikitext = to_unicode(wikitext)
     except KeyError:
         abort(404)
-    new_wikitext = add_location_to_wikitext(type, lat, lng, wikitext)
+
+    for d in data:
+        wikitext = add_location_to_wikitext(
+            type=d["type"],
+            lat=float(d["lat"]),
+            lng=float(d["lng"]),
+            wikitext=wikitext,
+        )
+        edit_mediainfo(
+            type=d["type"],
+            lat=float(d["lat"]),
+            lng=float(d["lng"]),
+            page=page,
+            token=token,
+        )
 
     r2 = mwoauth_request(
         format="json",
         action="edit",
         pageid=str(pageid),
-        summary="{{%s}}" % type,
-        text=new_wikitext,
+        summary=", ".join("{{%s}}" % d["type"] for d in data),
+        text=wikitext,
         token=token,
     )
 
-    r3 = edit_mediainfo(type, lat, lng, page, token)
-
-    return jsonify(result=r2, sdc=r3)
+    return jsonify(result=r2)
 
 
 def get_mediainfo(page: Page) -> Mediainfo:
@@ -119,7 +136,7 @@ def get_mediainfo(page: Page) -> Mediainfo:
     return None
 
 
-def edit_mediainfo(type, lat: float, lng: float, page: Page, token: str):
+def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token: str):
     mediainfo = get_mediainfo(page)
     if not mediainfo:
         return None

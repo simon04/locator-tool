@@ -21,9 +21,8 @@ export function getUserInfo() {
   }).json();
 }
 
-export function editLocation(title: CommonsFile, coordinates: LatLng) {
+export function editLocation(title: CommonsFile, coordinates: LatLng[]) {
   const {pageid} = title;
-  const {type, lat, lng} = coordinates;
   return useFetch<EditApiResponse>(
     '/edit',
     {
@@ -32,7 +31,7 @@ export function editLocation(title: CommonsFile, coordinates: LatLng) {
         'Content-Type': 'application/json',
         'X-XSRF-TOKEN': xsrfToken() || ''
       },
-      body: JSON.stringify({type, lat, lng, pageid})
+      body: JSON.stringify(coordinates.map(({type, lat, lng}) => ({type, lat, lng, pageid})))
     },
     {
       afterFetch(ctx) {
