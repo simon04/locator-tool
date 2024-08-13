@@ -8,6 +8,7 @@ import {LatLng} from '../model';
 import {onMounted, ref, watch} from 'vue';
 import {useLeafletMap} from './useLeafletMap';
 import type {MapView} from './useLeafletMapView';
+import HouseFill from 'bootstrap-icons/icons/house-fill.svg?raw';
 
 const props = defineProps<{
   mapMarker: LatLng;
@@ -41,7 +42,7 @@ function mapMarkerUpdater(map: L.Map): (mapMarker: LatLng) => void {
       map.setView({lat, lng});
       const icon = L.divIcon({
         className: 'b-0',
-        html: `<div title="Object location"><svg class="octicon" style="color: red"><use xlink:href="#squirrel"></use></svg></div>`,
+        html: `<div title="Object location" style="color: red">${HouseFill}</div>`,
         iconAnchor: [6, 6],
         iconSize: [12, 12]
       });

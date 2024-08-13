@@ -930,6 +930,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bootstrap-icons@npm:^1.11.3":
+  version: 1.11.3
+  resolution: "bootstrap-icons@npm:1.11.3"
+  checksum: 10c0/37eefd418c6bbbb304bdff0f2ed527f82c3c6f331d3e3a7c4aa8bbdbaf7118bb86725b024f85e7d738c613d48c7353cd81c09e58e9d8d34c5633960fdec8410b
+  languageName: node
+  linkType: hard
+
 "bootstrap@npm:^5.3.0":
   version: 5.3.0
   resolution: "bootstrap@npm:5.3.0"
@@ -2239,6 +2246,7 @@ __metadata:
     angular-gettext-cli: "npm:^1.2.0"
     angular-gettext-tools: "npm:^2.3.5"
     bootstrap: "npm:^5.3.0"
+    bootstrap-icons: "npm:^1.11.3"
     deepmerge: "npm:^4.2.2"
     eslint: "npm:^9.7.0"
     eslint-config-prettier: "npm:^9.1.0"
@@ -2248,7 +2256,6 @@ __metadata:
     leaflet: "npm:^1.9.4"
     leaflet-control-geocoder: "npm:^2.3.0"
     lint-staged: "npm:^15.2.2"
-    octicons: "npm:^5.0.1"
     prettier: "npm:^3.2.5"
     typescript: "npm:^5.3.3"
     typescript-eslint: "npm:^7.16.0"
@@ -2586,13 +2593,6 @@ __metadata:
   dependencies:
     boolbase: "npm:~1.0.0"
   checksum: 10c0/1a67ce53a99e276eea672f892d712b29f3e6802bbbef7285ffab72ecea4f972e8244defac1ebded0daffabf459def31355bb9c64e5657ac2ab032c13f185d0fd
-  languageName: node
-  linkType: hard
-
-"octicons@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "octicons@npm:5.0.1"
-  checksum: 10c0/eb28cb16d7eeda2d10fce70aa54d52e4abebd029424b3390c291cd958ed34885d699ee7f08313a676b0a0f996eb9988591d17bf58988668332c63de23b261ebc
   languageName: node
   linkType: hard
 

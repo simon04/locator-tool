@@ -5,6 +5,7 @@ import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import ControlGeocoder from 'leaflet-control-geocoder';
+import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?raw';
 
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
@@ -43,7 +44,7 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
     ].join(' ')
   );
 
-  const external = '<svg class="octicon"><use xlink:href="#link-external"></use></svg>';
+  const external = BoxArrowUpRight;
   const osm = `OSM ${external}`;
   const maxZoomOptions = {
     maxZoom: 21,

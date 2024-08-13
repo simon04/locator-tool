@@ -2,16 +2,12 @@
 <template>
   <div v-show="description !== false" v-html="file.description"></div>
   <div v-if="file.timestamp" class="small">
-    <svg class="octicon">
-      <use xlink:href="#calendar"></use>
-    </svg>
-    <time class="ps-1" v-html="file.timestamp"></time>
+    <CalendarEvent class="me-1" />
+    <time v-html="file.timestamp"></time>
   </div>
   <div v-if="file.author" class="small">
-    <svg class="octicon">
-      <use xlink:href="#person"></use>
-    </svg>
-    <span class="ps-1" v-html="file.author"></span>
+    <PersonFill class="me-1" />
+    <span v-html="file.author"></span>
   </div>
   <a
     v-for="category in file.categories"
@@ -28,6 +24,9 @@
 
 <script setup lang="ts">
 import type {FileDetails} from '../api/ltData';
+import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
+import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
+
 defineProps<{
   description?: false;
   file: FileDetails;

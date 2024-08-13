@@ -11,9 +11,7 @@
   <div v-if="!isLoading && !$titles?.length" class="row mt-3">
     <div class="col-sm-12">
       <div class="alert alert-warning">
-        <svg class="octicon">
-          <use xlink:href="#alert"></use>
-        </svg>
+        <ExclamationTriangleFill class="me-1" />
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-if="category" v-html="msgNoFilesForCategory"></span>
         <!-- eslint-disable-next-line vue/no-v-html -->
@@ -50,9 +48,7 @@
       </div>
       <div class="input-group">
         <div class="input-group-text">
-          <svg class="octicon">
-            <use xlink:href="#search"></use>
-          </svg>
+          <Search />
         </div>
         <input v-model="$filter" class="form-control" type="text" />
       </div>
@@ -66,19 +62,11 @@
             role="button"
             @click="$title = title"
           >
-            <abbr v-if="title.coordinates.isDefinedAndSaved" class="pe-1" title="Location ✔">
-              <svg class="octicon">
-                <use xlink:href="#device-camera"></use>
-              </svg>
+            <abbr v-if="title.coordinates.isDefinedAndSaved" title="Location ✔">
+              <CameraFill class="me-1" />
             </abbr>
-            <abbr
-              v-if="title.objectLocation.isDefinedAndSaved"
-              class="pe-1"
-              title="Object location ✔"
-            >
-              <svg class="octicon">
-                <use xlink:href="#squirrel"></use>
-              </svg>
+            <abbr v-if="title.objectLocation.isDefinedAndSaved" title="Object location ✔">
+              <HouseFill class="me-1" />
             </abbr>
             <span>{{ title.file }}</span>
           </li>
@@ -122,6 +110,10 @@ import ltFileThumbnail from './ltFileThumbnail.vue';
 import ltMap from './ltMap.vue';
 import {t} from './useI18n';
 import {useAppTitle, routeTitlePart} from './useAppTitle';
+import CameraFill from 'bootstrap-icons/icons/camera-fill.svg?component';
+import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
+import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
+import Search from 'bootstrap-icons/icons/search.svg?component';
 
 const $route = useRoute();
 const category: string = $route.query.category as string;

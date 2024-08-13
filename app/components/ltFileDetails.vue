@@ -5,27 +5,23 @@
     :disabled="!(file.coordinates?.isChanged || file.objectLocation?.isChanged)"
     @click="editLocation()"
   >
-    <svg class="octicon">
-      <use xlink:href="#git-commit"></use>
-    </svg>
+    <Save class="me-1" />
     {{ t('Save') }}
   </button>
   <div class="card mt-2">
     <div class="card-body p-2">
       <div>
         <label @click="collapseCameraLocation = !collapseCameraLocation">
-          <span v-show="!collapseCameraLocation" class="text-secondary">▼</span>
-          <span v-show="collapseCameraLocation" class="text-secondary">▶</span>
-          <svg class="octicon">
-            <use xlink:href="#device-camera"></use>
-          </svg>
+          <span v-show="!collapseCameraLocation" class="text-secondary me-1">▼</span>
+          <span v-show="collapseCameraLocation" class="text-secondary me-1">▶</span>
+          <CameraFill class="me-1" />
           <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="msgCameraLocation"></span>
           <abbr
             v-show="!collapseCameraLocation"
             :title="t('Left click on map to set the location.')"
           >
-            <svg class="octicon"><use xlink:href="#question"></use></svg>
+            <QuestionCircle />
           </abbr>
         </label>
         <div v-show="!collapseCameraLocation">
@@ -44,18 +40,16 @@
     <div class="card-body p-2">
       <div>
         <label @click="collapseObjectLocation = !collapseObjectLocation">
-          <span v-show="!collapseObjectLocation" class="text-secondary">▼</span>
-          <span v-show="collapseObjectLocation" class="text-secondary">▶</span>
-          <svg class="octicon">
-            <use xlink:href="#squirrel"></use>
-          </svg>
+          <span v-show="!collapseObjectLocation" class="text-secondary me-1">▼</span>
+          <span v-show="collapseObjectLocation" class="text-secondary me-1">▶</span>
+          <HouseFill class="me-1" />
           <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="msgObjectLocation"></span>
           <abbr
             v-show="!collapseObjectLocation"
             :title="t('Press shift and click on map to set the object location.')"
           >
-            <svg class="octicon"><use xlink:href="#question"></use></svg>
+            <QuestionCircle />
           </abbr>
         </label>
         <div v-show="!collapseObjectLocation">
@@ -71,9 +65,7 @@
   </div>
 
   <div v-if="error" class="alert alert-danger mt-2">
-    <svg class="octicon">
-      <use xlink:href="#alert"></use>
-    </svg>
+    <ExclamationTriangleFill class="me-1" />
     <span>{{ msgErrorStatusText }}</span>
   </div>
 
@@ -83,9 +75,7 @@
       {{ ' ' }}
       <small v-if="file.url">
         <a :href="file.url" target="_blank">
-          <svg class="octicon">
-            <use xlink:href="#link-external"></use>
-          </svg>
+          <BoxArrowUpRight />
         </a>
       </small>
     </h5>
@@ -103,6 +93,12 @@ import ltFileMetadata from './ltFileMetadata.vue';
 import ltLocationInput from './ltLocationInput.vue';
 import {FileDetails} from '../api/ltData';
 import {t} from './useI18n';
+import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?component';
+import CameraFill from 'bootstrap-icons/icons/camera-fill.svg?component';
+import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
+import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
+import QuestionCircle from 'bootstrap-icons/icons/question-circle.svg?component';
+import Save from 'bootstrap-icons/icons/save.svg?component';
 
 const props = defineProps<{file: CommonsFile & FileDetails}>();
 const error = ref<undefined>(undefined);

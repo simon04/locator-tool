@@ -32,10 +32,10 @@
   "dependencies": {
     "@vueuse/core": "^10.11.1",
     "bootstrap": "^5.3.0",
+    "bootstrap-icons": "^1.11.3",
     "deepmerge": "^4.2.2",
     "leaflet": "^1.9.4",
     "leaflet-control-geocoder": "^2.3.0",
-    "octicons": "^5.0.1",
     "vue": "^3.4.37",
     "vue-router": "^4.4.3",
     "wikimedia-commons-file-path": "^2.1.1"

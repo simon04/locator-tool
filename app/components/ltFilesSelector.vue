@@ -6,9 +6,7 @@
       {{ t('In order to allow locator-tool to modify file description pages, sign in first:') }}
     </span>
     <a class="btn btn-success ms-2" :href="loginURL()">
-      <svg class="octicon">
-        <use xlink:href="#sign-in"></use>
-      </svg>
+      <DoorOpen class="me-1" />
       <span>{{ t('Log in') }}</span>
     </a>
   </p>
@@ -58,21 +56,15 @@
     </div>
     <div class="mb-4">
       <button class="btn btn-success me-2" :disabled="!user" @click="nextForUser()">
-        <svg class="octicon">
-          <use xlink:href="#location"></use>
-        </svg>
+        <GeoAlt class="me-1" />
         <span>{{ t('Load User files to geolocate') }}</span>
       </button>
       <button class="btn btn-secondary me-2" :disabled="!user" @click="nextForUser('map')">
-        <svg class="octicon">
-          <use xlink:href="#globe"></use>
-        </svg>
+        <GlobeEuropeAfrica class="me-1" />
         <span>{{ t('Show User files on map') }}</span>
       </button>
       <button class="btn btn-secondary me-2" :disabled="!user" @click="nextForUser('gallery')">
-        <svg class="octicon">
-          <use xlink:href="#file-media"></use>
-        </svg>
+        <FileImage class="me-1" />
         <span>{{ t('Show User files as gallery') }}</span>
       </button>
       <input class="invisible" type="submit" :disabled="!user" />
@@ -103,15 +95,11 @@
     </div>
     <div class="mb-4">
       <button class="btn btn-success me-2" :disabled="!category" @click="nextForCategory()">
-        <svg class="octicon">
-          <use xlink:href="#location"></use>
-        </svg>
+        <GeoAlt class="me-1" />
         <span>{{ t('Load Category to geolocate') }}</span>
       </button>
       <button class="btn btn-secondary me-2" :disabled="!category" @click="nextForCategory('map')">
-        <svg class="octicon">
-          <use xlink:href="#globe"></use>
-        </svg>
+        <GlobeEuropeAfrica class="me-1" />
         <span>{{ t('Show Category on map') }}</span>
       </button>
       <button
@@ -119,9 +107,7 @@
         :disabled="!category"
         @click="nextForCategory('gallery')"
       >
-        <svg class="octicon">
-          <use xlink:href="#file-media"></use>
-        </svg>
+        <FileImage class="me-1" />
         <span>{{ t('Show Category as gallery') }}</span>
       </button>
       <input class="invisible" type="submit" :disabled="!category" />
@@ -153,21 +139,15 @@
     </div>
     <div class="mb-4">
       <button class="btn btn-success me-2" :disabled="!titleList.length" @click="next()">
-        <svg class="octicon">
-          <use xlink:href="#location"></use>
-        </svg>
+        <GeoAlt class="me-1" />
         <span>{{ msgLoadGeolocate }}</span>
       </button>
       <button class="btn btn-secondary me-2" :disabled="!titleList.length" @click="next('map')">
-        <svg class="octicon">
-          <use xlink:href="#globe"></use>
-        </svg>
+        <GlobeEuropeAfrica class="me-1" />
         <span>{{ msgShowMap }}</span>
       </button>
       <button class="btn btn-secondary me-2" :disabled="!titleList.length" @click="next('gallery')">
-        <svg class="octicon">
-          <use xlink:href="#file-media"></use>
-        </svg>
+        <FileImage class="me-1" />
         <span>{{ msgShowGallery }}</span>
       </button>
     </div>
@@ -182,6 +162,10 @@ import {getUserInfo, loginURL} from '../api/ltDataAuth';
 import {useRoute, useRouter} from 'vue-router';
 import ltSpinner from './ltSpinner.vue';
 import {t} from './useI18n';
+import DoorOpen from 'bootstrap-icons/icons/door-open.svg?component';
+import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
+import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
+import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
 
 enum Tab {
   CATEGORY = 1,

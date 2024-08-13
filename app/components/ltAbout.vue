@@ -1,9 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <h2 class="mt-4">
-    <svg class="octicon">
-      <use xlink:href="#location"></use>
-    </svg>
+    <GeoAlt class="me-1" style="width: 2rem; height: 2rem" />
     <span>{{ t('locator-tool') }}</span>
   </h2>
   <p v-html="msg.summary"></p>
@@ -36,9 +34,7 @@
     <li v-html="msg.creator"></li>
     <li v-html="msg.code"></li>
     <li>
-      <svg class="octicon">
-        <use xlink:href="#history"></use>
-      </svg>
+      <ClockHistory class="me-1" />
       <span>
         <a
           href="https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&amp;tagfilter=OAuth+CID%3A+1857"
@@ -48,9 +44,7 @@
       </span>
     </li>
     <li>
-      <svg class="octicon">
-        <use xlink:href="#comment"></use>
-      </svg>
+      <ChatLeft class="me-1" />
       <span>
         <a href="https://www.transifex.com/locator-tool/locator-tool/">
           <span>{{ t('Translate locator-tool on Transifex') }}</span>
@@ -86,6 +80,9 @@
 import {computed} from 'vue';
 import {t} from './useI18n';
 import {useAppTitle} from './useAppTitle';
+import ClockHistory from 'bootstrap-icons/icons/clock-history.svg?component';
+import ChatLeft from 'bootstrap-icons/icons/chat-left.svg?component';
+import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 
 useAppTitle(t('About'));
 

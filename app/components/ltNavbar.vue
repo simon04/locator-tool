@@ -17,9 +17,7 @@
             :to="{name: 'select', query: $route.query}"
             :title="t('Select files to geolocate')"
           >
-            <svg class="octicon">
-              <use xlink:href="#tasklist"></use>
-            </svg>
+            <ListTask class="me-1" />
             <span>{{ t('Select files') }}</span>
           </router-link>
         </li>
@@ -29,9 +27,7 @@
             class="nav-link"
             :to="{name: 'geolocate', query: $route.query}"
           >
-            <svg class="octicon">
-              <use xlink:href="#location"></use>
-            </svg>
+            <GeoAlt class="me-1" />
             <span>{{ t('Geolocate files') }}</span>
           </router-link>
         </li>
@@ -41,9 +37,7 @@
             class="nav-link"
             :to="{name: 'map', query: $route.query}"
           >
-            <svg class="octicon">
-              <use xlink:href="#globe"></use>
-            </svg>
+            <GlobeEuropeAfrica class="me-1" />
             <span>{{ t('Map') }}</span>
           </router-link>
         </li>
@@ -53,9 +47,7 @@
             class="nav-link"
             :to="{name: 'gallery', query: $route.query}"
           >
-            <svg class="octicon">
-              <use xlink:href="#file-media"></use>
-            </svg>
+            <FileImage class="me-1" />
             <span>{{ t('Gallery') }}</span>
           </router-link>
         </li>
@@ -78,6 +70,10 @@ import {useRoute} from 'vue-router';
 import ltLanguageSelector from './ltLanguageSelector.vue';
 import ltUserInfo from './ltUserInfo.vue';
 import {t} from './useI18n';
+import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
+import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
+import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
+import ListTask from 'bootstrap-icons/icons/list-task.svg?component';
 
 const $route = useRoute();
 const activateLinks = computed(

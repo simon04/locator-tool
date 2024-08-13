@@ -13,7 +13,7 @@
       <label class="me-3">{{ t('Sorting') }}:</label>
       <div v-for="column in sortColumns" :key="column.key" class="form-check form-check-inline">
         <label class="form-check-label">
-          <svg v-if="column.icon" class="octicon"><use :xlink:href="column.icon"></use></svg>
+          <component :is="column.icon" v-if="column.icon" class="me-1" />
           {{ column.label }}
           <input
             v-model="sortColumn"
@@ -37,12 +37,9 @@
           <h5 class="card-title">
             {{ title.file }}
             {{ ' ' }}
-            <small
-              ><a :href="title.url" target="_blank">
-                <svg class="octicon">
-                  <use xlink:href="#link-external"></use>
-                </svg> </a
-            ></small>
+            <a :href="title.url" target="_blank">
+              <BoxArrowUpRight />
+            </a>
           </h5>
           <div class="card-text">
             <lt-file-metadata :file="title" :description="false" />
@@ -66,6 +63,9 @@ import ltFileThumbnail from './ltFileThumbnail.vue';
 import ltSpinner from './ltSpinner.vue';
 import {t} from './useI18n';
 import {useAppTitle, routeTitlePart} from './useAppTitle';
+import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?component';
+import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
+import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
 
 const $route = useRoute();
 const isLoading = ref(true);
@@ -78,8 +78,8 @@ type SortColumn = keyof Pick<
 const sortColumns: {key: SortColumn; label: string; icon?: string}[] = [
   {key: 'file', label: t('Title'), icon: undefined},
   {key: 'description', label: t('Description'), icon: undefined},
-  {key: 'author', label: t('Author'), icon: '#person'},
-  {key: 'timestamp', label: t('Date'), icon: '#calendar'}
+  {key: 'author', label: t('Author'), icon: PersonFill},
+  {key: 'timestamp', label: t('Date'), icon: CalendarEvent}
 ];
 const sortColumn = ref<SortColumn>('file');
 const sortDirection = ref(1);

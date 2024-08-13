@@ -17,9 +17,7 @@
       :title="t('Discard')"
       @click="modelValue && emit('update:modelValue', modelValue.rollback())"
     >
-      <svg class="octicon">
-        <use xlink:href="#x"></use>
-      </svg>
+      <XSquare />
     </button>
     <button
       class="btn btn-outline-success"
@@ -28,9 +26,7 @@
       :disabled="!modelValue?.isChanged"
       @click="emit('editLocation')"
     >
-      <svg class="octicon">
-        <use xlink:href="#git-commit"></use>
-      </svg>
+      <Save />
     </button>
   </div>
 </template>
@@ -39,6 +35,8 @@
 import {ref} from 'vue';
 import {LatLng} from '../model';
 import {t} from './useI18n';
+import Save from 'bootstrap-icons/icons/save.svg?component';
+import XSquare from 'bootstrap-icons/icons/x-square.svg?component';
 
 const REGEXP = /(?<lat>[+-]?\d+\.?\d*)[,;\s]+(?<lng>[+-]?\d+\.?\d*)/;
 
