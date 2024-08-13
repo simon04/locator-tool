@@ -31,7 +31,10 @@ export function editLocation(title: CommonsFile, coordinates: LatLng[]) {
         'Content-Type': 'application/json',
         'X-XSRF-TOKEN': xsrfToken() || ''
       },
-      body: JSON.stringify(coordinates.map(({type, lat, lng}) => ({type, lat, lng, pageid})))
+      body: JSON.stringify({
+        pageid,
+        locations: coordinates.map(({type, lat, lng}) => ({type, lat, lng}))
+      })
     },
     {
       afterFetch(ctx) {

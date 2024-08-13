@@ -53,10 +53,14 @@ def user():
 LocationType = typing.Literal["Location", "Object location"]
 
 
-class EditRequest(typing.TypedDict):
+class EditLocation(typing.TypedDict):
     type: LocationType
     lat: int
     lng: int
+
+
+class EditRequest(typing.TypedDict):
+    locations: list[EditLocation]
     pageid: int
 
 
@@ -65,13 +69,17 @@ def edit():
     if not mwoauth.get_current_user():
         abort(401)
 
-    data: list[EditRequest] = request.get_json()
-    if not data or not all(
-        "pageid" in d or "type" in d or "lat" in d or "lng" in d for d in data
+    data: EditRequest = request.get_json()
+    if (
+        not data
+        or "pageid" not in data
+        or "locations" not in data
+        or not all("type" in d or "lat" in d or "lng" in d for d in data["locations"])
     ):
         abort(400)
 
-    pageid = int(data[0]["pageid"])
+    pageid = int(data["pageid"])
+    locations = data["locations"]
     app.logger.info("Received request %s", str(data))
 
     r1: QueryResult = mwoauth_request(
@@ -98,17 +106,17 @@ def edit():
     except KeyError:
         abort(404)
 
-    for d in data:
+    for location in locations:
         wikitext = add_location_to_wikitext(
-            type=d["type"],
-            lat=float(d["lat"]),
-            lng=float(d["lng"]),
+            type=location["type"],
+            lat=float(location["lat"]),
+            lng=float(location["lng"]),
             wikitext=wikitext,
         )
         edit_mediainfo(
-            type=d["type"],
-            lat=float(d["lat"]),
-            lng=float(d["lng"]),
+            type=location["type"],
+            lat=float(location["lat"]),
+            lng=float(location["lng"]),
             page=page,
             token=token,
         )
@@ -117,7 +125,7 @@ def edit():
         format="json",
         action="edit",
         pageid=str(pageid),
-        summary=", ".join("{{%s}}" % d["type"] for d in data),
+        summary=", ".join("{{%s}}" % d["type"] for d in locations),
         text=wikitext,
         token=token,
     )
