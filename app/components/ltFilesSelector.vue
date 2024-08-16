@@ -200,17 +200,18 @@ function tryParse<T>(parser: (string: string) => T, text: string, fallback: T): 
 
 const {data: userInfo} = getUserInfo();
 
-async function getCategoriesForPrefix() {
-  isLoading.value = true;
-  try {
-    const categories = await ltData.getCategoriesForPrefix(category.value);
-    categorySuggestions.value = categories;
-  } finally {
-    isLoading.value = false;
-  }
-}
-
-watchDebounced(category, () => getCategoriesForPrefix(), {debounce: 500});
+watchDebounced(
+  category,
+  async category => {
+    isLoading.value = true;
+    try {
+      categorySuggestions.value = await ltData.getCategoriesForPrefix(category);
+    } finally {
+      isLoading.value = false;
+    }
+  },
+  {debounce: 500}
+);
 
 function next(name = 'geolocate') {
   const files = titleList.value.join('|');
