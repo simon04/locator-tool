@@ -15,6 +15,7 @@ interface ApiResponse<P = never> {
     pages: {[key: string]: P};
     categorymembers?: P[];
     allpages?: P[];
+    allusers?: P[];
   };
 }
 
@@ -22,6 +23,11 @@ interface Page {
   pageid: number;
   ns: number;
   title: string;
+}
+
+interface User {
+  userid: number;
+  name: string;
 }
 
 interface CoordinatePage {
@@ -209,6 +215,17 @@ export async function getCategoriesForPrefix(prefix: string): Promise<CommonsTit
   };
   const data = await $query<ApiResponse<Page>>(params, {}, undefined, () => false);
   return (data.query.allpages || []).map(i => i.title.replace(/^Category:/, '' as CommonsTitle));
+}
+
+export async function getUsersForPrefix(prefix: string): Promise<string[]> {
+  const params = {
+    list: 'allusers',
+    aulimit: 30,
+    aufrom: prefix,
+    apuprefix: prefix
+  };
+  const data = await $query<ApiResponse<User>>(params, {}, undefined, () => false);
+  return (data.query.allusers || []).map(i => i.name);
 }
 
 export async function getFiles({

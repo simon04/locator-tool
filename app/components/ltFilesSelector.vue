@@ -36,7 +36,13 @@
   <form v-show="$tab === Tab.USER" @submit.stop.prevent="nextForCategory()">
     <div class="mb-4">
       <label for="inputUser">{{ t('User') }}</label>
-      <input id="inputUser" v-model="user" class="form-control" placeholder="User:…" />
+      <input
+        id="inputUser"
+        v-model="user"
+        class="form-control"
+        list="datalistUser"
+        placeholder="User:…"
+      />
     </div>
     <div class="row">
       <div class="mb-4 col-sm-4">
@@ -68,6 +74,10 @@
         <span>{{ t('Show User files as gallery') }}</span>
       </button>
       <input class="invisible" type="submit" :disabled="!user" />
+      <lt-spinner v-if="isLoading" />
+      <datalist id="datalistUser">
+        <option v-for="i in userSuggestions" :key="i" :value="i"></option>
+      </datalist>
     </div>
   </form>
   <form v-show="$tab === Tab.CATEGORY" @submit.stop.prevent="nextForCategory()">
@@ -185,6 +195,7 @@ const user = ref<string>($route.query.user as string);
 const userLimit = ref(tryParse(parseInt, $route.query.userLimit as string, undefined));
 const userStart = ref<string>($route.query.userStart as string);
 const userEnd = ref<string>($route.query.userEnd as string);
+const userSuggestions = ref<string[]>([]);
 const titles = ref<string>('');
 
 function tryParse<T>(parser: (string: string) => T, text: string, fallback: T): T {
@@ -206,6 +217,20 @@ watchDebounced(
     isLoading.value = true;
     try {
       categorySuggestions.value = await ltData.getCategoriesForPrefix(category);
+    } finally {
+      isLoading.value = false;
+    }
+  },
+  {debounce: 500}
+);
+
+watchDebounced(
+  user,
+  async user => {
+    isLoading.value = true;
+    try {
+      userSuggestions.value = await ltData.getUsersForPrefix(user);
+      console.log(userSuggestions.value);
     } finally {
       isLoading.value = false;
     }
