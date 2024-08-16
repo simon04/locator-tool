@@ -134,12 +134,7 @@ export async function getCoordinatesChunkByChunk(titles: CommonsTitle[]): Promis
   }
   const coordinatesPromises = requests.map(x => getCoordinates(x));
   const x = await Promise.all(coordinatesPromises);
-  return flatten(x);
-
-  function flatten<T>(array: T[][]) {
-    const result: T[] = [];
-    return result.concat(...array);
-  }
+  return x.flat();
 }
 
 export interface FileDetails {
