@@ -102,7 +102,6 @@ export async function getCoordinates(titles: string | CommonsTitle[]): Promise<C
   const data = await $query<ApiResponse<CoordinatePage>>(params);
   const pages = data?.query?.pages || {};
   return Object.entries(pages).map(([pageid, page]) => {
-    const coordinates = page.coordinates || [];
     return {
       pageid: parseInt(pageid),
       file: page.title,
@@ -112,16 +111,16 @@ export async function getCoordinates(titles: string | CommonsTitle[]): Promise<C
       },
       coordinates: new LatLng(
         'Location',
-        ...toLatLng(coordinates.filter(c => c.primary === '' && c.type === 'camera'))
+        ...toLatLng(page.coordinates?.find(c => c.primary === '' && c.type === 'camera'))
       ),
       objectLocation: new LatLng(
         'Object location',
-        ...toLatLng(coordinates.filter(c => c.type === 'object'))
+        ...toLatLng(page.coordinates?.find(c => c.type === 'object'))
       )
     } as CommonsFile;
   });
-  function toLatLng(cc: Coordinate[]): [number?, number?] {
-    const c: Coordinate = cc?.[0];
+
+  function toLatLng(c: Coordinate | undefined): [number?, number?] {
     return typeof c === 'object' ? [c.lat, c.lon] : [undefined, undefined];
   }
 }
