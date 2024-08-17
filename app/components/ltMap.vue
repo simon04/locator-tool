@@ -7,7 +7,7 @@ import L from 'leaflet';
 import {LatLng} from '../model';
 import {onMounted, ref, watch} from 'vue';
 import {useLeafletMap} from './useLeafletMap';
-import type {MapView} from './useLeafletMapView';
+import type {MapView} from './useLeafletMap';
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?raw';
 
 const props = defineProps<{
