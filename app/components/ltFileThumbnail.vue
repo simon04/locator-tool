@@ -49,10 +49,10 @@ const imageUrl = computed(() => {
   return props.file.imageUrl(width > 2560 ? undefined : width > 1280 ? 2560 : 1280);
 });
 
-function setLazyImg($event) {
+function setLazyImg($event: Event) {
   const img = $event.target as HTMLImageElement;
   const lazy = img.getAttribute('lazy-img');
-  if (img.src === lazy) return;
+  if (!lazy || img.src === lazy) return;
   img.src = lazy;
 }
 </script>
