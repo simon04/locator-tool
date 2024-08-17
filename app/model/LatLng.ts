@@ -27,10 +27,8 @@ export class LatLng {
     );
   }
 
-  rollback(): this {
-    this.lat = this.latOriginal;
-    this.lng = this.lngOriginal;
-    return this;
+  rollback(): LatLng {
+    return new LatLng(this.type, this.latOriginal, this.lngOriginal);
   }
 
   commit(): LatLng {

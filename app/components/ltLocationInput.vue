@@ -15,7 +15,7 @@
       class="btn btn-outline-secondary"
       type="button"
       :title="t('Discard')"
-      @click="modelValue && emit('update:modelValue', modelValue.rollback())"
+      @click="rollback()"
     >
       <XSquare />
     </button>
@@ -40,12 +40,12 @@ import XSquare from 'bootstrap-icons/icons/x-square.svg?component';
 
 const REGEXP = /(?<lat>[+-]?\d+\.?\d*)[,;\s]+(?<lng>[+-]?\d+\.?\d*)/;
 
+const modelValue = defineModel<LatLng>({required: true});
+
 const emit = defineEmits<{
-  'update:modelValue': [value: LatLng];
   editLocation: [];
 }>();
-const props = defineProps<{modelValue: LatLng}>();
-const type = ref(props.modelValue?.type);
+const type = ref(modelValue.value?.type);
 const inputElement = ref<HTMLInputElement | null>(null);
 
 function updateLatLng(viewValue: string | undefined) {
@@ -53,7 +53,7 @@ function updateLatLng(viewValue: string | undefined) {
   if (!type.value) {
     // keep track of coordinate type since it is lost
     // when returning undefined on invalid input
-    const t = props.modelValue?.type;
+    const t = modelValue.value?.type;
     if (t) type.value = t;
   }
   const m = viewValue.match(REGEXP);
@@ -61,13 +61,16 @@ function updateLatLng(viewValue: string | undefined) {
   inputElement.value?.classList?.toggle('is-invalid', !valid);
   if (!valid) return;
 
-  const newValue = new LatLng(
+  modelValue.value = new LatLng(
     type.value!,
     m ? parseFloat(m.groups!.lat) : undefined,
     m ? parseFloat(m.groups!.lng) : undefined,
-    props.modelValue.lat,
-    props.modelValue.lng
+    modelValue.value.lat,
+    modelValue.value.lng
   );
-  emit('update:modelValue', newValue);
+}
+
+function rollback() {
+  modelValue.value = modelValue.value?.rollback();
 }
 </script>

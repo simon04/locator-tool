@@ -10,13 +10,10 @@ import {useLeafletMap} from './useLeafletMap';
 import type {MapView} from './useLeafletMap';
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?raw';
 
-const props = defineProps<{
-  mapMarker: LatLng;
-  mapObjectLocation: LatLng;
-}>();
+const coordinates = defineModel<LatLng>('coordinates', {required: true});
+const objectLocation = defineModel<LatLng>('objectLocation', {required: true});
 
-const emit = defineEmits<{
-  coordinatesChanged: [coordinates: LatLng, $event: L.LeafletMouseEvent];
+defineEmits<{
   mapViewChanged: [mapView: MapView];
 }>();
 
@@ -27,8 +24,8 @@ onMounted(() => {
 
   map.on('click', $event => mapClick($event));
 
-  watch(() => props.mapMarker, mapMarkerUpdater(map), {immediate: true});
-  watch(() => props.mapObjectLocation, mapMarkerUpdater(map), {immediate: true});
+  watch(coordinates, mapMarkerUpdater(map), {immediate: true});
+  watch(objectLocation, mapMarkerUpdater(map), {immediate: true});
 });
 
 function mapMarkerUpdater(map: L.Map): (mapMarker: LatLng) => void {
@@ -66,15 +63,20 @@ function mapClick($event: L.LeafletMouseEvent): void {
     originalEvent: {shiftKey}
   } = $event;
   if (!lat || !lng) return;
-  const target = shiftKey ? props.mapObjectLocation : props.mapMarker;
-  const coordinates = target.withLatLng(lat, lng).roundToPrecision();
-  emit('coordinatesChanged', coordinates, $event);
+  setLatLng(shiftKey ? 'Object location' : 'Location', lat, lng);
 }
 
 function markerMoveend($event: L.LeafletMouseEvent, target: LatLng): void {
   const {lat, lng} = ($event.target as L.Marker).getLatLng();
   if (!lat || !lng) return;
-  const coordinates = target.withLatLng(lat, lng).roundToPrecision();
-  emit('coordinatesChanged', coordinates, $event);
+  setLatLng(target.type, lat, lng);
+}
+
+function setLatLng(type: LatLng['type'], lat: number, lng: number) {
+  if (type === 'Object location') {
+    objectLocation.value = objectLocation.value.withLatLng(lat, lng).roundToPrecision();
+  } else {
+    coordinates.value = coordinates.value.withLatLng(lat, lng).roundToPrecision();
+  }
 }
 </script>

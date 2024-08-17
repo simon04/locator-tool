@@ -91,9 +91,8 @@
 
     <div v-if="$title" class="col-lg-12 col-xl-7 mt-3 mt-lg-0 fill col-lg-h60">
       <lt-map
-        :map-marker="$title.coordinates"
-        :map-object-location="$title.objectLocation"
-        @coordinates-changed="coordinatesChanged"
+        v-model:coordinates="$title.coordinates"
+        v-model:object-location="$title.objectLocation"
       />
     </div>
   </div>
@@ -103,7 +102,7 @@
 import {ref, computed, onMounted, watch} from 'vue';
 import {useRoute} from 'vue-router';
 import * as ltData from '../api/ltData';
-import {CommonsFile, LatLng} from '../model';
+import {CommonsFile} from '../model';
 import ltSpinner from './ltSpinner.vue';
 import ltFileDetails from './ltFileDetails.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';
@@ -194,25 +193,6 @@ function titleChanged(title: CommonsFile): void {
       // }
     });
   }
-}
-
-function coordinatesChanged(coordinates: LatLng): void {
-  if (!coordinates || !$title.value) {
-    return;
-  } else if (coordinates.type === 'Location') {
-    $title.value.coordinates = $title.value.coordinates.withLatLng(
-      coordinates.lat,
-      coordinates.lng
-    );
-  } else if (coordinates.type === 'Object location') {
-    $title.value.objectLocation = $title.value.objectLocation.withLatLng(
-      coordinates.lat,
-      coordinates.lng
-    );
-  }
-  // if (!$event?.type) {
-  //   updateMapView(coordinates);
-  // }
 }
 
 function keydownToDirection($event: KeyboardEvent) {
