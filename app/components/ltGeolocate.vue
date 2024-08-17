@@ -81,7 +81,11 @@
     >
       <div class="row">
         <div class="col-lg-5 col-xl-12">
-          <lt-file-details :file="$title" />
+          <lt-file-details
+            v-model:coordinates="$title.coordinates"
+            v-model:object-location="$title.objectLocation"
+            :file="$title"
+          />
         </div>
         <div class="col-lg-7 col-xl-12 mt-2">
           <lt-file-thumbnail :file="$title" />

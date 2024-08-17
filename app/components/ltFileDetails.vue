@@ -2,7 +2,7 @@
   <button
     class="btn btn-success form-control"
     type="button"
-    :disabled="!(file.coordinates?.isChanged || file.objectLocation?.isChanged)"
+    :disabled="!(coordinates?.isChanged || objectLocation?.isChanged)"
     @click="editLocation()"
   >
     <Save class="me-1" />
@@ -25,12 +25,7 @@
           </abbr>
         </label>
         <div v-show="!collapseCameraLocation">
-          <!-- eslint-disable vue/no-mutating-props -->
-          <lt-location-input
-            v-model="file.coordinates"
-            @edit-location="editLocation([file.coordinates])"
-          />
-          <!-- eslint-enable vue/no-mutating-props -->
+          <lt-location-input v-model="coordinates" @edit-location="editLocation([coordinates])" />
         </div>
       </div>
     </div>
@@ -53,12 +48,10 @@
           </abbr>
         </label>
         <div v-show="!collapseObjectLocation">
-          <!-- eslint-disable vue/no-mutating-props -->
           <lt-location-input
-            v-model="file.objectLocation"
-            @edit-location="editLocation([file.objectLocation])"
+            v-model="objectLocation"
+            @edit-location="editLocation([objectLocation])"
           />
-          <!-- eslint-enable vue/no-mutating-props -->
         </div>
       </div>
     </div>
@@ -86,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref, watch} from 'vue';
+import {computed, ref} from 'vue';
 import * as ltDataAuth from '../api/ltDataAuth';
 import {CommonsFile, LatLng} from '../model';
 import ltFileMetadata from './ltFileMetadata.vue';
@@ -100,6 +93,8 @@ import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
 import QuestionCircle from 'bootstrap-icons/icons/question-circle.svg?component';
 import Save from 'bootstrap-icons/icons/save.svg?component';
 
+const coordinates = defineModel<LatLng>('coordinates', {required: true});
+const objectLocation = defineModel<LatLng>('objectLocation', {required: true});
 const props = defineProps<{file: CommonsFile & FileDetails}>();
 const error = ref<undefined>(undefined);
 const collapseCameraLocation = ref(false);
@@ -122,28 +117,24 @@ const msgErrorStatusText = computed(() =>
   )
 );
 
-watch(props.file.coordinates, (c1, c2) => console.log(c1, c2));
-
-function editLocation(coordinates?: LatLng[]) {
+function editLocation(cc?: LatLng[]) {
   error.value = undefined;
-  if (coordinates === undefined) {
-    coordinates = [];
-    if (props.file?.coordinates?.isChanged) {
-      coordinates.push(props.file.coordinates);
+  if (cc === undefined) {
+    cc = [];
+    if (coordinates.value?.isChanged) {
+      cc.push(coordinates.value);
     }
-    if (props.file?.objectLocation?.isChanged) {
-      coordinates.push(props.file.objectLocation);
+    if (objectLocation.value?.isChanged) {
+      cc.push(objectLocation.value);
     }
   }
-  return ltDataAuth.editLocation(props.file, coordinates).then(
+  return ltDataAuth.editLocation(props.file, cc).then(
     () => {
-      coordinates.forEach(c => {
+      cc!.forEach(c => {
         if (c.type === 'Location') {
-          // eslint-disable-next-line vue/no-mutating-props
-          props.file.coordinates = c.commit();
+          coordinates.value = c.commit();
         } else if (c.type === 'Object location') {
-          // eslint-disable-next-line vue/no-mutating-props
-          props.file.objectLocation = c.commit();
+          objectLocation.value = c.commit();
         }
       });
     },
