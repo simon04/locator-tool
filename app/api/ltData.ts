@@ -1,7 +1,8 @@
 import deepmerge from 'deepmerge';
 import getFilePath from 'wikimedia-commons-file-path';
 
-import {CommonsFile, CommonsTitle, LatLng} from '../model';
+import {CommonsFile, CommonsTitle, LatLng, WikidataProperty} from '../model';
+import {MediaInfo, Statement} from '../model/mediainfo.ts';
 
 export const API_URL = 'https://commons.wikimedia.org/w/api.php';
 const NS_FILE = 6;
@@ -83,6 +84,7 @@ interface Revision {
 
 export interface Slots {
   main: MainSlot;
+  mediainfo: MainSlot;
 }
 
 export interface MainSlot {
@@ -148,12 +150,13 @@ export interface FileDetails {
   author: string;
   timestamp: string;
   url?: string;
-  objectLocation: LatLng;
+  coordinates?: LatLng;
+  objectLocation?: LatLng;
 }
 
 export async function getFileDetails(
   pageid: number,
-  prop = 'categories|imageinfo|revisions',
+  prop = 'categories|imageinfo|revisions|wbentityusage',
   iiprop = 'url|extmetadata'
 ): Promise<FileDetails> {
   const params = {
@@ -163,7 +166,7 @@ export async function getFileDetails(
     iiextmetadatafilter: 'ImageDescription|Artist|DateTimeOriginal',
     iiextmetadatalanguage: document.body.parentElement!.lang,
     ...(prop.includes('categories') ? {clshow: '!hidden'} : {}),
-    ...(prop.includes('revisions') ? {rvslots: 'main', rvprop: 'content'} : {})
+    ...(prop.includes('revisions') ? {rvslots: '*', rvprop: 'content'} : {})
   };
   const data = await $query<ApiResponse<DetailsPage>>(params);
   const page: DetailsPage | undefined = data?.query?.pages?.[pageid];
@@ -177,8 +180,41 @@ export async function getFileDetails(
     author: extmetadata?.Artist?.value,
     timestamp: extmetadata?.DateTimeOriginal?.value,
     ...(iiprop.includes('url') ? {url: page?.imageinfo[0]?.descriptionurl} : {}),
-    objectLocation: extractObjectLocation(page)
+    objectLocation: extractObjectLocation(page),
+    ...extractMediaInfo(page)
   };
+
+  function extractMediaInfo(page: DetailsPage): Partial<FileDetails> {
+    const json = page?.revisions?.[0]?.slots?.mediainfo['*'];
+    if (!json) return {};
+    const mediainfo: MediaInfo = JSON.parse(json);
+    const coordinates = extractMediaInfoLocation(
+      'Location',
+      mediainfo.statements[WikidataProperty['Location']]?.[0]
+    );
+    const objectLocation = extractMediaInfoLocation(
+      'Object location',
+      mediainfo.statements[WikidataProperty['Object location']]?.[0]
+    );
+    return {
+      ...(coordinates ? {coordinates} : {}),
+      ...(objectLocation ? {objectLocation} : {})
+    };
+  }
+
+  function extractMediaInfoLocation(
+    type: LatLng['type'],
+    statement: Statement | undefined
+  ): LatLng | undefined {
+    if (statement?.mainsnak.datavalue?.type !== 'globecoordinate') {
+      return;
+    }
+    return new LatLng(
+      type,
+      statement?.mainsnak.datavalue.value.latitude,
+      statement?.mainsnak.datavalue.value.longitude
+    );
+  }
 
   function extractObjectLocation(page: DetailsPage) {
     try {
