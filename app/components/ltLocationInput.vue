@@ -38,7 +38,9 @@ import {t} from './useI18n';
 import Save from 'bootstrap-icons/icons/save.svg?component';
 import XSquare from 'bootstrap-icons/icons/x-square.svg?component';
 
-const REGEXP = /(?<lat>[+-]?\d+\.?\d*)[,;\s]+(?<lng>[+-]?\d+\.?\d*)/;
+// Support lat,lon
+// Support https://geohack.toolforge.org/geohack.php?pagename=Category:War_memorial,_Schwoich&params=47.54427805_N_12.14066878_E_globe:Earth_&language=en-gb
+const REGEXP = /(?<lat>[+-]?\d+\.?\d*)(_(?<ns>[NS]))?[_,;\s]+(?<lng>[+-]?\d+\.?\d*)(_(?<ew>[EW]))?/;
 
 const modelValue = defineModel<LatLng>({required: true});
 
@@ -63,8 +65,8 @@ function updateLatLng(viewValue: string | undefined) {
 
   modelValue.value = new LatLng(
     type.value!,
-    m ? parseFloat(m.groups!.lat) : undefined,
-    m ? parseFloat(m.groups!.lng) : undefined,
+    m?.groups ? parseFloat(m.groups.lat) * (m.groups.ns === 'S' ? -1 : 1) : undefined,
+    m?.groups ? parseFloat(m.groups.lng) * (m.groups.ew === 'W' ? -1 : 1) : undefined,
     modelValue.value.lat,
     modelValue.value.lng
   );
