@@ -114,7 +114,7 @@ def catscan():
             ns=request.args.get("ns", 0, type=int),
             depth=request.args.get("depth", 0, type=int),
         )
-        return jsonify(pages=list(pages))
+        return jsonify(pages=list(set(pages)))
     except Exception as e:
         if connection:
             connection.close()
