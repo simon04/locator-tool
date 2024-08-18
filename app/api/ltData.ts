@@ -470,7 +470,10 @@ async function fetchJSON<T>(url: RequestInfo, options?: RequestInit): Promise<T>
   console.log('Fetching', url);
   const res = await fetch(url, {
     cache: 'no-cache',
-    headers: {Accept: 'application/json'},
+    headers: {
+      Accept: 'application/json',
+      'Api-User-Agent': 'locator-tool/' + import.meta.env.VITE_BUILD_VERSION
+    },
     ...options
   });
   if (res.ok) {
