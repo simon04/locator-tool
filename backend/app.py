@@ -83,28 +83,31 @@ def catscan():
             cursorclass=pymysql.cursors.DictCursor,
         )
 
-        def list_content(category: str, ns: int):
-            sql = """select p.page_title
-                from categorylinks c
-                join page p on c.cl_from = p.page_id
-                where c.cl_to = %s
-                and p.page_is_redirect = 0
-                and p.page_namespace = %s
+        def list_recursively(category: str, ns: int, depth=3):
+            sql = """
+                WITH RECURSIVE catscan AS (
+                    SELECT p.page_title, p.page_namespace, 1 as depth
+                    FROM categorylinks c
+                    JOIN page p ON c.cl_from = p.page_id AND p.page_is_redirect = 0
+                    WHERE c.cl_to = %s
+                    UNION ALL
+                    SELECT p.page_title, p.page_namespace, catscan.depth + 1
+                    FROM catscan
+                    JOIN categorylinks c ON c.cl_to = catscan.page_title AND catscan.page_namespace = 14
+                    JOIN page p ON c.cl_from = p.page_id AND p.page_is_redirect = 0
+                    WHERE catscan.depth < %s
+                )
+                SELECT catscan.page_title
+                FROM catscan
+                WHERE catscan.page_namespace = %s
             """
             with connection.cursor() as cursor:
-                cursor.execute(sql, (category, ns))
+                cursor.execute(sql, (category, depth, ns))
                 for row in cursor:
                     title: str | bytes = row["page_title"]
                     if isinstance(title, bytes):
                         title = title.decode("utf8")
                     yield title
-
-        def list_recursively(category: str, ns: int, depth=3):
-            yield from list_content(category=category, ns=ns)
-            if depth == 0:
-                return
-            for subcat in list_content(category=category, ns=14):
-                yield from list_recursively(category=subcat, ns=ns, depth=depth - 1)
 
         pages = list_recursively(
             category=request.args.get("category").replace(" ", "_"),
