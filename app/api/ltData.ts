@@ -413,12 +413,11 @@ async function $query<T extends ApiResponse<any>>(
   const params = {
     action: 'query',
     format: 'json',
-    origin: '*'
+    origin: '*',
+    ...query
   };
-  const url = API_URL + '?' + new URLSearchParams(params);
+  const url = API_URL + '?' + toSearchParams(params);
   let data = await fetchJSON<T>(url, {
-    body: toFormData(query),
-    method: 'POST',
     signal
   });
   data = deepmerge(previousResults, data, {arrayMerge: (x, y) => [].concat(...x, ...y)}) as T;
@@ -431,14 +430,6 @@ async function $query<T extends ApiResponse<any>>(
     );
   }
   return data;
-}
-
-function toFormData(query: Record<string, unknown>): FormData {
-  const formData = new FormData();
-  Object.entries(query).forEach(
-    ([key, value]) => value === undefined || formData.append(key, String(value))
-  );
-  return formData;
 }
 
 function toSearchParams(query: Record<string, unknown>): URLSearchParams {
