@@ -97,7 +97,7 @@ def catscan():
                     JOIN page p ON c.cl_from = p.page_id AND p.page_is_redirect = 0
                     WHERE catscan.depth < %s
                 )
-                SELECT catscan.page_title
+                SELECT DISTINCT catscan.page_title
                 FROM catscan
                 WHERE catscan.page_namespace = %s
             """
@@ -114,7 +114,7 @@ def catscan():
             ns=request.args.get("ns", 0, type=int),
             depth=request.args.get("depth", 0, type=int),
         )
-        return jsonify(pages=list(set(pages)))
+        return jsonify(pages=list(pages))
     except Exception as e:
         if connection:
             connection.close()
