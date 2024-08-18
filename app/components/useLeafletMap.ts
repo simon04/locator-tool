@@ -36,12 +36,8 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
   });
 
   map.attributionControl.setPrefix(
-    [
-      '<a href="https://github.com/simon04/locator-tool/" ',
-      'target="_blank">@simon04/locator-tool</a>',
-      '(<a href="https://github.com/simon04/locator-tool/blob/master/LICENSE" ',
-      'target="_blank">GPL v3</a>)'
-    ].join(' ')
+    `<a href="https://github.com/simon04/locator-tool/" target="_blank" rel="external noopener">@simon04/locator-tool</a>
+    (<a href="https://github.com/simon04/locator-tool/blob/master/LICENSE" target="_blank" rel="external noopener">GPL v3</a>)`
   );
 
   const external = BoxArrowUpRight;
