@@ -339,6 +339,7 @@ export async function getFilesForCategory(cat: string, depth = 3): Promise<Commo
   const abort = new AbortController();
   const requests = [
     getFilesForCategory1(cat, depth, abort.signal),
+    getFilesForCategory2(cat, depth, abort.signal),
     getFilesForCategory3(cat, depth, abort.signal)
   ];
   if (depth <= 0) {
@@ -380,6 +381,21 @@ export async function getFilesForCategory1(
   const url = 'https://cats-php.toolforge.org/?' + toSearchParams(params);
   const data = await fetchJSON<CommonsTitle[]>(url, {signal});
   return data.map(f => `File:${f}`);
+}
+
+export async function getFilesForCategory2(
+  cat: string,
+  depth: number,
+  signal?: AbortSignal
+): Promise<CommonsTitle[]> {
+  const params = {
+    category: cat.replace(/^Category:/, ''),
+    ns: NS_FILE,
+    depth
+  };
+  const url = '/catscan?' + toSearchParams(params);
+  const data = await fetchJSON<{pages: CommonsTitle[]}>(url, {signal});
+  return data.pages.map(f => `File:${f}`);
 }
 
 export async function getFilesForCategory3(

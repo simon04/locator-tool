@@ -1,6 +1,8 @@
+import configparser
 import json
 import logging
 import os
+import pathlib
 import typing
 
 from flask import Flask, abort, jsonify, request
@@ -62,6 +64,58 @@ class EditLocation(typing.TypedDict):
 class EditRequest(typing.TypedDict):
     locations: list[EditLocation]
     pageid: int
+
+
+@app.route("/catscan")
+def catscan():
+    try:
+        import pymysql
+        import pymysql.cursors
+
+        replica = pathlib.Path.home().joinpath("replica.my.cnf")
+        config = configparser.ConfigParser()
+        config.read_string(replica.read_text())
+        connection = pymysql.connections.Connection(
+            host="commonswiki.analytics.db.svc.wikimedia.cloud",
+            database="commonswiki_p",
+            user=config.get("client", "user"),
+            password=config.get("client", "password"),
+            cursorclass=pymysql.cursors.DictCursor,
+        )
+
+        def list_content(category: str, ns: int):
+            sql = """select p.page_title
+                from categorylinks c
+                join page p on c.cl_from = p.page_id
+                where c.cl_to = %s
+                and p.page_is_redirect = 0
+                and p.page_namespace = %s
+            """
+            with connection.cursor() as cursor:
+                cursor.execute(sql, (category, ns))
+                for row in cursor:
+                    title: str | bytes = row["page_title"]
+                    if isinstance(title, bytes):
+                        title = title.decode("utf8")
+                    yield title
+
+        def list_recursively(category: str, ns: int, depth=3):
+            yield from list_content(category=category, ns=ns)
+            if depth == 0:
+                return
+            for subcat in list_content(category=category, ns=14):
+                yield from list_recursively(category=subcat, ns=ns, depth=depth - 1)
+
+        pages = list_recursively(
+            category=request.args.get("category").replace(" ", "_"),
+            ns=request.args.get("ns", 0, type=int),
+            depth=request.args.get("depth", 0, type=int),
+        )
+        return jsonify(pages=list(pages))
+    except Exception as e:
+        if connection:
+            connection.close()
+        logging.error("Failed to list category for %s", request.args, exc_info=e)
 
 
 @app.route("/edit", methods=["POST"])

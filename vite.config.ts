@@ -27,5 +27,13 @@ export default defineConfig({
       }
     }
   },
+  server: {
+    proxy: {
+      '/catscan': {
+        target: 'https://locator-tool.toolforge.org/',
+        changeOrigin: true
+      }
+    }
+  },
   plugins: [vue(), svgLoader()]
 });
