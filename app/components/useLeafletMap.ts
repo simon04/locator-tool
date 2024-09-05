@@ -47,7 +47,7 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
     maxNativeZoom: 19
   };
   const layers = {
-    [osm]: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    [osm]: L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       ...maxZoomOptions,
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
