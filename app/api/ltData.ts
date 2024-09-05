@@ -235,7 +235,7 @@ export async function getFileDetails(
         lng = parseFloat(loc[3]);
       }
       return new LatLng('Object location', lat, lng);
-    } catch (e) {
+    } catch {
       return new LatLng('Object location', undefined, undefined);
     }
   }

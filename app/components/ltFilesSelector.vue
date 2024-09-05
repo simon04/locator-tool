@@ -204,7 +204,7 @@ function tryParse<T>(parser: (string: string) => T, text: string, fallback: T): 
   }
   try {
     return parser(text as string);
-  } catch (ex) {
+  } catch {
     return fallback;
   }
 }
