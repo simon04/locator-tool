@@ -73,7 +73,7 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
       }
     ),
     [`basemap.at 🇦🇹 ${external}`]: L.tileLayer(
-      `//maps.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg`,
+      `https://mapsneu.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg`,
       {
         ...maxZoomOptions,
         maxNativeZoom: 19,
