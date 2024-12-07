@@ -1,7 +1,6 @@
 import configparser
 import json
 import logging
-import os
 import pathlib
 import typing
 
@@ -15,7 +14,7 @@ from types_mediainfo import Mediainfo
 from types_query import Page, QueryResult
 
 logging.basicConfig(
-    filename=os.path.join(os.path.dirname(__file__), "locator-tool.log"),
+    filename=str(pathlib.Path(__file__).parent.joinpath( "locator-tool.log")),
     format="[%(asctime)s] %(levelname)s in %(module)s: %(message)s",
     level=logging.DEBUG,
 )
