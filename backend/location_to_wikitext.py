@@ -36,6 +36,8 @@ def add_location_to_wikitext(type, lat, lng, wikitext):
     '{{Object location|12.3|45.6|region:XY-Z}}'
     >>> add_location_to_wikitext('Location', 12.3, 45.6, "{{Location |1=47.27 |2=11.426944444444 }}")
     '{{Location|12.3|45.6}}'
+    >>> add_location_to_wikitext('Location', 12.3, 45.6, "{{Artwork|title = {{fr|1=Place de la gare de Rennes, début XXe siècle}}}}{{PD-Art}}[[Category:Place de la Gare (Rennes)]]")
+    '{{Artwork|title = {{fr|1=Place de la gare de Rennes, début XXe siècle}}}}\n{{Location|12.3|45.6}}\n{{PD-Art}}[[Category:Place de la Gare (Rennes)]]'
     """
     if type not in ["Location", "Object location"]:
         raise ValueError("Invalid location type")
@@ -54,7 +56,7 @@ def add_location_to_wikitext(type, lat, lng, wikitext):
     )
     if pattern.search(wikitext):
         return pattern.sub(location[:-2], wikitext, count=1)
-    pattern = re.compile(r"\{\{\s*Information", flags=re.IGNORECASE)
+    pattern = re.compile(r"\{\{\s*(Information|Artwork)", flags=re.IGNORECASE)
     match = pattern.search(wikitext)
     if match:
         brace_count = 2
