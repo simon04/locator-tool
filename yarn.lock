@@ -2167,17 +2167,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet-control-geocoder@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "leaflet-control-geocoder@npm:2.3.0"
+"leaflet-control-geocoder@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "leaflet-control-geocoder@npm:3.0.0"
   dependencies:
-    open-location-code: "npm:^1.0.0"
+    open-location-code: "npm:^1.0.3"
   peerDependencies:
     leaflet: ^1.6.0
   dependenciesMeta:
     open-location-code:
       optional: true
-  checksum: 10c0/b51a675ddb7ebf71863a4d8286e4798ffb71a46c37692a8a490a23ed03c3798e48e228433a694fe5ba6cd15c4294f96c8f961f07ebf4065b101f391a029f8fb7
+  checksum: 10c0/8a7e01bf42d77e58c268cc7291f1fd85a4479fd0c8f07f4ac86e928bdb27c96f62a8fe5ba06803f66c513a9ef3b96cbbaeb89a011c1c96784da59f2aa6dff2fb
   languageName: node
   linkType: hard
 
@@ -2267,7 +2267,7 @@ __metadata:
     eslint-plugin-vue: "npm:^9.28.0"
     husky: "npm:^9.0.10"
     leaflet: "npm:^1.9.4"
-    leaflet-control-geocoder: "npm:^2.3.0"
+    leaflet-control-geocoder: "npm:^3.0.0"
     lint-staged: "npm:^15.2.2"
     prettier: "npm:^3.2.5"
     typescript: "npm:^5.3.3"
@@ -2636,7 +2636,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open-location-code@npm:^1.0.0":
+"open-location-code@npm:^1.0.3":
   version: 1.0.3
   resolution: "open-location-code@npm:1.0.3"
   checksum: 10c0/46ec5c9ff3ce1dad7f713d5659d6211d9fdfe8d02297790ce91d7913192cae1702b5988e4edc324fc43fdb8bb4db2486ffc09389d2e4f388d501ef532622d9ec

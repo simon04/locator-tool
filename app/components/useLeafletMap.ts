@@ -8,7 +8,7 @@ import ControlGeocoder from 'leaflet-control-geocoder';
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?raw';
 
 import 'leaflet/dist/leaflet.css';
-import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
+import 'leaflet-control-geocoder/style.css';
 
 export type MapView = {
   lat: number;
