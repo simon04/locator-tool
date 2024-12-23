@@ -1,13 +1,14 @@
 # 
 # Translators:
+# lecalam, 2024
 # Rui <xymarior@yandex.com>, 2018
 # Simon Legner <simon.legner@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
 "PO-Revision-Date: 2016-05-19 10:23+0000\n"
-"Last-Translator: Simon Legner <simon.legner@gmail.com>, 2018\n"
-"Language-Team: Portuguese (http://www.transifex.com/locator-tool/locator-tool/language/pt/)\n"
+"Last-Translator: lecalam, 2024\n"
+"Language-Team: Portuguese (http://app.transifex.com/locator-tool/locator-tool/language/pt/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
@@ -23,7 +24,7 @@ msgstr "Profundidade"
 msgid ""
 "<a ui-sref=\"select\">Select files to geolocate</a> by querying a category "
 "or inputting a list of <code>File:</code>s."
-msgstr "<a ui-sref=\"select\">Selecione os ficheiros a geo-localizar</a> ao consultar uma categoria ou introduzindo uma lista de <code>Ficheiro:</code>s."
+msgstr "<a ui-sref=\"select\">Selecione os ficheiros a geolocalizar</a> ao consultar uma categoria ou introduzindo uma lista de <code>Ficheiro:</code>s."
 
 #: ./app/components/ltAbout.html ./app/components/ltNavbar.html
 msgid "About"
@@ -35,7 +36,7 @@ msgstr "Sobre a ferramenta de localização"
 
 #: ./app/components/ltGeolocate.html
 msgid "Also show geolocated files"
-msgstr "Mostrar também ficheiros geo-localizados"
+msgstr "Mostrar também ficheiros geolocalizados"
 
 #: ./app/components/ltFileDetails.html
 msgid ""
@@ -57,11 +58,11 @@ msgstr "Edições a usar a ferramenta de localização"
 
 #: ./app/components/ltFilesSelector.html
 msgid "End timestamp"
-msgstr "Hora fim"
+msgstr "Hora de fim"
 
 #: ./app/components/ltFileDetails.html
 msgid "Failed to save: {{$ctrl.error.statusText}}"
-msgstr "Não foi possível gravar: {{$ctrl.error.statusText}}"
+msgstr "Não foi possível guardar: {{$ctrl.error.statusText}}"
 
 #: ./app/components/ltGeolocate.html
 msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
@@ -79,15 +80,15 @@ msgstr "Lista de ficheiros"
 msgid ""
 "From the list of files provided, select one and click its location on an "
 "interactive map."
-msgstr "Da lista de ficheiros forncidos, selecione um e clique na localização no mapa interativo."
+msgstr "Da lista de ficheiros fornecidos, selecione um e clique na localização no mapa interativo."
 
 #: ./app/components/ltNavbar.html
 msgid "Gallery"
-msgstr ""
+msgstr "Galeria"
 
 #: ./app/components/ltNavbar.html
 msgid "Geolocate files"
-msgstr "Geo-localizar ficheiros"
+msgstr "Geolocalizar ficheiros"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Hello {{$ctrl.userInfo}}!"
@@ -122,19 +123,19 @@ msgstr "Limite"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Load Category to geolocate"
-msgstr "Carregar categoria para geo-localizar"
+msgstr "Carregar categoria para geolocalizar"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Load User files to geolocate"
-msgstr "Carregar ficheiros do utilizador para geo-localizar"
+msgstr "Carregar ficheiros do utilizador para geolocalizar"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Load {{$ctrl.titleList.length}} files to geolocate"
-msgstr "Carregar {{$ctrl.titleList.length}} ficheiros para geo-localizar"
+msgstr "Carregar {{$ctrl.titleList.length}} ficheiros para geolocalizar"
 
 #: ./app/components/ltGallery.html ./app/components/ltGeolocate.html
 msgid "Loading file details …"
-msgstr "A carregar detalhes do ficheiro..."
+msgstr "A carregar detalhes do ficheiro…"
 
 #: ./app/components/ltFilesSelector.html ./app/components/ltUserInfo.html
 msgid "Log in"
@@ -164,7 +165,7 @@ msgstr "Localização do objeto via\n<a href=\"https://commons.wikimedia.org/wik
 
 #: ./app/components/ltAbout.html
 msgid "Open Source Licenses:"
-msgstr ""
+msgstr "Licenças de código aberto:"
 
 #: ./app/components/ltFileDetails.html
 msgid "Press shift and click on map to set the object location."
@@ -172,11 +173,11 @@ msgstr "Pressione a tecla Shift e clique no mapa para definir a localização do
 
 #: ./app/components/ltAbout.html
 msgid "Repeat …"
-msgstr "Repetir..."
+msgstr "Repetir…"
 
 #: ./app/components/ltLocationInput.html
 msgid "Save"
-msgstr "Gravar"
+msgstr "Guardar"
 
 #: ./app/components/ltNavbar.html
 msgid "Select files"
@@ -184,27 +185,27 @@ msgstr "Selecionar ficheiros"
 
 #: ./app/components/ltFilesSelector.html ./app/components/ltNavbar.html
 msgid "Select files to geolocate"
-msgstr "Selecione os ficheiros para geo-localizar"
+msgstr "Selecione os ficheiros para geolocalizar"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show Category as gallery"
-msgstr ""
+msgstr "Mostrar categoria numa galeria"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show Category on map"
-msgstr "Mostrar Categoria no mapa"
+msgstr "Mostrar categoria no mapa"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show User files as gallery"
-msgstr ""
+msgstr "Mostrar ficheiros do utilizador numa galeria"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show User files on map"
-msgstr "Mostrar ficheiros do Utilizador no mapa"
+msgstr "Mostrar ficheiros do utilizador no mapa"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show {{$ctrl.titleList.length}} files as gallery"
-msgstr ""
+msgstr "Mostrar {{$ctrl.titleList.length}} ficheiros numa galeria"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Show {{$ctrl.titleList.length}} files on map"
@@ -216,7 +217,7 @@ msgstr "Criar conta"
 
 #: ./app/components/ltFilesSelector.html
 msgid "Start timestamp"
-msgstr "Hora início"
+msgstr "Hora de início"
 
 #: ./app/components/ltAbout.html
 msgid ""
@@ -229,7 +230,7 @@ msgid ""
 "This tool helps to add <code class=\"mediawiki-template\">Coordinate</code> "
 "information to images on <a "
 "href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
-msgstr "Esta ferramenta ajuda a adicionar informações de <code class=\"mediawiki-template\">Coordenadas</code> em imagens no <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgstr "Esta ferramenta ajuda a adicionar informações de <code class=\"mediawiki-template\">coordenadas</code> em imagens no <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
 
 #: ./app/components/ltAbout.html
 msgid "Translate locator-tool on Transifex"
@@ -253,7 +254,7 @@ msgstr "Ficheiros do utilizador"
 
 #: ./app/components/ltAbout.html
 msgid "Version:"
-msgstr ""
+msgstr "Versão:"
 
 #: ./app/components/ltFilesSelector.html
 msgid ""
@@ -271,3 +272,23 @@ msgid ""
 "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
 "tool\">Commons:Locator-tool</a>"
 msgstr "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-tool\">Commons:Ferramenta de localização</a>"
+
+#: ./app/components/ltGallery.vue
+msgid "Sorting"
+msgstr "Ordenação"
+
+#: ./app/components/ltGallery.vue
+msgid "Title"
+msgstr "Título"
+
+#: ./app/components/ltGallery.vue
+msgid "Description"
+msgstr "Descrição"
+
+#: ./app/components/ltGallery.vue
+msgid "Author"
+msgstr "Autor"
+
+#: ./app/components/ltGallery.vue
+msgid "Date"
+msgstr "Data"
