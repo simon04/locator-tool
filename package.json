@@ -45,7 +45,7 @@
     "@types/leaflet": "^1.9.3",
     "@vitejs/plugin-vue": "^5.2.1",
     "angular-gettext-cli": "^1.2.0",
-    "angular-gettext-tools": "^2.3.5",
+    "angular-gettext-tools": "^2.5.3",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
