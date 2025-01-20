@@ -46,7 +46,7 @@ const templateRe = /\{ *([\w_ -]+) *\}/g;
 type I18nCatalog = (typeof i18n)['de'];
 
 export function t(key: keyof I18nCatalog, values?: Record<string, string>): string {
-  const msg = language.value === 'en' ? key : (i18n[language.value] as I18nCatalog)[key] ?? key;
+  const msg = language.value === 'en' ? key : ((i18n[language.value] as I18nCatalog)[key] ?? key);
   if (typeof msg === 'object') {
     // key === 'Depth'
     // translate-context
