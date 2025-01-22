@@ -97,17 +97,32 @@ export async function getCoordinates(titles: string | CommonsTitle[]): Promise<C
   if (typeof titles === 'string') {
     titles = titles.split('|');
   }
-  if (titles.length > maxTitlesPerRequest) {
-    return getCoordinatesChunkByChunk(titles);
+
+  const url = new URL(
+    buildQuery({
+      prop: 'coordinates',
+      colimit: 500,
+      coprop: 'type|name',
+      coprimary: 'all'
+    })
+  );
+
+  // takeWhile
+  const titles0 = titles.reduce((acc, title, index, array) => {
+    url.searchParams.set('titles', (array as string[]).slice(0, index).join('|'));
+    return url.toString().length < 2000 ? acc.concat(title) : acc;
+  }, [] as CommonsTitle[]);
+
+  if (titles.length > titles0.length) {
+    const coordinates = await Promise.all([
+      getCoordinates(titles0),
+      getCoordinates(titles.slice(titles0.length))
+    ]);
+    return coordinates.flat();
   }
-  const params = {
-    prop: 'coordinates',
-    colimit: 500,
-    coprop: 'type|name',
-    coprimary: 'all',
-    titles: titles.join('|').replace(/_/g, ' ')
-  };
-  const data = await $query<ApiResponse<CoordinatePage>>(params);
+
+  url.searchParams.set('titles', titles.join('|').replace(/_/g, ' '));
+  const data = await $query<ApiResponse<CoordinatePage>>(url);
   const pages = data?.query?.pages || {};
   return Object.entries(pages).map(([pageid, page]) => {
     return {
@@ -131,17 +146,6 @@ export async function getCoordinates(titles: string | CommonsTitle[]): Promise<C
   function toLatLng(c: Coordinate | undefined): [number?, number?] {
     return typeof c === 'object' ? [c.lat, c.lon] : [undefined, undefined];
   }
-}
-
-export async function getCoordinatesChunkByChunk(titles: CommonsTitle[]): Promise<CommonsFile[]> {
-  const t = [...titles];
-  const requests: CommonsTitle[][] = [];
-  while (t.length) {
-    requests.push(t.splice(0, Math.min(maxTitlesPerRequest, t.length)));
-  }
-  const coordinatesPromises = requests.map(x => getCoordinates(x));
-  const x = await Promise.all(coordinatesPromises);
-  return x.flat();
 }
 
 export interface FileDetails {
@@ -419,13 +423,7 @@ export async function getFilesForCategory3(
   return data['*'][0]['a']['*'] as CommonsTitle[];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function $query<T extends ApiResponse<any>>(
-  query: Record<string, unknown>,
-  previousResults = {},
-  signal?: AbortSignal,
-  shouldContinue = (data: T) => !!data.continue
-): Promise<T> {
+function buildQuery(query: Record<string, unknown> = {}) {
   const params = {
     action: 'query',
     format: 'json',
@@ -433,6 +431,17 @@ async function $query<T extends ApiResponse<any>>(
     ...query
   };
   const url = API_URL + '?' + toSearchParams(params);
+  return url;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function $query<T extends ApiResponse<any>>(
+  query: URL | Record<string, unknown>,
+  previousResults = {},
+  signal?: AbortSignal,
+  shouldContinue = (data: T) => !!data.continue
+): Promise<T> {
+  const url = query instanceof URL ? query.toString() : buildQuery(query);
   let data = await fetchJSON<T>(url, {
     signal
   });
