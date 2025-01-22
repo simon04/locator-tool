@@ -7,7 +7,6 @@ import {MediaInfo, Statement} from '../model/mediainfo.ts';
 export const API_URL = 'https://commons.wikimedia.org/w/api.php';
 const NS_FILE = 6;
 const NS_CATEGORY = 14;
-const maxTitlesPerRequest = 50;
 
 interface ApiResponse<P = never> {
   continue: {[key: string]: string} | undefined;
