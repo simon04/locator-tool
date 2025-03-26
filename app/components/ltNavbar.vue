@@ -58,6 +58,7 @@
         </li>
       </ul>
       <div class="ms-auto"></div>
+      <div class="ms-2"><lt-dark-mode-toggle class="btn btn-outline-secondary" /></div>
       <div class="ms-2"><lt-language-selector /></div>
       <lt-user-info />
     </div>
@@ -67,6 +68,7 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import {useRoute} from 'vue-router';
+import ltDarkModeToggle from './ltDarkModeToggle.vue';
 import ltLanguageSelector from './ltLanguageSelector.vue';
 import ltUserInfo from './ltUserInfo.vue';
 import {t} from './useI18n';
