@@ -458,9 +458,10 @@ async function $query<T extends ApiResponse<any>>(
 
 function toSearchParams(query: Record<string, unknown>): URLSearchParams {
   const searchParams = new URLSearchParams();
-  Object.entries(query).forEach(
-    ([key, value]) => value === undefined || searchParams.append(key, String(value))
-  );
+  for (const [key, value] of Object.entries(query)) {
+    if (value === undefined) continue;
+    searchParams.append(key, String(value));
+  }
   return searchParams;
 }
 
@@ -468,7 +469,9 @@ function successRace<T>(promises: Promise<T>[]): Promise<T> {
   promises = promises.filter(p => !!p);
   return new Promise<T>((resolve, reject) => {
     // resolve first successful one
-    promises.forEach(promise => promise.then(resolve));
+    for (const promise of promises) {
+      promise.then(resolve);
+    }
     // reject when all fail
     Promise.allSettled(promises).catch(reject);
   });

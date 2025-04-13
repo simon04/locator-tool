@@ -82,7 +82,9 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
     )
   };
   const layersControl = L.control.layers().addTo(map);
-  Object.entries(layers).forEach(([name, layer]) => layersControl.addBaseLayer(layer, name));
+  for (const [name, layer] of Object.entries(layers)) {
+    layersControl.addBaseLayer(layer, name);
+  }
   (layers[mapLayer.value as keyof typeof layers] || layers[osm]).addTo(map);
 
   const geocoder = new ControlGeocoder({
