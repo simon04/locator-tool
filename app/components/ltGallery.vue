@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
+import {onMounted, ref} from 'vue';
 import {useRoute} from 'vue-router';
 import {useSorted} from '@vueuse/core';
 import {FileDetails, getFileDetails} from '../api/ltData';
@@ -90,16 +90,16 @@ const sortedTitles = useSorted(
 
 useAppTitle(routeTitlePart(), t('Gallery'));
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-getFiles($route.query as any)
-  .then(t => getCoordinates(t))
-  .then(t => (titles.value = t as unknown as (CommonsFile & FileDetails)[]))
-  .finally(() => {
-    isLoading.value = false;
-    titles.value.forEach(title =>
-      getFileDetails(title.pageid, 'categories|imageinfo', 'extmetadata').then(fileDetails =>
-        Object.assign(title, fileDetails)
-      )
+onMounted(async () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const titles0 = await getFiles($route.query as any);
+  const titles1 = await getCoordinates(titles0);
+  titles.value = titles1 as unknown as (CommonsFile & FileDetails)[];
+  isLoading.value = false;
+  for (const title of titles.value) {
+    getFileDetails(title.pageid, 'categories|imageinfo', 'extmetadata').then(fileDetails =>
+      Object.assign(title, fileDetails)
     );
-  });
+  }
+});
 </script>
