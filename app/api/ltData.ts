@@ -349,7 +349,17 @@ export async function getFilesForCategory(cat: string, depth = 3): Promise<Commo
     requests.unshift(getFilesForCategory0(cat, abort.signal));
   }
   try {
-    return await successRace(requests);
+    return await new Promise<CommonsTitle[]>((resolve, reject) => {
+      // resolve first successful one
+      for (const promise of requests) {
+        promise.then(resolve, error => {
+          if (error instanceof DOMException && error.name === 'AbortError') return;
+          console.warn('Error fetching category', cat, error);
+        });
+      }
+      // reject when all fail
+      Promise.allSettled(requests).catch(reject);
+    });
   } finally {
     abort.abort();
   }
@@ -463,18 +473,6 @@ function toSearchParams(query: Record<string, unknown>): URLSearchParams {
     searchParams.append(key, String(value));
   }
   return searchParams;
-}
-
-function successRace<T>(promises: Promise<T>[]): Promise<T> {
-  promises = promises.filter(p => !!p);
-  return new Promise<T>((resolve, reject) => {
-    // resolve first successful one
-    for (const promise of promises) {
-      promise.then(resolve);
-    }
-    // reject when all fail
-    Promise.allSettled(promises).catch(reject);
-  });
 }
 
 async function fetchJSON<T>(url: RequestInfo, options?: RequestInit): Promise<T> {
