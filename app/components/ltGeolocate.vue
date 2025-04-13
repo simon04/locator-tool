@@ -130,19 +130,15 @@ const isLoading = ref(false);
 
 useAppTitle(routeTitlePart(), t('Geolocate files'));
 
-onMounted(() => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const files$q = ltData.getFiles($route.query as any);
-  const fileDetails$q = files$q
-    .then(titles => ltData.getCoordinates(titles))
-    .then(titles => {
-      $titles.value = titles.sort((t1, t2) => t1.file.localeCompare(t2.file));
-      $showGeolocated.value = $titles.value.length <= 5;
-      // select first visible title
-      $title.value = filteredTitles.value[0];
-    });
+onMounted(async () => {
   isLoading.value = true;
-  Promise.all([files$q, fileDetails$q]).finally(() => (isLoading.value = false));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const titles0 = await ltData.getFiles($route.query as any);
+  const titles = await ltData.getCoordinates(titles0);
+  $titles.value = titles.sort((t1, t2) => t1.file.localeCompare(t2.file));
+  $showGeolocated.value = $titles.value.length <= 5;
+  $title.value = filteredTitles.value[0]; // select first visible title
+  isLoading.value = false;
 });
 
 watch($title, title => title && titleChanged(title));
