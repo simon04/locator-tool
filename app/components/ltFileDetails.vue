@@ -96,7 +96,7 @@ import Save from 'bootstrap-icons/icons/save.svg?component';
 const coordinates = defineModel<LatLng>('coordinates', {required: true});
 const objectLocation = defineModel<LatLng>('objectLocation', {required: true});
 const props = defineProps<{file: CommonsFile & FileDetails}>();
-const error = ref<undefined>(undefined);
+const error = ref<unknown>(undefined);
 const collapseCameraLocation = ref(false);
 const collapseObjectLocation = ref(false);
 
@@ -117,7 +117,7 @@ const msgErrorStatusText = computed(() =>
   )
 );
 
-function editLocation(cc?: LatLng[]) {
+async function editLocation(cc?: LatLng[]) {
   error.value = undefined;
   if (cc === undefined) {
     cc = [];
@@ -128,19 +128,17 @@ function editLocation(cc?: LatLng[]) {
       cc.push(objectLocation.value);
     }
   }
-  return ltDataAuth.editLocation(props.file, cc).then(
-    () => {
-      cc!.forEach(c => {
-        if (c.type === 'Location') {
-          coordinates.value = c.commit();
-        } else if (c.type === 'Object location') {
-          objectLocation.value = c.commit();
-        }
-      });
-    },
-    e => {
-      error.value = e;
+  try {
+    await ltDataAuth.editLocation(props.file, cc);
+    for (const c of cc!) {
+      if (c.type === 'Location') {
+        coordinates.value = c.commit();
+      } else if (c.type === 'Object location') {
+        objectLocation.value = c.commit();
+      }
     }
-  );
+  } catch (e) {
+    error.value = e;
+  }
 }
 </script>
