@@ -118,17 +118,9 @@ const msgErrorStatusText = computed(() =>
 );
 
 async function editLocation(cc?: LatLng[]) {
-  error.value = undefined;
-  if (cc === undefined) {
-    cc = [];
-    if (coordinates.value?.isChanged) {
-      cc.push(coordinates.value);
-    }
-    if (objectLocation.value?.isChanged) {
-      cc.push(objectLocation.value);
-    }
-  }
+  cc ??= [coordinates.value, objectLocation.value].filter(c => c.isChanged);
   try {
+    error.value = undefined;
     await ltDataAuth.editLocation(props.file, cc);
     for (const c of cc!) {
       if (c.type === 'Location') {
