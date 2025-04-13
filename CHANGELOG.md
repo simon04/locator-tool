@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- 2025-04-13: Add <kbd>Ctrl+S</kbd> shortcut
 - 2023-07-02: Update [structured data on Commons](https://commons.wikimedia.org/wiki/Commons:Structured_data/Modeling/Location)
 - 2022-04-21: Gallery of images (including metadata)
 - 2020-06-30: Migrate to [locator-tool.toolforge.org](https://locator-tool.toolforge.org/)

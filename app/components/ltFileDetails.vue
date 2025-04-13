@@ -7,6 +7,8 @@
   >
     <Save class="me-1" />
     {{ t('Save') }}
+    <kbd v-if="isMacOS">⌘ + S</kbd>
+    <kbd v-else>Ctrl + S</kbd>
   </button>
   <div class="card mt-2">
     <div class="card-body p-2">
@@ -80,6 +82,7 @@
 
 <script setup lang="ts">
 import {computed, ref} from 'vue';
+import {useMagicKeys, whenever} from '@vueuse/core';
 import * as ltDataAuth from '../api/ltDataAuth';
 import {CommonsFile, LatLng} from '../model';
 import ltFileMetadata from './ltFileMetadata.vue';
@@ -116,6 +119,20 @@ const msgErrorStatusText = computed(() =>
     error.value?.statusText
   )
 );
+
+const isMacOS = computed(() => navigator.platform.toUpperCase().includes('MAC'));
+
+const keys = useMagicKeys({
+  passive: false,
+  onEventFired(e) {
+    if (e.type === 'keydown' && e.key === 's' && (e.ctrlKey || e.metaKey)) {
+      // Prevent default save action
+      e.preventDefault();
+    }
+  }
+});
+whenever(keys['Ctrl+S'], () => editLocation());
+whenever(keys['Meta+S'], () => editLocation());
 
 async function editLocation(cc?: LatLng[]) {
   cc ??= [coordinates.value, objectLocation.value].filter(c => c.isChanged);
