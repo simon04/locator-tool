@@ -1,41 +1,3 @@
-html,
-body {
-  height: 100%;
-}
-.fill {
-  height: 100%;
-}
-.fill-absolute {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 15px;
-  right: 15px;
-  overflow-y: auto;
-}
-@media (min-width: 768px) and (max-width: 1199px) {
-  .col-lg-h40 {
-    height: 40%;
-  }
-  .col-lg-h60 {
-    height: 60%;
-  }
-}
-a[href="https://github.com/simon04/locator-tool"]
-{
-  background: url(bootstrap-icons/icons/github.svg);
-  background-position: center left;
-  background-repeat: no-repeat;
-  padding-left: 20px;
-}
-
-.mediawiki-template::before {
-  content: '{{';
-}
-.mediawiki-template::after {
-  content: '}}';
-}
-
 .list-group-item.ng-enter,
 .list-group-item.ng-leave {
   transition: 0.3s linear all;
@@ -60,24 +22,4 @@ img.ng-enter.ng-enter-active {
 }
 img.ng-leave {
   display: none;
-}
-
-label {
-  font-weight: bold;
-}
-
-.leaflet-control-geocoder-form input {
-  color: var(--bs-black);
-}
-
-.flex-grow-1 {
-  /* https://stackoverflow.com/a/36247448 */
-  min-height: 0;
-}
-
-lt-all-map {
-  display: flex;
-  flex-grow: 1;
-  margin-left: calc(var(--bs-gutter-x) * -0.5);
-  margin-right: calc(var(--bs-gutter-x) * -0.5);
 }

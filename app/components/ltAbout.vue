@@ -106,3 +106,13 @@ const appDependencies = JSON.parse(import.meta.env.VITE_APP_DEPENDENCIES);
 const buildDate = import.meta.env.VITE_BUILD_DATE;
 const buildVersion = import.meta.env.VITE_BUILD_VERSION;
 </script>
+
+<style>
+a[href="https://github.com/simon04/locator-tool"]
+{
+  background: url(bootstrap-icons/icons/github.svg);
+  background-position: center left;
+  background-repeat: no-repeat;
+  padding-left: 20px;
+}
+</style>

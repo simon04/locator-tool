@@ -1,5 +1,5 @@
 <template>
-  <div ref="mapRef" class="map fill" style="min-height: 300px"></div>
+  <div ref="mapRef" class="map h-100" style="min-height: 300px"></div>
 </template>
 
 <script setup lang="ts">

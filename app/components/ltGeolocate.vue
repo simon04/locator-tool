@@ -26,7 +26,7 @@
     style="--bs-gutter-x: 0.5rem"
   >
     <div
-      class="col-lg-3 col-xl-2 mt-3 mt-lg-0 fill col-lg-h40"
+      class="col-lg-3 col-xl-2 mt-3 mt-lg-0 h-100 col-lg-h40"
       style="overflow-y: scroll; overflow-x: hidden"
     >
       <div class="progress">
@@ -76,7 +76,7 @@
 
     <div
       v-if="$title"
-      class="col-lg-9 col-xl-3 mt-3 mt-lg-0 fill col-lg-h40"
+      class="col-lg-9 col-xl-3 mt-3 mt-lg-0 h-100 col-lg-h40"
       style="overflow-y: scroll; overflow-x: hidden"
     >
       <div class="row">
@@ -93,7 +93,7 @@
       </div>
     </div>
 
-    <div v-if="$title" class="col-lg-12 col-xl-7 mt-3 mt-lg-0 fill col-lg-h60">
+    <div v-if="$title" class="col-lg-12 col-xl-7 mt-3 mt-lg-0 h-100 col-lg-h60">
       <lt-map
         v-model:coordinates="$title.coordinates"
         v-model:object-location="$title.objectLocation"
@@ -224,3 +224,14 @@ const msgNoFilesForUser = computed(() =>
   t('Fetched 0 files for user <code>{{$ctrl.user}}</code>!').replace('{{$ctrl.user}}', user)
 );
 </script>
+
+<style scoped>
+@media (min-width: 768px) and (max-width: 1199px) {
+  .col-lg-h40 {
+    height: 40%;
+  }
+  .col-lg-h60 {
+    height: 60%;
+  }
+}
+</style>

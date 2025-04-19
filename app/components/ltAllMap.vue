@@ -1,5 +1,5 @@
 <template>
-  <div ref="mapRef" class="map fill" style="min-height: 300px"></div>
+  <div ref="mapRef" class="map h-100" style="min-height: 300px"></div>
 </template>
 
 <script setup lang="ts">
@@ -39,3 +39,10 @@ onMounted(async () => {
   map.fitBounds(bounds);
 });
 </script>
+
+<style scoped>
+.map {
+  margin-left: calc(var(--bs-gutter-x) * -0.5);
+  margin-right: calc(var(--bs-gutter-x) * -0.5);
+}
+</style>
