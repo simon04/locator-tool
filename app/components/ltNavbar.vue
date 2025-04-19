@@ -58,7 +58,11 @@
         </li>
       </ul>
       <div class="ms-auto"></div>
-      <div class="ms-2"><lt-dark-mode-toggle class="btn btn-outline-secondary" /></div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <lt-dark-mode-toggle />
+        </li>
+      </ul>
       <div class="ms-2"><lt-language-selector /></div>
       <lt-user-info />
     </div>
