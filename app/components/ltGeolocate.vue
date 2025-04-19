@@ -53,7 +53,7 @@
         <input v-model="$filter" class="form-control" type="text" />
       </div>
       <div tabindex="1" @keydown="keyPressedInList($event)">
-        <ul class="list-group">
+        <TransitionGroup tag="ul" name="list" class="list-group">
           <li
             v-for="title in filteredTitles"
             :key="title.file"
@@ -70,7 +70,7 @@
             </abbr>
             <span>{{ title.file }}</span>
           </li>
-        </ul>
+        </TransitionGroup>
       </div>
     </div>
 
@@ -233,5 +233,17 @@ const msgNoFilesForUser = computed(() =>
   .col-lg-h60 {
     height: 60%;
   }
+}
+
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  line-height: 0;
 }
 </style>

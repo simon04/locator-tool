@@ -1,6 +1,6 @@
 <template>
   <img
-    class="img-fluid img-thumbnail"
+    class="img-fluid img-thumbnail fade-in-image"
     :src="lazyUrl"
     :lazy-img="thumbnailUrl"
     style="max-height: 100%; cursor: zoom-in; width: 100%"
@@ -56,3 +56,18 @@ function setLazyImg($event: Event) {
   img.src = lazy;
 }
 </script>
+
+<style scoped>
+.fade-in-image {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+</style>
