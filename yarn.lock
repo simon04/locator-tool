@@ -2203,9 +2203,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet-control-geocoder@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "leaflet-control-geocoder@npm:3.0.0"
+"leaflet-control-geocoder@perliedman/leaflet-control-geocoder#commit=9ccd125164c7151e8f0671d9ff01780ba312e1e9":
+  version: 3.1.0
+  resolution: "leaflet-control-geocoder@https://github.com/perliedman/leaflet-control-geocoder.git#commit=9ccd125164c7151e8f0671d9ff01780ba312e1e9"
   dependencies:
     open-location-code: "npm:^1.0.3"
   peerDependencies:
@@ -2213,14 +2213,14 @@ __metadata:
   dependenciesMeta:
     open-location-code:
       optional: true
-  checksum: 10c0/8a7e01bf42d77e58c268cc7291f1fd85a4479fd0c8f07f4ac86e928bdb27c96f62a8fe5ba06803f66c513a9ef3b96cbbaeb89a011c1c96784da59f2aa6dff2fb
+  checksum: 10c0/04f5ca54e2d86b0497ed812520ea3de8a36aae18fdff4875f4dee0136beee79a88c9dcedf7ab16ffb049a0af942ddd93f893f4250958be4ca7a1562f4d23b4d2
   languageName: node
   linkType: hard
 
-"leaflet@npm:^1.9.4":
+"leaflet@leaflet/leaflet#commit=f9cf3b144aff695686eafaffd8369067b3c5e285":
   version: 1.9.4
-  resolution: "leaflet@npm:1.9.4"
-  checksum: 10c0/f639441dbb7eb9ae3fcd29ffd7d3508f6c6106892441634b0232fafb9ffb1588b05a8244ec7085de2c98b5ed703894df246898477836cfd0ce5b96d4717b5ca1
+  resolution: "leaflet@https://github.com/leaflet/leaflet.git#commit=f9cf3b144aff695686eafaffd8369067b3c5e285"
+  checksum: 10c0/bd446dc0fbc4cf7f969672ece29efa75a4819d7e345e89eff74a19cd2834eaa5e7d87e5560e9b829ab049c341b39eaac6e5eebbbb2806075faf4350de56b2adb
   languageName: node
   linkType: hard
 
@@ -2302,8 +2302,8 @@ __metadata:
     eslint-plugin-prettier: "npm:^5.2.3"
     eslint-plugin-vue: "npm:^9.32.0"
     husky: "npm:^9.0.10"
-    leaflet: "npm:^1.9.4"
-    leaflet-control-geocoder: "npm:^3.0.0"
+    leaflet: "leaflet/leaflet#commit=f9cf3b144aff695686eafaffd8369067b3c5e285"
+    leaflet-control-geocoder: "perliedman/leaflet-control-geocoder#commit=9ccd125164c7151e8f0671d9ff01780ba312e1e9"
     lint-staged: "npm:^15.2.2"
     prettier: "npm:^3.4.2"
     typescript: "npm:^5.3.3"

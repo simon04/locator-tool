@@ -47,23 +47,23 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
     maxNativeZoom: 19
   };
   const layers = {
-    [osm]: L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    [osm]: new L.TileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       ...maxZoomOptions,
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }),
-    OpenTopoMap: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    OpenTopoMap: new L.TileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
       ...maxZoomOptions,
       maxNativeZoom: 17,
       attribution:
         '&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>), <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }),
-    ['Wikimedia Maps']: L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', {
+    ['Wikimedia Maps']: new L.TileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', {
       ...maxZoomOptions,
       maxNativeZoom: 19,
       attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>'
     }),
-    ['Esri World Imagery']: L.tileLayer(
+    ['Esri World Imagery']: new L.TileLayer(
       'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
       {
         ...maxZoomOptions,
@@ -72,7 +72,7 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
           'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
       }
     ),
-    [`basemap.at 🇦🇹 ${external}`]: L.tileLayer(
+    [`basemap.at 🇦🇹 ${external}`]: new L.TileLayer(
       `https://mapsneu.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg`,
       {
         ...maxZoomOptions,
@@ -81,7 +81,7 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
       }
     )
   };
-  const layersControl = L.control.layers().addTo(map);
+  const layersControl = new L.Control.Layers().addTo(map);
   for (const [name, layer] of Object.entries(layers)) {
     layersControl.addBaseLayer(layer, name);
   }
