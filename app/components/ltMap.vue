@@ -37,13 +37,13 @@ function mapMarkerUpdater(map: L.Map): (mapMarker: LatLng) => void {
       marker.setLatLng({lat, lng});
     } else if (mapMarker.isDefined) {
       map.setView({lat, lng});
-      const icon = L.divIcon({
+      const icon = new L.DivIcon({
         className: 'b-0',
         html: `<div title="Object location" style="color: red">${HouseFill}</div>`,
         iconAnchor: [6, 6],
         iconSize: [12, 12]
       });
-      marker = L.marker(
+      marker = new L.Marker(
         {lat, lng},
         mapMarker.type === 'Location' ? {draggable: true} : {draggable: true, icon}
       )

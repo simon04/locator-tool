@@ -34,8 +34,8 @@
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.11.3",
     "deepmerge": "^4.2.2",
-    "leaflet": "^1.9.4",
-    "leaflet-control-geocoder": "^3.0.0",
+    "leaflet": "2.0.0-alpha",
+    "leaflet-control-geocoder": "^3.2.0",
     "vue": "^3.5.13",
     "vue-router": "^4.4.5",
     "wikimedia-commons-file-path": "^2.1.1"
