@@ -34,8 +34,8 @@
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.11.3",
     "deepmerge": "^4.2.2",
-    "leaflet": "leaflet/leaflet#commit=f9cf3b144aff695686eafaffd8369067b3c5e285",
-    "leaflet-control-geocoder": "perliedman/leaflet-control-geocoder#commit=9ccd125164c7151e8f0671d9ff01780ba312e1e9",
+    "leaflet": "2.0.0-alpha",
+    "leaflet-control-geocoder": "^3.2.0",
     "vue": "^3.5.13",
     "vue-router": "^4.4.5",
     "wikimedia-commons-file-path": "^2.1.1"

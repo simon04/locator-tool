@@ -2203,24 +2203,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet-control-geocoder@perliedman/leaflet-control-geocoder#commit=9ccd125164c7151e8f0671d9ff01780ba312e1e9":
-  version: 3.1.0
-  resolution: "leaflet-control-geocoder@https://github.com/perliedman/leaflet-control-geocoder.git#commit=9ccd125164c7151e8f0671d9ff01780ba312e1e9"
+"leaflet-control-geocoder@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "leaflet-control-geocoder@npm:3.2.0"
   dependencies:
     open-location-code: "npm:^1.0.3"
   peerDependencies:
-    leaflet: ^1.6.0
+    leaflet: ^1.6.0 || ^2.0.0
   dependenciesMeta:
     open-location-code:
       optional: true
-  checksum: 10c0/04f5ca54e2d86b0497ed812520ea3de8a36aae18fdff4875f4dee0136beee79a88c9dcedf7ab16ffb049a0af942ddd93f893f4250958be4ca7a1562f4d23b4d2
+  checksum: 10c0/da85af31f8e5bb2760739b1830c847d50cd5c1833b461f0fabe6e39be8a07d351ccdd7b1fb4da1c6550b3f86eabeb5a411f445659cd9260bd1060c8d536f747e
   languageName: node
   linkType: hard
 
-"leaflet@leaflet/leaflet#commit=f9cf3b144aff695686eafaffd8369067b3c5e285":
-  version: 1.9.4
-  resolution: "leaflet@https://github.com/leaflet/leaflet.git#commit=f9cf3b144aff695686eafaffd8369067b3c5e285"
-  checksum: 10c0/bd446dc0fbc4cf7f969672ece29efa75a4819d7e345e89eff74a19cd2834eaa5e7d87e5560e9b829ab049c341b39eaac6e5eebbbb2806075faf4350de56b2adb
+"leaflet@npm:2.0.0-alpha":
+  version: 2.0.0-alpha
+  resolution: "leaflet@npm:2.0.0-alpha"
+  checksum: 10c0/38c1c39a3ee919a3392df067b55bab45b5e66cdac6d49d142ac4c04f8fbc8730228fa0408cc4ffe48128f5a2366c4a69d9713d2b5cfcbcc9ea4d2ac5593fb36c
   languageName: node
   linkType: hard
 
@@ -2302,8 +2302,8 @@ __metadata:
     eslint-plugin-prettier: "npm:^5.2.3"
     eslint-plugin-vue: "npm:^9.32.0"
     husky: "npm:^9.0.10"
-    leaflet: "leaflet/leaflet#commit=f9cf3b144aff695686eafaffd8369067b3c5e285"
-    leaflet-control-geocoder: "perliedman/leaflet-control-geocoder#commit=9ccd125164c7151e8f0671d9ff01780ba312e1e9"
+    leaflet: "npm:2.0.0-alpha"
+    leaflet-control-geocoder: "npm:^3.2.0"
     lint-staged: "npm:^15.2.2"
     prettier: "npm:^3.4.2"
     typescript: "npm:^5.3.3"
