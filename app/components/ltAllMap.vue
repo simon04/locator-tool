@@ -3,13 +3,15 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from 'vue';
+import {App, createApp, onMounted, reactive, ref} from 'vue';
 import {useRoute} from 'vue-router';
 import L from 'leaflet';
 import * as ltData from '../api/ltData';
 import {useLeafletMap} from './useLeafletMap';
 import {t} from './useI18n';
 import {useAppTitle, routeTitlePart} from './useAppTitle';
+import LtGalleryCard from './ltGalleryCard.vue';
+import type {CommonsFile} from '../model';
 
 const $route = useRoute();
 const mapRef = ref<HTMLElement | null>(null);
@@ -26,23 +28,41 @@ onMounted(async () => {
     const {lat, lng} = title.coordinates;
     const marker = new L.CircleMarker({lat, lng}, {color: '#2a4b8d'})
       .bindTooltip(title.file)
-      .bindPopup(
-        () => `
-<div style="width: 300px">
-  <p><a href="${title.url}" target="_blank">${title.file}</a></p>
-  <img src="${title.imageUrl(300)}" style="width: 100%" />
-</div>`
-      )
+      .bindPopup(buildPopup(title))
       .addTo(map);
     return [marker.getLatLng()];
   });
   map.fitBounds(bounds);
 });
+
+function buildPopup(title: CommonsFile): L.Popup {
+  let app: App;
+  let div: HTMLDivElement;
+  const popup = new L.Popup({minWidth: 400});
+  popup.setContent(() => {
+    title = reactive(title);
+    app = createApp(LtGalleryCard, {title});
+    ltData.getFileDetails(title.pageid, 'categories|imageinfo', 'extmetadata').then(fileDetails => {
+      Object.assign(title, fileDetails);
+    });
+    div = document.createElement('div');
+    return div;
+  });
+  popup.on('add', () => app.mount(div));
+  popup.on('remove', () => app.unmount());
+  return popup;
+}
 </script>
 
 <style scoped>
 .map {
   margin-left: calc(var(--bs-gutter-x) * -0.5);
   margin-right: calc(var(--bs-gutter-x) * -0.5);
+}
+:deep(.leaflet-popup-content-wrapper) {
+  background-color: var(--bs-body-bg);
+}
+:deep(.leaflet-popup-content) {
+  margin: 0.5rem;
 }
 </style>
