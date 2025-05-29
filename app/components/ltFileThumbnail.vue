@@ -1,6 +1,7 @@
 <template>
   <img
     class="img-fluid img-thumbnail fade-in-image"
+    loading="lazy"
     :src="lazyUrl"
     :lazy-img="thumbnailUrl"
     style="max-height: 100%; cursor: zoom-in; width: 100%"
@@ -18,6 +19,7 @@
         <div class="modal-body text-center">
           <img
             class="img-fluid"
+            loading="lazy"
             :src="thumbnailUrl"
             :lazy-img="imageUrl"
             style="width: 100%; height: 100%; object-fit: contain"
