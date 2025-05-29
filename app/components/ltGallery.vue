@@ -29,23 +29,7 @@
 
   <div class="mt-3 row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
     <div v-for="title in sortedTitles" :key="title" class="col">
-      <div class="card">
-        <div class="card-img-top">
-          <lt-file-thumbnail :file="title" />
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">
-            {{ title.file }}
-            {{ ' ' }}
-            <a :href="title.url" target="_blank">
-              <BoxArrowUpRight />
-            </a>
-          </h5>
-          <div class="card-text">
-            <lt-file-metadata :file="title" :description="false" />
-          </div>
-        </div>
-      </div>
+      <lt-gallery-card :title="title" />
     </div>
   </div>
 </template>
@@ -58,14 +42,12 @@ import {FileDetails, getFileDetails} from '../api/ltData';
 import {getCoordinates} from '../api/ltData';
 import {getFiles} from '../api/ltData';
 import {CommonsFile} from '../model';
-import ltFileMetadata from './ltFileMetadata.vue';
-import ltFileThumbnail from './ltFileThumbnail.vue';
 import ltSpinner from './ltSpinner.vue';
 import {t} from './useI18n';
 import {useAppTitle, routeTitlePart} from './useAppTitle';
-import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?component';
 import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
 import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
+import ltGalleryCard from './ltGalleryCard.vue';
 
 const $route = useRoute();
 const isLoading = ref(true);
