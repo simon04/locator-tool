@@ -1,0 +1,2 @@
+import{b as o,t as u,u as n,V as s,k as a}from"./index-Dud236ld.js";function c(...t){const r=o(()=>[...t.map(e=>n(e)).filter(e=>!!e),u("locator-tool")].join(" • "));return s(r,{restoreOnUnmount:e=>e})}function l(){const t=a();return o(()=>{var r,e;return((r=t.query.category)==null?void 0:r.replace(/_/," "))||((e=t.query.user)==null?void 0:e.replace(/_/," "))||void 0})}export{l as r,c as u};
+//# sourceMappingURL=CpVilhbaXfzMEq3Oogv.js.map
