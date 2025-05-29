@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import L from 'leaflet';
+import * as L from 'leaflet';
 import {LatLng} from '../model';
 import {onMounted, ref, watch} from 'vue';
 import {useLeafletMap} from './useLeafletMap';

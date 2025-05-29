@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import {App, createApp, onMounted, reactive, ref} from 'vue';
 import {useRoute} from 'vue-router';
-import L from 'leaflet';
+import * as L from 'leaflet';
 import * as ltData from '../api/ltData';
 import {useLeafletMap} from './useLeafletMap';
 import {t} from './useI18n';

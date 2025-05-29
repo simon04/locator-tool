@@ -25,7 +25,7 @@ export default defineConfig({
       'leaflet/dist/images/marker-icon.png': 'leaflet/src/images/marker-icon.png',
       'leaflet/dist/images/marker-shadow.png': 'leaflet/src/images/marker-shadow.png',
       'leaflet/dist/leaflet.css': 'leaflet/src/leaflet.css',
-      leaflet: 'leaflet/src/LeafletWithGlobals.js'
+      leaflet: 'leaflet/src/Leaflet.js'
     }
   },
   build: {
