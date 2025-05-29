@@ -45,8 +45,8 @@ const thumbnailUrl = computed(() => props.file.imageUrl(1024));
 
 const imageUrl = computed(() => {
   const width = window.innerWidth * (window.devicePixelRatio || 1);
-  // use widths from UploadThumbnailRenderMap and MediaViewerThumbnailBucketSizes settings
-  return props.file.imageUrl(width > 2560 ? undefined : width > 1280 ? 2560 : 1280);
+  // use widths from UploadThumbnailRenderMap = [320, 640, 800, 1280] and MediaViewerThumbnailBucketSizes settings
+  return props.file.imageUrl(width > 1280 ? undefined : 1280);
 });
 
 function setLazyImg($event: Event) {
