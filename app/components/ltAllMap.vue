@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import {App, createApp, onMounted, reactive, ref} from 'vue';
-import {useRoute} from 'vue-router';
+import {useRoute, useRouter} from 'vue-router';
 import * as L from 'leaflet';
 import * as ltData from '../api/ltData';
 import {useLeafletMap} from './useLeafletMap';
@@ -14,6 +14,7 @@ import LtGalleryCard from './ltGalleryCard.vue';
 import type {CommonsFile} from '../model';
 
 const $route = useRoute();
+const $router = useRouter();
 const mapRef = ref<HTMLElement | null>(null);
 
 useAppTitle(routeTitlePart(), t('Map'));
@@ -41,6 +42,10 @@ function buildPopup(title: CommonsFile): L.Popup {
   const popup = new L.Popup({minWidth: 400});
   popup.setContent(() => {
     title = reactive(title);
+    title.$geolocate = $router.resolve({
+      name: 'geolocate',
+      query: {files: title.file}
+    }).href;
     app = createApp(LtGalleryCard, {title});
     ltData.getFileDetails(title.pageid, 'categories|imageinfo', 'extmetadata').then(fileDetails => {
       Object.assign(title, fileDetails);

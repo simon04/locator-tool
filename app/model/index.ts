@@ -8,6 +8,7 @@ export interface CommonsFile {
   url: string;
   coordinates: LatLng;
   objectLocation: LatLng;
+  $geolocate?: string; // Vue app in L.Popup has no router
 
   imageUrl(width?: number): string;
 }
