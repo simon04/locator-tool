@@ -5,14 +5,14 @@
     :src="lazyUrl"
     :lazy-img="thumbnailUrl"
     style="max-height: 100%; cursor: zoom-in; width: 100%"
-    @click="dialogShown = true"
+    @click="showDialog()"
     @load="setLazyImg($event)"
   />
   <div
     v-if="dialogShown"
     class="modal"
     style="display: block; cursor: zoom-out; background: rgba(0, 0, 0, 0.5)"
-    @click="dialogShown = false"
+    @click="hideDialog()"
   >
     <div class="modal-dialog modal-fullscreen">
       <div class="modal-content">
@@ -32,8 +32,9 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed} from 'vue';
+import {ref, computed, WatchHandle} from 'vue';
 import type {CommonsFile} from '../model';
+import {useMagicKeys, whenever} from '@vueuse/core';
 
 const dialogShown = ref(false);
 
@@ -56,6 +57,19 @@ function setLazyImg($event: Event) {
   const lazy = img.getAttribute('lazy-img');
   if (!lazy || img.src === lazy) return;
   img.src = lazy;
+}
+
+const keys = useMagicKeys();
+let handle: WatchHandle;
+
+function showDialog() {
+  dialogShown.value = true;
+  handle = whenever(keys['Escape'], () => hideDialog());
+}
+
+function hideDialog() {
+  dialogShown.value = false;
+  handle?.stop();
 }
 </script>
 
