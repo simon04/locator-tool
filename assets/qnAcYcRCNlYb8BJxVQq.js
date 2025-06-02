@@ -1,0 +1,2 @@
+import{computed as e,t,unref as n,useRoute as r,useTitle as i}from"./L-a9t1zI4xPa_veWEx_.js";function a(...r){let a=e(()=>[...r.map(e=>n(e)).filter(e=>!!e),t(`locator-tool`)].join(` • `));return i(a,{restoreOnUnmount:e=>e})}function o(){let t=r();return e(()=>{var e,n;return(e=t.query.category)?.replace(/_/,` `)||(n=t.query.user)?.replace(/_/,` `)||void 0})}export{o as routeTitlePart,a as useAppTitle};
+//# sourceMappingURL=qnAcYcRCNlYb8BJxVQq.js.map
