@@ -1,9 +1,9 @@
 import {Ref, watch} from 'vue';
 import {useLocalStorage} from '@vueuse/core';
 import * as L from 'leaflet';
-import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-import iconUrl from 'leaflet/dist/images/marker-icon.png';
-import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png?no-inline';
+import iconUrl from 'leaflet/dist/images/marker-icon.png?no-inline';
+import shadowUrl from 'leaflet/dist/images/marker-shadow.png?no-inline';
 import ControlGeocoder from 'leaflet-control-geocoder';
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?raw';
 

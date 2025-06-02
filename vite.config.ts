@@ -19,15 +19,6 @@ process.env.VITE_APP_DEPENDENCIES = JSON.stringify(
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  resolve: {
-    alias: {
-      'leaflet/dist/images/marker-icon-2x.png': 'leaflet/src/images/marker-icon-2x.png',
-      'leaflet/dist/images/marker-icon.png': 'leaflet/src/images/marker-icon.png',
-      'leaflet/dist/images/marker-shadow.png': 'leaflet/src/images/marker-shadow.png',
-      'leaflet/dist/leaflet.css': 'leaflet/src/leaflet.css',
-      leaflet: 'leaflet/src/Leaflet.js'
-    }
-  },
   build: {
     sourcemap: true,
     rollupOptions: {
