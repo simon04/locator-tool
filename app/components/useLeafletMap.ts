@@ -1,9 +1,6 @@
 import {Ref, watch} from 'vue';
 import {useLocalStorage} from '@vueuse/core';
 import * as L from 'leaflet';
-import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png?no-inline';
-import iconUrl from 'leaflet/dist/images/marker-icon.png?no-inline';
-import shadowUrl from 'leaflet/dist/images/marker-shadow.png?no-inline';
 import ControlGeocoder from 'leaflet-control-geocoder';
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?raw';
 
@@ -24,15 +21,6 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
     lat: 51.505,
     lng: -0.09,
     zoom: 13
-  });
-
-  // https://github.com/Leaflet/Leaflet/issues/4968#issuecomment-269750768
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  delete (L.Icon.Default.prototype as any)._getIconUrl;
-  L.Icon.Default.mergeOptions({
-    iconRetinaUrl,
-    iconUrl,
-    shadowUrl
   });
 
   map.attributionControl.setPrefix(
