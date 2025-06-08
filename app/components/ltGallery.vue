@@ -13,8 +13,10 @@
       <label class="me-3">{{ t('Sorting') }}:</label>
       <div v-for="column in sortColumns" :key="column.key" class="form-check form-check-inline">
         <label class="form-check-label">
-          <component :is="column.icon" v-if="column.icon" class="me-1" />
-          {{ column.label }}
+          <span class="icon-link">
+            <component :is="column.icon" v-if="column.icon" />
+            {{ column.label }}
+          </span>
           <input
             v-model="sortColumn"
             class="form-check-input"

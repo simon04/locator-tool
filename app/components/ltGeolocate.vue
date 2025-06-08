@@ -62,13 +62,15 @@
             role="button"
             @click="$title = title"
           >
-            <abbr v-if="title.coordinates.isDefinedAndSaved" title="Location ✔">
-              <CameraFill class="me-1" />
-            </abbr>
-            <abbr v-if="title.objectLocation.isDefinedAndSaved" title="Object location ✔">
-              <HouseFill class="me-1" />
-            </abbr>
-            <span>{{ title.file }}</span>
+            <span class="icon-link">
+              <abbr v-if="title.coordinates.isDefinedAndSaved" title="Location ✔">
+                <CameraFill />
+              </abbr>
+              <abbr v-if="title.objectLocation.isDefinedAndSaved" title="Object location ✔">
+                <HouseFill />
+              </abbr>
+              <span>{{ title.file }}</span>
+            </span>
           </li>
         </TransitionGroup>
       </div>

@@ -5,18 +5,20 @@
     :disabled="!(coordinates?.isChanged || objectLocation?.isChanged)"
     @click="editLocation()"
   >
-    <Save class="me-1" />
-    {{ t('Save') }}
-    <kbd v-if="isMacOS">⌘ + S</kbd>
-    <kbd v-else>Ctrl + S</kbd>
+    <span class="icon-link">
+      <Save />
+      {{ t('Save') }}
+      <kbd v-if="isMacOS">⌘ + S</kbd>
+      <kbd v-else>Ctrl + S</kbd>
+    </span>
   </button>
   <div class="card mt-2">
     <div class="card-body p-2">
       <div>
-        <label @click="collapseCameraLocation = !collapseCameraLocation">
-          <span v-show="!collapseCameraLocation" class="text-secondary me-1">▼</span>
-          <span v-show="collapseCameraLocation" class="text-secondary me-1">▶</span>
-          <CameraFill class="me-1" />
+        <label class="icon-link" @click="collapseCameraLocation = !collapseCameraLocation">
+          <CaretRight v-if="collapseCameraLocation" />
+          <CaretDown v-else />
+          <CameraFill />
           <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="msgCameraLocation"></span>
           <abbr
@@ -36,10 +38,10 @@
   <div class="card mt-2">
     <div class="card-body p-2">
       <div>
-        <label @click="collapseObjectLocation = !collapseObjectLocation">
-          <span v-show="!collapseObjectLocation" class="text-secondary me-1">▼</span>
-          <span v-show="collapseObjectLocation" class="text-secondary me-1">▶</span>
-          <HouseFill class="me-1" />
+        <label class="icon-link" @click="collapseObjectLocation = !collapseObjectLocation">
+          <CaretRight v-if="collapseObjectLocation" />
+          <CaretDown v-else />
+          <HouseFill />
           <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="msgObjectLocation"></span>
           <abbr
@@ -89,6 +91,8 @@ import ltFileMetadata from './ltFileMetadata.vue';
 import ltLocationInput from './ltLocationInput.vue';
 import {FileDetails} from '../api/ltData';
 import {t} from './useI18n';
+import CaretDown from 'bootstrap-icons/icons/caret-down.svg?component';
+import CaretRight from 'bootstrap-icons/icons/caret-right.svg?component';
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?component';
 import CameraFill from 'bootstrap-icons/icons/camera-fill.svg?component';
 import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
