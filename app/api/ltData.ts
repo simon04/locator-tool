@@ -268,13 +268,13 @@ export async function getUsersForPrefix(prefix: string): Promise<string[]> {
 }
 
 export type FilesOptions = {
-  files: CommonsTitle | CommonsTitle[];
-  user: string;
-  userLimit: string | number | undefined;
-  userStart: string | undefined;
-  userEnd: string | undefined;
-  category: string;
-  categoryDepth: string | number | undefined;
+  files?: CommonsTitle | CommonsTitle[];
+  user?: string;
+  userLimit?: string;
+  userStart?: string;
+  userEnd?: string;
+  category?: string;
+  categoryDepth?: string;
 };
 
 export async function getFiles({
@@ -285,7 +285,9 @@ export async function getFiles({
   userEnd,
   category,
   categoryDepth
-}: FilesOptions): Promise<CommonsTitle[]> {
+}: FilesOptions & {userLimit?: string | number; categoryDepth?: string | number}): Promise<
+  CommonsTitle[]
+> {
   if (typeof files === 'string') {
     files = files.split('|');
   }

@@ -1,6 +1,7 @@
 import {createApp} from 'vue';
-import {createRouter, createWebHashHistory} from 'vue-router';
+import {createRouter, createWebHashHistory, RouteRecordInfo} from 'vue-router';
 import App from './App.vue';
+import {FilesOptions} from './api/ltData';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -35,5 +36,19 @@ const router = createRouter({
     }
   ]
 });
+
+interface RouteNamedMap {
+  about: RouteRecordInfo<'about', '/about', Record<never, never>, Record<never, never>>;
+  select: RouteRecordInfo<'select', '/', FilesOptions, FilesOptions>;
+  geolocate: RouteRecordInfo<'geolocate', '/geolocate', FilesOptions, FilesOptions>;
+  map: RouteRecordInfo<'map', '/map', FilesOptions, FilesOptions>;
+  gallery: RouteRecordInfo<'gallery', '/gallery', FilesOptions, FilesOptions>;
+}
+
+declare module 'vue-router' {
+  interface TypesConfig {
+    RouteNamedMap: RouteNamedMap;
+  }
+}
 
 createApp(App).use(router).mount('#app');
