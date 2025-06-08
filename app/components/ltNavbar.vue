@@ -23,7 +23,7 @@
         </li>
         <li class="nav-item">
           <router-link
-            v-show="activateLinks"
+            v-show="hasFilesUserCategory"
             class="nav-link icon-link"
             :to="{name: 'geolocate', query: $query}"
           >
@@ -33,7 +33,7 @@
         </li>
         <li class="nav-item">
           <router-link
-            v-show="activateLinks"
+            v-show="hasFilesUserCategory"
             class="nav-link icon-link"
             :to="{name: 'map', query: $query}"
           >
@@ -43,7 +43,7 @@
         </li>
         <li class="nav-item">
           <router-link
-            v-show="activateLinks"
+            v-show="hasFilesUserCategory"
             class="nav-link icon-link"
             :to="{name: 'gallery', query: $query}"
           >
@@ -70,7 +70,6 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from 'vue';
 import ltDarkModeToggle from './ltDarkModeToggle.vue';
 import ltLanguageSelector from './ltLanguageSelector.vue';
 import ltUserInfo from './ltUserInfo.vue';
@@ -81,8 +80,5 @@ import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
 import ListTask from 'bootstrap-icons/icons/list-task.svg?component';
 import {useLtRoute} from './useLtRoute';
 
-const {$query} = useLtRoute();
-const activateLinks = computed(
-  () => $query.value?.files || $query.value?.user || $query.value?.category
-);
+const {$query, hasFilesUserCategory} = useLtRoute();
 </script>
