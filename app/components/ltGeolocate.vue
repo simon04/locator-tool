@@ -121,8 +121,8 @@ import Search from 'bootstrap-icons/icons/search.svg?component';
 import {useLtRoute} from './useLtRoute';
 
 const {$query} = useLtRoute();
-const category = $query.category;
-const user = $query.user;
+const category = $query.value.category;
+const user = $query.value.user;
 const $error = ref<unknown>();
 const $filter = ref('');
 const $showGeolocated = ref(false);
@@ -134,7 +134,7 @@ useAppTitle(routeTitlePart(), t('Geolocate files'));
 
 onMounted(async () => {
   isLoading.value = true;
-  const titles0 = await ltData.getFiles($query);
+  const titles0 = await ltData.getFiles($query.value);
   const titles = await ltData.getCoordinates(titles0);
   $titles.value = titles.sort((t1, t2) => t1.file.localeCompare(t2.file));
   $showGeolocated.value = $titles.value.length <= 5;

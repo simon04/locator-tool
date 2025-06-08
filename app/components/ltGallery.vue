@@ -75,7 +75,7 @@ const sortedTitles = useSorted(
 useAppTitle(routeTitlePart(), t('Gallery'));
 
 onMounted(async () => {
-  const titles0 = await getFiles($query);
+  const titles0 = await getFiles($query.value);
   const titles1 = await getCoordinates(titles0);
   titles.value = titles1 as unknown as (CommonsFile & FileDetails)[];
   isLoading.value = false;

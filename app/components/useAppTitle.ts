@@ -15,6 +15,7 @@ export function useAppTitle(...titles: MaybeRef<string | null | undefined>[]) {
 export function routeTitlePart() {
   const {$query} = useLtRoute();
   return computed(
-    () => $query.category?.replace(/_/, ' ') || $query.user?.replace(/_/, ' ') || undefined
+    () =>
+      $query.value.category?.replace(/_/, ' ') || $query.value.user?.replace(/_/, ' ') || undefined
   );
 }

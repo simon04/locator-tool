@@ -22,7 +22,7 @@ useAppTitle(routeTitlePart(), t('Map'));
 
 onMounted(async () => {
   const {map} = useLeafletMap(mapRef);
-  const titles = await ltData.getFiles($query);
+  const titles = await ltData.getFiles($query.value);
   const files = await ltData.getCoordinates(titles);
   const bounds = files.flatMap(title => {
     if (!title.coordinates.isDefined) return [];

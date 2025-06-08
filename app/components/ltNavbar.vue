@@ -82,5 +82,7 @@ import ListTask from 'bootstrap-icons/icons/list-task.svg?component';
 import {useLtRoute} from './useLtRoute';
 
 const {$query} = useLtRoute();
-const activateLinks = computed(() => $query?.files || $query?.user || $query?.category);
+const activateLinks = computed(
+  () => $query.value?.files || $query.value?.user || $query.value?.category
+);
 </script>

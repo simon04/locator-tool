@@ -212,14 +212,14 @@ const {$query} = useLtRoute();
 const $routes = useRouter();
 
 const isLoading = ref(false);
-const $tab = ref<Tab>($query.user ? Tab.USER : Tab.CATEGORY);
-const category = ref<string>($query.category);
-const categoryDepth = ref(tryParse(parseInt, $query.categoryDepth, 3));
+const $tab = ref<Tab>($query.value.user ? Tab.USER : Tab.CATEGORY);
+const category = ref<string | undefined>($query.value.category);
+const categoryDepth = ref(tryParse(parseInt, $query.value.categoryDepth, 3));
 const categorySuggestions = ref<string[]>([]);
-const user = ref<string>($query.user);
-const userLimit = ref(tryParse(parseInt, $query.userLimit, undefined));
-const userStart = ref<string>($query.userStart);
-const userEnd = ref<string>($query.userEnd);
+const user = ref<string | undefined>($query.value.user);
+const userLimit = ref(tryParse(parseInt, $query.value.userLimit, undefined));
+const userStart = ref<string | undefined>($query.value.userStart);
+const userEnd = ref<string | undefined>($query.value.userEnd);
 const userSuggestions = ref<string[]>([]);
 const titles = ref<string>('');
 
