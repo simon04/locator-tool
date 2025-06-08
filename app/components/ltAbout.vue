@@ -53,7 +53,7 @@
       {{ ' ' }}
       <time :datetime="buildDate">{{ buildDate }}</time
       >,
-      <a ng-href="https://github.com/simon04/locator-tool/commit/{{buildVersion}}">
+      <a :href="buildVersionLink">
         <code>{{ buildVersion }}</code>
       </a>
     </li>
@@ -102,6 +102,9 @@ const msg = computed(() => ({
 const appDependencies = JSON.parse(import.meta.env.VITE_APP_DEPENDENCIES);
 const buildDate = import.meta.env.VITE_BUILD_DATE;
 const buildVersion = import.meta.env.VITE_BUILD_VERSION;
+const buildVersionLink = computed(
+  () => 'https://github.com/simon04/locator-tool/commit/' + buildVersion
+);
 </script>
 
 <style>
