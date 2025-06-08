@@ -1,8 +1,7 @@
 import {MaybeRef, computed, unref} from 'vue';
 import {t} from './useI18n';
 import {useTitle} from '@vueuse/core';
-import {useRoute} from 'vue-router';
-import {FilesOptions} from '../api/ltData';
+import {useLtRoute} from './useLtRoute';
 
 export function useAppTitle(...titles: MaybeRef<string | null | undefined>[]) {
   const title = computed(() =>
@@ -14,11 +13,8 @@ export function useAppTitle(...titles: MaybeRef<string | null | undefined>[]) {
 }
 
 export function routeTitlePart() {
-  const $route = useRoute();
+  const {$query} = useLtRoute();
   return computed(
-    () =>
-      ($route.query as FilesOptions).category?.replace(/_/, ' ') ||
-      ($route.query as FilesOptions).user?.replace(/_/, ' ') ||
-      undefined
+    () => $query.category?.replace(/_/, ' ') || $query.user?.replace(/_/, ' ') || undefined
   );
 }

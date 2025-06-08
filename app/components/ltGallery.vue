@@ -38,9 +38,8 @@
 
 <script setup lang="ts">
 import {onMounted, ref} from 'vue';
-import {useRoute} from 'vue-router';
 import {useSorted} from '@vueuse/core';
-import {FileDetails, FilesOptions, getFileDetails} from '../api/ltData';
+import {FileDetails, getFileDetails} from '../api/ltData';
 import {getCoordinates} from '../api/ltData';
 import {getFiles} from '../api/ltData';
 import {CommonsFile} from '../model';
@@ -50,8 +49,9 @@ import {useAppTitle, routeTitlePart} from './useAppTitle';
 import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
 import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
 import ltGalleryCard from './ltGalleryCard.vue';
+import {useLtRoute} from './useLtRoute';
 
-const $route = useRoute();
+const {$query} = useLtRoute();
 const isLoading = ref(true);
 const titles = ref<(CommonsFile & FileDetails)[]>([]);
 
@@ -75,7 +75,7 @@ const sortedTitles = useSorted(
 useAppTitle(routeTitlePart(), t('Gallery'));
 
 onMounted(async () => {
-  const titles0 = await getFiles($route.query as FilesOptions);
+  const titles0 = await getFiles($query);
   const titles1 = await getCoordinates(titles0);
   titles.value = titles1 as unknown as (CommonsFile & FileDetails)[];
   isLoading.value = false;

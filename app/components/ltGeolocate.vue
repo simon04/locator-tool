@@ -106,7 +106,6 @@
 
 <script setup lang="ts">
 import {ref, computed, onMounted, watch} from 'vue';
-import {useRoute} from 'vue-router';
 import * as ltData from '../api/ltData';
 import {CommonsFile} from '../model';
 import ltSpinner from './ltSpinner.vue';
@@ -119,10 +118,11 @@ import CameraFill from 'bootstrap-icons/icons/camera-fill.svg?component';
 import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
 import Search from 'bootstrap-icons/icons/search.svg?component';
+import {useLtRoute} from './useLtRoute';
 
-const $route = useRoute();
-const category = ($route.query as ltData.FilesOptions).category;
-const user = ($route.query as ltData.FilesOptions).user;
+const {$query} = useLtRoute();
+const category = $query.category;
+const user = $query.user;
 const $error = ref<unknown>();
 const $filter = ref('');
 const $showGeolocated = ref(false);
@@ -134,7 +134,7 @@ useAppTitle(routeTitlePart(), t('Geolocate files'));
 
 onMounted(async () => {
   isLoading.value = true;
-  const titles0 = await ltData.getFiles($route.query as ltData.FilesOptions);
+  const titles0 = await ltData.getFiles($query);
   const titles = await ltData.getCoordinates(titles0);
   $titles.value = titles.sort((t1, t2) => t1.file.localeCompare(t2.file));
   $showGeolocated.value = $titles.value.length <= 5;

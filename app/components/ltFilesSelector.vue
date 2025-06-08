@@ -193,13 +193,14 @@ import {computed, ref} from 'vue';
 import {watchDebounced} from '@vueuse/core';
 import * as ltData from '../api/ltData';
 import {getUserInfo, loginURL} from '../api/ltDataAuth';
-import {useRoute, useRouter} from 'vue-router';
+import {useRouter} from 'vue-router';
 import ltSpinner from './ltSpinner.vue';
 import {t} from './useI18n';
 import DoorOpen from 'bootstrap-icons/icons/door-open.svg?component';
 import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
+import {useLtRoute} from './useLtRoute';
 
 enum Tab {
   CATEGORY = 1,
@@ -207,18 +208,18 @@ enum Tab {
   FILES = 3
 }
 
-const $route = useRoute();
+const {$query} = useLtRoute();
 const $routes = useRouter();
 
 const isLoading = ref(false);
-const $tab = ref<Tab>($route.query.user ? Tab.USER : Tab.CATEGORY);
-const category = ref<string>($route.query.category as string);
-const categoryDepth = ref(tryParse(parseInt, $route.query.categoryDepth as string, 3));
+const $tab = ref<Tab>($query.user ? Tab.USER : Tab.CATEGORY);
+const category = ref<string>($query.category);
+const categoryDepth = ref(tryParse(parseInt, $query.categoryDepth, 3));
 const categorySuggestions = ref<string[]>([]);
-const user = ref<string>($route.query.user as string);
-const userLimit = ref(tryParse(parseInt, $route.query.userLimit as string, undefined));
-const userStart = ref<string>($route.query.userStart as string);
-const userEnd = ref<string>($route.query.userEnd as string);
+const user = ref<string>($query.user);
+const userLimit = ref(tryParse(parseInt, $query.userLimit, undefined));
+const userStart = ref<string>($query.userStart);
+const userEnd = ref<string>($query.userEnd);
 const userSuggestions = ref<string[]>([]);
 const titles = ref<string>('');
 

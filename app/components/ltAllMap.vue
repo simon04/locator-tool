@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import {App, createApp, onMounted, reactive, ref} from 'vue';
-import {useRoute, useRouter} from 'vue-router';
+import {useRouter} from 'vue-router';
 import * as L from 'leaflet';
 import * as ltData from '../api/ltData';
 import {useLeafletMap} from './useLeafletMap';
@@ -12,8 +12,9 @@ import {t} from './useI18n';
 import {useAppTitle, routeTitlePart} from './useAppTitle';
 import LtGalleryCard from './ltGalleryCard.vue';
 import type {CommonsFile} from '../model';
+import {useLtRoute} from './useLtRoute';
 
-const $route = useRoute();
+const {$query} = useLtRoute();
 const $router = useRouter();
 const mapRef = ref<HTMLElement | null>(null);
 
@@ -21,7 +22,7 @@ useAppTitle(routeTitlePart(), t('Map'));
 
 onMounted(async () => {
   const {map} = useLeafletMap(mapRef);
-  const titles = await ltData.getFiles($route.query as ltData.FilesOptions);
+  const titles = await ltData.getFiles($query);
   const files = await ltData.getCoordinates(titles);
   const bounds = files.flatMap(title => {
     if (!title.coordinates.isDefined) return [];

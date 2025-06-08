@@ -14,7 +14,7 @@
         <li class="nav-item">
           <router-link
             class="nav-link icon-link"
-            :to="{name: 'select', query: $route.query}"
+            :to="{name: 'select', query: $query}"
             :title="t('Select files to geolocate')"
           >
             <ListTask />
@@ -25,7 +25,7 @@
           <router-link
             v-show="activateLinks"
             class="nav-link icon-link"
-            :to="{name: 'geolocate', query: $route.query}"
+            :to="{name: 'geolocate', query: $query}"
           >
             <GeoAlt />
             <span>{{ t('Geolocate files') }}</span>
@@ -35,7 +35,7 @@
           <router-link
             v-show="activateLinks"
             class="nav-link icon-link"
-            :to="{name: 'map', query: $route.query}"
+            :to="{name: 'map', query: $query}"
           >
             <GlobeEuropeAfrica />
             <span>{{ t('Map') }}</span>
@@ -45,7 +45,7 @@
           <router-link
             v-show="activateLinks"
             class="nav-link icon-link"
-            :to="{name: 'gallery', query: $route.query}"
+            :to="{name: 'gallery', query: $query}"
           >
             <FileImage />
             <span>{{ t('Gallery') }}</span>
@@ -71,7 +71,6 @@
 
 <script setup lang="ts">
 import {computed} from 'vue';
-import {useRoute} from 'vue-router';
 import ltDarkModeToggle from './ltDarkModeToggle.vue';
 import ltLanguageSelector from './ltLanguageSelector.vue';
 import ltUserInfo from './ltUserInfo.vue';
@@ -80,13 +79,8 @@ import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
 import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
 import ListTask from 'bootstrap-icons/icons/list-task.svg?component';
-import {FilesOptions} from '../api/ltData';
+import {useLtRoute} from './useLtRoute';
 
-const $route = useRoute();
-const activateLinks = computed(
-  () =>
-    ($route.query as FilesOptions)?.files ||
-    ($route.query as FilesOptions)?.user ||
-    ($route.query as FilesOptions)?.category
-);
+const {$query} = useLtRoute();
+const activateLinks = computed(() => $query?.files || $query?.user || $query?.category);
 </script>
