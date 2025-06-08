@@ -854,19 +854,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap-icons@npm:^1.11.3":
-  version: 1.11.3
-  resolution: "bootstrap-icons@npm:1.11.3"
-  checksum: 10c0/37eefd418c6bbbb304bdff0f2ed527f82c3c6f331d3e3a7c4aa8bbdbaf7118bb86725b024f85e7d738c613d48c7353cd81c09e58e9d8d34c5633960fdec8410b
+"bootstrap-icons@npm:^1.13.1":
+  version: 1.13.1
+  resolution: "bootstrap-icons@npm:1.13.1"
+  checksum: 10c0/2c1adeb1796502e67b476ce049c86bc3a7ff7984c61777e056820389a8db5ec6535c12a33f76f3ed52674bca4c01472065a7fbcde6cc384ebb86c2eae51390bd
   languageName: node
   linkType: hard
 
-"bootstrap@npm:^5.3.0":
-  version: 5.3.0
-  resolution: "bootstrap@npm:5.3.0"
+"bootstrap@npm:^5.3.6":
+  version: 5.3.6
+  resolution: "bootstrap@npm:5.3.6"
   peerDependencies:
-    "@popperjs/core": ^2.11.7
-  checksum: 10c0/5c639d137d015bf37415f6a4257ffa33a70322af2be5d51476c1be22ae200964931ff61e1692837d6575be559c8d34e82923423257bdbe501179b8b3aa4c8c95
+    "@popperjs/core": ^2.11.8
+  checksum: 10c0/1b3f8f4f265463b3cd6aece84135b521ff55f3225a5c16c6981fdd8fb2bfb53b35b0815bff63382e5c83f6d537c017ae8392afe34366d5d547e4fd507d086e1c
   languageName: node
   linkType: hard
 
@@ -2185,8 +2185,8 @@ __metadata:
     "@vueuse/core": "npm:^13.3.0"
     angular-gettext-cli: "npm:^1.2.0"
     angular-gettext-tools: "npm:^2.5.3"
-    bootstrap: "npm:^5.3.0"
-    bootstrap-icons: "npm:^1.11.3"
+    bootstrap: "npm:^5.3.6"
+    bootstrap-icons: "npm:^1.13.1"
     deepmerge: "npm:^4.2.2"
     eslint: "npm:^9.18.0"
     eslint-config-prettier: "npm:^10.0.1"
