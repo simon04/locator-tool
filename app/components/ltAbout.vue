@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <h2 class="mt-4">
-    <GeoAlt class="me-1" style="width: 2rem; height: 2rem" />
+  <h2 class="mt-4 icon-link">
+    <GeoAlt />
     <span>{{ t('locator-tool') }}</span>
   </h2>
   <p v-html="msg.summary"></p>
@@ -34,22 +34,19 @@
     <li v-html="msg.creator"></li>
     <li v-html="msg.code"></li>
     <li>
-      <ClockHistory class="me-1" />
-      <span>
-        <a
-          href="https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&amp;tagfilter=OAuth+CID%3A+1857"
-        >
-          <span>{{ t('Edits using locator-tool') }}</span>
-        </a>
-      </span>
+      <a
+        href="https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&amp;tagfilter=OAuth+CID%3A+1857"
+        class="icon-link"
+      >
+        <ClockHistory />
+        <span>{{ t('Edits using locator-tool') }}</span>
+      </a>
     </li>
     <li>
-      <ChatLeft class="me-1" />
-      <span>
-        <a href="https://www.transifex.com/locator-tool/locator-tool/">
-          <span>{{ t('Translate locator-tool on Transifex') }}</span>
-        </a>
-      </span>
+      <a href="https://www.transifex.com/locator-tool/locator-tool/" class="icon-link">
+        <ChatLeft />
+        <span>{{ t('Translate locator-tool on Transifex') }}</span>
+      </a>
     </li>
     <li>
       <span>{{ t('Version:') }}</span>

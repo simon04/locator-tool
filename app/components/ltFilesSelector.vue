@@ -5,8 +5,8 @@
     <span>
       {{ t('In order to allow locator-tool to modify file description pages, sign in first:') }}
     </span>
-    <a class="btn btn-success ms-2" :href="loginURL()">
-      <DoorOpen class="me-1" />
+    <a class="btn btn-success icon-link ms-2" :href="loginURL()">
+      <DoorOpen />
       <span>{{ t('Log in') }}</span>
     </a>
   </p>
@@ -61,16 +61,24 @@
       </div>
     </div>
     <div class="mb-4">
-      <button class="btn btn-success me-2" :disabled="!user" @click="nextForUser()">
-        <GeoAlt class="me-1" />
+      <button class="btn btn-success icon-link me-2" :disabled="!user" @click="nextForUser()">
+        <GeoAlt />
         <span>{{ t('Load User files to geolocate') }}</span>
       </button>
-      <button class="btn btn-secondary me-2" :disabled="!user" @click="nextForUser('map')">
-        <GlobeEuropeAfrica class="me-1" />
+      <button
+        class="btn btn-secondary icon-link me-2"
+        :disabled="!user"
+        @click="nextForUser('map')"
+      >
+        <GlobeEuropeAfrica />
         <span>{{ t('Show User files on map') }}</span>
       </button>
-      <button class="btn btn-secondary me-2" :disabled="!user" @click="nextForUser('gallery')">
-        <FileImage class="me-1" />
+      <button
+        class="btn btn-secondary icon-link me-2"
+        :disabled="!user"
+        @click="nextForUser('gallery')"
+      >
+        <FileImage />
         <span>{{ t('Show User files as gallery') }}</span>
       </button>
       <input class="invisible" type="submit" :disabled="!user" />
@@ -104,20 +112,28 @@
       </div>
     </div>
     <div class="mb-4">
-      <button class="btn btn-success me-2" :disabled="!category" @click="nextForCategory()">
-        <GeoAlt class="me-1" />
+      <button
+        class="btn btn-success icon-link me-2"
+        :disabled="!category"
+        @click="nextForCategory()"
+      >
+        <GeoAlt />
         <span>{{ t('Load Category to geolocate') }}</span>
       </button>
-      <button class="btn btn-secondary me-2" :disabled="!category" @click="nextForCategory('map')">
-        <GlobeEuropeAfrica class="me-1" />
+      <button
+        class="btn btn-secondary icon-link me-2"
+        :disabled="!category"
+        @click="nextForCategory('map')"
+      >
+        <GlobeEuropeAfrica />
         <span>{{ t('Show Category on map') }}</span>
       </button>
       <button
-        class="btn btn-secondary me-2"
+        class="btn btn-secondary icon-link me-2"
         :disabled="!category"
         @click="nextForCategory('gallery')"
       >
-        <FileImage class="me-1" />
+        <FileImage />
         <span>{{ t('Show Category as gallery') }}</span>
       </button>
       <input class="invisible" type="submit" :disabled="!category" />
@@ -148,16 +164,24 @@
       ></p>
     </div>
     <div class="mb-4">
-      <button class="btn btn-success me-2" :disabled="!titleList.length" @click="next()">
-        <GeoAlt class="me-1" />
+      <button class="btn btn-success icon-link me-2" :disabled="!titleList.length" @click="next()">
+        <GeoAlt />
         <span>{{ msgLoadGeolocate }}</span>
       </button>
-      <button class="btn btn-secondary me-2" :disabled="!titleList.length" @click="next('map')">
-        <GlobeEuropeAfrica class="me-1" />
+      <button
+        class="btn btn-secondary icon-link me-2"
+        :disabled="!titleList.length"
+        @click="next('map')"
+      >
+        <GlobeEuropeAfrica />
         <span>{{ msgShowMap }}</span>
       </button>
-      <button class="btn btn-secondary me-2" :disabled="!titleList.length" @click="next('gallery')">
-        <FileImage class="me-1" />
+      <button
+        class="btn btn-secondary icon-link me-2"
+        :disabled="!titleList.length"
+        @click="next('gallery')"
+      >
+        <FileImage />
         <span>{{ msgShowGallery }}</span>
       </button>
     </div>

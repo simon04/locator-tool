@@ -13,41 +13,41 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <router-link
-            class="nav-link"
+            class="nav-link icon-link"
             :to="{name: 'select', query: $route.query}"
             :title="t('Select files to geolocate')"
           >
-            <ListTask class="me-1" />
+            <ListTask />
             <span>{{ t('Select files') }}</span>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link
             v-show="activateLinks"
-            class="nav-link"
+            class="nav-link icon-link"
             :to="{name: 'geolocate', query: $route.query}"
           >
-            <GeoAlt class="me-1" />
+            <GeoAlt />
             <span>{{ t('Geolocate files') }}</span>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link
             v-show="activateLinks"
-            class="nav-link"
+            class="nav-link icon-link"
             :to="{name: 'map', query: $route.query}"
           >
-            <GlobeEuropeAfrica class="me-1" />
+            <GlobeEuropeAfrica />
             <span>{{ t('Map') }}</span>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link
             v-show="activateLinks"
-            class="nav-link"
+            class="nav-link icon-link"
             :to="{name: 'gallery', query: $route.query}"
           >
-            <FileImage class="me-1" />
+            <FileImage />
             <span>{{ t('Gallery') }}</span>
           </router-link>
         </li>
