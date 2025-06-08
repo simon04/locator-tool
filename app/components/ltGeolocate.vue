@@ -121,8 +121,8 @@ import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
 import Search from 'bootstrap-icons/icons/search.svg?component';
 
 const $route = useRoute();
-const category: string = $route.query.category as string;
-const user: string = $route.query.user as string;
+const category = ($route.query as ltData.FilesOptions).category;
+const user = ($route.query as ltData.FilesOptions).user;
 const $error = ref<unknown>();
 const $filter = ref('');
 const $showGeolocated = ref(false);
@@ -134,8 +134,7 @@ useAppTitle(routeTitlePart(), t('Geolocate files'));
 
 onMounted(async () => {
   isLoading.value = true;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const titles0 = await ltData.getFiles($route.query as any);
+  const titles0 = await ltData.getFiles($route.query as ltData.FilesOptions);
   const titles = await ltData.getCoordinates(titles0);
   $titles.value = titles.sort((t1, t2) => t1.file.localeCompare(t2.file));
   $showGeolocated.value = $titles.value.length <= 5;

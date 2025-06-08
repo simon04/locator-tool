@@ -267,6 +267,16 @@ export async function getUsersForPrefix(prefix: string): Promise<string[]> {
   return (data.query.allusers || []).map(i => i.name);
 }
 
+export type FilesOptions = {
+  files: CommonsTitle | CommonsTitle[];
+  user: string;
+  userLimit: string | number | undefined;
+  userStart: string | undefined;
+  userEnd: string | undefined;
+  category: string;
+  categoryDepth: string | number | undefined;
+};
+
 export async function getFiles({
   files,
   user,
@@ -275,15 +285,7 @@ export async function getFiles({
   userEnd,
   category,
   categoryDepth
-}: {
-  files: CommonsTitle | CommonsTitle[];
-  user: string;
-  userLimit: string | number | undefined;
-  userStart: string | undefined;
-  userEnd: string | undefined;
-  category: string;
-  categoryDepth: string | number | undefined;
-}): Promise<CommonsTitle[]> {
+}: FilesOptions): Promise<CommonsTitle[]> {
   if (typeof files === 'string') {
     files = files.split('|');
   }

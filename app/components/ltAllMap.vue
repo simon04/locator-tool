@@ -21,8 +21,7 @@ useAppTitle(routeTitlePart(), t('Map'));
 
 onMounted(async () => {
   const {map} = useLeafletMap(mapRef);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const titles = await ltData.getFiles($route.query as any);
+  const titles = await ltData.getFiles($route.query as ltData.FilesOptions);
   const files = await ltData.getCoordinates(titles);
   const bounds = files.flatMap(title => {
     if (!title.coordinates.isDefined) return [];

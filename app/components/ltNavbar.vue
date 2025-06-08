@@ -80,9 +80,13 @@ import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
 import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
 import ListTask from 'bootstrap-icons/icons/list-task.svg?component';
+import {FilesOptions} from '../api/ltData';
 
 const $route = useRoute();
 const activateLinks = computed(
-  () => $route.query?.files || $route.query?.user || $route.query?.category
+  () =>
+    ($route.query as FilesOptions)?.files ||
+    ($route.query as FilesOptions)?.user ||
+    ($route.query as FilesOptions)?.category
 );
 </script>

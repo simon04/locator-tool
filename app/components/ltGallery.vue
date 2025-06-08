@@ -40,7 +40,7 @@
 import {onMounted, ref} from 'vue';
 import {useRoute} from 'vue-router';
 import {useSorted} from '@vueuse/core';
-import {FileDetails, getFileDetails} from '../api/ltData';
+import {FileDetails, FilesOptions, getFileDetails} from '../api/ltData';
 import {getCoordinates} from '../api/ltData';
 import {getFiles} from '../api/ltData';
 import {CommonsFile} from '../model';
@@ -75,8 +75,7 @@ const sortedTitles = useSorted(
 useAppTitle(routeTitlePart(), t('Gallery'));
 
 onMounted(async () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const titles0 = await getFiles($route.query as any);
+  const titles0 = await getFiles($route.query as FilesOptions);
   const titles1 = await getCoordinates(titles0);
   titles.value = titles1 as unknown as (CommonsFile & FileDetails)[];
   isLoading.value = false;
