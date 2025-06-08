@@ -14,7 +14,7 @@ import LtGalleryCard from './ltGalleryCard.vue';
 import type {CommonsFile} from '../model';
 import {useLtRoute} from './useLtRoute';
 
-const {$query} = useLtRoute();
+const {$query, hasFilesUserCategory} = useLtRoute();
 const $router = useRouter();
 const mapRef = ref<HTMLElement | null>(null);
 
@@ -22,19 +22,39 @@ useAppTitle(routeTitlePart(), t('Map'));
 
 onMounted(async () => {
   const {map} = useLeafletMap(mapRef);
-  const titles = await ltData.getFiles($query.value);
-  const files = await ltData.getCoordinates(titles);
-  const bounds = files.flatMap(title => {
-    if (!title.coordinates.isDefined) return [];
-    const {lat, lng} = title.coordinates;
-    const marker = new L.CircleMarker({lat, lng}, {color: '#2a4b8d'})
-      .bindTooltip(title.file)
-      .bindPopup(buildPopup(title))
-      .addTo(map);
-    return [marker.getLatLng()];
-  });
-  map.fitBounds(bounds);
+  if (hasFilesUserCategory.value) {
+    const titles = await ltData.getFiles($query.value);
+    const files = await ltData.getCoordinates(titles);
+    const bounds = files.flatMap(title => {
+      const marker = buildMarker(title);
+      marker?.addTo(map);
+      return marker ? [marker.getLatLng()] : [];
+    });
+    map.fitBounds(bounds);
+  } else {
+    geosearch(map);
+    map.on('moveend', () => geosearch(map));
+    map.on('zoomend', () => geosearch(map));
+  }
 });
+
+async function geosearch(map: L.Map) {
+  const files = await ltData.geosearch(map.getBounds());
+  map.eachLayer(l => {
+    if (l instanceof L.CircleMarker && !l.isPopupOpen()) {
+      map.removeLayer(l);
+    }
+  });
+  files.forEach(f => buildMarker(f)?.addTo(map));
+}
+
+function buildMarker(title: CommonsFile): L.CircleMarker | undefined {
+  if (!title.coordinates.isDefined) return;
+  const {lat, lng} = title.coordinates;
+  return new L.CircleMarker({lat, lng}, {color: '#2a4b8d'})
+    .bindTooltip(title.file)
+    .bindPopup(buildPopup(title));
+}
 
 function buildPopup(title: CommonsFile): L.Popup {
   let app: App;
