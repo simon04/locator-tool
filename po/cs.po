@@ -1,16 +1,17 @@
 # 
 # Translators:
 # frettie <frettie@gmail.com>, 2017,2020
-# trendspotter <jirka.p@volny.cz>, 2019
-# trendspotter <jirka.p@volny.cz>, 2022
-# trendspotter <jirka.p@volny.cz>, 2019
+# Jiří Podhorecký <jirka.p@volny.cz>, 2025
+# Jiří Podhorecký <jirka.p@volny.cz>, 2019
+# Jiří Podhorecký <jirka.p@volny.cz>, 2022
+# Jiří Podhorecký <jirka.p@volny.cz>, 2019
 # Simon Legner <simon.legner@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: locator-tool\n"
 "PO-Revision-Date: 2016-05-19 10:23+0000\n"
-"Last-Translator: trendspotter <jirka.p@volny.cz>, 2022\n"
-"Language-Team: Czech (http://www.transifex.com/locator-tool/locator-tool/language/cs/)\n"
+"Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2025\n"
+"Language-Team: Czech (http://app.transifex.com/locator-tool/locator-tool/language/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
@@ -274,3 +275,23 @@ msgid ""
 "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
 "tool\">Commons:Locator-tool</a>"
 msgstr "→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-tool\">Commons:Locator-tool</a>"
+
+#: ./app/components/ltGallery.vue
+msgid "Sorting"
+msgstr "Řazení"
+
+#: ./app/components/ltGallery.vue
+msgid "Title"
+msgstr "Název"
+
+#: ./app/components/ltGallery.vue
+msgid "Description"
+msgstr "Popis"
+
+#: ./app/components/ltGallery.vue
+msgid "Author"
+msgstr "Autor"
+
+#: ./app/components/ltGallery.vue
+msgid "Date"
+msgstr "Datum"
