@@ -294,11 +294,11 @@ export async function getFiles({
   if (files) {
     return files.map(file => (file.startsWith('File:') ? file : `File:${file}`));
   } else if (user) {
-    userLimit = typeof userLimit === 'string' ? +userLimit : userLimit;
-    return getFilesForUser(user, userLimit, userStart, userEnd);
+    const userLimit0 = typeof userLimit === 'string' ? +userLimit : userLimit;
+    return getFilesForUser(user, userLimit0, userStart, userEnd);
   } else if (category) {
-    categoryDepth = typeof categoryDepth === 'string' ? +categoryDepth : categoryDepth;
-    return getFilesForCategory(category, categoryDepth);
+    const categoryDepth0 = typeof categoryDepth === 'string' ? +categoryDepth : categoryDepth;
+    return getFilesForCategory(category, categoryDepth0);
   } else {
     throw new Error();
   }
