@@ -1,9 +1,9 @@
-import deepmerge from 'deepmerge';
 import getFilePath from 'wikimedia-commons-file-path';
 
 import {CommonsFile, CommonsTitle, LatLng, WikidataProperty} from '../model';
 import {MediaInfo, Statement} from '../model/mediainfo.ts';
 import {LatLngBounds} from 'leaflet';
+import {mergeWith} from 'es-toolkit';
 
 export const API_URL = 'https://commons.wikimedia.org/w/api.php';
 const NS_FILE = 6;
@@ -495,7 +495,11 @@ async function $query<T extends ApiResponse<any>>(
   let data = await fetchJSON<T>(url, {
     signal
   });
-  data = deepmerge(previousResults, data, {arrayMerge: (x, y) => [].concat(...x, ...y)}) as T;
+  data = mergeWith(previousResults, data, (x, y) => {
+    if (Array.isArray(x) && Array.isArray(y)) {
+      return [].concat(...x, ...y);
+    }
+  }) as T;
   if (shouldContinue(data)) {
     return $query<T>(
       {...query, continue: undefined, ...data.continue},

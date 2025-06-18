@@ -33,7 +33,7 @@
     "@vueuse/core": "^13.3.0",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
-    "deepmerge": "^4.2.2",
+    "es-toolkit": "^1.39.3",
     "leaflet": "2.0.0-alpha",
     "leaflet-control-geocoder": "^3.2.0",
     "vue": "^3.5.16",
