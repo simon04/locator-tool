@@ -1,0 +1,2 @@
+import{computed as e,t,unref as n,useLtRoute as r,useTitle as i}from"./index-BVMHuPOo.js";function a(...r){let a=e(()=>[...r.map(e=>n(e)).filter(e=>!!e),t(`locator-tool`)].join(` • `));return i(a,{restoreOnUnmount:e=>e})}function o(){let{$query:t}=r();return e(()=>{var e,n;return(e=t.value.category)?.replace(/_/,` `)||(n=t.value.user)?.replace(/_/,` `)||void 0})}export{o as routeTitlePart,a as useAppTitle};
+//# sourceMappingURL=QZAISLTL6f778zTzUSV.js.map

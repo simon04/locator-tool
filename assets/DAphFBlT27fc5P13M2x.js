@@ -1,0 +1,2 @@
+import{createBaseVNode as e,createElementBlock as t,openBlock as n}from"./index-BVMHuPOo.js";import{__plugin_vue_export_helper_default as r}from"./B972OyWIJJqKjgLc-8x.js";const i={},a={class:`progress`};function o(r,i){return n(),t(`div`,a,i[0]||=[e(`div`,{class:`progress-bar progress-bar-info progress-bar-striped active`,style:{width:`100%`}},null,-1)])}var s=r(i,[[`render`,o]]);export{s as ltSpinner_default};
+//# sourceMappingURL=DAphFBlT27fc5P13M2x.js.map
