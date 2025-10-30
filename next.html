@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en" class="w-100 h-100">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vienna - Wikipedia</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="w-100 h-100 bg-black">
+    <div id="carouselMediawiki" class="carousel slide w-100 h-100">
+      <div class="carousel-inner w-100 h-100"></div>
+
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselMediawiki"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselMediawiki"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // $$(
+      //   ".gallery .image img, a.image img, a.mw-file-description img, #file a img"
+      // ).map((img) => [img.src, mw.Title.newFromImg(img).title]);
+
+      const vienna = [
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Vienna_Austria_Skyline_Aerial%2C_October_2024.jpg/330px-Vienna_Austria_Skyline_Aerial%2C_October_2024.jpg',
+          'Vienna_Austria_Skyline_Aerial,_October_2024.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Schoenbrunn_philharmoniker_2012.jpg/250px-Schoenbrunn_philharmoniker_2012.jpg',
+          'Schoenbrunn_philharmoniker_2012.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wien_-_Stephansdom_%281%29.JPG/120px-Wien_-_Stephansdom_%281%29.JPG',
+          'Wien_-_Stephansdom_(1).JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/20180109_Vienna_State_Opera_at_blue_hour_850_9387.jpg/120px-20180109_Vienna_State_Opera_at_blue_hour_850_9387.jpg',
+          '20180109_Vienna_State_Opera_at_blue_hour_850_9387.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Merry_Christmas_%28189581451%29_%28cropped%29.jpg/120px-Merry_Christmas_%28189581451%29_%28cropped%29.jpg',
+          'Merry_Christmas_(189581451)_(cropped).jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Wien%2C_Hofburg_--_2018_--_3185.jpg/120px-Wien%2C_Hofburg_--_2018_--_3185.jpg',
+          'Wien,_Hofburg_--_2018_--_3185.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Karlskirche_Vienna%2C_September_2016.jpg/120px-Karlskirche_Vienna%2C_September_2016.jpg',
+          'Karlskirche_Vienna,_September_2016.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Palacio_Belvedere%2C_Viena%2C_Austria%2C_2020-02-01%2C_DD_93-95_HDR.jpg/250px-Palacio_Belvedere%2C_Viena%2C_Austria%2C_2020-02-01%2C_DD_93-95_HDR.jpg',
+          'Palacio_Belvedere,_Viena,_Austria,_2020-02-01,_DD_93-95_HDR.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Flag_of_Salzburg%2C_Vienna%2C_Vorarlberg.svg/120px-Flag_of_Salzburg%2C_Vienna%2C_Vorarlberg.svg.png',
+          'Flag_of_Salzburg,_Vienna,_Vorarlberg.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Vienna_seal_1926.svg/120px-Vienna_seal_1926.svg.png',
+          'Vienna_seal_1926.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Wien_3_Wappen.svg/120px-Wien_3_Wappen.svg.png',
+          'Wien_3_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Logo_Stadt_Wien_04-2019.svg/120px-Logo_Stadt_Wien_04-2019.svg.png',
+          'Logo_Stadt_Wien_04-2019.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Austria_relief_location_map.jpg/250px-Austria_relief_location_map.jpg',
+          'Austria_relief_location_map.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Europe_relief_laea_location_map.jpg/250px-Europe_relief_laea_location_map.jpg',
+          'Europe_relief_laea_location_map.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Flag_of_Austria_%281-1%29.svg/20px-Flag_of_Austria_%281-1%29.svg.png',
+          'Flag_of_Austria_(1-1).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Flag_of_Austria_%28Pantone%29.svg/40px-Flag_of_Austria_%28Pantone%29.svg.png',
+          'Flag_of_Austria_(Pantone).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Matthias_I_of_Hungary_%28variant%29.svg/40px-Flag_of_Matthias_I_of_Hungary_%28variant%29.svg.png',
+          'Flag_of_Matthias_I_of_Hungary_(variant).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Flag_of_Austria_%28Pantone%29.svg/40px-Flag_of_Austria_%28Pantone%29.svg.png',
+          'Flag_of_Austria_(Pantone).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Flag_of_Austria_%28Pantone%29.svg/40px-Flag_of_Austria_%28Pantone%29.svg.png',
+          'Flag_of_Austria_(Pantone).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Barricade_bei_der_Universit%C3%A4t_am_26ten_Mai_1848_in_Wien.jpg/250px-Barricade_bei_der_Universit%C3%A4t_am_26ten_Mai_1848_in_Wien.jpg',
+          'Barricade_bei_der_Universität_am_26ten_Mai_1848_in_Wien.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Karl_Marx_Hof.jpg/250px-Karl_Marx_Hof.jpg',
+          'Karl_Marx_Hof.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Gerlach_justizpalastbrand_2.jpg/250px-Gerlach_justizpalastbrand_2.jpg',
+          'Gerlach_justizpalastbrand_2.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Bundesarchiv_Bild_146-1972-028-14%2C_Anschluss_%C3%96sterreich.jpg/250px-Bundesarchiv_Bild_146-1972-028-14%2C_Anschluss_%C3%96sterreich.jpg',
+          'Bundesarchiv_Bild_146-1972-028-14,_Anschluss_Österreich.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Rachel_whitereadwien_holocaust_mahnmal_wien_judenplatz.jpg/250px-Rachel_whitereadwien_holocaust_mahnmal_wien_judenplatz.jpg',
+          'Rachel_whitereadwien_holocaust_mahnmal_wien_judenplatz.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Vienna_Operations.jpg/250px-Vienna_Operations.jpg',
+          'Vienna_Operations.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Wien_Besatzungszonen.png/250px-Wien_Besatzungszonen.png',
+          'Wien_Besatzungszonen.png'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Graben%2C_szemben_a_Pestisoszlop._Fortepan_58901.jpg/250px-Graben%2C_szemben_a_Pestisoszlop._Fortepan_58901.jpg',
+          'Graben,_szemben_a_Pestisoszlop._Fortepan_58901.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Vienna_by_Sentinel-2.jpg/250px-Vienna_by_Sentinel-2.jpg',
+          'Vienna_by_Sentinel-2.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Reliefkarte_Wien.png/250px-Reliefkarte_Wien.png',
+          'Reliefkarte_Wien.png'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Vienna%2C_administrative_divisions_-_Nmbrs.svg/250px-Vienna%2C_administrative_divisions_-_Nmbrs.svg.png',
+          'Vienna,_administrative_divisions_-_Nmbrs.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Street_sign_1._Graben_%28Vienna%29.jpg/250px-Street_sign_1._Graben_%28Vienna%29.jpg',
+          'Street_sign_1._Graben_(Vienna).jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Wien_-_Bezirk_Innere_Stadt%2C_Wappen.svg/40px-Wien_-_Bezirk_Innere_Stadt%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Innere_Stadt,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Vienna_subdivisions_%281%29.svg/120px-Vienna_subdivisions_%281%29.svg.png',
+          'Vienna_subdivisions_(1).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Wien_-_Bezirk_Leopoldstadt%2C_Wappen.svg/40px-Wien_-_Bezirk_Leopoldstadt%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Leopoldstadt,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Vienna_subdivisions_%282%29.svg/120px-Vienna_subdivisions_%282%29.svg.png',
+          'Vienna_subdivisions_(2).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Wien_-_Bezirk_Landstra%C3%9Fe%2C_Wappen.svg/40px-Wien_-_Bezirk_Landstra%C3%9Fe%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Landstraße,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Vienna_subdivisions_%283%29.svg/120px-Vienna_subdivisions_%283%29.svg.png',
+          'Vienna_subdivisions_(3).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Wien_-_Bezirk_Wieden%2C_Wappen.svg/40px-Wien_-_Bezirk_Wieden%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Wieden,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Vienna_subdivisions_%284%29.svg/120px-Vienna_subdivisions_%284%29.svg.png',
+          'Vienna_subdivisions_(4).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Wien_-_Bezirk_Margareten%2C_Wappen.svg/40px-Wien_-_Bezirk_Margareten%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Margareten,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Vienna_subdivisions_%285%29.svg/120px-Vienna_subdivisions_%285%29.svg.png',
+          'Vienna_subdivisions_(5).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wien_-_Bezirk_Mariahilf%2C_Wappen.svg/40px-Wien_-_Bezirk_Mariahilf%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Mariahilf,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Vienna_subdivisions_%286%29.svg/120px-Vienna_subdivisions_%286%29.svg.png',
+          'Vienna_subdivisions_(6).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Wien_-_Bezirk_Neubau%2C_Wappen.svg/40px-Wien_-_Bezirk_Neubau%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Neubau,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Vienna_subdivisions_%287%29.svg/120px-Vienna_subdivisions_%287%29.svg.png',
+          'Vienna_subdivisions_(7).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Wien_-_Bezirk_Josefstadt%2C_Wappen.svg/40px-Wien_-_Bezirk_Josefstadt%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Josefstadt,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Vienna_subdivisions_%288%29.svg/120px-Vienna_subdivisions_%288%29.svg.png',
+          'Vienna_subdivisions_(8).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Wien_-_Bezirk_Alsergrund%2C_Wappen.svg/40px-Wien_-_Bezirk_Alsergrund%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Alsergrund,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Vienna_subdivisions_%289%29.svg/120px-Vienna_subdivisions_%289%29.svg.png',
+          'Vienna_subdivisions_(9).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Wien_-_Bezirk_Favoriten%2C_Wappen.svg/40px-Wien_-_Bezirk_Favoriten%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Favoriten,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Vienna_subdivisions_%2810%29.svg/120px-Vienna_subdivisions_%2810%29.svg.png',
+          'Vienna_subdivisions_(10).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Wien_-_Bezirk_Simmering%2C_Wappen.svg/40px-Wien_-_Bezirk_Simmering%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Simmering,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Vienna_subdivisions_%2811%29.svg/120px-Vienna_subdivisions_%2811%29.svg.png',
+          'Vienna_subdivisions_(11).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Wien_-_Bezirk_Meidling%2C_Wappen.svg/40px-Wien_-_Bezirk_Meidling%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Meidling,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Vienna_subdivisions_%2812%29.svg/120px-Vienna_subdivisions_%2812%29.svg.png',
+          'Vienna_subdivisions_(12).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Wien_-_Bezirk_Hietzing%2C_Wappen.svg/40px-Wien_-_Bezirk_Hietzing%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Hietzing,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Vienna_subdivisions_%2813%29.svg/120px-Vienna_subdivisions_%2813%29.svg.png',
+          'Vienna_subdivisions_(13).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Wien_-_Bezirk_Penzing%2C_Wappen.svg/40px-Wien_-_Bezirk_Penzing%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Penzing,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Vienna_subdivisions_%2814%29.svg/120px-Vienna_subdivisions_%2814%29.svg.png',
+          'Vienna_subdivisions_(14).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Wien_-_Bezirk_Rudolfsheim-F%C3%BCnfhaus%2C_Wappen.svg/40px-Wien_-_Bezirk_Rudolfsheim-F%C3%BCnfhaus%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Rudolfsheim-Fünfhaus,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Vienna_subdivisions_%2815%29.svg/120px-Vienna_subdivisions_%2815%29.svg.png',
+          'Vienna_subdivisions_(15).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Wien_-_Bezirk_Ottakring%2C_Wappen.svg/40px-Wien_-_Bezirk_Ottakring%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Ottakring,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Vienna_subdivisions_%2816%29.svg/120px-Vienna_subdivisions_%2816%29.svg.png',
+          'Vienna_subdivisions_(16).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Wien_-_Bezirk_Hernals%2C_Wappen.svg/40px-Wien_-_Bezirk_Hernals%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Hernals,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Vienna_subdivisions_%2817%29.svg/120px-Vienna_subdivisions_%2817%29.svg.png',
+          'Vienna_subdivisions_(17).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Wien_-_Bezirk_W%C3%A4hring%2C_Wappen.svg/40px-Wien_-_Bezirk_W%C3%A4hring%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Währing,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Vienna_subdivisions_%2818%29.svg/120px-Vienna_subdivisions_%2818%29.svg.png',
+          'Vienna_subdivisions_(18).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Wien_-_Bezirk_D%C3%B6bling%2C_Wappen.svg/40px-Wien_-_Bezirk_D%C3%B6bling%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Döbling,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Vienna_subdivisions_%2819%29.svg/120px-Vienna_subdivisions_%2819%29.svg.png',
+          'Vienna_subdivisions_(19).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Wien_-_Bezirk_Brigittenau%2C_Wappen.svg/40px-Wien_-_Bezirk_Brigittenau%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Brigittenau,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Vienna_subdivisions_%2820%29.svg/120px-Vienna_subdivisions_%2820%29.svg.png',
+          'Vienna_subdivisions_(20).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Wien_-_Bezirk_Floridsdorf%2C_Wappen.svg/40px-Wien_-_Bezirk_Floridsdorf%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Floridsdorf,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Vienna_subdivisions_%2821%29.svg/120px-Vienna_subdivisions_%2821%29.svg.png',
+          'Vienna_subdivisions_(21).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Wien_-_Bezirk_Donaustadt%2C_Wappen.svg/40px-Wien_-_Bezirk_Donaustadt%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Donaustadt,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Vienna_subdivisions_%2822%29.svg/120px-Vienna_subdivisions_%2822%29.svg.png',
+          'Vienna_subdivisions_(22).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Wien_-_Bezirk_Liesing%2C_Wappen.svg/40px-Wien_-_Bezirk_Liesing%2C_Wappen.svg.png',
+          'Wien_-_Bezirk_Liesing,_Wappen.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Vienna_subdivisions_%2823%29.svg/120px-Vienna_subdivisions_%2823%29.svg.png',
+          'Vienna_subdivisions_(23).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Wien_Rathaus_hochaufl%C3%B6send.jpg/250px-Wien_Rathaus_hochaufl%C3%B6send.jpg',
+          'Wien_Rathaus_hochauflösend.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Michael_Ludwig_-_Veranstaltung_%E2%80%9E1._Tag_des_Wiener_Wohnbaus%E2%80%9C_%282%29.JPG/250px-Michael_Ludwig_-_Veranstaltung_%E2%80%9E1._Tag_des_Wiener_Wohnbaus%E2%80%9C_%282%29.JPG',
+          'Michael_Ludwig_-_Veranstaltung_„1._Tag_des_Wiener_Wohnbaus“_(2).JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Messe_Wien_01.jpg/250px-Messe_Wien_01.jpg',
+          'Messe_Wien_01.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Wien_-_Austria_Center.JPG/250px-Wien_-_Austria_Center.JPG',
+          'Wien_-_Austria_Center.JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Wien_-_Burgtheater.JPG/250px-Wien_-_Burgtheater.JPG',
+          'Wien_-_Burgtheater.JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Vienna_-_Johann_Strauss_Monument_in_Stadt_Park_-_4572.jpg/250px-Vienna_-_Johann_Strauss_Monument_in_Stadt_Park_-_4572.jpg',
+          'Vienna_-_Johann_Strauss_Monument_in_Stadt_Park_-_4572.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Wien_-_Mozartdenkmal_%281%29.JPG/250px-Wien_-_Mozartdenkmal_%281%29.JPG',
+          'Wien_-_Mozartdenkmal_(1).JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Vienna_2007-04-16_Stadthalle_Georg_Danzer_und_Freunde_%28A3%29.jpg/250px-Vienna_2007-04-16_Stadthalle_Georg_Danzer_und_Freunde_%28A3%29.jpg',
+          'Vienna_2007-04-16_Stadthalle_Georg_Danzer_und_Freunde_(A3).jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Burg_Kino_Vienna.jpg/250px-Burg_Kino_Vienna.jpg',
+          'Burg_Kino_Vienna.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Sigmund-Freud-Denkmal%2C_MedUni_Wien.jpg/250px-Sigmund-Freud-Denkmal%2C_MedUni_Wien.jpg',
+          'Sigmund-Freud-Denkmal,_MedUni_Wien.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Imperial_Crown_Orb_and_Sceptre_of_Austria_%28Imperial_Treasury%29.jpg/250px-Imperial_Crown_Orb_and_Sceptre_of_Austria_%28Imperial_Treasury%29.jpg',
+          'Imperial_Crown_Orb_and_Sceptre_of_Austria_(Imperial_Treasury).jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Vienna_-_View_of_Maria_Theresien-Platz_and_the_Kunsthistorisches_Museum_-_6291.jpg/250px-Vienna_-_View_of_Maria_Theresien-Platz_and_the_Kunsthistorisches_Museum_-_6291.jpg',
+          'Vienna_-_View_of_Maria_Theresien-Platz_and_the_Kunsthistorisches_Museum_-_6291.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Museumsquartier_courtyard.jpg/250px-Museumsquartier_courtyard.jpg',
+          'Museumsquartier_courtyard.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg/250px-The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg',
+          'The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Arsenal_Heeresgeschichtliches_Museum-DSC_7920w.jpg/250px-Arsenal_Heeresgeschichtliches_Museum-DSC_7920w.jpg',
+          'Arsenal_Heeresgeschichtliches_Museum-DSC_7920w.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Otto_Wagner_Pavillon_-_Karlsplatz.jpg/250px-Otto_Wagner_Pavillon_-_Karlsplatz.jpg',
+          'Otto_Wagner_Pavillon_-_Karlsplatz.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Gasometer_wien.jpg/250px-Gasometer_wien.jpg',
+          'Gasometer_wien.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Wien_-_Ruprechtskirche.JPG/250px-Wien_-_Ruprechtskirche.JPG',
+          'Wien_-_Ruprechtskirche.JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Viele_Menschen_mit_Regenbogenfahnen_bei_der_Vienna_Pride_2021_%2851263075454%29.jpg/250px-Viele_Menschen_mit_Regenbogenfahnen_bei_der_Vienna_Pride_2021_%2851263075454%29.jpg',
+          'Viele_Menschen_mit_Regenbogenfahnen_bei_der_Vienna_Pride_2021_(51263075454).jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Wien_12_GRG_12_Rosasgasse_b.jpg/250px-Wien_12_GRG_12_Rosasgasse_b.jpg',
+          'Wien_12_GRG_12_Rosasgasse_b.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/University_Vienna_Oct._2006_002.jpg/250px-University_Vienna_Oct._2006_002.jpg',
+          'University_Vienna_Oct._2006_002.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Friedrich_von_Schiller.JPG/250px-Friedrich_von_Schiller.JPG',
+          'Friedrich_von_Schiller.JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Hauptb%C3%BCcherei_Wien.jpg/250px-Hauptb%C3%BCcherei_Wien.jpg',
+          'Hauptbücherei_Wien.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Alsergrund_%28Wien%29_-_AKH%2C_Haupteingang.JPG/250px-Alsergrund_%28Wien%29_-_AKH%2C_Haupteingang.JPG',
+          'Alsergrund_(Wien)_-_AKH,_Haupteingang.JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Floridsdorf_%28Wien%29_-_Karl-Seitz-Hof_%282%29.JPG/250px-Floridsdorf_%28Wien%29_-_Karl-Seitz-Hof_%282%29.JPG',
+          'Floridsdorf_(Wien)_-_Karl-Seitz-Hof_(2).JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Wien_01_Burggarten_j.jpg/250px-Wien_01_Burggarten_j.jpg',
+          'Wien_01_Burggarten_j.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Liliputbahn_autune.JPG/250px-Liliputbahn_autune.JPG',
+          'Liliputbahn_autune.JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Gefechtsturm_Augarten_Sept_2020_14.jpg/250px-Gefechtsturm_Augarten_Sept_2020_14.jpg',
+          'Gefechtsturm_Augarten_Sept_2020_14.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Donaupark_%26_Donauturm_Vienna_2024.jpg/250px-Donaupark_%26_Donauturm_Vienna_2024.jpg',
+          'Donaupark_&_Donauturm_Vienna_2024.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Wien_22_Lobau_a.jpg/250px-Wien_22_Lobau_a.jpg',
+          'Wien_22_Lobau_a.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Zentralfriedhof_Ludwig_van_Beethoven.JPG/250px-Zentralfriedhof_Ludwig_van_Beethoven.JPG',
+          'Zentralfriedhof_Ludwig_van_Beethoven.JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Vienna_20021024_%28cropped%29.JPG/250px-Vienna_20021024_%28cropped%29.JPG',
+          'Vienna_20021024_(cropped).JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Karte_Donaudurchstich.jpg/250px-Karte_Donaudurchstich.jpg',
+          'Karte_Donaudurchstich.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Wien_-_Neue_Donau.JPG/500px-Wien_-_Neue_Donau.JPG',
+          'Wien_-_Neue_Donau.JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Alte_Donau_Wien.jpg/500px-Alte_Donau_Wien.jpg',
+          'Alte_Donau_Wien.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Schwedenbr%C3%BCcke_Donaukanal_Wien_2012_04.jpg/500px-Schwedenbr%C3%BCcke_Donaukanal_Wien_2012_04.jpg',
+          'Schwedenbrücke_Donaukanal_Wien_2012_04.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Wienflussportal_beim_Stadtpark.JPG/250px-Wienflussportal_beim_Stadtpark.JPG',
+          'Wienflussportal_beim_Stadtpark.JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Vienna_allianz_stadion.jpg/250px-Vienna_allianz_stadion.jpg',
+          'Vienna_allianz_stadion.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Ernst-happel-stadion_vienna.jpg/250px-Ernst-happel-stadion_vienna.jpg',
+          'Ernst-happel-stadion_vienna.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Vienna_City_Marathon_2015_-_Reichsbr%C3%BCcke_%283%29.JPG/250px-Vienna_City_Marathon_2015_-_Reichsbr%C3%BCcke_%283%29.JPG',
+          'Vienna_City_Marathon_2015_-_Reichsbrücke_(3).JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Wiener-Schnitzel02.jpg/250px-Wiener-Schnitzel02.jpg',
+          'Wiener-Schnitzel02.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Wien_-_Sachertorte.jpg/250px-Wien_-_Sachertorte.jpg',
+          'Wien_-_Sachertorte.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Ottakringer_Helles_in_a_hotel_room.jpg/250px-Ottakringer_Helles_in_a_hotel_room.jpg',
+          'Ottakringer_Helles_in_a_hotel_room.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Palais_Lieben-Auspitz_Vienna.jpg/250px-Palais_Lieben-Auspitz_Vienna.jpg',
+          'Palais_Lieben-Auspitz_Vienna.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Wien_Heurigen-Lokal_2014_1.jpg/250px-Wien_Heurigen-Lokal_2014_1.jpg',
+          'Wien_Heurigen-Lokal_2014_1.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/U-Bahn_Netz_Wien.svg/330px-U-Bahn_Netz_Wien.svg.png',
+          'U-Bahn_Netz_Wien.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/U-bahn-wien.jpg/250px-U-bahn-wien.jpg',
+          'U-bahn-wien.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Donaustadtbr%C3%BCcke_rigardate_de_la_stacio_Donaumarina.jpg/500px-Donaustadtbr%C3%BCcke_rigardate_de_la_stacio_Donaumarina.jpg',
+          'Donaustadtbrücke_rigardate_de_la_stacio_Donaumarina.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/U-Bahn%2C_Linie_U4%2C_Sch%C3%B6nbrunn_%2847951150056%29.jpg/500px-U-Bahn%2C_Linie_U4%2C_Sch%C3%B6nbrunn_%2847951150056%29.jpg',
+          'U-Bahn,_Linie_U4,_Schönbrunn_(47951150056).jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Wien_U1.12_Nestroyplatz_AG_b.jpg/500px-Wien_U1.12_Nestroyplatz_AG_b.jpg',
+          'Wien_U1.12_Nestroyplatz_AG_b.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/U2_Krieau_AG_ost_innen_01.jpg/500px-U2_Krieau_AG_ost_innen_01.jpg',
+          'U2_Krieau_AG_ost_innen_01.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/57A_Ansch%C3%BCtzgasse.jpg/250px-57A_Ansch%C3%BCtzgasse.jpg',
+          '57A_Anschützgasse.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/62_Wolkersbergenstra%C3%9Fe.jpg/250px-62_Wolkersbergenstra%C3%9Fe.jpg',
+          '62_Wolkersbergenstraße.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Wien_Hbf_2023_07.jpg/250px-Wien_Hbf_2023_07.jpg',
+          'Wien_Hbf_2023_07.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Citybike_Vienna%2C_Sch%C3%B6nbrunner_Br%C3%BCcke.jpg/250px-Citybike_Vienna%2C_Sch%C3%B6nbrunner_Br%C3%BCcke.jpg',
+          'Citybike_Vienna,_Schönbrunner_Brücke.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/2011-06-14_10-23-56_Austria_Nieder%C3%B6sterreich_Fischamend_Markt.jpg/250px-2011-06-14_10-23-56_Austria_Nieder%C3%B6sterreich_Fischamend_Markt.jpg',
+          '2011-06-14_10-23-56_Austria_Niederösterreich_Fischamend_Markt.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Vereinte_Nationen_in_Wien.jpg/250px-Vereinte_Nationen_in_Wien.jpg',
+          'Vereinte_Nationen_in_Wien.jpg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Wien_-_OPEC-Zentrale_%28a%29.JPG/250px-Wien_-_OPEC-Zentrale_%28a%29.JPG',
+          'Wien_-_OPEC-Zentrale_(a).JPG'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/en/thumb/0/06/Wiktionary-logo-v2.svg/40px-Wiktionary-logo-v2.svg.png',
+          'Wiktionary-logo-v2.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/20px-Commons-logo.svg.png',
+          'Commons-logo.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/40px-Wikinews-logo.svg.png',
+          'Wikinews-logo.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/40px-Wikiquote-logo.svg.png',
+          'Wikiquote-logo.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/40px-Wikisource-logo.svg.png',
+          'Wikisource-logo.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikibooks-logo.svg/40px-Wikibooks-logo.svg.png',
+          'Wikibooks-logo.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikivoyage-Logo-v3-icon.svg/40px-Wikivoyage-Logo-v3-icon.svg.png',
+          'Wikivoyage-Logo-v3-icon.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Flag_of_Burgenland_%28state%29.svg/40px-Flag_of_Burgenland_%28state%29.svg.png',
+          'Flag_of_Burgenland_(state).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Flag_of_Carinthia_%28state%29.svg/40px-Flag_of_Carinthia_%28state%29.svg.png',
+          'Flag_of_Carinthia_(state).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Flag_of_Lower_Austria_%28state%29.svg/40px-Flag_of_Lower_Austria_%28state%29.svg.png',
+          'Flag_of_Lower_Austria_(state).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Flag_of_Salzburg_%28state%29.svg/40px-Flag_of_Salzburg_%28state%29.svg.png',
+          'Flag_of_Salzburg_(state).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Flag_of_Styria_%28state%29.svg/40px-Flag_of_Styria_%28state%29.svg.png',
+          'Flag_of_Styria_(state).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Flag_of_Tirol_%28state%29.svg/40px-Flag_of_Tirol_%28state%29.svg.png',
+          'Flag_of_Tirol_(state).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Flag_of_Upper_Austria_%28state%29.svg/40px-Flag_of_Upper_Austria_%28state%29.svg.png',
+          'Flag_of_Upper_Austria_(state).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Flag_of_Vienna_%28state%29.svg/40px-Flag_of_Vienna_%28state%29.svg.png',
+          'Flag_of_Vienna_(state).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Flag_of_Vorarlberg_%28state%29.svg/40px-Flag_of_Vorarlberg_%28state%29.svg.png',
+          'Flag_of_Vorarlberg_(state).svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Austria_Bundesadler.svg/40px-Austria_Bundesadler.svg.png',
+          'Austria_Bundesadler.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_Austria.svg/40px-Flag_of_Austria.svg.png',
+          'Flag_of_Austria.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_Austria.svg/60px-Flag_of_Austria.svg.png',
+          'Flag_of_Austria.svg'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Vienna_districts_large_numbers.gif/250px-Vienna_districts_large_numbers.gif',
+          'Vienna_districts_large_numbers.gif'
+        ],
+        [
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Danubemap.png/120px-Danubemap.png',
+          'Danubemap.png'
+        ]
+      ];
+
+      for (const [thumb, title] of vienna) {
+        const inner = document.querySelector('.carousel-inner');
+        const src = thumb.replace(/\/\d+px/, '/1920px');
+        inner.innerHTML += `
+              <div class="carousel-item w-100 h-100" data-title="${title}">
+                <img src="${src}" class="img-fluid d-block mx-auto my-auto" style="max-width: 100vw; max-height:100vh" />
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3">
+                  <h5>${title}</h5>
+                  <p>...</p>
+                </div>
+              </div>
+              `;
+      }
+      document.querySelector('.carousel-inner > .carousel-item').classList.add('active');
+      const carousel = new bootstrap.Carousel('#carouselMediawiki');
+      document
+        .querySelector('#carouselMediawiki')
+        .addEventListener('slide.bs.carousel', async event => {
+          /** @type HTMLElement */
+          const relatedTarget = event.relatedTarget;
+          const title = relatedTarget.dataset.title;
+          const query = new URLSearchParams({
+            origin: '*',
+            action: 'query',
+            format: 'json',
+            formatversion: '2',
+            prop: 'imageinfo',
+            titles: 'File:' + title,
+            iiprop: 'timestamp|url|size|mime|mediatype|extmetadata',
+            iiextmetadatafilter:
+              'DateTime|DateTimeOriginal|ObjectName|ImageDescription|License|LicenseShortName|UsageTerms|LicenseUrl|Credit|Artist|AuthorCount|GPSLatitude|GPSLongitude|Permission|Attribution|AttributionRequired|NonFree|Restrictions|DeletionReason',
+            iiextmetadatalanguage: 'en',
+            uselang: 'content',
+            smaxage: '300',
+            maxage: '300'
+          });
+          const url = new URL('https://en.wikipedia.org/w/api.php?' + query);
+          const res = await fetch(url);
+          const json = await res.json();
+          const imageinfo = json.query.pages[0].imageinfo[0];
+          const extmetadata = imageinfo.extmetadata;
+          // let caption = `<ul class="list-inline">`;
+          // for (const [key, { value }] of Object.entries(extmetadata)) {
+          //   caption += `<li class="list-inline-item"><strong>${key}:</strong> ${value}</li>`;
+          // }
+          let caption = `<dl class="row">`;
+          for (const [key, {value}] of Object.entries(extmetadata)) {
+            caption += `<dt class="col-sm-3 text-end">${key}</dt><dd class="col-sm-9 text-start">${value}</dd>`;
+          }
+          caption += `</dl>`;
+          relatedTarget.querySelector('.carousel-caption > p').innerHTML = caption;
+
+          // relatedTarget.querySelector(".carousel-caption > p").innerHTML =
+          //             "<dl>" +
+          //             Object.entries(extmetadata).map(
+          //               ([key, {value}]) => `<dt>${key}</dt><dd>${value}</dd>`
+          //             ).join('') +
+          //             "</dl>";
+          // console.log(json.query.pages[0], imageinfo);
+        });
+    </script>
+  </body>
+</html>
+
+<!--
+Artist: Object { value: '<div class="fn value">\n<a rel="nofollow" class="external text" href="https://500px.com/simon73">Simon Matzinger</a></div>', source: "commons-desc-page" }
+​​​
+source: "commons-desc-page"
+​​​
+value: '<div class="fn value">\n<a rel="nofollow" class="external text" href="https://500px.com/simon73">Simon Matzinger</a></div>'
+​​​
+<prototype>: Object { … }
+​​
+AttributionRequired: Object { value: "true", source: "commons-desc-page", hidden: "" }
+​​
+Credit: Object { value: 'Imported from <a rel="nofollow" class="external text" href="https://500px.com/photo/189581451/merry-christmas-by-simon-matzinger">500px</a> (<a rel="nofollow" class="external text" href="https://web.archive.org/web/201807id_/https://drscdn.500px.org/photo/189581451/m%3D2048/v2?webp=true&amp;sig=79f53c0a0891f6899909c035df6cdde6e2b1eaf5ffe59a612b9b5611af2301c3">archived version</a>) by <a rel="nofollow" class="external text" href="https://www.archiveteam.org/index.php?title=500px">the Archive Team</a>. (<a href="https://iw.toolforge.org/import-500px/photo/189581451" class="extiw" title="toolforge:import-500px/photo/189581451">detail page</a>)', source: "commons-desc-page" }
+​​
+DateTime: Object { value: "2025-05-13 19:15:37", source: "mediawiki-metadata", hidden: "" }
+​​
+DateTimeOriginal: Object { value: "11 December 2014, 12:03:59 (UTC)", source: "commons-desc-page" }
+​​
+GPSLatitude: Object { value: "48.210077", source: "commons-desc-page" }
+​​
+GPSLongitude: Object { value: "16.359447", source: "commons-desc-page" }
+​​
+License: Object { value: "cc-by-3.0", source: "commons-templates", hidden: "" }
+​​
+LicenseShortName: Object { value: "CC BY 3.0", source: "commons-desc-page", hidden: "" }
+​​
+LicenseUrl: Object { value: "https://creativecommons.org/licenses/by/3.0", source: "commons-desc-page" }
+​​
+ObjectName: Object { value: '<div class="fn">\nMerry Christmas</div>', source: "commons-desc-page" }
+​​
+Restrictions: Object { value: "", source: "commons-desc-page", hidden: "" }
+​​
+UsageTerms: Object { value: "Creative Commons Attribution 3.0", source: "commons-desc-page" }
+​​
+<prototype>: Object { … }-->
