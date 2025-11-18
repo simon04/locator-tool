@@ -17,7 +17,7 @@ The application consists of:
 
 ## Translate
 
-- Translations are done at [transifex.com/locator-tool](https://www.transifex.com/locator-tool/locator-tool/dashboard/)
+- Translations are done at [transifex.com/locator-tool](https://app.transifex.com/locator-tool/locator-tool/dashboard/)
 
 ## Author and License
 
