@@ -1,8 +1,18 @@
 {
   "name": "locator-tool",
   "version": "3.0.0",
-  "description": "Add {{Location}} and {{Object location}} to images on Wikimedia Commons",
   "private": true,
+  "description": "Add {{Location}} and {{Object location}} to images on Wikimedia Commons",
+  "homepage": "https://locator-tool.toolforge.org/",
+  "bugs": {
+    "url": "https://github.com/simon04/locator-tool/issues"
+  },
+  "license": "GPL-3.0",
+  "author": "Simon Legner <Simon.Legner@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simon04/locator-tool.git"
+  },
   "type": "module",
   "main": "app/index.js",
   "scripts": {
@@ -12,22 +22,12 @@
     "build": "vite build",
     "lint": "oxlint --type-aware",
     "test": "bun test:ts && bun test:style && bun lint",
-    "test:style": "prettier --ignore-unknown --list-different *.* app/",
+    "test:style": "oxfmt --check",
     "test:ts": "tsc --noEmit",
-    "fix:style": "prettier --ignore-unknown --write .",
+    "fix:style": "oxfmt",
     "po": "angular-gettext-cli --compile --files 'po/*.po' --dest app/i18n.json --format json",
     "pot": "angular-gettext-cli --files {,./app/**/}*.{js,html} --dest po/locator-tool.pot --no-line-numbers"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/simon04/locator-tool.git"
-  },
-  "author": "Simon Legner <Simon.Legner@gmail.com>",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/simon04/locator-tool/issues"
-  },
-  "homepage": "https://locator-tool.toolforge.org/",
   "dependencies": {
     "@vueuse/core": "^14.1.0",
     "bootstrap": "^5.3.8",
@@ -47,13 +47,13 @@
     "angular-gettext-tools": "^2.5.3",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
+    "oxfmt": "^0.20.0",
     "oxlint": "^1.35.0",
     "oxlint-tsgolint": "^0.10.0",
-    "prettier": "^3.7.4",
     "typescript": "^5.9.3",
     "vite": "^8.0.0-beta.4"
   },
   "lint-staged": {
-    "*": "prettier --ignore-unknown --write"
+    "*": "oxfmt --no-error-on-unmatched-pattern"
   }
 }

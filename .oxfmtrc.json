@@ -1,8 +1,10 @@
 {
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "arrowParens": "avoid",
   "bracketSpacing": false,
   "htmlWhitespaceSensitivity": "css",
   "printWidth": 100,
   "singleQuote": true,
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "ignorePatterns": ["app/i18n.json"]
 }
