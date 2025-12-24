@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <h2 class="mt-4 icon-link">
     <GeoAlt />

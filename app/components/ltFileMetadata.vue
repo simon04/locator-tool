@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <div v-show="description !== false" v-html="file.description"></div>
   <div v-if="file.timestamp" class="small">

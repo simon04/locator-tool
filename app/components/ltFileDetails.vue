@@ -19,7 +19,6 @@
           <CaretRight v-if="collapseCameraLocation" />
           <CaretDown v-else />
           <CameraFill />
-          <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="msgCameraLocation"></span>
           <abbr
             v-show="!collapseCameraLocation"
@@ -42,7 +41,6 @@
           <CaretRight v-if="collapseObjectLocation" />
           <CaretDown v-else />
           <HouseFill />
-          <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="msgObjectLocation"></span>
           <abbr
             v-show="!collapseObjectLocation"

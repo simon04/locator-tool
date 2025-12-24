@@ -12,9 +12,7 @@
     <div class="col-sm-12">
       <div class="alert alert-warning">
         <ExclamationTriangleFill class="me-1" />
-        <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-if="category" v-html="msgNoFilesForCategory"></span>
-        <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-if="user" v-html="msgNoFilesForUser"></span>
       </div>
     </div>

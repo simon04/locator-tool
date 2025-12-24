@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <h2 v-if="!userInfo?.user" class="mt-4">{{ t('Sign in') }}</h2>
   <p v-if="!userInfo?.user">

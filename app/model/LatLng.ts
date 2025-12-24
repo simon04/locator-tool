@@ -3,8 +3,8 @@ export class LatLng {
     public type: 'Location' | 'Object location',
     public lat: number | undefined,
     public lng: number | undefined,
-    private readonly latOriginal?: number | undefined,
-    private readonly lngOriginal?: number | undefined
+    private readonly latOriginal?: number,
+    private readonly lngOriginal?: number
   ) {
     if (arguments.length === 3) {
       // cannot use fallback value in constructor (latOriginal=lat) since latOriginal may need to be undefined
