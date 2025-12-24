@@ -1,4 +1,4 @@
-import {MaybeRef, computed, unref} from 'vue';
+import {type MaybeRef, computed, unref} from 'vue';
 import {t} from './useI18n';
 import {useTitle} from '@vueuse/core';
 import {useLtRoute} from './useLtRoute';

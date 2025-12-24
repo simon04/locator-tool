@@ -1,5 +1,5 @@
 import {useFetch} from '@vueuse/core';
-import {CommonsFile, LatLng} from '../model';
+import {type CommonsFile, LatLng} from '../model';
 
 interface UserApiResponse {
   user: string;

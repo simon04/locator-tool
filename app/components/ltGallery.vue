@@ -39,10 +39,10 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue';
 import {useSorted} from '@vueuse/core';
-import {FileDetails, getFileDetails} from '../api/ltData';
+import {type FileDetails, getFileDetails} from '../api/ltData';
 import {getCoordinates} from '../api/ltData';
 import {getFiles} from '../api/ltData';
-import {CommonsFile} from '../model';
+import type {CommonsFile} from '../model';
 import ltSpinner from './ltSpinner.vue';
 import {t} from './useI18n';
 import {useAppTitle, routeTitlePart} from './useAppTitle';

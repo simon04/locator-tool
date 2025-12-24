@@ -28,8 +28,8 @@
 <script setup lang="ts">
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
-import {FileDetails} from '../api/ltData';
-import {CommonsFile} from '../model';
+import type {FileDetails} from '../api/ltData';
+import type {CommonsFile} from '../model';
 import ltFileMetadata from './ltFileMetadata.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';
 

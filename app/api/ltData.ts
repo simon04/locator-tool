@@ -1,7 +1,7 @@
 import getFilePath from 'wikimedia-commons-file-path';
 
-import {CommonsFile, CommonsTitle, LatLng, WikidataProperty} from '../model';
-import {MediaInfo, Statement} from '../model/mediainfo.ts';
+import {type CommonsFile, type CommonsTitle, LatLng, WikidataProperty} from '../model';
+import type {MediaInfo, Statement} from '../model/mediainfo.ts';
 import {LatLngBounds} from 'leaflet';
 import {mergeWith} from 'es-toolkit';
 
@@ -151,9 +151,9 @@ export async function getCoordinates(titles: string | CommonsTitle[]): Promise<C
 
 export interface FileDetails {
   categories: string[];
-  description: string;
-  author: string;
-  timestamp: string;
+  description?: string;
+  author?: string;
+  timestamp?: string;
   url?: string;
   coordinates?: LatLng;
   objectLocation?: LatLng;
@@ -189,7 +189,7 @@ export async function getFileDetails(
     ...extractMediaInfo(page)
   };
 
-  function extractMediaInfo(page: DetailsPage): Partial<FileDetails> {
+  function extractMediaInfo(page: DetailsPage | undefined): Partial<FileDetails> {
     const json = page?.revisions?.[0]?.slots?.mediainfo['*'];
     if (!json) return {};
     const mediainfo: MediaInfo = JSON.parse(json);
@@ -221,7 +221,7 @@ export async function getFileDetails(
     );
   }
 
-  function extractObjectLocation(page: DetailsPage) {
+  function extractObjectLocation(page: DetailsPage | undefined) {
     try {
       const wikitext: string = page?.revisions?.[0]?.slots?.main['*'] || '';
       const locDeg = wikitext.match(
@@ -230,12 +230,12 @@ export async function getFileDetails(
       const loc = wikitext.match(/\{\{Object location( dec)?\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)/i);
       let lat;
       let lng;
-      if (locDeg) {
+      if (locDeg && locDeg[2] && locDeg[3] && locDeg[4] && locDeg[6] && locDeg[7] && locDeg[8]) {
         lat = parseInt(locDeg[2]) + parseInt(locDeg[3]) / 60 + parseFloat(locDeg[4]) / 3600;
         lat *= locDeg[5] === 'N' ? 1 : -1;
         lng = parseInt(locDeg[6]) + parseInt(locDeg[7]) / 60 + parseFloat(locDeg[8]) / 3600;
         lng *= locDeg[9] === 'E' ? 1 : -1;
-      } else if (loc) {
+      } else if (loc && loc[2] && loc[3]) {
         lat = parseFloat(loc[2]);
         lng = parseFloat(loc[3]);
       }

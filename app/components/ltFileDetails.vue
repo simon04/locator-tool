@@ -86,10 +86,10 @@
 import {computed, ref} from 'vue';
 import {useMagicKeys, whenever} from '@vueuse/core';
 import * as ltDataAuth from '../api/ltDataAuth';
-import {CommonsFile, LatLng} from '../model';
+import {type CommonsFile, LatLng} from '../model';
 import ltFileMetadata from './ltFileMetadata.vue';
 import ltLocationInput from './ltLocationInput.vue';
-import {FileDetails} from '../api/ltData';
+import type {FileDetails} from '../api/ltData';
 import {t} from './useI18n';
 import CaretDown from 'bootstrap-icons/icons/caret-down.svg?component';
 import CaretRight from 'bootstrap-icons/icons/caret-right.svg?component';

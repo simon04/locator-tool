@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import {App, createApp, onMounted, reactive, ref} from 'vue';
+import {type App, createApp, onMounted, reactive, ref} from 'vue';
 import {useRouter} from 'vue-router';
 import * as L from 'leaflet';
 import * as ltData from '../api/ltData';

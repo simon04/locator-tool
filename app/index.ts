@@ -1,7 +1,7 @@
 import {createApp} from 'vue';
-import {createRouter, createWebHashHistory, RouteRecordInfo} from 'vue-router';
+import {createRouter, createWebHashHistory, type RouteRecordInfo} from 'vue-router';
 import App from './App.vue';
-import {FilesOptions} from './api/ltData';
+import type {FilesOptions} from './api/ltData';
 
 import 'bootstrap/dist/css/bootstrap.css';
 

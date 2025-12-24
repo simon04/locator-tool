@@ -53,5 +53,5 @@ export function t(key: keyof I18nCatalog, values?: Record<string, string>): stri
     return msg['Category'];
   }
   if (typeof values !== 'object') return msg;
-  return msg.replace(templateRe, (_, match) => values[match]);
+  return msg.replace(templateRe, (_, match) => values[match] ?? '');
 }

@@ -1,4 +1,4 @@
-import {Ref, watch} from 'vue';
+import {type Ref, watch} from 'vue';
 import {useLocalStorage} from '@vueuse/core';
 import * as L from 'leaflet';
 import ControlGeocoder from 'leaflet-control-geocoder';
@@ -73,7 +73,7 @@ export function useLeafletMap(mapRef: Ref<HTMLElement | null>) {
   for (const [name, layer] of Object.entries(layers)) {
     layersControl.addBaseLayer(layer, name);
   }
-  (layers[mapLayer.value as keyof typeof layers] || layers[osm]).addTo(map);
+  (layers[mapLayer.value as keyof typeof layers] || layers[osm])?.addTo(map);
 
   const geocoder = new ControlGeocoder({
     placeholder: '…',

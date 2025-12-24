@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, WatchHandle} from 'vue';
+import {ref, computed, type WatchHandle} from 'vue';
 import type {CommonsFile} from '../model';
 import {useMagicKeys, whenever} from '@vueuse/core';
 

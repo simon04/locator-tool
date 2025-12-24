@@ -107,7 +107,7 @@
 <script setup lang="ts">
 import {ref, computed, onMounted, watch} from 'vue';
 import * as ltData from '../api/ltData';
-import {CommonsFile} from '../model';
+import type {CommonsFile} from '../model';
 import ltSpinner from './ltSpinner.vue';
 import ltFileDetails from './ltFileDetails.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';
