@@ -1,0 +1,2 @@
+import{D as e,d as t,h as n,q as r,t as i}from"./index-DKeDeMIW.js";function a(...i){return n(e(()=>[...i.map(e=>r(e)).filter(e=>!!e),t(`locator-tool`)].join(` • `)),{restoreOnUnmount:e=>e})}function o(){let{$query:t}=i();return e(()=>t.value.category?.replace(/_/,` `)||t.value.user?.replace(/_/,` `)||void 0)}export{a as n,o as t};
+//# sourceMappingURL=KBQiTbN6CMsyITC2uY1.js.map
