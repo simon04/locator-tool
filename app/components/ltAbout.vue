@@ -108,8 +108,7 @@ const buildVersionLink = computed(
 </script>
 
 <style>
-a[href="https://github.com/simon04/locator-tool"]
-{
+a[href='https://github.com/simon04/locator-tool'] {
   background: url(bootstrap-icons/icons/github.svg);
   background-position: center left;
   background-repeat: no-repeat;
