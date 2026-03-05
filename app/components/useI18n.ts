@@ -14,6 +14,7 @@ export const languageCodes = [
   'mk',
   'ml',
   'nl',
+  'pl',
   'pt',
   'ru',
   'uk',

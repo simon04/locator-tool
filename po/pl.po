@@ -1,0 +1,292 @@
+# 
+# Translators:
+# A Budz, 2026
+msgid ""
+msgstr ""
+"Project-Id-Version: locator-tool\n"
+"PO-Revision-Date: 2016-05-19 10:23+0000\n"
+"Last-Translator: A Budz, 2026\n"
+"Language-Team: Polish (http://app.transifex.com/locator-tool/locator-tool/language/pl/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#. Depth of category tree
+#: ./app/components/ltFilesSelector.html
+msgctxt "Category"
+msgid "Depth"
+msgstr "Głębia"
+
+#: ./app/components/ltAbout.html
+msgid ""
+"<a ui-sref=\"select\">Select files to geolocate</a> by querying a category "
+"or inputting a list of <code>File:</code>s."
+msgstr "<a ui-sref=\"select\">Wybierz pliki do lokalizowania</a> przeszukując kategorie lub wpisując ich listę."
+
+#: ./app/components/ltAbout.html ./app/components/ltNavbar.html
+msgid "About"
+msgstr "O narzędziu"
+
+#: ./app/components/ltNavbar.html
+msgid "About locator-tool"
+msgstr "O narzędziu locator-tool"
+
+#: ./app/components/ltGeolocate.html
+msgid "Also show geolocated files"
+msgstr "Pokaż także zlokalizowane pliki"
+
+#: ./app/components/ltFileDetails.html
+msgid ""
+"Camera location via\n"
+"<a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
+msgstr "Lokalizacja aparatu – <a href=\"https://commons.wikimedia.org/wiki/Template:Location\" target=\"_blank\"><code class=\"mediawiki-template\">Location</code></a>"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Category"
+msgstr "Kategoria"
+
+#: ./app/components/ltLocationInput.html
+msgid "Discard"
+msgstr "Wyczyść"
+
+#: ./app/components/ltAbout.html
+msgid "Edits using locator-tool"
+msgstr "Edycje wykonane przy użyciu locator-tool"
+
+#: ./app/components/ltFilesSelector.html
+msgid "End timestamp"
+msgstr "Do"
+
+#: ./app/components/ltFileDetails.html
+msgid "Failed to save: {{$ctrl.error.statusText}}"
+msgstr "Nie udało się zapisać. Błąd: {{$ctrl.error.statusText}}."
+
+#: ./app/components/ltGeolocate.html
+msgid "Fetched 0 files for category <code>{{$ctrl.category}}</code>!"
+msgstr "Nie znaleziono żadnych plików w kategorii <code>{{$ctrl.category}}</code>!"
+
+#: ./app/components/ltGeolocate.html
+msgid "Fetched 0 files for user <code>{{$ctrl.user}}</code>!"
+msgstr "Nie znaleziono żadnych plików użytkownika <code>{{$ctrl.user}}</code>!"
+
+#: ./app/components/ltFilesSelector.html
+msgid "File list"
+msgstr "Lista plików"
+
+#: ./app/components/ltAbout.html
+msgid ""
+"From the list of files provided, select one and click its location on an "
+"interactive map."
+msgstr "Wybierz plik z listy, a następnie wskaż jego lokalizację klikają w odpowiednim punkcie na interaktywnej mapie."
+
+#: ./app/components/ltNavbar.html
+msgid "Gallery"
+msgstr "Galeria"
+
+#: ./app/components/ltNavbar.html
+msgid "Geolocate files"
+msgstr "Lokalizuj pliki"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Hello {{$ctrl.userInfo}}!"
+msgstr "Witaj, {{$ctrl.userInfo}}!"
+
+#: ./app/components/ltFilesSelector.html
+msgid ""
+"In order to allow locator-tool to modify file description pages, sign in "
+"first:"
+msgstr "Zaloguj się, aby umożliwić narzędziu locator-tool edycję stron opisu plików:"
+
+#: ./app/components/ltAbout.html
+msgid ""
+"Its source code is available on <a "
+"href=\"https://github.com/simon04/locator-tool\">GitHub</a> and <a "
+"href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a> licensed."
+msgstr "Jego kod źródłowy jest dostępny na <a href=\"https://github.com/simon04/locator-tool\">GitHubie</a> i opublikowany na licencji <a href=\"https://www.gnu.org/licenses/gpl.html\">GPL v3</a>."
+
+#. Your language in your language (e.g. 'English', 'Deutsch')
+#: ./app/components/ltLanguageSelector.html
+msgid "LANGUAGE"
+msgstr "Polski"
+
+#: ./app/components/ltFileDetails.html
+msgid "Left click on map to set the location."
+msgstr "Naciśnij lewy przycisk myszy, aby ustawić lokalizację"
+
+#. maximum number of files
+#: ./app/components/ltFilesSelector.html
+msgid "Limit"
+msgstr "Limit"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Load Category to geolocate"
+msgstr "Załaduj pliki z kategorii do zlokalizowania"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Load User files to geolocate"
+msgstr "Załaduj pliki użytkownika do zlokalizowania"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Load {{$ctrl.titleList.length}} files to geolocate"
+msgstr "Załaduj {{$ctrl.titleList.length}} plików do zlokalizowania"
+
+#: ./app/components/ltGallery.html ./app/components/ltGeolocate.html
+msgid "Loading file details …"
+msgstr "Ładowanie szczegółów pliku…"
+
+#: ./app/components/ltFilesSelector.html ./app/components/ltUserInfo.html
+msgid "Log in"
+msgstr "Zaloguj"
+
+#: ./app/components/ltAbout.html
+msgid "Log in using the button on the upper right corner"
+msgstr "Zaloguj się, używając przycisku w prawym górnym rogu"
+
+#: ./app/components/ltUserInfo.html
+msgid "Log out"
+msgstr "Wyloguj"
+
+#: ./app/components/ltUserInfo.html
+msgid "Logged in as {{$ctrl.user}}"
+msgstr "Zalogowano jako {{$ctrl.user}}"
+
+#: ./app/components/ltNavbar.html
+msgid "Map"
+msgstr "Mapa"
+
+#: ./app/components/ltFileDetails.html
+msgid ""
+"Object location via\n"
+"<a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
+msgstr "Lokalizacja obiektu – <a href=\"https://commons.wikimedia.org/wiki/Template:Object_location\" target=\"_blank\"><code class=\"mediawiki-template\">Object location</code></a>"
+
+#: ./app/components/ltAbout.html
+msgid "Open Source Licenses:"
+msgstr "Licencje open source:"
+
+#: ./app/components/ltFileDetails.html
+msgid "Press shift and click on map to set the object location."
+msgstr "Naciśnij shift + lewy przycisk myszy, aby ustawić lokalizację obiektu"
+
+#: ./app/components/ltAbout.html
+msgid "Repeat …"
+msgstr "I jeszcze raz…"
+
+#: ./app/components/ltLocationInput.html
+msgid "Save"
+msgstr "Zapisz"
+
+#: ./app/components/ltNavbar.html
+msgid "Select files"
+msgstr "Wybierz pliki"
+
+#: ./app/components/ltFilesSelector.html ./app/components/ltNavbar.html
+msgid "Select files to geolocate"
+msgstr "Wybierz pliki do zlokalizowania"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show Category as gallery"
+msgstr "Pokaż pliki z kategorii w galerii"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show Category on map"
+msgstr "Pokaż pliki z kategorii na mapie"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show User files as gallery"
+msgstr "Pokaż pliki użytkownika w galerii"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show User files on map"
+msgstr "Pokaż pliki użytkownika na mapie"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show {{$ctrl.titleList.length}} files as gallery"
+msgstr "Pokaż {{$ctrl.titleList.length}} plików w galerii"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Show {{$ctrl.titleList.length}} files on map"
+msgstr "Pokaż {{$ctrl.titleList.length}} plików na mapie"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Sign in"
+msgstr "Zaloguj"
+
+#: ./app/components/ltFilesSelector.html
+msgid "Start timestamp"
+msgstr "Od"
+
+#: ./app/components/ltAbout.html
+msgid ""
+"This tool has been created by <a "
+"href=\"https://github.com/simon04/\">simon04</a>."
+msgstr "Autorem narzędzia jest <a href=\"https://github.com/simon04/\">simon04</a>."
+
+#: ./app/components/ltAbout.html
+msgid ""
+"This tool helps to add <code class=\"mediawiki-template\">Coordinate</code> "
+"information to images on <a "
+"href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+msgstr "To narzędzie pomaga dodawać informacje o lokalizacji do plików w <a href=\"https://commons.wikimedia.org/\">Wikimedia Commons</a>."
+
+#: ./app/components/ltAbout.html
+msgid "Translate locator-tool on Transifex"
+msgstr "Popraw tłumaczenie locator-tool na Transifex"
+
+#: ./app/components/ltAbout.html
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: ./app/components/ltAbout.html
+msgid "Usage"
+msgstr "Jak korzystać?"
+
+#: ./app/components/ltFilesSelector.html
+msgid "User"
+msgstr "Użytkownik"
+
+#: ./app/components/ltFilesSelector.html
+msgid "User files"
+msgstr "Pliki użytkownika"
+
+#: ./app/components/ltAbout.html
+msgid "Version:"
+msgstr "Wersja:"
+
+#: ./app/components/ltFilesSelector.html
+msgid ""
+"When a clipboard content containing HTML code (for instance a copied "
+"selection from a Commons gallery) is pasted here, locator-tool tries to "
+"extract <code>File:</code>s from the code."
+msgstr "Jeśli w pole zostanie wklejony kod HTML (na przykład skopiowane zaznaczenie z galerii w Commons), locator-tool spróbuje wyodrębnić z niego pliki wyszukując znacznik <code>File:</code>."
+
+#: ./app/components/ltAbout.html ./app/components/ltNavbar.html
+msgid "locator-tool"
+msgstr "locator-tool"
+
+#: ./app/components/ltAbout.html
+msgid ""
+"→ <a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-"
+"tool\">Commons:Locator-tool</a>"
+msgstr "<a href=\"https://commons.wikimedia.org/wiki/Commons:Locator-tool\">Commons:Locator-tool</a>"
+
+#: ./app/components/ltGallery.vue
+msgid "Sorting"
+msgstr "Sortowanie"
+
+#: ./app/components/ltGallery.vue
+msgid "Title"
+msgstr "Tytuł"
+
+#: ./app/components/ltGallery.vue
+msgid "Description"
+msgstr "Opis"
+
+#: ./app/components/ltGallery.vue
+msgid "Author"
+msgstr "Autor"
+
+#: ./app/components/ltGallery.vue
+msgid "Date"
+msgstr "Data"
