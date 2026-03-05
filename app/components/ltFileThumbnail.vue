@@ -44,11 +44,12 @@ const props = defineProps<{
 
 const lazyUrl = computed(() => props.file.imageUrl(120));
 
-const thumbnailUrl = computed(() => props.file.imageUrl(1024));
+const thumbnailUrl = computed(() => props.file.imageUrl(1280));
 
 const imageUrl = computed(() => {
   const width = window.innerWidth * (window.devicePixelRatio || 1);
-  // use widths from UploadThumbnailRenderMap = [320, 640, 800, 1280] and MediaViewerThumbnailBucketSizes settings
+  // https://www.mediawiki.org/wiki/Common_thumbnail_sizes
+  // Current standard sizes in Wikimedia production: 20px, 40px, 60px, 120px, 250px, 330px, 500px, 960px, 1280px, 1920px, 3840px
   return props.file.imageUrl(width > 1280 ? undefined : 1280);
 });
 
