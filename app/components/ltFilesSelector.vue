@@ -32,7 +32,7 @@
       </button>
     </li>
   </ul>
-  <form v-show="$tab === Tab.USER" @submit.stop.prevent="nextForCategory()">
+  <form v-show="$tab === Tab.USER" @submit.stop.prevent="nextForUser()">
     <div class="mb-4">
       <label for="inputUser">{{ t('User') }}</label>
       <input
