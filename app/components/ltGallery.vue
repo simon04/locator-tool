@@ -8,7 +8,16 @@
     </div>
   </div>
 
-  <div v-if="!isLoading" class="mt-3 row">
+  <div v-else-if="!isReady" class="row mt-3">
+    <div class="col-sm-12">
+      <div class="alert alert-warning">
+        <ExclamationTriangleFill class="me-1" />
+        {{ error }}
+      </div>
+    </div>
+  </div>
+
+  <div v-else class="mt-3 row">
     <div class="col-sm-12">
       <label class="me-3">{{ t('Sorting') }}:</label>
       <div v-for="column in sortColumns" :key="column.key" class="form-check form-check-inline">
@@ -53,7 +62,7 @@
 
 <script setup lang="ts">
 import {onMounted, ref} from 'vue';
-import {useSorted} from '@vueuse/core';
+import {useAsyncState, useSorted} from '@vueuse/core';
 import {type FileDetails, getFileDetails} from '../api/ltData';
 import {getCoordinates} from '../api/ltData';
 import {getFiles} from '../api/ltData';
@@ -68,10 +77,23 @@ import ltGalleryCard from './ltGalleryCard.vue';
 import {useLtRoute} from './useLtRoute';
 import ltFileModalDialog from './ltFileModalDialog.vue';
 import {useModalDialog} from './useModalDialog';
+import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
 
 const {$query} = useLtRoute();
-const isLoading = ref(true);
-const titles = ref<(CommonsFile & FileDetails)[]>([]);
+const {
+  error,
+  isLoading,
+  isReady,
+  execute,
+  state: titles
+} = useAsyncState(
+  () =>
+    getFiles($query.value)
+      .then(t => getCoordinates(t))
+      .then(t => t as (CommonsFile & FileDetails)[]),
+  [],
+  {immediate: false}
+);
 
 const {prevImage, nextImage} = useModalDialog();
 
@@ -95,10 +117,7 @@ const sortedTitles = useSorted(
 useAppTitle(routeTitlePart(), t('Gallery'));
 
 onMounted(async () => {
-  const titles0 = await getFiles($query.value);
-  const titles1 = await getCoordinates(titles0);
-  titles.value = titles1 as unknown as (CommonsFile & FileDetails)[];
-  isLoading.value = false;
+  await execute();
   for (const title of titles.value) {
     getFileDetails(title.pageid, 'categories|imageinfo', 'extmetadata').then(fileDetails =>
       Object.assign(title, fileDetails)
