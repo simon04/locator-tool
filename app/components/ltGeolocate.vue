@@ -8,21 +8,18 @@
     </div>
   </div>
 
-  <div v-if="!isLoading && !$titles?.length" class="row mt-3">
+  <div v-else-if="!isReady" class="row mt-3">
     <div class="col-sm-12">
       <div class="alert alert-warning">
         <ExclamationTriangleFill class="me-1" />
         <span v-if="category" v-html="msgNoFilesForCategory"></span>
         <span v-if="user" v-html="msgNoFilesForUser"></span>
+        {{ error }}
       </div>
     </div>
   </div>
 
-  <div
-    v-if="!isLoading && $titles?.length"
-    class="row flex-grow-1 mt-3"
-    style="--bs-gutter-x: 0.5rem"
-  >
+  <div v-else class="row flex-grow-1 mt-3" style="--bs-gutter-x: 0.5rem">
     <div
       class="col-lg-3 col-xl-2 mt-3 mt-lg-0 h-100 col-lg-h40"
       style="overflow-y: scroll; overflow-x: hidden"
@@ -120,27 +117,34 @@ import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
 import Search from 'bootstrap-icons/icons/search.svg?component';
 import {useLtRoute} from './useLtRoute';
 import ltFileModalDialog from './ltFileModalDialog.vue';
+import {useAsyncState, useSorted} from '@vueuse/core';
 
 const {$query} = useLtRoute();
 const category = $query.value.category;
 const user = $query.value.user;
+
+const {
+  error,
+  isLoading,
+  isReady,
+  execute,
+  state: $titles
+} = useAsyncState(() => ltData.getFiles($query.value).then(t => ltData.getCoordinates(t)), [], {
+  immediate: false
+});
+
 const $error = ref<unknown>();
 const $filter = ref('');
 const $showGeolocated = ref(false);
 const $title = ref<CommonsFile | undefined>(undefined);
-const $titles = ref<CommonsFile[] | undefined>(undefined);
-const isLoading = ref(false);
 
 useAppTitle(routeTitlePart(), t('Geolocate files'));
 
 onMounted(async () => {
-  isLoading.value = true;
-  const titles0 = await ltData.getFiles($query.value);
-  const titles = await ltData.getCoordinates(titles0);
-  $titles.value = titles.sort((t1, t2) => t1.file.localeCompare(t2.file));
+  await execute();
+  $titles.value = $titles.value.sort((t1, t2) => t1.file.localeCompare(t2.file));
   $showGeolocated.value = $titles.value.length <= 5;
   $title.value = filteredTitles.value[0]; // select first visible title
-  isLoading.value = false;
 });
 
 watch($title, title => title && titleChanged(title));
