@@ -2,11 +2,12 @@
   <div
     v-if="modalDialogFile"
     class="modal"
+    data-bs-theme="dark"
     style="display: block; cursor: zoom-out; background: rgba(0, 0, 0, 0.5)"
     @click="modalDialogFile = undefined"
   >
     <div class="modal-dialog modal-fullscreen">
-      <div class="modal-content">
+      <div class="modal-content" data-bs-theme="light">
         <div class="carousel slide w-100 h-100">
           <div class="carousel-inner w-100 h-100">
             <div class="carousel-item w-100 h-100 active">
