@@ -29,13 +29,13 @@
     "pot": "angular-gettext-cli --files {,./app/**/}*.{js,html} --dest po/locator-tool.pot --no-line-numbers"
   },
   "dependencies": {
-    "@vueuse/core": "14.1.0",
+    "@vueuse/core": "14.2.1",
     "bootstrap": "5.3.8",
     "bootstrap-icons": "1.13.1",
-    "es-toolkit": "1.43.0",
+    "es-toolkit": "1.45.1",
     "leaflet": "1.9.4",
     "leaflet-control-geocoder": "3.3.1",
-    "vue": "3.5.26",
+    "vue": "3.5.30",
     "vue-router": "4.6.4",
     "wikimedia-commons-file-path": "2.1.1"
   },
