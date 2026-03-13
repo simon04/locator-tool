@@ -15,11 +15,13 @@ function setLazyImg($event: Event) {
 }
 
 function prevImage(files: F[]) {
-  modalDialogFile.value = files[files.findIndex(f => f.file === modalDialogFile.value?.file) - 1];
+  const index = files.findIndex(f => f.file === modalDialogFile.value?.file);
+  modalDialogFile.value = files.at(index - 1);
 }
 
 function nextImage(files: F[]) {
-  modalDialogFile.value = files[files.findIndex(f => f.file === modalDialogFile.value?.file) + 1];
+  const index = files.findIndex(f => f.file === modalDialogFile.value?.file);
+  modalDialogFile.value = files.at((index + 1) % files.length);
 }
 
 export function useModalDialog() {
