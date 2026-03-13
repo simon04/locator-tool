@@ -47,6 +47,8 @@
       <lt-gallery-card :title="title" />
     </div>
   </div>
+
+  <lt-file-modal-dialog @prev="prevImage(sortedTitles)" @next="nextImage(sortedTitles)" />
 </template>
 
 <script setup lang="ts">
@@ -64,10 +66,14 @@ import SortUp from 'bootstrap-icons/icons/sort-up.svg?component';
 import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
 import ltGalleryCard from './ltGalleryCard.vue';
 import {useLtRoute} from './useLtRoute';
+import ltFileModalDialog from './ltFileModalDialog.vue';
+import {useModalDialog} from './useModalDialog';
 
 const {$query} = useLtRoute();
 const isLoading = ref(true);
 const titles = ref<(CommonsFile & FileDetails)[]>([]);
+
+const {prevImage, nextImage} = useModalDialog();
 
 type SortColumn = keyof Pick<
   CommonsFile & FileDetails,

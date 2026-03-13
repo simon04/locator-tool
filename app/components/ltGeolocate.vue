@@ -100,6 +100,8 @@
       />
     </div>
   </div>
+
+  <lt-file-modal-dialog />
 </template>
 
 <script setup lang="ts">
@@ -117,6 +119,7 @@ import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
 import Search from 'bootstrap-icons/icons/search.svg?component';
 import {useLtRoute} from './useLtRoute';
+import ltFileModalDialog from './ltFileModalDialog.vue';
 
 const {$query} = useLtRoute();
 const category = $query.value.category;

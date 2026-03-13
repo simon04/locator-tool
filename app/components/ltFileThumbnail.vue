@@ -5,73 +5,26 @@
     :src="lazyUrl"
     :lazy-img="thumbnailUrl"
     style="max-height: 100%; cursor: zoom-in; width: 100%"
-    @click="showDialog()"
+    @click="modalDialogFile = file"
     @load="setLazyImg($event)"
   />
-  <div
-    v-if="dialogShown"
-    class="modal"
-    style="display: block; cursor: zoom-out; background: rgba(0, 0, 0, 0.5)"
-    @click="hideDialog()"
-  >
-    <div class="modal-dialog modal-fullscreen">
-      <div class="modal-content">
-        <div class="modal-body text-center">
-          <img
-            class="img-fluid"
-            loading="lazy"
-            :src="thumbnailUrl"
-            :lazy-img="imageUrl"
-            style="width: 100%; height: 100%; object-fit: contain"
-            @load="setLazyImg($event)"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script setup lang="ts">
-import {ref, computed, type WatchHandle} from 'vue';
+import {computed} from 'vue';
 import type {CommonsFile} from '../model';
-import {useMagicKeys, whenever} from '@vueuse/core';
+import type {FileDetails} from '../api/ltData';
+import {useModalDialog} from './useModalDialog';
 
-const dialogShown = ref(false);
+const {modalDialogFile, setLazyImg} = useModalDialog();
 
 const props = defineProps<{
-  file: CommonsFile;
+  file: CommonsFile & FileDetails;
 }>();
 
 const lazyUrl = computed(() => props.file.imageUrl(120));
 
 const thumbnailUrl = computed(() => props.file.imageUrl(1280));
-
-const imageUrl = computed(() => {
-  const width = window.innerWidth * (window.devicePixelRatio || 1);
-  // https://www.mediawiki.org/wiki/Common_thumbnail_sizes
-  // Current standard sizes in Wikimedia production: 20px, 40px, 60px, 120px, 250px, 330px, 500px, 960px, 1280px, 1920px, 3840px
-  return props.file.imageUrl(width > 1280 ? undefined : 1280);
-});
-
-function setLazyImg($event: Event) {
-  const img = $event.target as HTMLImageElement;
-  const lazy = img.getAttribute('lazy-img');
-  if (!lazy || img.src === lazy) return;
-  img.src = lazy;
-}
-
-const keys = useMagicKeys();
-let handle: WatchHandle;
-
-function showDialog() {
-  dialogShown.value = true;
-  handle = whenever(keys['Escape'], () => hideDialog());
-}
-
-function hideDialog() {
-  dialogShown.value = false;
-  handle?.stop();
-}
 </script>
 
 <style scoped>
