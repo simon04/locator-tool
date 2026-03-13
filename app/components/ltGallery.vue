@@ -26,6 +26,19 @@
           />
         </label>
       </div>
+      <div class="form-check form-check-inline">
+        <label class="form-check-label">
+          <SortUp />
+          <span class="visually-hidden">{{ t('Inverse sorting') }}</span>
+          <input
+            v-model="sortDirection"
+            class="form-check-input"
+            type="checkbox"
+            :true-value="-1"
+            :false-value="1"
+          />
+        </label>
+      </div>
     </div>
   </div>
 
@@ -47,6 +60,7 @@ import ltSpinner from './ltSpinner.vue';
 import {t} from './useI18n';
 import {useAppTitle, routeTitlePart} from './useAppTitle';
 import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
+import SortUp from 'bootstrap-icons/icons/sort-up.svg?component';
 import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
 import ltGalleryCard from './ltGalleryCard.vue';
 import {useLtRoute} from './useLtRoute';

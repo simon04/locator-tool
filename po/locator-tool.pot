@@ -254,6 +254,10 @@ msgid "Sorting"
 msgstr ""
 
 #: ./app/components/ltGallery.vue
+msgid "Inverse sorting"
+msgstr ""
+
+#: ./app/components/ltGallery.vue
 msgid "Title"
 msgstr ""
 
