@@ -39,14 +39,15 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from 'vue';
-import {getUserInfo, loginURL} from '../api/ltDataAuth';
-import {t} from './useI18n';
 import DoorOpen from 'bootstrap-icons/icons/door-open.svg?component';
-import {useLtRoute} from './useLtRoute';
-import LtFilesSelectorForUser from './ltFilesSelectorForUser.vue';
+import {computed, ref} from 'vue';
+
+import {getUserInfo, loginURL} from '../api/ltDataAuth';
 import LtFilesSelectorForCategory from './ltFilesSelectorForCategory.vue';
 import LtFilesSelectorForFiles from './ltFilesSelectorForFiles.vue';
+import LtFilesSelectorForUser from './ltFilesSelectorForUser.vue';
+import {t} from './useI18n';
+import {useLtRoute} from './useLtRoute';
 
 enum Tab {
   CATEGORY = 1,

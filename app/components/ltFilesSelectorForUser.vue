@@ -49,17 +49,18 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
 import {useAsyncState, watchDebounced} from '@vueuse/core';
-import * as ltData from '../api/ltData';
-import {useRouter} from 'vue-router';
-import ltSpinner from './ltSpinner.vue';
-import {t} from './useI18n';
 import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
-import {useLtRoute} from './useLtRoute';
+import {ref} from 'vue';
+import {useRouter} from 'vue-router';
+
+import * as ltData from '../api/ltData';
+import ltSpinner from './ltSpinner.vue';
 import {tryParse} from './tryParse';
+import {t} from './useI18n';
+import {useLtRoute} from './useLtRoute';
 
 const {$query} = useLtRoute();
 const $routes = useRouter();

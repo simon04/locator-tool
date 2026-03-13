@@ -1,8 +1,8 @@
-import {type Ref, watch} from 'vue';
 import {useLocalStorage} from '@vueuse/core';
+import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?raw';
 import * as L from 'leaflet';
 import ControlGeocoder from 'leaflet-control-geocoder';
-import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?raw';
+import {type Ref, watch} from 'vue';
 
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-control-geocoder/style.css';

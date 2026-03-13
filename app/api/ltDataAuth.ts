@@ -1,4 +1,5 @@
 import {useFetch} from '@vueuse/core';
+
 import {type CommonsFile, LatLng} from '../model';
 
 interface UserApiResponse {

@@ -12,8 +12,9 @@
 
 <script setup lang="ts">
 import {computed} from 'vue';
-import type {CommonsFile} from '../model';
+
 import type {FileDetails} from '../api/ltData';
+import type {CommonsFile} from '../model';
 import {useModalDialog} from './useModalDialog';
 
 const {modalDialogFile, setLazyImg} = useModalDialog();

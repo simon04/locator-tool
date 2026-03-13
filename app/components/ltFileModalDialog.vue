@@ -49,8 +49,9 @@
 <script setup lang="ts">
 import {useMagicKeys} from '@vueuse/core';
 import {computed, watch} from 'vue';
-import {useModalDialog} from './useModalDialog';
+
 import ltFileMetadata from './ltFileMetadata.vue';
+import {useModalDialog} from './useModalDialog';
 
 const {modalDialogFile, setLazyImg} = useModalDialog();
 

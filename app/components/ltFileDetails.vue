@@ -81,22 +81,23 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from 'vue';
 import {useMagicKeys, whenever} from '@vueuse/core';
-import * as ltDataAuth from '../api/ltDataAuth';
-import {type CommonsFile, LatLng} from '../model';
-import ltFileMetadata from './ltFileMetadata.vue';
-import ltLocationInput from './ltLocationInput.vue';
-import type {FileDetails} from '../api/ltData';
-import {t} from './useI18n';
-import CaretDown from 'bootstrap-icons/icons/caret-down.svg?component';
-import CaretRight from 'bootstrap-icons/icons/caret-right.svg?component';
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?component';
 import CameraFill from 'bootstrap-icons/icons/camera-fill.svg?component';
+import CaretDown from 'bootstrap-icons/icons/caret-down.svg?component';
+import CaretRight from 'bootstrap-icons/icons/caret-right.svg?component';
 import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
 import QuestionCircle from 'bootstrap-icons/icons/question-circle.svg?component';
 import Save from 'bootstrap-icons/icons/save.svg?component';
+import {computed, ref} from 'vue';
+
+import type {FileDetails} from '../api/ltData';
+import * as ltDataAuth from '../api/ltDataAuth';
+import {type CommonsFile, LatLng} from '../model';
+import ltFileMetadata from './ltFileMetadata.vue';
+import ltLocationInput from './ltLocationInput.vue';
+import {t} from './useI18n';
 
 const coordinates = defineModel<LatLng>('coordinates', {required: true});
 const objectLocation = defineModel<LatLng>('objectLocation', {required: true});

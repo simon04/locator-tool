@@ -70,14 +70,15 @@
 </template>
 
 <script setup lang="ts">
+import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
+import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
+import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
+import ListTask from 'bootstrap-icons/icons/list-task.svg?component';
+
 import ltDarkModeToggle from './ltDarkModeToggle.vue';
 import ltLanguageSelector from './ltLanguageSelector.vue';
 import ltUserInfo from './ltUserInfo.vue';
 import {t} from './useI18n';
-import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
-import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
-import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
-import ListTask from 'bootstrap-icons/icons/list-task.svg?component';
 import {useLtRoute} from './useLtRoute';
 
 const {$query, hasFilesUserCategory} = useLtRoute();

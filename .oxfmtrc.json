@@ -3,8 +3,9 @@
   "arrowParens": "avoid",
   "bracketSpacing": false,
   "htmlWhitespaceSensitivity": "css",
+  "ignorePatterns": ["app/i18n.json"],
   "printWidth": 100,
   "singleQuote": true,
-  "trailingComma": "none",
-  "ignorePatterns": ["app/i18n.json"]
+  "sortImports": {},
+  "trailingComma": "none"
 }

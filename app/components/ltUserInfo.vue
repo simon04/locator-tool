@@ -13,11 +13,12 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from 'vue';
-import {getUserInfo, loginURL, logoutURL} from '../api/ltDataAuth';
-import {t} from './useI18n';
 import DoorClosed from 'bootstrap-icons/icons/door-closed.svg?component';
 import DoorOpen from 'bootstrap-icons/icons/door-open.svg?component';
+import {computed} from 'vue';
+
+import {getUserInfo, loginURL, logoutURL} from '../api/ltDataAuth';
+import {t} from './useI18n';
 
 const {data: userInfo} = getUserInfo();
 const msgLoggedIn = computed(() =>

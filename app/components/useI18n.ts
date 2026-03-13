@@ -1,4 +1,5 @@
 import {useLocalStorage} from '@vueuse/core';
+
 import i18n from '../i18n.json';
 
 export const languageCodes = [

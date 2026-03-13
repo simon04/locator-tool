@@ -1,8 +1,10 @@
-import {defineConfig} from 'vite';
-import vue from '@vitejs/plugin-vue';
-import {svgLoader} from './vite-svg-loader';
 import {execSync} from 'child_process';
 import {readFileSync} from 'fs';
+
+import vue from '@vitejs/plugin-vue';
+import {defineConfig} from 'vite';
+
+import {svgLoader} from './vite-svg-loader';
 
 function git(command: string): string {
   return execSync(`git ${command}`, {encoding: 'utf8'}).trim();

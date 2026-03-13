@@ -3,15 +3,16 @@
 </template>
 
 <script setup lang="ts">
-import * as L from 'leaflet';
-import {LatLng} from '../model';
-import {onMounted, ref, watch} from 'vue';
-import {useLeafletMap} from './useLeafletMap';
-import type {MapView} from './useLeafletMap';
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?raw';
+import * as L from 'leaflet';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png?no-inline';
 import iconUrl from 'leaflet/dist/images/marker-icon.png?no-inline';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png?no-inline';
+import {onMounted, ref, watch} from 'vue';
+
+import {LatLng} from '../model';
+import {useLeafletMap} from './useLeafletMap';
+import type {MapView} from './useLeafletMap';
 
 const coordinates = defineModel<LatLng>('coordinates', {required: true});
 const objectLocation = defineModel<LatLng>('objectLocation', {required: true});

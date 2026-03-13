@@ -73,12 +73,13 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from 'vue';
-import {t} from './useI18n';
-import {useAppTitle} from './useAppTitle';
-import ClockHistory from 'bootstrap-icons/icons/clock-history.svg?component';
 import ChatLeft from 'bootstrap-icons/icons/chat-left.svg?component';
+import ClockHistory from 'bootstrap-icons/icons/clock-history.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
+import {computed} from 'vue';
+
+import {useAppTitle} from './useAppTitle';
+import {t} from './useI18n';
 
 useAppTitle(t('About'));
 

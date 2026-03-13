@@ -1,6 +1,7 @@
-import {useRoute} from 'vue-router';
-import type {FilesOptions} from '../api/ltData';
 import {computed} from 'vue';
+import {useRoute} from 'vue-router';
+
+import type {FilesOptions} from '../api/ltData';
 
 export function useLtRoute() {
   const $route = useRoute();

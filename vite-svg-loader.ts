@@ -1,6 +1,7 @@
-import {Plugin} from 'vite';
-import {compileTemplate} from '@vue/compiler-sfc';
 import {readFile} from 'fs/promises';
+
+import {compileTemplate} from '@vue/compiler-sfc';
+import {Plugin} from 'vite';
 
 // inspired by:
 // - https://github.com/jpkleemans/vite-svg-loader/blob/main/index.js

@@ -102,22 +102,23 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, onMounted, watch} from 'vue';
-import * as ltData from '../api/ltData';
-import type {CommonsFile} from '../model';
-import ltSpinner from './ltSpinner.vue';
-import ltFileDetails from './ltFileDetails.vue';
-import ltFileThumbnail from './ltFileThumbnail.vue';
-import ltMap from './ltMap.vue';
-import {t} from './useI18n';
-import {useAppTitle, routeTitlePart} from './useAppTitle';
+import {useAsyncState} from '@vueuse/core';
 import CameraFill from 'bootstrap-icons/icons/camera-fill.svg?component';
 import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
 import Search from 'bootstrap-icons/icons/search.svg?component';
-import {useLtRoute} from './useLtRoute';
+import {ref, computed, onMounted, watch} from 'vue';
+
+import * as ltData from '../api/ltData';
+import type {CommonsFile} from '../model';
+import ltFileDetails from './ltFileDetails.vue';
 import ltFileModalDialog from './ltFileModalDialog.vue';
-import {useAsyncState, useSorted} from '@vueuse/core';
+import ltFileThumbnail from './ltFileThumbnail.vue';
+import ltMap from './ltMap.vue';
+import ltSpinner from './ltSpinner.vue';
+import {useAppTitle, routeTitlePart} from './useAppTitle';
+import {t} from './useI18n';
+import {useLtRoute} from './useLtRoute';
 
 const {$query} = useLtRoute();
 const category = $query.value.category;

@@ -45,12 +45,13 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from 'vue';
-import {useRouter} from 'vue-router';
-import {t} from './useI18n';
 import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
+import {computed, ref} from 'vue';
+import {useRouter} from 'vue-router';
+
+import {t} from './useI18n';
 
 const $routes = useRouter();
 

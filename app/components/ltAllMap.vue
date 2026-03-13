@@ -3,15 +3,16 @@
 </template>
 
 <script setup lang="ts">
+import * as L from 'leaflet';
 import {type App, createApp, onMounted, reactive, ref} from 'vue';
 import {useRouter} from 'vue-router';
-import * as L from 'leaflet';
+
 import * as ltData from '../api/ltData';
-import {useLeafletMap} from './useLeafletMap';
-import {t} from './useI18n';
-import {useAppTitle, routeTitlePart} from './useAppTitle';
-import LtGalleryCard from './ltGalleryCard.vue';
 import type {CommonsFile} from '../model';
+import LtGalleryCard from './ltGalleryCard.vue';
+import {useAppTitle, routeTitlePart} from './useAppTitle';
+import {t} from './useI18n';
+import {useLeafletMap} from './useLeafletMap';
 import {useLtRoute} from './useLtRoute';
 
 const {$query, hasFilesUserCategory} = useLtRoute();

@@ -32,11 +32,12 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
-import {LatLng} from '../model';
-import {t} from './useI18n';
 import Save from 'bootstrap-icons/icons/save.svg?component';
 import XSquare from 'bootstrap-icons/icons/x-square.svg?component';
+import {ref} from 'vue';
+
+import {LatLng} from '../model';
+import {t} from './useI18n';
 
 // Support lat,lon
 // Support https://geohack.toolforge.org/geohack.php?pagename=Category:War_memorial,_Schwoich&params=47.54427805_N_12.14066878_E_globe:Earth_&language=en-gb

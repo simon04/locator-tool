@@ -1,9 +1,9 @@
+import {mergeWith} from 'es-toolkit';
+import {LatLngBounds} from 'leaflet';
 import getFilePath from 'wikimedia-commons-file-path';
 
 import {type CommonsFile, type CommonsTitle, LatLng, WikidataProperty} from '../model';
 import type {MediaInfo, Statement} from '../model/mediainfo.ts';
-import {LatLngBounds} from 'leaflet';
-import {mergeWith} from 'es-toolkit';
 
 export const API_URL = 'https://commons.wikimedia.org/w/api.php';
 const NS_FILE = 6;

@@ -61,23 +61,24 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from 'vue';
 import {useAsyncState, useSorted} from '@vueuse/core';
+import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
+import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
+import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
+import SortUp from 'bootstrap-icons/icons/sort-up.svg?component';
+import {onMounted, ref} from 'vue';
+
 import {type FileDetails, getFileDetails} from '../api/ltData';
 import {getCoordinates} from '../api/ltData';
 import {getFiles} from '../api/ltData';
 import type {CommonsFile} from '../model';
-import ltSpinner from './ltSpinner.vue';
-import {t} from './useI18n';
-import {useAppTitle, routeTitlePart} from './useAppTitle';
-import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
-import SortUp from 'bootstrap-icons/icons/sort-up.svg?component';
-import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
-import ltGalleryCard from './ltGalleryCard.vue';
-import {useLtRoute} from './useLtRoute';
 import ltFileModalDialog from './ltFileModalDialog.vue';
+import ltGalleryCard from './ltGalleryCard.vue';
+import ltSpinner from './ltSpinner.vue';
+import {useAppTitle, routeTitlePart} from './useAppTitle';
+import {t} from './useI18n';
+import {useLtRoute} from './useLtRoute';
 import {useModalDialog} from './useModalDialog';
-import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
 
 const {$query} = useLtRoute();
 const {
