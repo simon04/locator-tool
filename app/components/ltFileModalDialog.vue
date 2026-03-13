@@ -15,14 +15,8 @@
                 :src="thumbnailUrl"
                 :lazy-img="imageUrl"
                 @load="setLazyImg($event)"
-                class="img-fluid d-block mx-auto my-auto"
-                style="
-                  width: 100%;
-                  height: 100%;
-                  object-fit: contain;
-                  max-width: 100vw;
-                  max-height: 100vh;
-                "
+                class="img-fluid d-block w-100 h-100 mx-auto my-auto"
+                style="object-fit: contain; max-width: 100vw; max-height: 100vh"
               />
               <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3">
                 <h5>{{ modalDialogFile.file }}</h5>
