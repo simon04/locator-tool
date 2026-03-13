@@ -42,7 +42,7 @@
       </a>
     </li>
     <li>
-      <a href="https://www.transifex.com/locator-tool/locator-tool/" class="icon-link">
+      <a href="https://app.transifex.com/locator-tool/locator-tool/" class="icon-link">
         <ChatLeft />
         <span>{{ t('Translate locator-tool on Transifex') }}</span>
       </a>
