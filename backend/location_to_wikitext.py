@@ -56,7 +56,7 @@ def add_location_to_wikitext(type, lat, lng, wikitext):
     )
     if pattern.search(wikitext):
         return pattern.sub(location[:-2], wikitext, count=1)
-    pattern = re.compile(r"\{\{\s*(Information|Artwork)", flags=re.IGNORECASE)
+    pattern = re.compile(r"\{\{\s*(Information|Artwork|Photograph)", flags=re.IGNORECASE)
     match = pattern.search(wikitext)
     if match:
         brace_count = 2
