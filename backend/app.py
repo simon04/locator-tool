@@ -12,6 +12,10 @@ from oauthlib.common import to_unicode
 from talisman import Talisman
 from types_mediainfo import Mediainfo
 from types_query import Page, QueryResult
+from flask import Flask, url_for, request
+from flask import session, render_template, redirect
+from authlib.integrations.flask_client import OAuth, OAuthError, FlaskOAuth1App
+
 
 logging.basicConfig(
     filename=str(pathlib.Path(__file__).parent.joinpath( "locator-tool.log")),
@@ -31,13 +35,96 @@ app.config["CSRF_HEADER_NAME"] = "X-XSRF-TOKEN"
 app.config["CSRF_COOKIE_PATH"] = "/"
 SeaSurf(app)
 
-mwoauth = MWOAuth(
-    base_url="https://commons.wikimedia.org/w",
-    clean_url="https://commons.wikimedia.org/wiki",
-    consumer_key=app.config["OAUTH_CONSUMER_KEY"],
-    consumer_secret=app.config["OAUTH_CONSUMER_SECRET"],
+
+https://commons.wikimedia.org/wiki/Special:OAuth/initiate
+https://commons.wikimedia.org/wiki/Special:OAuth/token
+https://commons.wikimedia.org/wiki/Special:OAuth/identify
+
+oauth = OAuth(app)
+oauth.register(
+    name='mediawiki',
+    api_base_url='https://api.twitter.com/1.1/',
+    request_token_url='https://api.twitter.com/oauth/request_token',
+    access_token_url='https://api.twitter.com/oauth/access_token',
+    authorize_url='https://api.twitter.com/oauth/authenticate',
+    fetch_token=lambda: session.get('token'),
 )
-app.register_blueprint(mwoauth.bp)
+oauth_xxx: FlaskOAuth1App = oauth.mediawiki
+
+
+
+oauth.register(
+    name="toolwatch",
+    client_id=config["CLIENT_ID"],
+    client_secret=config["CLIENT_SECRET"],
+    access_token_url="https://meta.wikimedia.org/w/rest.php/oauth2/access_token",
+    access_token_params=None,
+    authorize_url="https://meta.wikimedia.org/w/rest.php/oauth2/authorize",
+    authorize_params=None,
+    api_base_url="https://meta.wikimedia.org/w/rest.php/oauth2",
+)
+tool = oauth.create_client("toolwatch")
+
+
+
+# Wikimedia OAuth 2.0 endpoints (hosted on commons.wikimedia.org for your consumer)
+WIKI_AUTHORIZE_URL   = "https://commons.wikimedia.org/w/rest.php/oauth2/authorize"
+WIKI_TOKEN_URL       = "https://commons.wikimedia.org/w/rest.php/oauth2/access_token"
+WIKI_USERINFO_URL    = "https://commons.wikimedia.org/w/rest.php/oauth2/resource/profile"
+
+# Commons API for uploads
+WIKI_API             = "https://commons.wikimedia.org/w/api.php"
+
+oauth.register(
+    name="wikimedia",
+    client_id=app.config["WIKI_CLIENT_ID"],
+    client_secret=app.config["WIKI_CLIENT_SECRET"],
+    authorize_url=app.config["WIKI_AUTHORIZE_URL"],
+    access_token_url=app.config["WIKI_TOKEN_URL"],
+    client_kwargs={"scope": app.config["WIKI_SCOPES"]},
+    token_endpoint_auth_method="client_secret_post",
+)
+
+
+
+@app.route('/login')
+def login():
+    redirect_uri = url_for('auth', _external=True)
+    return oauth_xxx.authorize_redirect(redirect_uri)
+
+
+@app.route('/auth')
+def auth():
+    token = oauth_xxx.authorize_access_token()
+    url = 'account/verify_credentials.json'
+    resp = oauth_xxx.get(url, params={'skip_status': True})
+    user = resp.json()
+    # DON'T DO IT IN PRODUCTION, SAVE INTO DB IN PRODUCTION
+    session['token'] = token
+    session['user'] = user
+    return redirect('/')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('token', None)
+    session.pop('user', None)
+    return redirect('/')
+
+
+@app.route('/tweets')
+def list_tweets():
+    url = 'statuses/user_timeline.json'
+    params = {'include_rts': 1, 'count': 200}
+    prev_id = request.args.get('prev')
+    if prev_id:
+        params['max_id'] = prev_id
+
+    resp = oauth_xxx.get(url, params=params)
+    tweets = resp.json()
+    return render_template('tweets.html', tweets=tweets)
+
+
 
 
 @app.route("/")
