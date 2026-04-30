@@ -13,5 +13,5 @@ jobs:
           python-version: '3.9'
       - name: Install dependencies
         run: uv sync
-      - name: Test with doctest
-        run: uv run python -m doctest -v backend/location_to_wikitext.py
+      - name: Test with unittest
+        run: uv run python -m unittest discover --verbose --start-directory backend
