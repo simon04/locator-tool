@@ -1,0 +1,192 @@
+version = 1
+revision = 3
+requires-python = ">=3.9"
+
+[[package]]
+name = "argparse"
+version = "1.2.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/6f/ad/86448942ad49c5fe05bfdf7ebc874807f521dfcca5ee543afaca2974ad5a/argparse-1.2.1.tar.gz", hash = "sha256:ddaf4b0a618335a32b6664d4ae038a1de8fbada3b25033f9021510ed2b3941a4", size = 69297, upload-time = "2014-05-09T22:18:05.795Z" }
+
+[[package]]
+name = "flask"
+version = "0.10.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "itsdangerous" },
+    { name = "jinja2" },
+    { name = "werkzeug" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/db/9c/149ba60c47d107f85fe52564133348458f093dd5e6b57a5b60ab9ac517bb/Flask-0.10.1.tar.gz", hash = "sha256:4c83829ff83d408b5e1d4995472265411d2c414112298f2eb4b359d9e4563373", size = 544247, upload-time = "2013-06-14T08:54:19.252Z" }
+
+[[package]]
+name = "flask-mwoauth"
+version = "0.2.46"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "flask" },
+    { name = "flask-oauthlib" },
+    { name = "future" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e3/2a/f48eb37a8d3451a32caec59d749255548475a21a81aed0d021e4bb076fa7/flask-mwoauth-0.2.46.tar.gz", hash = "sha256:cc3f849bf5d133e6958490fb6e2659efcf113fb31d4d996a2d93a0eaffd1115a", size = 6661, upload-time = "2015-07-25T19:02:26.249Z" }
+
+[[package]]
+name = "flask-oauthlib"
+version = "0.9.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "flask" },
+    { name = "oauthlib" },
+    { name = "requests-oauthlib" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/0e/8a/775cd729baec72ce388c175e7aa0cba3a7a0b7740c5a5803d335235d38df/Flask-OAuthlib-0.9.4.tar.gz", hash = "sha256:bcd6f2f4f58c764824a1de31b9beae22585c5191992d298c0be0b3118dfcbdc6", size = 34252, upload-time = "2017-06-09T08:06:08.305Z" }
+
+[[package]]
+name = "flask-seasurf"
+version = "0.2.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "flask" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9b/24/28e73616f4c8a8d1c265248a9c7cc12715b286cbfef90f1227a3402792f2/Flask-SeaSurf-0.2.2.tar.gz", hash = "sha256:c57918c17e9afd988bdc30d8dcb7bfb833741dee38b06c1bbd17821d6fa2b6cf", size = 5141, upload-time = "2016-03-16T16:41:57.979Z" }
+
+[[package]]
+name = "future"
+version = "0.15.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/5a/f4/99abde815842bc6e97d5a7806ad51236630da14ca2f3b1fce94c0bb94d3d/future-0.15.2.tar.gz", hash = "sha256:3d3b193f20ca62ba7d8782589922878820d0a023b885882deec830adbf639b97", size = 1583441, upload-time = "2015-09-11T07:23:15.083Z" }
+
+[[package]]
+name = "itsdangerous"
+version = "0.24"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/dc/b4/a60bcdba945c00f6d608d8975131ab3f25b22f2bcfe1dab221165194b2d4/itsdangerous-0.24.tar.gz", hash = "sha256:cbb3fcf8d3e33df861709ecaf89d9e6629cff0a217bc2848f1b41cd30d360519", size = 46541, upload-time = "2014-03-28T11:09:28.309Z" }
+
+[[package]]
+name = "jinja2"
+version = "2.8"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "markupsafe" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f2/2f/0b98b06a345a761bec91a079ccae392d282690c2d8272e708f4d10829e22/Jinja2-2.8.tar.gz", hash = "sha256:bc1ff2ff88dbfacefde4ddde471d1417d3b304e8df103a7a9437d47269201bf4", size = 357055, upload-time = "2015-07-26T17:49:47.443Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/96/a1/c56bc4d99dc2663514a8481511e80eba8994133ae75eebdadfc91a5597d9/Jinja2-2.8-py2.py3-none-any.whl", hash = "sha256:1cc03ef32b64be19e0a5b54578dd790906a34943fe9102cfdae0d4495bd536b4", size = 263888, upload-time = "2015-07-26T17:52:06.373Z" },
+]
+
+[[package]]
+name = "locator-tool"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "argparse" },
+    { name = "flask" },
+    { name = "flask-mwoauth" },
+    { name = "flask-oauthlib" },
+    { name = "flask-seasurf" },
+    { name = "future" },
+    { name = "itsdangerous" },
+    { name = "jinja2" },
+    { name = "markupsafe" },
+    { name = "oauthlib" },
+    { name = "pymysql" },
+    { name = "requests" },
+    { name = "requests-oauthlib" },
+    { name = "six" },
+    { name = "talisman" },
+    { name = "werkzeug" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "argparse", specifier = "==1.2.1" },
+    { name = "flask", specifier = "==0.10.1" },
+    { name = "flask-mwoauth", specifier = "==0.2.46" },
+    { name = "flask-oauthlib", specifier = "==0.9.4" },
+    { name = "flask-seasurf", specifier = "==0.2.2" },
+    { name = "future", specifier = "==0.15.2" },
+    { name = "itsdangerous", specifier = "==0.24" },
+    { name = "jinja2", specifier = "==2.8" },
+    { name = "markupsafe", specifier = "==0.23" },
+    { name = "oauthlib", specifier = "==1.1.2" },
+    { name = "pymysql", specifier = "==1.1.1" },
+    { name = "requests", specifier = "==2.10.0" },
+    { name = "requests-oauthlib", specifier = "==0.6.2" },
+    { name = "six", specifier = "==1.10.0" },
+    { name = "talisman", specifier = "==0.1.0" },
+    { name = "werkzeug", specifier = "==0.11.9" },
+]
+
+[[package]]
+name = "markupsafe"
+version = "0.23"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/c0/41/bae1254e0396c0cc8cf1751cb7d9afc90a602353695af5952530482c963f/MarkupSafe-0.23.tar.gz", hash = "sha256:a4ec1aff59b95a14b45eb2e23761a0179e98319da5a7eb76b56ea8cdc7b871c3", size = 13416, upload-time = "2014-05-08T14:58:53.945Z" }
+
+[[package]]
+name = "oauthlib"
+version = "1.1.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a8/11/fb71ced7057b2a8929f51959f4e97bcee9f687aaf896c521984e67118b90/oauthlib-1.1.2.tar.gz", hash = "sha256:0e83e91d9e77a396dc178eddba0c4abf75e465761804bfcdb20b977284bcb0bb", size = 111706, upload-time = "2016-06-01T13:08:34.782Z" }
+
+[[package]]
+name = "pymysql"
+version = "1.1.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b3/8f/ce59b5e5ed4ce8512f879ff1fa5ab699d211ae2495f1adaa5fbba2a1eada/pymysql-1.1.1.tar.gz", hash = "sha256:e127611aaf2b417403c60bf4dc570124aeb4a57f5f37b8e95ae399a42f904cd0", size = 47678, upload-time = "2024-05-21T11:03:43.722Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0c/94/e4181a1f6286f545507528c78016e00065ea913276888db2262507693ce5/PyMySQL-1.1.1-py3-none-any.whl", hash = "sha256:4de15da4c61dc132f4fb9ab763063e693d521a80fd0e87943b9a453dd4c19d6c", size = 44972, upload-time = "2024-05-21T11:03:41.216Z" },
+]
+
+[[package]]
+name = "requests"
+version = "2.10.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/49/6f/183063f01aae1e025cf0130772b55848750a2f3a89bfa11b385b35d7329d/requests-2.10.0.tar.gz", hash = "sha256:63f1815788157130cee16a933b2ee184038e975f0017306d723ac326b5525b54", size = 477617, upload-time = "2016-04-29T22:12:32.122Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/99/b4/63d99ba8e189c47d906b43bae18af4396e336f2b1bfec86af31efe2d2cb8/requests-2.10.0-py2.py3-none-any.whl", hash = "sha256:09bc1b5f3a56cd8c48d433213a8cba51a67d12936568f73b5f1793fcb0c0979e", size = 506877, upload-time = "2016-04-29T22:12:39.027Z" },
+]
+
+[[package]]
+name = "requests-oauthlib"
+version = "0.6.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "oauthlib" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/cc/31/4d86cc71606ff8121267e732ca4dda5b082f14d57115783a575f26a7b957/requests-oauthlib-0.6.2.tar.gz", hash = "sha256:161ec8aaa360befac7079bcf20dc2a3993d1ddef19bc21d8118232a98f716e7a", size = 76972, upload-time = "2016-07-12T16:45:48.951Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/df/f1/bf7fcb853c7a0abfd53c7ef71a72ad6737f120b08260de76ec1b286acd4a/requests_oauthlib-0.6.2-py2.py3-none-any.whl", hash = "sha256:9742667ee57090973baba18a9f0ddab9a7b84ffd44e236e44ada0c660eaf731f", size = 22153, upload-time = "2016-07-12T16:45:12.505Z" },
+]
+
+[[package]]
+name = "six"
+version = "1.10.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b3/b2/238e2590826bfdd113244a40d9d3eb26918bd798fc187e2360a8367068db/six-1.10.0.tar.gz", hash = "sha256:105f8d68616f8248e24bf0e9372ef04d3cc10104f1980f54d57b2ce73a5ad56a", size = 29630, upload-time = "2015-10-07T03:17:49.113Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c8/0a/b6723e1bc4c516cb687841499455a8505b44607ab535be01091c0f24f079/six-1.10.0-py2.py3-none-any.whl", hash = "sha256:0ff78c403d9bccf5a425a6d31a12aa6b47f1c21ca4dc2573a7e2f32a97335eb1", size = 10341, upload-time = "2015-10-07T03:17:20.304Z" },
+]
+
+[[package]]
+name = "talisman"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "six" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/28/36/9e956917b35eca994d24f5e1d53444369df8144d4e35bc69aceaa2aeb668/talisman-0.1.0.tar.gz", hash = "sha256:bd394d0f2d7926a838acaa066457c20878e31f2aaf539f5c5529ded1887b3fa8", size = 10123, upload-time = "2015-11-13T18:19:15.245Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/69/f9/1d0d75804f4eb5a6d0f3b9d46f4248f403fa7dc4e72060bda4b0ef65614d/talisman-0.1.0-py2.py3-none-any.whl", hash = "sha256:0128ea74b31827a67a4d6e0eb842066193c60f4f90675ec3a64850000a3a3402", size = 13174, upload-time = "2015-11-13T18:19:06.892Z" },
+]
+
+[[package]]
+name = "werkzeug"
+version = "0.11.9"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/0f/7c/b316cd9779817173e93f5cebc8fb387db33cc8dc526f3db5e61f2c008d5b/Werkzeug-0.11.9.tar.gz", hash = "sha256:837b71338794634c24713a79c3b9c287301433f2d18cd0adefcbcf885e60c8a1", size = 1157394, upload-time = "2016-04-24T18:31:46.225Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cb/98/83bd68761e7bd0a378ab5a0d805939bf7923ea71ca3849d6961c04ddf82d/Werkzeug-0.11.9-py2.py3-none-any.whl", hash = "sha256:cc4b84a685bfa01163a0bb30738d0dfcffa6af411dd489aed90f37a61bc4af26", size = 306576, upload-time = "2016-04-24T18:31:53.758Z" },
+]
