@@ -2,9 +2,9 @@ import {execSync} from 'child_process';
 import {readFileSync} from 'fs';
 
 import vue from '@vitejs/plugin-vue';
-import {defineConfig} from 'vite';
+import {defineConfig} from 'vite-plus';
 
-import {svgLoader} from './vite-svg-loader';
+import {svgLoader} from './vite-svg-loader.ts';
 
 function git(command: string): string {
   return execSync(`git ${command}`, {encoding: 'utf8'}).trim();
@@ -37,5 +37,19 @@ export default defineConfig({
       }
     }
   },
-  plugins: [vue(), svgLoader()]
+  plugins: [vue(), svgLoader()],
+  fmt: {
+    arrowParens: 'avoid',
+    bracketSpacing: false,
+    htmlWhitespaceSensitivity: 'css',
+    ignorePatterns: ['app/i18n.json'],
+    printWidth: 100,
+    singleQuote: true,
+    sortImports: {},
+    trailingComma: 'none'
+  },
+  lint: {},
+  staged: {
+    '*': 'vp fmt --no-error-on-unmatched-pattern'
+  }
 });
