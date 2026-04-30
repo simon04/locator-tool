@@ -1,17 +1,17 @@
 # Installing locator-tool
 
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) first.
+
 ```sh
 $ git clone https://github.com/simon04/locator-tool.git $HOME/locator-tool
 $ mkdir -p $HOME/www/python
 
 $ cd $HOME/www/python
 $ ln -s $HOME/locator-tool/backend src
-$ virtualenv venv
-$ source venv/bin/activate
 
 $ cd $HOME/www/python/src/
 $ git clone --branch=gh-pages https://github.com/simon04/locator-tool.git static
-$ pip install -r requirements.txt
+$ uv sync
 $ cp config-example.py config.py
 # generate random string for SECRET_KEY
 # for OAUTH_CONSUMER_KEY and OAUTH_CONSUMER_SECRET see below
