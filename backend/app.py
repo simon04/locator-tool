@@ -34,17 +34,15 @@ SeaSurf(app)
 
 oauth = OAuth(app)
 oauth.register(
-    name="wikimedia",
+    name="mediawiki",
     client_id=app.config["OAUTH_CONSUMER_KEY"],
     client_secret=app.config["OAUTH_CONSUMER_SECRET"],
     client_kwargs={"scope": ["basic", "editpage"]},
-    access_token_url="https://meta.wikimedia.org/w/rest.php/oauth2/access_token",
-    access_token_params=None,
-    authorize_url="https://meta.wikimedia.org/w/rest.php/oauth2/authorize",
-    authorize_params=None,
     api_base_url="https://meta.wikimedia.org/w/rest.php/oauth2",
+    access_token_url="https://meta.wikimedia.org/w/rest.php/oauth2/access_token",
+    authorize_url="https://meta.wikimedia.org/w/rest.php/oauth2/authorize",
 )
-oauth_client: FlaskOAuth2App = oauth.wikimedia
+oauth_client: FlaskOAuth2App = oauth.mediawiki
 
 
 @app.route("/login")
