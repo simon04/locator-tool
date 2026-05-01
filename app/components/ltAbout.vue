@@ -34,7 +34,7 @@
     <li v-html="msg.code"></li>
     <li>
       <a
-        href="https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&amp;tagfilter=OAuth+CID%3A+1857"
+        href="https://commons.wikimedia.org/w/index.php?title=Special:RecentChanges&amp;tagfilter=OAuth+CID%3A+17981"
         class="icon-link"
       >
         <ClockHistory />
