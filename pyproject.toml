@@ -14,6 +14,7 @@ dependencies = [
   "itsdangerous==0.24",
   "jinja2==2.8",
   "markupsafe==0.23",
+  "mwparserfromhell>=0.6",
   "oauthlib==1.1.2",
   "pymysql==1.1.1",
   "requests==2.10.0",
