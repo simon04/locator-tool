@@ -38,12 +38,15 @@ oauth.register(
     name="mediawiki",
     client_id=app.config["OAUTH_CONSUMER_KEY"],
     client_secret=app.config["OAUTH_CONSUMER_SECRET"],
-    client_kwargs={"code_challenge_method": "S256", "scope": ["basic", "editpage"]},
-    api_base_url="https://commons.wikimedia.org/w/rest.php/oauth2/",
+    client_kwargs={
+        "code_challenge_method": "S256",
+        "scope": "openid email profile basic editpage",
+    },
+    api_base_url="https://commons.wikimedia.org/w/",
     access_token_url="https://commons.wikimedia.org/w/rest.php/oauth2/access_token",
     authorize_url="https://commons.wikimedia.org/w/rest.php/oauth2/authorize",
 )
-oauth_client: FlaskOAuth2App = oauth.mediawiki
+oauth_client: FlaskOAuth2App = oauth.create_client("mediawiki")
 
 
 @app.route("/login")
@@ -73,13 +76,12 @@ def index():
 @app.route("/user")
 def user():
     token = session["token"]
-    print(token)
-    response: Response = oauth_client.get("resource/profile", token=token)
-    print(response)
+    response: Response = oauth_client.get(
+        "rest.php/oauth2/resource/profile", token=token
+    )
     user = response.json()
-    print(user)
     response.raise_for_status()
-    r = jsonify(user=user)
+    r = jsonify(user=user["username"])
     return r
 
 
@@ -154,7 +156,7 @@ def catscan():
 
 @app.route("/edit", methods=["POST"])
 def edit():
-    if "user" not in session:
+    if "token" not in session:
         abort(401)
 
     data: EditRequest = request.get_json()
@@ -170,7 +172,10 @@ def edit():
     locations = data["locations"]
     app.logger.info("Received request %s", str(data))
 
-    r1: QueryResult = mwoauth_request(
+    response: Response = oauth_client.request(
+        "POST",
+        "api.php",
+        session["token"],
         format="json",
         formatversion="2",
         action="query",
@@ -180,6 +185,7 @@ def edit():
         rvslots="*",
         meta="tokens",
     )
+    r1: QueryResult = response.json()
 
     try:
         token = r1["query"]["tokens"]["csrftoken"]
@@ -208,7 +214,10 @@ def edit():
             token=token,
         )
 
-    r2 = mwoauth_request(
+    response = oauth_client.request(
+        "POST",
+        "api.php",
+        session["token"],
         format="json",
         action="edit",
         pageid=str(pageid),
@@ -216,6 +225,7 @@ def edit():
         text=wikitext,
         token=token,
     )
+    r2 = response.json()
 
     return jsonify(result=r2)
 
@@ -259,7 +269,10 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             property,
             claim["id"],
         )
-        return mwoauth_request(
+        response: Response = oauth_client.request(
+            "POST",
+            "api.php",
+            session["token"],
             format="json",
             action="wbsetclaimvalue",
             claim=claim["id"],
@@ -267,6 +280,10 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             value=json.dumps(coordinates),
             token=token,
         )
+        breakpoint()
+        print(response.text)
+        response.raise_for_status()
+        return response.json()
     else:
         # https://www.wikidata.org/w/api.php?action=help&modules=wbcreateclaim
         app.logger.info(
@@ -274,7 +291,10 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             mediainfo["id"],
             property,
         )
-        return mwoauth_request(
+        response: Response = oauth_client.request(
+            "POST",
+            "api.php",
+            session["token"],
             format="json",
             action="wbcreateclaim",
             entity=mediainfo["id"],
@@ -283,16 +303,6 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             value=json.dumps(coordinates),
             token=token,
         )
-
-
-def mwoauth_request(**kwargs):
-    r = oauth_client.request(
-        "POST",
-        "https://commons.wikimedia.org/w/api.php",
-        token=session["token"],
-        kwargs=kwargs,
-    )
-    return r.data
 
 
 if __name__ == "__main__":
