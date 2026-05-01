@@ -11,7 +11,7 @@ from talisman import Talisman
 from types_mediainfo import Mediainfo
 from types_query import Page, QueryResult
 from flask import session, render_template, redirect, url_for
-from authlib.integrations.flask_client import OAuth, FlaskOAuth1App
+from authlib.integrations.flask_client import FlaskOAuth2App, OAuth, FlaskOAuth1App
 
 
 logging.basicConfig(
@@ -32,60 +32,30 @@ app.config["CSRF_HEADER_NAME"] = "X-XSRF-TOKEN"
 app.config["CSRF_COOKIE_PATH"] = "/"
 SeaSurf(app)
 
-
-# https://commons.wikimedia.org/wiki/Special:OAuth/initiate
-# https://commons.wikimedia.org/wiki/Special:OAuth/token
-# https://commons.wikimedia.org/wiki/Special:OAuth/identify
-
 oauth = OAuth(app)
 oauth.register(
-    name="mediawiki",
-    api_base_url="https://api.twitter.com/1.1/",
-    request_token_url="https://api.twitter.com/oauth/request_token",
-    access_token_url="https://api.twitter.com/oauth/access_token",
-    authorize_url="https://api.twitter.com/oauth/authenticate",
-    fetch_token=lambda: session.get("token"),
-)
-oauth_xxx: FlaskOAuth1App = oauth.mediawiki
-
-
-oauth.register(
-    name="toolwatch",
+    name="wikimedia",
     client_id=app.config["OAUTH_CONSUMER_KEY"],
     client_secret=app.config["OAUTH_CONSUMER_SECRET"],
+    client_kwargs={"scope": ["basic", "editpage"]},
     access_token_url="https://meta.wikimedia.org/w/rest.php/oauth2/access_token",
     access_token_params=None,
     authorize_url="https://meta.wikimedia.org/w/rest.php/oauth2/authorize",
     authorize_params=None,
     api_base_url="https://meta.wikimedia.org/w/rest.php/oauth2",
 )
-tool = oauth.create_client("toolwatch")
-
-
-oauth.register(
-    name="wikimedia",
-    client_id=app.config["OAUTH_CONSUMER_KEY"],
-    client_secret=app.config["OAUTH_CONSUMER_SECRET"],
-    authorize_url=app.config["WIKI_AUTHORIZE_URL"],
-    access_token_url=app.config["WIKI_TOKEN_URL"],
-    client_kwargs={"scope": ["basic", "editpage"]},
-    token_endpoint_auth_method="client_secret_post",
-)
+oauth_client: FlaskOAuth2App = oauth.wikimedia
 
 
 @app.route("/login")
 def login():
-    redirect_uri = url_for("auth", _external=True)
-    return oauth_xxx.authorize_redirect(redirect_uri)
+    return oauth_client.authorize_redirect()
 
 
-@app.route("/auth")
+@app.route("/oauth-callback")
 def auth():
-    token = oauth_xxx.authorize_access_token()
-    url = "account/verify_credentials.json"
-    resp = oauth_xxx.get(url, params={"skip_status": True})
-    user = resp.json()
-    # DON'T DO IT IN PRODUCTION, SAVE INTO DB IN PRODUCTION
+    token = oauth_client.authorize_access_token()
+    user = oauth_client.get("/resource/profile", token=token).json()
     session["token"] = token
     session["user"] = user
     return redirect("/")
@@ -95,20 +65,8 @@ def auth():
 def logout():
     session.pop("token", None)
     session.pop("user", None)
+    session.clear()
     return redirect("/")
-
-
-@app.route("/tweets")
-def list_tweets():
-    url = "statuses/user_timeline.json"
-    params = {"include_rts": 1, "count": 200}
-    prev_id = request.args.get("prev")
-    if prev_id:
-        params["max_id"] = prev_id
-
-    resp = oauth_xxx.get(url, params=params)
-    tweets = resp.json()
-    return render_template("tweets.html", tweets=tweets)
 
 
 @app.route("/")
@@ -118,7 +76,8 @@ def index():
 
 @app.route("/user")
 def user():
-    r = jsonify(user=mwoauth.get_current_user(False))
+    user = session["user"]
+    r = jsonify(user=user)
     return r
 
 
@@ -193,7 +152,7 @@ def catscan():
 
 @app.route("/edit", methods=["POST"])
 def edit():
-    if not mwoauth.get_current_user():
+    if "user" not in session:
         abort(401)
 
     data: EditRequest = request.get_json()
@@ -229,7 +188,6 @@ def edit():
     page = r1["query"]["pages"][0]
     try:
         wikitext = page["revisions"][0]["slots"]["main"]["content"]
-        wikitext = to_unicode(wikitext)
     except KeyError:
         abort(404)
 
@@ -326,7 +284,13 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
 
 
 def mwoauth_request(**kwargs):
-    return mwoauth.mwoauth.post(mwoauth.base_url + "/api.php?", data=kwargs).data
+    r = oauth_client.request(
+        "POST",
+        "https://commons.wikimedia.org/w/api.php",
+        token=session["token"],
+        kwargs=kwargs,
+    )
+    return r.data
 
 
 if __name__ == "__main__":
