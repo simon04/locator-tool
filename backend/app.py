@@ -6,16 +6,17 @@ import typing
 
 from flask import Flask, abort, jsonify, request
 from flask_seasurf import SeaSurf
+from requests import Response
 from location_to_wikitext import add_location_to_wikitext
 from talisman import Talisman
 from types_mediainfo import Mediainfo
 from types_query import Page, QueryResult
-from flask import session,  redirect
+from flask import session, redirect
 from authlib.integrations.flask_client import FlaskOAuth2App, OAuth
 
 
 logging.basicConfig(
-    filename=str(pathlib.Path(__file__).parent.joinpath("locator-tool.log")),
+    # filename=str(pathlib.Path(__file__).parent.joinpath("locator-tool.log")),
     format="[%(asctime)s] %(levelname)s in %(module)s: %(message)s",
     level=logging.DEBUG,
 )
@@ -24,7 +25,7 @@ app = Flask(__name__, static_url_path="", static_folder="static/")
 app.config.from_pyfile("config.py")
 
 # HTTP security headers
-Talisman(app, content_security_policy={})
+# Talisman(app, content_security_policy={})
 
 # CSRF protection. settings fitting Angular $httpProvider
 app.config["CSRF_COOKIE_NAME"] = "XSRF-TOKEN"
@@ -37,8 +38,8 @@ oauth.register(
     name="mediawiki",
     client_id=app.config["OAUTH_CONSUMER_KEY"],
     client_secret=app.config["OAUTH_CONSUMER_SECRET"],
-    client_kwargs={"scope": ["basic", "editpage"]},
-    api_base_url="https://meta.wikimedia.org/w/rest.php/oauth2",
+    client_kwargs={"code_challenge_method": "S256", "scope": ["basic", "editpage"]},
+    api_base_url="https://meta.wikimedia.org/w/rest.php/oauth2/",
     access_token_url="https://meta.wikimedia.org/w/rest.php/oauth2/access_token",
     authorize_url="https://meta.wikimedia.org/w/rest.php/oauth2/authorize",
 )
@@ -53,16 +54,13 @@ def login():
 @app.route("/oauth-callback")
 def auth():
     token = oauth_client.authorize_access_token()
-    user = oauth_client.get("/resource/profile", token=token).json()
     session["token"] = token
-    session["user"] = user
     return redirect("/")
 
 
 @app.route("/logout")
 def logout():
     session.pop("token", None)
-    session.pop("user", None)
     session.clear()
     return redirect("/")
 
@@ -74,7 +72,13 @@ def index():
 
 @app.route("/user")
 def user():
-    user = session["user"]
+    token = session["token"]
+    print(token)
+    response: Response = oauth_client.get("resource/profile", token=token)
+    print(response)
+    user = response.json()
+    print(user)
+    response.raise_for_status()
     r = jsonify(user=user)
     return r
 
