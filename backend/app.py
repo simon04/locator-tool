@@ -25,7 +25,7 @@ app = Flask(__name__, static_url_path="", static_folder="static/")
 app.config.from_pyfile("config.py")
 
 # HTTP security headers
-# Talisman(app, content_security_policy={})
+Talisman(app, content_security_policy={})
 
 # CSRF protection. settings fitting Angular $httpProvider
 app.config["CSRF_COOKIE_NAME"] = "XSRF-TOKEN"
