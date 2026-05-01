@@ -76,8 +76,10 @@ def index():
 @app.route("/user")
 def user():
     token = session["token"]
-    response: Response = oauth_client.get(
-        "rest.php/oauth2/resource/profile", token=token
+    response: Response = oauth_client_request(
+        "GET",
+        "rest.php/oauth2/resource/profile",
+        access_token=token,
     )
     user = response.json()
     response.raise_for_status()
@@ -172,10 +174,10 @@ def edit():
     locations = data["locations"]
     app.logger.info("Received request %s", str(data))
 
-    response: Response = oauth_client.request(
+    response: Response = oauth_client_request(
         "POST",
         "api.php",
-        session["token"],
+        access_token=session["token"],
         format="json",
         formatversion="2",
         action="query",
@@ -214,10 +216,10 @@ def edit():
             token=token,
         )
 
-    response = oauth_client.request(
+    response = oauth_client_request(
         "POST",
         "api.php",
-        session["token"],
+        access_token=session["token"],
         format="json",
         action="edit",
         pageid=str(pageid),
@@ -269,10 +271,10 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             property,
             claim["id"],
         )
-        response: Response = oauth_client.request(
+        response: Response = oauth_client_request(
             "POST",
             "api.php",
-            session["token"],
+            access_token=session["token"],
             format="json",
             action="wbsetclaimvalue",
             claim=claim["id"],
@@ -280,8 +282,6 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             value=json.dumps(coordinates),
             token=token,
         )
-        breakpoint()
-        print(response.text)
         response.raise_for_status()
         return response.json()
     else:
@@ -291,10 +291,10 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             mediainfo["id"],
             property,
         )
-        response: Response = oauth_client.request(
+        response: Response = oauth_client_request(
             "POST",
             "api.php",
-            session["token"],
+            access_token=session["token"],
             format="json",
             action="wbcreateclaim",
             entity=mediainfo["id"],
@@ -302,6 +302,16 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             snaktype="value",
             value=json.dumps(coordinates),
             token=token,
+        )
+
+
+def oauth_client_request(method, url, access_token=None, **kwargs):
+    # Copy oauth_client.request, but rename `token` to `access_token` to fix:
+    # TypeError: __main__.request() got multiple values for keyword argument 'token'
+    metadata = oauth_client.load_server_metadata()
+    with oauth_client._get_oauth_client(**metadata) as session:
+        return oauth_client._send_token_request(
+            session, method, url, access_token, kwargs
         )
 
 
