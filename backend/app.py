@@ -120,12 +120,14 @@ def catscan():
                 WITH RECURSIVE catscan AS (
                     SELECT p.page_title, p.page_namespace, 1 as depth
                     FROM categorylinks c
+                    JOIN linktarget l ON c.cl_target_id = l.lt_id
                     JOIN page p ON c.cl_from = p.page_id AND p.page_is_redirect = 0
-                    WHERE c.cl_to = %s
+                    WHERE l.lt_namespace = 14 AND l.lt_title = %s
                     UNION ALL
                     SELECT p.page_title, p.page_namespace, catscan.depth + 1
                     FROM catscan
-                    JOIN categorylinks c ON c.cl_to = catscan.page_title AND catscan.page_namespace = 14
+                    JOIN linktarget l ON l.lt_namespace = 14 AND l.lt_title = catscan.page_title
+                    JOIN categorylinks c ON c.cl_target_id = l.lt_id
                     JOIN page p ON c.cl_from = p.page_id AND p.page_is_redirect = 0
                     WHERE catscan.depth < %s
                 )
