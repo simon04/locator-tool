@@ -73,11 +73,10 @@ def logout():
 
 @app.route("/user")
 def user():
-    token = session["token"]
-    response: Response = oauth_client_request(
+    response: Response = oauth_client.request(
         "GET",
         "rest.php/oauth2/resource/profile",
-        access_token=token,
+        token=session["token"],
     )
     user = response.json()
     response.raise_for_status()
@@ -172,18 +171,20 @@ def edit():
     locations = data["locations"]
     app.logger.info("Received request %s", str(data))
 
-    response: Response = oauth_client_request(
+    response: Response = oauth_client.request(
         "POST",
         "api.php",
-        access_token=session["token"],
-        format="json",
-        formatversion="2",
-        action="query",
-        pageids=str(pageid),
-        prop="revisions|wbentityusage",
-        rvprop="content",
-        rvslots="*",
-        meta="tokens",
+        token=session["token"],
+        data=dict(
+            format="json",
+            formatversion="2",
+            action="query",
+            pageids=str(pageid),
+            prop="revisions|wbentityusage",
+            rvprop="content",
+            rvslots="*",
+            meta="tokens",
+        ),
     )
     r1: QueryResult = response.json()
 
@@ -214,16 +215,18 @@ def edit():
             token=token,
         )
 
-    response = oauth_client_request(
+    response = oauth_client.request(
         "POST",
         "api.php",
-        access_token=session["token"],
-        format="json",
-        action="edit",
-        pageid=str(pageid),
-        summary=", ".join("{{%s}}" % d["type"] for d in locations),
-        text=wikitext,
-        token=token,
+        token=session["token"],
+        data=dict(
+            format="json",
+            action="edit",
+            pageid=str(pageid),
+            summary=", ".join("{{%s}}" % d["type"] for d in locations),
+            text=wikitext,
+            token=token,
+        ),
     )
     r2 = response.json()
 
@@ -269,16 +272,18 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             property,
             claim["id"],
         )
-        response: Response = oauth_client_request(
+        response: Response = oauth_client.request(
             "POST",
             "api.php",
-            access_token=session["token"],
-            format="json",
-            action="wbsetclaimvalue",
-            claim=claim["id"],
-            snaktype="value",
-            value=json.dumps(coordinates),
-            token=token,
+            token=session["token"],
+            data=dict(
+                format="json",
+                action="wbsetclaimvalue",
+                claim=claim["id"],
+                snaktype="value",
+                value=json.dumps(coordinates),
+                token=token,
+            ),
         )
         response.raise_for_status()
         return response.json()
@@ -289,27 +294,19 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             mediainfo["id"],
             property,
         )
-        response: Response = oauth_client_request(
+        response: Response = oauth_client.request(
             "POST",
             "api.php",
-            access_token=session["token"],
-            format="json",
-            action="wbcreateclaim",
-            entity=mediainfo["id"],
-            property=property,
-            snaktype="value",
-            value=json.dumps(coordinates),
-            token=token,
-        )
-
-
-def oauth_client_request(method, url, access_token=None, **kwargs):
-    # Copy oauth_client.request, but rename `token` to `access_token` to fix:
-    # TypeError: __main__.request() got multiple values for keyword argument 'token'
-    metadata = oauth_client.load_server_metadata()
-    with oauth_client._get_oauth_client(**metadata) as session:
-        return oauth_client._send_token_request(
-            session, method, url, access_token, kwargs
+            token=session["token"],
+            data=dict(
+                format="json",
+                action="wbcreateclaim",
+                entity=mediainfo["id"],
+                property=property,
+                snaktype="value",
+                value=json.dumps(coordinates),
+                token=token,
+            ),
         )
 
 
