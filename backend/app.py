@@ -10,8 +10,8 @@ from location_to_wikitext import add_location_to_wikitext
 from talisman import Talisman
 from types_mediainfo import Mediainfo
 from types_query import Page, QueryResult
-from flask import session, render_template, redirect, url_for
-from authlib.integrations.flask_client import FlaskOAuth2App, OAuth, FlaskOAuth1App
+from flask import session,  redirect
+from authlib.integrations.flask_client import FlaskOAuth2App, OAuth
 
 
 logging.basicConfig(
