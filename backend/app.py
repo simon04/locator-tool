@@ -39,14 +39,19 @@ oauth.register(
     client_id=app.config["OAUTH_CONSUMER_KEY"],
     client_secret=app.config["OAUTH_CONSUMER_SECRET"],
     client_kwargs={
-        "code_challenge_method": "S256",
-        "scope": "openid email profile basic editpage",
+        "code_challenge_method": app.config["OAUTH_CODE_CHALLENGE_METHOD"],
+        "scope": app.config["OAUTH_SCOPE"],
     },
-    api_base_url="https://commons.wikimedia.org/w/",
-    access_token_url="https://commons.wikimedia.org/w/rest.php/oauth2/access_token",
-    authorize_url="https://commons.wikimedia.org/w/rest.php/oauth2/authorize",
+    api_base_url=app.config["OAUTH_API_BASE_URL"],
+    access_token_url=app.config["OAUTH_ACCESS_TOKEN_URL"],
+    authorize_url=app.config["OAUTH_AUTHORIZE_URL"],
 )
 oauth_client: FlaskOAuth2App = oauth.create_client("mediawiki")
+
+
+@app.route("/")
+def index():
+    return app.send_static_file("index.html")
 
 
 @app.route("/login")
@@ -66,11 +71,6 @@ def logout():
     session.pop("token", None)
     session.clear()
     return redirect("/")
-
-
-@app.route("/")
-def index():
-    return app.send_static_file("index.html")
 
 
 @app.route("/user")
