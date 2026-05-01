@@ -4,16 +4,14 @@ import logging
 import pathlib
 import typing
 
-from flask import Flask, abort, jsonify, request
+from authlib.integrations.flask_client import FlaskOAuth2App, OAuth
+from flask import Flask, abort, jsonify, redirect, request, session
 from flask_seasurf import SeaSurf
-from requests import Response
 from location_to_wikitext import add_location_to_wikitext
+from requests import Response
 from talisman import Talisman
 from types_mediainfo import Mediainfo
 from types_query import Page, QueryResult
-from flask import session, redirect
-from authlib.integrations.flask_client import FlaskOAuth2App, OAuth
-
 
 logging.basicConfig(
     # filename=str(pathlib.Path(__file__).parent.joinpath("locator-tool.log")),
