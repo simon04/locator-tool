@@ -6,3 +6,4 @@ backend/venv/
 dist/
 node_modules/
 .venv/
+*.pyc

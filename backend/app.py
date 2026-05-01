@@ -4,17 +4,17 @@ import logging
 import pathlib
 import typing
 
-from flask import Flask, abort, jsonify, request
-from flask_mwoauth import MWOAuth
+from authlib.integrations.flask_client import FlaskOAuth2App, OAuth
+from flask import Flask, abort, jsonify, redirect, request, session
 from flask_seasurf import SeaSurf
 from location_to_wikitext import add_location_to_wikitext
-from oauthlib.common import to_unicode
+from requests import Response
 from talisman import Talisman
 from types_mediainfo import Mediainfo
 from types_query import Page, QueryResult
 
 logging.basicConfig(
-    filename=str(pathlib.Path(__file__).parent.joinpath( "locator-tool.log")),
+    # filename=str(pathlib.Path(__file__).parent.joinpath("locator-tool.log")),
     format="[%(asctime)s] %(levelname)s in %(module)s: %(message)s",
     level=logging.DEBUG,
 )
@@ -31,13 +31,20 @@ app.config["CSRF_HEADER_NAME"] = "X-XSRF-TOKEN"
 app.config["CSRF_COOKIE_PATH"] = "/"
 SeaSurf(app)
 
-mwoauth = MWOAuth(
-    base_url="https://commons.wikimedia.org/w",
-    clean_url="https://commons.wikimedia.org/wiki",
-    consumer_key=app.config["OAUTH_CONSUMER_KEY"],
-    consumer_secret=app.config["OAUTH_CONSUMER_SECRET"],
+oauth = OAuth(app)
+oauth.register(
+    name="mediawiki",
+    client_id=app.config["OAUTH_CONSUMER_KEY"],
+    client_secret=app.config["OAUTH_CONSUMER_SECRET"],
+    client_kwargs={
+        "code_challenge_method": app.config["OAUTH_CODE_CHALLENGE_METHOD"],
+        "scope": app.config["OAUTH_SCOPE"],
+    },
+    api_base_url=app.config["OAUTH_API_BASE_URL"],
+    access_token_url=app.config["OAUTH_ACCESS_TOKEN_URL"],
+    authorize_url=app.config["OAUTH_AUTHORIZE_URL"],
 )
-app.register_blueprint(mwoauth.bp)
+oauth_client: FlaskOAuth2App = oauth.create_client("mediawiki")
 
 
 @app.route("/")
@@ -45,9 +52,35 @@ def index():
     return app.send_static_file("index.html")
 
 
+@app.route("/login")
+def login():
+    return oauth_client.authorize_redirect()
+
+
+@app.route("/oauth-callback")
+def auth():
+    token = oauth_client.authorize_access_token()
+    session["token"] = token
+    return redirect("/")
+
+
+@app.route("/logout")
+def logout():
+    session.pop("token", None)
+    session.clear()
+    return redirect("/")
+
+
 @app.route("/user")
 def user():
-    r = jsonify(user=mwoauth.get_current_user(False))
+    response: Response = oauth_client.request(
+        "GET",
+        "rest.php/oauth2/resource/profile",
+        token=session["token"],
+    )
+    user = response.json()
+    response.raise_for_status()
+    r = jsonify(user=user["username"])
     return r
 
 
@@ -122,7 +155,7 @@ def catscan():
 
 @app.route("/edit", methods=["POST"])
 def edit():
-    if not mwoauth.get_current_user():
+    if "token" not in session:
         abort(401)
 
     data: EditRequest = request.get_json()
@@ -138,16 +171,22 @@ def edit():
     locations = data["locations"]
     app.logger.info("Received request %s", str(data))
 
-    r1: QueryResult = mwoauth_request(
-        format="json",
-        formatversion="2",
-        action="query",
-        pageids=str(pageid),
-        prop="revisions|wbentityusage",
-        rvprop="content",
-        rvslots="*",
-        meta="tokens",
+    response: Response = oauth_client.request(
+        "POST",
+        "api.php",
+        token=session["token"],
+        data=dict(
+            format="json",
+            formatversion="2",
+            action="query",
+            pageids=str(pageid),
+            prop="revisions|wbentityusage",
+            rvprop="content",
+            rvslots="*",
+            meta="tokens",
+        ),
     )
+    r1: QueryResult = response.json()
 
     try:
         token = r1["query"]["tokens"]["csrftoken"]
@@ -158,7 +197,6 @@ def edit():
     page = r1["query"]["pages"][0]
     try:
         wikitext = page["revisions"][0]["slots"]["main"]["content"]
-        wikitext = to_unicode(wikitext)
     except KeyError:
         abort(404)
 
@@ -177,14 +215,20 @@ def edit():
             token=token,
         )
 
-    r2 = mwoauth_request(
-        format="json",
-        action="edit",
-        pageid=str(pageid),
-        summary=", ".join("{{%s}}" % d["type"] for d in locations),
-        text=wikitext,
-        token=token,
+    response = oauth_client.request(
+        "POST",
+        "api.php",
+        token=session["token"],
+        data=dict(
+            format="json",
+            action="edit",
+            pageid=str(pageid),
+            summary=", ".join("{{%s}}" % d["type"] for d in locations),
+            text=wikitext,
+            token=token,
+        ),
     )
+    r2 = response.json()
 
     return jsonify(result=r2)
 
@@ -228,14 +272,21 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             property,
             claim["id"],
         )
-        return mwoauth_request(
-            format="json",
-            action="wbsetclaimvalue",
-            claim=claim["id"],
-            snaktype="value",
-            value=json.dumps(coordinates),
-            token=token,
+        response: Response = oauth_client.request(
+            "POST",
+            "api.php",
+            token=session["token"],
+            data=dict(
+                format="json",
+                action="wbsetclaimvalue",
+                claim=claim["id"],
+                snaktype="value",
+                value=json.dumps(coordinates),
+                token=token,
+            ),
         )
+        response.raise_for_status()
+        return response.json()
     else:
         # https://www.wikidata.org/w/api.php?action=help&modules=wbcreateclaim
         app.logger.info(
@@ -243,19 +294,20 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             mediainfo["id"],
             property,
         )
-        return mwoauth_request(
-            format="json",
-            action="wbcreateclaim",
-            entity=mediainfo["id"],
-            property=property,
-            snaktype="value",
-            value=json.dumps(coordinates),
-            token=token,
+        response: Response = oauth_client.request(
+            "POST",
+            "api.php",
+            token=session["token"],
+            data=dict(
+                format="json",
+                action="wbcreateclaim",
+                entity=mediainfo["id"],
+                property=property,
+                snaktype="value",
+                value=json.dumps(coordinates),
+                token=token,
+            ),
         )
-
-
-def mwoauth_request(**kwargs):
-    return mwoauth.mwoauth.post(mwoauth.base_url + "/api.php?", data=kwargs).data
 
 
 if __name__ == "__main__":

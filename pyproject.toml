@@ -4,21 +4,4 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = [
-  "argparse==1.2.1",
-  "flask==0.10.1",
-  "flask-mwoauth==0.2.46",
-  "flask-oauthlib==0.9.4",
-  "flask-seasurf==0.2.2",
-  "future==0.15.2",
-  "itsdangerous==0.24",
-  "jinja2==2.8",
-  "markupsafe==0.23",
-  "oauthlib==1.1.2",
-  "pymysql==1.1.1",
-  "requests==2.10.0",
-  "requests-oauthlib==0.6.2",
-  "six==1.10.0",
-  "talisman==0.1.0",
-  "werkzeug==0.11.9"
-]
+dependencies = ["Flask", "Flask-SeaSurf", "authlib", "PyMySQL", "requests", "talisman"]

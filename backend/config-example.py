@@ -1,4 +1,9 @@
-SECRET_KEY = "X"
+OAUTH_ACCESS_TOKEN_URL = "https://commons.wikimedia.org/w/rest.php/oauth2/access_token"
+OAUTH_API_BASE_URL = "https://commons.wikimedia.org/w/"
+OAUTH_AUTHORIZE_URL = "https://commons.wikimedia.org/w/rest.php/oauth2/authorize"
+OAUTH_CODE_CHALLENGE_METHOD = "S256"
 OAUTH_CONSUMER_KEY = "Y"
 OAUTH_CONSUMER_SECRET = "Z"
+OAUTH_SCOPE = "openid email profile basic editpage"
 PROPAGATE_EXCEPTIONS = True
+SECRET_KEY = "X"
