@@ -39,9 +39,9 @@ oauth.register(
     client_id=app.config["OAUTH_CONSUMER_KEY"],
     client_secret=app.config["OAUTH_CONSUMER_SECRET"],
     client_kwargs={"code_challenge_method": "S256", "scope": ["basic", "editpage"]},
-    api_base_url="https://meta.wikimedia.org/w/rest.php/oauth2/",
-    access_token_url="https://meta.wikimedia.org/w/rest.php/oauth2/access_token",
-    authorize_url="https://meta.wikimedia.org/w/rest.php/oauth2/authorize",
+    api_base_url="https://commons.wikimedia.org/w/rest.php/oauth2/",
+    access_token_url="https://commons.wikimedia.org/w/rest.php/oauth2/access_token",
+    authorize_url="https://commons.wikimedia.org/w/rest.php/oauth2/authorize",
 )
 oauth_client: FlaskOAuth2App = oauth.mediawiki
 
