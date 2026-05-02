@@ -131,7 +131,8 @@ const {
   execute,
   state: $titles
 } = useAsyncState(() => ltData.getFiles($query.value).then(t => ltData.getCoordinates(t)), [], {
-  immediate: false
+  immediate: false,
+  shallow: false
 });
 
 const $error = ref<unknown>();
