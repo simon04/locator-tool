@@ -107,7 +107,7 @@ import CameraFill from 'bootstrap-icons/icons/camera-fill.svg?component';
 import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
 import Search from 'bootstrap-icons/icons/search.svg?component';
-import {ref, computed, onMounted, watch} from 'vue';
+import {ref, computed, onMounted, watch, shallowRef} from 'vue';
 
 import * as ltData from '../api/ltData';
 import type {CommonsFile} from '../model';
@@ -137,7 +137,7 @@ const {
 const $error = ref<unknown>();
 const $filter = ref('');
 const $showGeolocated = ref(false);
-const $title = ref<CommonsFile | undefined>(undefined);
+const $title = shallowRef<CommonsFile | undefined>(undefined);
 
 useAppTitle(routeTitlePart(), t('Geolocate files'));
 
