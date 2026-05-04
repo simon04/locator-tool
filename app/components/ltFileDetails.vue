@@ -103,6 +103,7 @@ const coordinates = defineModel<LatLng>('coordinates', {required: true});
 const objectLocation = defineModel<LatLng>('objectLocation', {required: true});
 const props = defineProps<{file: CommonsFile & FileDetails}>();
 const error = ref<unknown>(undefined);
+const statusCode = ref<number | null>(0);
 const collapseCameraLocation = ref(false);
 const collapseObjectLocation = ref(false);
 
@@ -119,7 +120,7 @@ const msgObjectLocation = computed(() =>
 const msgErrorStatusText = computed(() =>
   t('Failed to save: {{$ctrl.error.statusText}}').replace(
     '{{$ctrl.error.statusText}}',
-    error.value?.statusText
+    statusCode.value + ' ' + JSON.stringify(error.value)
   )
 );
 
@@ -141,7 +142,16 @@ async function editLocation(cc?: LatLng[]) {
   cc ??= [coordinates.value, objectLocation.value].filter(c => c.isChanged);
   try {
     error.value = undefined;
-    await ltDataAuth.editLocation(props.file, cc);
+    const {
+      data,
+      error: error0,
+      statusCode: statusCode0
+    } = await ltDataAuth.editLocation(props.file, cc);
+    statusCode.value = statusCode0.value;
+    if (data.value?.result?.edit?.result !== 'Success') {
+      error.value = error0.value || data.value;
+      return;
+    }
     for (const c of cc!) {
       if (c.type === 'Location') {
         coordinates.value = c.commit();

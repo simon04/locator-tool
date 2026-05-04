@@ -24,29 +24,17 @@ export function getUserInfo() {
 
 export function editLocation(title: CommonsFile, coordinates: LatLng[]) {
   const {pageid} = title;
-  return useFetch<EditApiResponse>(
-    '/edit',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': xsrfToken() || ''
-      },
-      body: JSON.stringify({
-        pageid,
-        locations: coordinates.map(({type, lat, lng}) => ({type, lat, lng}))
-      })
+  return useFetch<EditApiResponse>('/edit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-XSRF-TOKEN': xsrfToken() || ''
     },
-    {
-      afterFetch(ctx) {
-        const {data} = ctx;
-        if (!data.result || !data.result.edit || data.result.edit.result !== 'Success') {
-          throw data;
-        }
-        return ctx;
-      }
-    }
-  );
+    body: JSON.stringify({
+      pageid,
+      locations: coordinates.map(({type, lat, lng}) => ({type, lat, lng}))
+    })
+  });
 }
 
 function xsrfToken() {
