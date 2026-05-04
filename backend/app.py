@@ -4,7 +4,7 @@ import logging
 import pathlib
 import typing
 
-from authlib.integrations.flask_client import FlaskOAuth2App, OAuth
+from authlib.integrations.flask_client import FlaskOAuth2App, OAuth, OAuthError
 from flask import Flask, abort, jsonify, redirect, request, session
 from flask_seasurf import SeaSurf
 from location_to_wikitext import add_location_to_wikitext
@@ -173,27 +173,30 @@ def edit():
     locations = data["locations"]
     app.logger.info("Received request %s", str(data))
 
-    response: Response = oauth_client.request(
-        "POST",
-        "api.php",
-        token=session["token"],
-        data=dict(
-            format="json",
-            formatversion="2",
-            action="query",
-            pageids=str(pageid),
-            prop="revisions|wbentityusage",
-            rvprop="content",
-            rvslots="*",
-            meta="tokens",
-        ),
-    )
-    r1: QueryResult = response.json()
-
     try:
+        response: Response = oauth_client.request(
+            "POST",
+            "api.php",
+            token=session["token"],
+            data=dict(
+                format="json",
+                formatversion="2",
+                action="query",
+                pageids=str(pageid),
+                prop="revisions|wbentityusage",
+                rvprop="content",
+                rvslots="*",
+                meta="tokens",
+            ),
+        )
+        r1: QueryResult = response.json()
         token = r1["query"]["tokens"]["csrftoken"]
         app.logger.info("Obtained token=%s for pageid=%d", token, pageid)
-    except KeyError:
+    except OAuthError as e:
+        logging.warning('Failed to obtain csrftoken', exc_info=e)
+        abort(401, e)
+    except KeyError as e:
+        logging.warning('Failed to obtain csrftoken', exc_info=e)
         abort(401)
 
     page = r1["query"]["pages"][0]
