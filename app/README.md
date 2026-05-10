@@ -5,8 +5,8 @@ The frontend is a [Vue.js 3](https://vuejs.org/) application.
 ## To start a development server
 
 1. `$ bun install`
-2. `$ bun run serve`
-3. Open your browser at http://localhost:8000/
+2. `$ bun run dev`
+3. Open your browser at http://localhost:5173/
 
 ## To build the application
 
