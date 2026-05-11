@@ -1,0 +1,2 @@
+import{Z as e,d as t,i as n,t as r,x as i}from"./BOqKwp7CAGbSbY3COJT.js";function a(...r){return t(i(()=>[...r.map(t=>e(t)).filter(e=>!!e),n(`locator-tool`)].join(` • `)),{restoreOnUnmount:e=>e})}function o(){let{$query:e}=r();return i(()=>e.value.category?.replace(/_/,` `)||e.value.user?.replace(/_/,` `)||void 0)}export{a as n,o as t};
+//# sourceMappingURL=C62cs2LzZ2CUY9-l-JJ.js.map
