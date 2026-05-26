@@ -6,15 +6,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@8912a9102ac27614460f54aedde9e1e7f9aec20d # v6.0.5
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - run: bun run vp --version
-      - run: bun run test
-      - run: bun run build
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm vp --version
+      - run: pnpm test
+      - run: pnpm build
       - uses: actions/upload-artifact@v4
         with:
           path: ./dist
