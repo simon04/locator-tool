@@ -12,6 +12,7 @@
       <span v-html="file.author"></span>
     </span>
   </div>
+  <ltFileMetadataGlobalUsage :file="file" />
   <a
     v-for="category in file.categories"
     :key="category"
@@ -30,9 +31,11 @@ import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
 import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
 
 import type {FileDetails} from '../api/ltData';
+import type {CommonsFile} from '../model';
+import ltFileMetadataGlobalUsage from './ltFileMetadataGlobalUsage.vue';
 
 defineProps<{
   description?: false;
-  file: FileDetails;
+  file: CommonsFile & FileDetails;
 }>();
 </script>

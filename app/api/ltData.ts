@@ -6,6 +6,7 @@ import {type CommonsFile, type CommonsTitle, LatLng, WikidataProperty} from '../
 import type {MediaInfo, Statement} from '../model/mediainfo.ts';
 
 export const API_URL = 'https://commons.wikimedia.org/w/api.php';
+const NS_ARTICLE = 0;
 const NS_FILE = 6;
 const NS_CATEGORY = 14;
 
@@ -157,6 +158,7 @@ export interface FileDetails {
   url?: string;
   coordinates?: LatLng;
   objectLocation?: LatLng;
+  globalUsage?: GlobalUsage[];
 }
 
 export async function getFileDetails(
@@ -244,6 +246,23 @@ export async function getFileDetails(
       return new LatLng('Object location', undefined, undefined);
     }
   }
+}
+
+interface GlobalUsage {
+  title: string;
+  wiki: string;
+  url: string;
+}
+
+export async function globalusage(pageid: number, titles: string): Promise<GlobalUsage[]> {
+  const data = await $query<ApiResponse<{globalusage: GlobalUsage[]}>>({
+    // https://www.mediawiki.org/wiki/API:Globalusage/en
+    prop: 'globalusage',
+    titles,
+    gunamespace: NS_ARTICLE,
+    gulimit: 500
+  });
+  return data?.query?.pages?.[pageid].globalusage;
 }
 
 export async function getCategoriesForPrefix(prefix: string): Promise<CommonsTitle[]> {
