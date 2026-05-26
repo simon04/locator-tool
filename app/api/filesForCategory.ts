@@ -54,7 +54,7 @@ export async function getFilesForCategory1(
 ): Promise<CommonsTitle[]> {
   const params = {
     lang: 'commons',
-    cat: cat.replace(/^Category:/, ''),
+    cat: removeCommonsPrefix(cat, 'Category:'),
     type: NS_FILE,
     depth,
     json: 1
@@ -70,7 +70,7 @@ export async function getFilesForCategory2(
   signal?: AbortSignal
 ): Promise<CommonsTitle[]> {
   const params = {
-    category: cat.replace(/^Category:/, ''),
+    category: removeCommonsPrefix(cat, 'Category:'),
     ns: NS_FILE,
     depth
   };

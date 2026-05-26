@@ -16,6 +16,7 @@ import ShareFill from 'bootstrap-icons/icons/share-fill.svg?component';
 import {computed} from 'vue';
 
 import type {FileDetails} from '../api/imageinfo';
+import {removeCommonsPrefix} from '../api/removeCommonsPrefix';
 import type {CommonsFile} from '../model';
 
 const props = defineProps<{
@@ -25,6 +26,9 @@ const props = defineProps<{
 const globalUsage = computed(() => ({
   count: props.file?.globalUsage?.length,
   tooltip: `Global usage\n${props.file?.globalUsage?.map(u => `${u.wiki}: ${u.title}`).join('\n')}`,
-  link: `https://commons.wikimedia.org/wiki/Special:GlobalUsage/${props.file?.file.replace(/^File:/, '')}`
+  link: `https://commons.wikimedia.org/wiki/Special:GlobalUsage/${removeCommonsPrefix(
+    props.file?.file,
+    'File:'
+  )}`
 }));
 </script>

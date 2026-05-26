@@ -3,6 +3,7 @@ import type {MediaInfo, Statement} from '../model/mediainfo';
 import {type ApiResponse} from './ApiResponse';
 import type {GlobalUsage} from './globalusage';
 import {$query} from './query';
+import {removeCommonsPrefix} from './removeCommonsPrefix';
 
 export interface FileDetails {
   categories: string[];
@@ -80,7 +81,7 @@ export async function getFileDetails(
   const data = await $query<ApiResponse<DetailsPage>>(params);
   const page: DetailsPage | undefined = data?.query?.pages?.[pageid];
   const categories = (page?.categories || []).map(category =>
-    category.title.replace(/^Category:/, '')
+    removeCommonsPrefix(category.title, 'Category:')
   );
   const extmetadata = page?.imageinfo[0]?.extmetadata;
   return {

@@ -1,6 +1,7 @@
 import type {CommonsTitle} from '../model';
 import {type ApiResponse, type Page} from './ApiResponse';
 import {NS_CATEGORY, $query} from './query';
+import {removeCommonsPrefix} from './removeCommonsPrefix';
 
 export async function getCategoriesForPrefix(prefix: string): Promise<CommonsTitle[]> {
   const params = {
@@ -11,5 +12,7 @@ export async function getCategoriesForPrefix(prefix: string): Promise<CommonsTit
     apprefix: prefix
   };
   const data = await $query<ApiResponse<Page>>(params, {}, undefined, () => false);
-  return (data.query.allpages || []).map(i => i.title.replace(/^Category:/, '' as CommonsTitle));
+  return (data.query.allpages || []).map(
+    i => removeCommonsPrefix(i.title, 'Category:') as CommonsTitle
+  );
 }
