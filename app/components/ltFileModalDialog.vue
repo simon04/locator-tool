@@ -79,3 +79,9 @@ watch(keys['ArrowRight'], v => {
   }
 });
 </script>
+
+<style lang="css" scoped>
+:deep(.carousel-caption a) {
+  color: rgba(var(--bs-white-rgb), var(--bs-text-opacity));
+}
+</style>
