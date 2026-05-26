@@ -12,6 +12,7 @@
 </template>
 
 <script setup lang="ts">
+import ShareFill from 'bootstrap-icons/icons/share-fill.svg?component';
 import {computed} from 'vue';
 
 import type {FileDetails} from '../api/imageinfo';
