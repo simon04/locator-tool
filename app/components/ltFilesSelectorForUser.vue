@@ -56,7 +56,7 @@ import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?com
 import {ref} from 'vue';
 import {useRouter} from 'vue-router';
 
-import * as ltData from '../api/ltData';
+import * as getUsersForPrefix from '../api/usersForPrefix';
 import ltSpinner from './ltSpinner.vue';
 import {tryParse} from './tryParse';
 import {t} from './useI18n';
@@ -74,9 +74,13 @@ const {
   state: userSuggestions,
   execute,
   isLoading
-} = useAsyncState(async () => (user.value ? await ltData.getUsersForPrefix(user.value) : []), [], {
-  immediate: false
-});
+} = useAsyncState(
+  async () => (user.value ? await getUsersForPrefix.getUsersForPrefix(user.value) : []),
+  [],
+  {
+    immediate: false
+  }
+);
 
 watchDebounced(user, () => execute(), {debounce: 500});
 

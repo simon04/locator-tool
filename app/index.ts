@@ -1,10 +1,10 @@
 import {createApp} from 'vue';
 import {createRouter, createWebHashHistory, type RouteRecordInfo} from 'vue-router';
 
-import type {FilesOptions} from './api/ltData';
-import App from './App.vue';
+import type {FilesOptions} from './api/files';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import App from './App.vue';
 
 const router = createRouter({
   history: createWebHashHistory(),

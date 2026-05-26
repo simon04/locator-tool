@@ -56,7 +56,7 @@ import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?com
 import {ref} from 'vue';
 import {useRouter} from 'vue-router';
 
-import * as ltData from '../api/ltData';
+import {getCategoriesForPrefix} from '../api/categoriesForPrefix';
 import ltSpinner from './ltSpinner.vue';
 import {tryParse} from './tryParse';
 import {t} from './useI18n';
@@ -73,7 +73,7 @@ const {
   execute,
   isLoading
 } = useAsyncState(
-  async () => (category.value ? await ltData.getCategoriesForPrefix(category.value) : []),
+  async () => (category.value ? await getCategoriesForPrefix(category.value) : []),
   [],
   {immediate: false}
 );

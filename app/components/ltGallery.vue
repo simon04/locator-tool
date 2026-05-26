@@ -68,9 +68,9 @@ import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
 import SortUp from 'bootstrap-icons/icons/sort-up.svg?component';
 import {onMounted, ref} from 'vue';
 
-import {type FileDetails, getFileDetails} from '../api/ltData';
-import {getCoordinates} from '../api/ltData';
-import {getFiles} from '../api/ltData';
+import {getCoordinates} from '../api/coordinates';
+import {getFiles} from '../api/files';
+import {type FileDetails, getFileDetails} from '../api/imageinfo';
 import type {CommonsFile} from '../model';
 import ltFileModalDialog from './ltFileModalDialog.vue';
 import ltGalleryCard from './ltGalleryCard.vue';

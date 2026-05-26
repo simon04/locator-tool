@@ -1,6 +1,6 @@
 import {ref} from 'vue';
 
-import type {FileDetails} from '../api/ltData';
+import type {FileDetails} from '../api/imageinfo';
 import type {CommonsFile} from '../model';
 
 type F = CommonsFile & FileDetails;

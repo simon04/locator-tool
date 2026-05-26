@@ -30,7 +30,7 @@
 import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
 import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
 
-import type {FileDetails} from '../api/ltData';
+import type {FileDetails} from '../api/imageinfo';
 import type {CommonsFile} from '../model';
 import ltFileMetadataGlobalUsage from './ltFileMetadataGlobalUsage.vue';
 

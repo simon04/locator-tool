@@ -7,7 +7,10 @@ import * as L from 'leaflet';
 import {type App, createApp, onMounted, reactive, ref} from 'vue';
 import {useRouter} from 'vue-router';
 
-import * as ltData from '../api/ltData';
+import * as getCoordinates from '../api/coordinates';
+import * as getFiles from '../api/files';
+import {geosearch as runGeosearch} from '../api/geosearch';
+import {getFileDetails} from '../api/imageinfo';
 import type {CommonsFile} from '../model';
 import LtGalleryCard from './ltGalleryCard.vue';
 import {useAppTitle, routeTitlePart} from './useAppTitle';
@@ -24,8 +27,8 @@ useAppTitle(routeTitlePart(), t('Map'));
 onMounted(async () => {
   const {map} = useLeafletMap(mapRef);
   if (hasFilesUserCategory.value) {
-    const titles = await ltData.getFiles($query.value);
-    const files = await ltData.getCoordinates(titles);
+    const titles = await getFiles.getFiles($query.value);
+    const files = await getCoordinates.getCoordinates(titles);
     const bounds = files.flatMap(title => {
       const marker = buildMarker(title);
       marker?.addTo(map);
@@ -40,7 +43,7 @@ onMounted(async () => {
 });
 
 async function geosearch(map: L.Map) {
-  const files = await ltData.geosearch(map.getBounds());
+  const files = await runGeosearch(map.getBounds());
   map.eachLayer(l => {
     if (l instanceof L.CircleMarker && !l.isPopupOpen()) {
       map.removeLayer(l);
@@ -68,7 +71,7 @@ function buildPopup(title: CommonsFile): L.Popup {
       query: {files: title.file}
     }).href;
     app = createApp(LtGalleryCard, {title});
-    ltData.getFileDetails(title.pageid, 'categories|imageinfo', 'extmetadata').then(fileDetails => {
+    getFileDetails(title.pageid, 'categories|imageinfo', 'extmetadata').then(fileDetails => {
       Object.assign(title, fileDetails);
     });
     div = document.createElement('div');

@@ -92,7 +92,7 @@ import QuestionCircle from 'bootstrap-icons/icons/question-circle.svg?component'
 import Save from 'bootstrap-icons/icons/save.svg?component';
 import {computed, ref} from 'vue';
 
-import type {FileDetails} from '../api/ltData';
+import type {FileDetails} from '../api/imageinfo';
 import * as ltDataAuth from '../api/ltDataAuth';
 import {type CommonsFile, LatLng} from '../model';
 import ltFileMetadata from './ltFileMetadata.vue';

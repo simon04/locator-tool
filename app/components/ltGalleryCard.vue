@@ -29,7 +29,7 @@
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 
-import type {FileDetails} from '../api/ltData';
+import type {FileDetails} from '../api/imageinfo';
 import type {CommonsFile} from '../model';
 import ltFileMetadata from './ltFileMetadata.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';

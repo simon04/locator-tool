@@ -109,7 +109,11 @@ import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
 import Search from 'bootstrap-icons/icons/search.svg?component';
 import {ref, computed, onMounted, watch} from 'vue';
 
-import * as ltData from '../api/ltData';
+import * as getCoordinates from '../api/coordinates';
+import * as getFiles from '../api/files';
+import * as ltGlobalUsage from '../api/globalusage';
+import * as ltImageInfo from '../api/imageinfo';
+import * as ltData from '../api/query';
 import type {CommonsFile} from '../model';
 import ltFileDetails from './ltFileDetails.vue';
 import ltFileModalDialog from './ltFileModalDialog.vue';
@@ -130,10 +134,14 @@ const {
   isReady,
   execute,
   state: $titles
-} = useAsyncState(() => ltData.getFiles($query.value).then(t => ltData.getCoordinates(t)), [], {
-  immediate: false,
-  shallow: false
-});
+} = useAsyncState(
+  () => getFiles.getFiles($query.value).then(t => getCoordinates.getCoordinates(t)),
+  [],
+  {
+    immediate: false,
+    shallow: false
+  }
+);
 
 const $error = ref<unknown>();
 const $filter = ref('');
@@ -193,14 +201,14 @@ function titleChanged(title: CommonsFile): void {
   //   updateMapView(title.coordinates);
   // }
   if (title?.pageid) {
-    ltData.getFileDetails(title.pageid).then(fileDetails => {
+    ltImageInfo.getFileDetails(title.pageid).then(fileDetails => {
       Object.assign(title, fileDetails);
       // const {lat, lng} = title.objectLocation;
       // if (!title.coordinates?.lat) {
       //   updateMapView({lat, lng});
       // }
     });
-    ltData.globalusage(title.pageid, title.file).then(globalUsage => {
+    ltGlobalUsage.globalusage(title.pageid, title.file).then(globalUsage => {
       (title as unknown as ltData.FileDetails).globalUsage = globalUsage;
     });
   }
