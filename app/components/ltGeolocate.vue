@@ -113,6 +113,7 @@ import * as getCoordinates from '../api/coordinates';
 import * as getFiles from '../api/files';
 import * as ltGlobalUsage from '../api/globalusage';
 import * as ltImageInfo from '../api/imageinfo';
+import {fetchMediaRequests} from '../api/mediarequests.ts';
 import * as ltData from '../api/query';
 import type {CommonsFile} from '../model';
 import ltFileDetails from './ltFileDetails.vue';
@@ -209,8 +210,9 @@ function titleChanged(title: CommonsFile): void {
       // }
     });
     ltGlobalUsage.globalusage(title.pageid, title.file).then(globalUsage => {
-      (title as unknown as ltData.FileDetails).globalUsage = globalUsage;
+      (title as unknown as ltImageInfo.FileDetails).globalUsage = globalUsage;
     });
+    fetchMediaRequests(title.file);
   }
 }
 
