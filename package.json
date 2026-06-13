@@ -54,5 +54,5 @@
     "vite": "npm:@voidzero-dev/vite-plus-core@latest",
     "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
   },
-  "packageManager": "pnpm@11.3.0"
+  "packageManager": "pnpm@11.6.0"
 }
