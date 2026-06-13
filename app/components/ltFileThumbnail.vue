@@ -24,7 +24,7 @@ const props = defineProps<{
   file: CommonsFile & FileDetails;
 }>();
 
-const thumbnailUrl = computed(() => imageUrl(props.file, 120));
+const thumbnailUrl = computed(() => imageUrl(props.file, 500));
 
 const thumbnailUrls = computed(() => imageUrls(props.file));
 </script>
