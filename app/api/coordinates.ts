@@ -1,5 +1,3 @@
-import getFilePath from 'wikimedia-commons-file-path';
-
 import {type CommonsTitle, type CommonsFile, LatLng} from '../model';
 import {type ApiResponse} from './ApiResponse';
 import {buildQuery} from './buildQuery';
@@ -55,9 +53,7 @@ export async function getCoordinates(titles: string | CommonsTitle[]): Promise<C
       pageid: parseInt(pageid),
       file: page.title,
       url: `https://commons.wikimedia.org/wiki/${page.title}`,
-      imageUrl(width?: number) {
-        return getFilePath(this.file, width);
-      },
+
       coordinates: new LatLng(
         'Location',
         ...toLatLng(page.coordinates?.find(c => c.primary === '' && c.type === 'camera'))

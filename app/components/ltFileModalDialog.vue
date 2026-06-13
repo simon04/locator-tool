@@ -46,19 +46,18 @@
 import {useMagicKeys} from '@vueuse/core';
 import {computed, watch} from 'vue';
 
+import {imageUrl, imageUrls} from '../model';
 import ltFileMetadata from './ltFileMetadata.vue';
 import {useModalDialog} from './useModalDialog';
 
 const {modalDialogFile, setLazyImg} = useModalDialog();
 
-const thumbnailUrl = computed(() => modalDialogFile.value?.imageUrl(1280));
+const thumbnailUrl = computed(() =>
+  modalDialogFile.value ? imageUrl(modalDialogFile.value, 1280) : ''
+);
 
-// https://www.mediawiki.org/wiki/Common_thumbnail_sizes
-// Current standard sizes in Wikimedia production: 20px, 40px, 60px, 120px, 250px, 330px, 500px, 960px, 1280px, 1920px, 3840px
 const thumbnailUrls = computed(() =>
-  [500, 960, 1280, 1920, 3840]
-    .map(width => `${modalDialogFile.value?.imageUrl(width)} ${width}w`)
-    .join(', ')
+  modalDialogFile.value ? imageUrls(modalDialogFile.value) : ''
 );
 
 const emit = defineEmits<{

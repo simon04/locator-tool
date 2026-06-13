@@ -1,5 +1,4 @@
 import type {LatLngBounds} from 'leaflet';
-import getFilePath from 'wikimedia-commons-file-path';
 
 import {type CommonsFile, LatLng} from '../model';
 import {type ApiResponse} from './ApiResponse';
@@ -31,9 +30,7 @@ export async function geosearch(bounds: LatLngBounds): Promise<CommonsFile[]> {
       pageid: gs.pageid,
       file: gs.title,
       url: `https://commons.wikimedia.org/wiki/${gs.title}`,
-      imageUrl(width?: number) {
-        return getFilePath(this.file, width);
-      },
+
       coordinates: new LatLng('Location', gs.lat, gs.lon),
       objectLocation: new LatLng('Object location', undefined, undefined)
     })

@@ -14,7 +14,7 @@
 import {computed} from 'vue';
 
 import type {FileDetails} from '../api/imageinfo';
-import type {CommonsFile} from '../model';
+import {imageUrl, type CommonsFile} from '../model';
 import {useModalDialog} from './useModalDialog';
 
 const {modalDialogFile, setLazyImg} = useModalDialog();
@@ -23,9 +23,9 @@ const props = defineProps<{
   file: CommonsFile & FileDetails;
 }>();
 
-const lazyUrl = computed(() => props.file.imageUrl(120));
+const lazyUrl = computed(() => imageUrl(props.file, 120));
 
-const thumbnailUrl = computed(() => props.file.imageUrl(1280));
+const thumbnailUrl = computed(() => imageUrl(props.file, 1280));
 </script>
 
 <style scoped>
