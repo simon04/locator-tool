@@ -10,8 +10,13 @@ const modalDialogFile = ref<F>();
 function setLazyImg($event: Event) {
   const img = $event.target as HTMLImageElement;
   const lazy = img.getAttribute('lazy-img');
-  if (!lazy || img.src === lazy) return;
-  img.src = lazy;
+  if (lazy && img.src !== lazy) {
+    img.src = lazy;
+  }
+  const srcset = img.getAttribute('lazy-srcset');
+  if (srcset && img.srcset !== srcset) {
+    img.srcset = srcset;
+  }
 }
 
 function prevImage(files: F[]) {

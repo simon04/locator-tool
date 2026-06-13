@@ -13,7 +13,8 @@
             <div class="carousel-item w-100 h-100 active">
               <img
                 :src="thumbnailUrl"
-                :lazy-img="imageUrl"
+                :lazy-srcset="thumbnailUrls"
+                sizes="auto"
                 @load="setLazyImg($event)"
                 class="img-fluid d-block w-100 h-100 mx-auto my-auto"
                 style="object-fit: contain; max-width: 100vw; max-height: 100vh"
@@ -52,12 +53,13 @@ const {modalDialogFile, setLazyImg} = useModalDialog();
 
 const thumbnailUrl = computed(() => modalDialogFile.value?.imageUrl(1280));
 
-const imageUrl = computed(() => {
-  const width = window.innerWidth * (window.devicePixelRatio || 1);
-  // https://www.mediawiki.org/wiki/Common_thumbnail_sizes
-  // Current standard sizes in Wikimedia production: 20px, 40px, 60px, 120px, 250px, 330px, 500px, 960px, 1280px, 1920px, 3840px
-  return modalDialogFile.value?.imageUrl(width > 1280 ? undefined : 1280);
-});
+// https://www.mediawiki.org/wiki/Common_thumbnail_sizes
+// Current standard sizes in Wikimedia production: 20px, 40px, 60px, 120px, 250px, 330px, 500px, 960px, 1280px, 1920px, 3840px
+const thumbnailUrls = computed(() =>
+  [500, 960, 1280, 1920, 3840]
+    .map(width => `${modalDialogFile.value?.imageUrl(width)} ${width}w`)
+    .join(', ')
+);
 
 const emit = defineEmits<{
   prev: [];
