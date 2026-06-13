@@ -2,8 +2,9 @@
   <img
     class="img-fluid img-thumbnail fade-in-image"
     loading="lazy"
-    :src="lazyUrl"
-    :lazy-img="thumbnailUrl"
+    :src="thumbnailUrl"
+    :lazy-srcset="thumbnailUrls"
+    sizes="auto"
     style="max-height: 100%; cursor: zoom-in; width: 100%"
     @click="modalDialogFile = file"
     @load="setLazyImg($event)"
@@ -14,7 +15,7 @@
 import {computed} from 'vue';
 
 import type {FileDetails} from '../api/imageinfo';
-import {imageUrl, type CommonsFile} from '../model';
+import {imageUrl, imageUrls, type CommonsFile} from '../model';
 import {useModalDialog} from './useModalDialog';
 
 const {modalDialogFile, setLazyImg} = useModalDialog();
@@ -23,9 +24,9 @@ const props = defineProps<{
   file: CommonsFile & FileDetails;
 }>();
 
-const lazyUrl = computed(() => imageUrl(props.file, 120));
+const thumbnailUrl = computed(() => imageUrl(props.file, 120));
 
-const thumbnailUrl = computed(() => imageUrl(props.file, 1280));
+const thumbnailUrls = computed(() => imageUrls(props.file));
 </script>
 
 <style scoped>
