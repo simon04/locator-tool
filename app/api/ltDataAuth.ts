@@ -34,7 +34,7 @@ export function editLocation(title: CommonsFile, coordinates: LatLng[]) {
       pageid,
       locations: coordinates.map(({type, lat, lng}) => ({type, lat, lng}))
     })
-  });
+  }).json();
 }
 
 function xsrfToken() {
