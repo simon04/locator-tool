@@ -6,8 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@8912a9102ac27614460f54aedde9e1e7f9aec20d # v6.0.5
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
       - uses: actions/setup-node@v6
         with:
           node-version: 24
@@ -17,10 +17,10 @@ jobs:
       - run: pnpm vp --version
       - run: pnpm test
       - run: pnpm build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           path: ./dist
-      - uses: peaceiris/actions-gh-pages@v3
+      - uses: peaceiris/actions-gh-pages@v4
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
