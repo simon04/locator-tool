@@ -22,8 +22,7 @@ export interface RouteRecord {
 }
 
 export interface RouteLocationRaw {
-  name?: string;
-  path?: string;
+  name: string;
   query?: Record<string, string | number | undefined | null>;
 }
 
@@ -37,7 +36,7 @@ export interface Router {
   currentRoute: RouteLocation;
   routes: RouteRecord[];
   linkActiveClass?: string;
-  resolve(to: RouteLocationRaw): {name?: string; path: string; href: string};
+  resolve(to: RouteLocationRaw): {name: string; href: string};
   push(to: RouteLocationRaw): void;
   install(app: App): void;
 }
@@ -54,12 +53,12 @@ export function createRouter(options: {linkActiveClass?: string; routes: RouteRe
   }));
 
   const resolve = (to: RouteLocationRaw) => {
-    const record =
-      to.name != null ? routes.find(r => r.name === to.name) : routes.find(r => r.path === to.path);
-    const url = new URL(record?.path ?? to.path ?? '/', location.origin);
+    const record = routes.find(r => r.name === to.name);
+    if (!record) throw new Error(`Unknown route: ${to.name}`);
+    const url = new URL(record.path, location.origin);
     for (const [key, value] of Object.entries(to.query ?? {}))
       if (value != null) url.searchParams.set(key, String(value));
-    return {name: record?.name, path: url.pathname, href: `#${url.pathname}${url.search}`};
+    return {name: record.name, href: `#${url.pathname}${url.search}`};
   };
 
   const browser = useBrowserLocation();
@@ -97,7 +96,7 @@ export const RouterLink = defineComponent({
   props: {to: {type: Object as PropType<RouteLocationRaw>, required: true}},
   setup(props, {slots}) {
     const link = computed(() => router.resolve(props.to));
-    const active = computed(() => link.value.name && link.value.name === router.currentRoute.name);
+    const active = computed(() => link.value.name === router.currentRoute.name);
     return () =>
       h(
         'a',
