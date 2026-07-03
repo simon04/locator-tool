@@ -9,195 +9,111 @@ import {
   reactive
 } from 'vue';
 
-// A very small router that only supports hash history and named routes.
-// It is a drop-in replacement for the tiny subset of vue-router this app uses.
+// A tiny hash-history router covering just the subset of vue-router this app uses.
+// Hash links (`<a href="#/…">`) navigate natively, so no click handlers are needed.
 
-export type LocationQueryValue = string | string[];
-export type LocationQuery = Record<string, LocationQueryValue>;
-export type LocationQueryRaw = Record<
-  string,
-  string | number | undefined | null | (string | number)[]
->;
-
-export interface RouteLocationRaw {
-  name?: string;
-  path?: string;
-  query?: LocationQueryRaw;
-}
-
-export interface RouteLocation {
-  name: string | undefined;
-  path: string;
-  query: LocationQuery;
-  href: string;
-}
-
-type ComponentLoader = () => Promise<Component | {default: Component}>;
+type Loader = () => Promise<Component | {default: Component}>;
 
 export interface RouteRecord {
   name: string;
   path: string;
-  component: Component | ComponentLoader;
+  component: Component | Loader;
 }
 
-export interface RouterOptions {
-  history: RouterHistory;
-  linkActiveClass?: string;
-  routes: RouteRecord[];
+export interface RouteLocationRaw {
+  name?: string;
+  path?: string;
+  query?: Record<string, string | number | undefined | null | (string | number)[]>;
 }
 
-export interface RouterHistory {
-  /** the current location without the leading `#`, e.g. `/map?files=x` */
-  readonly location: string;
-  push(to: string): void;
-  listen(onChange: () => void): void;
+export interface RouteLocation {
+  name?: string;
+  path: string;
+  query: Record<string, string | string[]>;
 }
 
-export function createWebHashHistory(): RouterHistory {
-  const current = () => {
-    const hash = window.location.hash;
-    return (hash.startsWith('#') ? hash.slice(1) : hash) || '/';
-  };
-  return {
-    get location() {
-      return current();
-    },
-    push(to) {
-      window.location.hash = to;
-    },
-    listen(onChange) {
-      window.addEventListener('hashchange', onChange);
-    }
-  };
-}
-
-function stringifyQuery(query?: LocationQueryRaw): string {
-  if (!query) return '';
+const stringifyQuery = (query: RouteLocationRaw['query']) => {
   const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(query)) {
-    if (value === undefined || value === null) continue;
-    if (Array.isArray(value)) {
-      for (const v of value) if (v !== undefined && v !== null) params.append(key, String(v));
-    } else {
-      params.append(key, String(value));
-    }
-  }
-  const search = params.toString();
-  return search ? `?${search}` : '';
-}
+  for (const [key, value] of Object.entries(query ?? {}))
+    for (const v of [value].flat()) if (v != null) params.append(key, String(v));
+  return String(params) && `?${params}`;
+};
 
-function parseQuery(search: string): LocationQuery {
-  const params = new URLSearchParams(search);
-  const query: LocationQuery = {};
-  for (const key of new Set(params.keys())) {
-    const all = params.getAll(key);
-    query[key] = all.length > 1 ? all : all[0];
-  }
+const parseQuery = (search: string) => {
+  const query: RouteLocation['query'] = {};
+  new URLSearchParams(search).forEach((value, key) => {
+    query[key] = key in query ? [query[key], value].flat() : value;
+  });
   return query;
-}
+};
 
 export interface Router {
-  readonly currentRoute: RouteLocation;
-  options: RouterOptions;
-  resolve(to: RouteLocationRaw | string): RouteLocation;
-  push(to: RouteLocationRaw | string): void;
+  currentRoute: RouteLocation;
+  routes: RouteRecord[];
+  linkActiveClass?: string;
+  resolve(to: RouteLocationRaw): {name?: string; path: string; href: string};
+  push(to: RouteLocationRaw): void;
   install(app: App): void;
 }
 
-let activeRouter: Router | undefined;
+let router: Router;
 
-export function createRouter(options: RouterOptions): Router {
-  // pre-wrap lazily-imported components so <router-view> can render them directly
-  const routes: RouteRecord[] = options.routes.map(route => ({
+export function createRouter(options: {linkActiveClass?: string; routes: RouteRecord[]}): Router {
+  const routes = options.routes.map(route => ({
     ...route,
     component:
       typeof route.component === 'function'
-        ? defineAsyncComponent(route.component as ComponentLoader)
+        ? defineAsyncComponent(route.component as Loader)
         : route.component
   }));
 
-  function recordFor(loc: RouteLocationRaw | string): RouteRecord | undefined {
-    if (typeof loc === 'string') {
-      const [path] = loc.split('?');
-      return routes.find(r => r.path === path);
-    }
-    if (loc.name) return routes.find(r => r.name === loc.name);
-    return routes.find(r => r.path === loc.path);
-  }
-
-  function resolve(to: RouteLocationRaw | string): RouteLocation {
-    if (typeof to === 'string') {
-      const [path, search = ''] = to.split('?');
-      return {name: recordFor(to)?.name, path, query: parseQuery(search), href: `#${to}`};
-    }
-    const record = recordFor(to);
+  const resolve = (to: RouteLocationRaw) => {
+    const record =
+      to.name != null ? routes.find(r => r.name === to.name) : routes.find(r => r.path === to.path);
     const path = record?.path ?? to.path ?? '/';
-    const search = stringifyQuery(to.query);
-    return {name: record?.name, path, query: parseQuery(search), href: `#${path}${search}`};
-  }
+    return {name: record?.name, path, href: `#${path}${stringifyQuery(to.query)}`};
+  };
 
-  function fromLocation(location: string): RouteLocation {
-    const [path, search = ''] = location.split('?');
-    const record = routes.find(r => r.path === path) ?? routes.find(r => r.path === '/');
-    return {name: record?.name, path, query: parseQuery(search), href: `#${location}`};
-  }
+  const currentRoute = reactive<RouteLocation>({path: '/', query: {}});
+  const sync = () => {
+    const [path, ...rest] = (location.hash.slice(1) || '/').split('?');
+    Object.assign(currentRoute, {
+      name: routes.find(r => r.path === path)?.name,
+      path,
+      query: parseQuery(rest.join('?'))
+    });
+  };
+  window.addEventListener('hashchange', sync);
+  sync();
 
-  const currentRoute = reactive(fromLocation(options.history.location)) as RouteLocation;
-  options.history.listen(() => Object.assign(currentRoute, fromLocation(options.history.location)));
-
-  const router: Router = {
+  return (router = {
     currentRoute,
-    options: {...options, routes},
+    routes,
+    linkActiveClass: options.linkActiveClass,
     resolve,
-    push(to) {
-      const href = resolve(to).href;
-      options.history.push(href.slice(1));
+    push: to => {
+      location.hash = resolve(to).href;
     },
     install(app) {
       app.component('RouterLink', RouterLink);
       app.component('RouterView', RouterView);
     }
-  };
-  activeRouter = router;
-  return router;
+  });
 }
 
-export function useRouter(): Router {
-  if (!activeRouter) throw new Error('router has not been created yet');
-  return activeRouter;
-}
-
-export function useRoute(): RouteLocation {
-  return useRouter().currentRoute;
-}
+export const useRouter = () => router;
+export const useRoute = () => router.currentRoute;
 
 export const RouterLink = defineComponent({
   name: 'RouterLink',
-  props: {
-    to: {type: [String, Object] as PropType<RouteLocationRaw | string>, required: true}
-  },
+  props: {to: {type: Object as PropType<RouteLocationRaw>, required: true}},
   setup(props, {slots}) {
-    const router = useRouter();
-    const route = router.currentRoute;
-    const resolved = computed(() => router.resolve(props.to));
-    const isActive = computed(
-      () => resolved.value.name !== undefined && resolved.value.name === route.name
-    );
-    function onClick(event: MouseEvent) {
-      // let the browser handle new-tab / modified clicks
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)
-        return;
-      event.preventDefault();
-      router.push(props.to);
-    }
+    const link = computed(() => router.resolve(props.to));
+    const active = computed(() => link.value.name && link.value.name === router.currentRoute.name);
     return () =>
       h(
         'a',
-        {
-          href: resolved.value.href,
-          onClick,
-          class: isActive.value ? router.options.linkActiveClass : undefined
-        },
+        {href: link.value.href, class: active.value ? router.linkActiveClass : undefined},
         slots.default?.()
       );
   }
@@ -206,14 +122,11 @@ export const RouterLink = defineComponent({
 export const RouterView = defineComponent({
   name: 'RouterView',
   setup() {
-    const router = useRouter();
-    const route = router.currentRoute;
-    const component = computed(() => {
-      const record =
-        router.options.routes.find(r => r.path === route.path) ??
-        router.options.routes.find(r => r.path === '/');
-      return (record?.component as Component) ?? null;
-    });
-    return () => (component.value ? h(component.value) : null);
+    const match = computed(
+      () =>
+        router.routes.find(r => r.path === router.currentRoute.path) ??
+        router.routes.find(r => r.path === '/')
+    );
+    return () => (match.value ? h(match.value.component) : null);
   }
 });
