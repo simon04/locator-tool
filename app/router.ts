@@ -11,6 +11,7 @@ import {
 
 // A tiny hash-history router covering just the subset of vue-router this app uses.
 // Hash links (`<a href="#/…">`) navigate natively, so no click handlers are needed.
+// Parsing and serialising is delegated to the URL / URLSearchParams web APIs.
 
 type Loader = () => Promise<Component | {default: Component}>;
 
@@ -23,29 +24,14 @@ export interface RouteRecord {
 export interface RouteLocationRaw {
   name?: string;
   path?: string;
-  query?: Record<string, string | number | undefined | null | (string | number)[]>;
+  query?: Record<string, string | number | undefined | null>;
 }
 
 export interface RouteLocation {
   name?: string;
   path: string;
-  query: Record<string, string | string[]>;
+  query: Record<string, string>;
 }
-
-const stringifyQuery = (query: RouteLocationRaw['query']) => {
-  const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(query ?? {}))
-    for (const v of [value].flat()) if (v != null) params.append(key, String(v));
-  return String(params) && `?${params}`;
-};
-
-const parseQuery = (search: string) => {
-  const query: RouteLocation['query'] = {};
-  new URLSearchParams(search).forEach((value, key) => {
-    query[key] = key in query ? [query[key], value].flat() : value;
-  });
-  return query;
-};
 
 export interface Router {
   currentRoute: RouteLocation;
@@ -70,17 +56,19 @@ export function createRouter(options: {linkActiveClass?: string; routes: RouteRe
   const resolve = (to: RouteLocationRaw) => {
     const record =
       to.name != null ? routes.find(r => r.name === to.name) : routes.find(r => r.path === to.path);
-    const path = record?.path ?? to.path ?? '/';
-    return {name: record?.name, path, href: `#${path}${stringifyQuery(to.query)}`};
+    const url = new URL(record?.path ?? to.path ?? '/', location.origin);
+    for (const [key, value] of Object.entries(to.query ?? {}))
+      if (value != null) url.searchParams.set(key, String(value));
+    return {name: record?.name, path: url.pathname, href: `#${url.pathname}${url.search}`};
   };
 
   const currentRoute = reactive<RouteLocation>({path: '/', query: {}});
   const sync = () => {
-    const [path, ...rest] = (location.hash.slice(1) || '/').split('?');
+    const url = new URL(location.hash.slice(1) || '/', location.origin);
     Object.assign(currentRoute, {
-      name: routes.find(r => r.path === path)?.name,
-      path,
-      query: parseQuery(rest.join('?'))
+      name: routes.find(r => r.path === url.pathname)?.name,
+      path: url.pathname,
+      query: Object.fromEntries(url.searchParams)
     });
   };
   window.addEventListener('hashchange', sync);
