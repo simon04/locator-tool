@@ -10,7 +10,7 @@ export interface CommonsFile {
   url: string;
   coordinates: LatLng;
   objectLocation: LatLng;
-  $geolocate?: string; // Vue app in L.Popup has no router
+  $geolocate?: string; // Vue app in maplibregl.Popup has no router
 }
 
 export function imageUrl(f: CommonsFile, width?: number): string {

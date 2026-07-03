@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import * as L from 'leaflet';
+import maplibregl from 'maplibre-gl';
 import {type App, createApp, onMounted, reactive, ref} from 'vue';
 
 import * as getCoordinates from '../api/coordinates';
@@ -15,56 +15,63 @@ import {useRouter} from '../router';
 import LtGalleryCard from './ltGalleryCard.vue';
 import {useAppTitle, routeTitlePart} from './useAppTitle';
 import {t} from './useI18n';
-import {useLeafletMap} from './useLeafletMap';
 import {useLtRoute} from './useLtRoute';
+import {useMaplibreMap} from './useMaplibreMap';
 
 const {$query, hasFilesUserCategory} = useLtRoute();
 const $router = useRouter();
 const mapRef = ref<HTMLElement | null>(null);
 
+let markers: maplibregl.Marker[] = [];
+
 useAppTitle(routeTitlePart(), t('Map'));
 
 onMounted(async () => {
-  const {map} = useLeafletMap(mapRef);
+  const {map} = useMaplibreMap(mapRef);
   if (hasFilesUserCategory.value) {
     const titles = await getFiles.getFiles($query.value);
     const files = await getCoordinates.getCoordinates(titles);
-    const bounds = files.flatMap(title => {
-      const marker = buildMarker(title);
-      marker?.addTo(map);
-      return marker ? [marker.getLatLng()] : [];
+    const bounds = new maplibregl.LngLatBounds();
+    files.forEach(title => {
+      const marker = addMarker(map, title);
+      if (marker) bounds.extend(marker.getLngLat());
     });
-    map.fitBounds(bounds);
+    if (!bounds.isEmpty()) map.fitBounds(bounds, {padding: 40});
   } else {
     geosearch(map);
     map.on('moveend', () => geosearch(map));
-    map.on('zoomend', () => geosearch(map));
   }
 });
 
-async function geosearch(map: L.Map) {
+async function geosearch(map: maplibregl.Map) {
   const files = await runGeosearch(map.getBounds());
-  map.eachLayer(l => {
-    if (l instanceof L.CircleMarker && !l.isPopupOpen()) {
-      map.removeLayer(l);
-    }
+  markers = markers.filter(marker => {
+    if (marker.getPopup()?.isOpen()) return true;
+    marker.remove();
+    return false;
   });
-  files.forEach(f => buildMarker(f)?.addTo(map));
+  files.forEach(f => addMarker(map, f));
 }
 
-function buildMarker(title: CommonsFile): L.CircleMarker | undefined {
+function addMarker(map: maplibregl.Map, title: CommonsFile): maplibregl.Marker | undefined {
   if (!title.coordinates.isDefined) return;
   const {lat, lng} = title.coordinates;
-  return new L.CircleMarker({lat, lng}, {color: '#2a4b8d'})
-    .bindTooltip(title.file)
-    .bindPopup(buildPopup(title));
+  const element = document.createElement('div');
+  element.className = 'lt-circle-marker';
+  element.title = title.file;
+  const marker = new maplibregl.Marker({element})
+    .setLngLat([lng!, lat!])
+    .setPopup(buildPopup(title))
+    .addTo(map);
+  markers.push(marker);
+  return marker;
 }
 
-function buildPopup(title: CommonsFile): L.Popup {
-  let app: App;
-  let div: HTMLDivElement;
-  const popup = new L.Popup({minWidth: 400});
-  popup.setContent(() => {
+function buildPopup(title: CommonsFile): maplibregl.Popup {
+  let app: App | undefined;
+  const div = document.createElement('div');
+  const popup = new maplibregl.Popup({maxWidth: '400px'}).setDOMContent(div);
+  popup.on('open', () => {
     title = reactive(title);
     title.$geolocate = $router.resolve({
       name: 'geolocate',
@@ -74,11 +81,9 @@ function buildPopup(title: CommonsFile): L.Popup {
     getFileDetails(title.pageid, 'categories|imageinfo', 'extmetadata').then(fileDetails => {
       Object.assign(title, fileDetails);
     });
-    div = document.createElement('div');
-    return div;
+    app.mount(div);
   });
-  popup.on('add', () => app.mount(div));
-  popup.on('remove', () => app.unmount());
+  popup.on('close', () => app?.unmount());
   return popup;
 }
 </script>
@@ -88,10 +93,20 @@ function buildPopup(title: CommonsFile): L.Popup {
   margin-left: calc(var(--bs-gutter-x) * -0.5);
   margin-right: calc(var(--bs-gutter-x) * -0.5);
 }
-:deep(.leaflet-popup-content-wrapper) {
-  background-color: var(--bs-body-bg);
+.lt-circle-marker {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #2a4b8d;
+  opacity: 0.5;
+  cursor: pointer;
 }
-:deep(.leaflet-popup-content) {
-  margin: 0.5rem;
+:deep(.maplibregl-popup-content) {
+  background-color: var(--bs-body-bg);
+  padding: 0.5rem;
+}
+:deep(.maplibregl-popup-tip) {
+  border-top-color: var(--bs-body-bg);
+  border-bottom-color: var(--bs-body-bg);
 }
 </style>

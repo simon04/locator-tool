@@ -4,27 +4,19 @@
 
 <script setup lang="ts">
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?raw';
-import * as L from 'leaflet';
-import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png?no-inline';
-import iconUrl from 'leaflet/dist/images/marker-icon.png?no-inline';
-import shadowUrl from 'leaflet/dist/images/marker-shadow.png?no-inline';
+import maplibregl from 'maplibre-gl';
 import {onMounted, ref, watch} from 'vue';
 
 import {LatLng} from '../model';
-import {useLeafletMap} from './useLeafletMap';
-import type {MapView} from './useLeafletMap';
+import {useMaplibreMap} from './useMaplibreMap';
 
 const coordinates = defineModel<LatLng>('coordinates', {required: true});
 const objectLocation = defineModel<LatLng>('objectLocation', {required: true});
 
-defineEmits<{
-  mapViewChanged: [mapView: MapView];
-}>();
-
 const mapRef = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-  const {map} = useLeafletMap(mapRef);
+  const {map} = useMaplibreMap(mapRef);
 
   map.on('click', $event => mapClick($event));
 
@@ -32,36 +24,27 @@ onMounted(() => {
   watch(objectLocation, mapMarkerUpdater(map), {immediate: true});
 });
 
-function mapMarkerUpdater(map: L.Map): (mapMarker: LatLng) => void {
-  let marker: L.Marker | undefined;
+function mapMarkerUpdater(map: maplibregl.Map): (mapMarker: LatLng) => void {
+  let marker: maplibregl.Marker | undefined;
   return mapMarker => {
     const {lat, lng} = mapMarker;
     if (mapMarker.isDefined && marker) {
-      map.setView({lat, lng});
-      marker.setLatLng({lat, lng});
+      map.setCenter([lng!, lat!]);
+      marker.setLngLat([lng!, lat!]);
     } else if (mapMarker.isDefined) {
-      map.setView({lat, lng});
-      const icon =
-        mapMarker.type === 'Location'
-          ? new L.Icon({
-              iconRetinaUrl,
-              iconUrl,
-              shadowUrl,
-              iconSize: [25, 41],
-              iconAnchor: [12, 41],
-              popupAnchor: [1, -34],
-              tooltipAnchor: [16, -28],
-              shadowSize: [41, 41]
-            })
-          : new L.DivIcon({
-              className: 'b-0',
-              html: `<div title="Object location" style="color: red">${HouseFill}</div>`,
-              iconAnchor: [6, 6],
-              iconSize: [12, 12]
-            });
-      marker = new L.Marker({lat, lng}, {draggable: true, icon})
-        .on('moveend', $event => markerMoveend($event as L.LeafletMouseEvent, mapMarker))
-        .addTo(map);
+      map.setCenter([lng!, lat!]);
+      const options: maplibregl.MarkerOptions = {draggable: true};
+      if (mapMarker.type !== 'Location') {
+        const element = document.createElement('div');
+        element.title = 'Object location';
+        element.style.color = 'red';
+        element.innerHTML = HouseFill;
+        options.element = element;
+      }
+      marker = new maplibregl.Marker(options)
+        .setLngLat([lng!, lat!])
+        .addTo(map)
+        .on('dragend', () => markerDragend(marker!, mapMarker));
     } else if (marker) {
       marker.remove();
       marker = undefined;
@@ -69,18 +52,17 @@ function mapMarkerUpdater(map: L.Map): (mapMarker: LatLng) => void {
   };
 }
 
-function mapClick($event: L.LeafletMouseEvent): void {
-  // http://leafletjs.com/reference.html#mouse-event
+function mapClick($event: maplibregl.MapMouseEvent): void {
   const {
-    latlng: {lat, lng},
+    lngLat: {lat, lng},
     originalEvent: {shiftKey}
   } = $event;
   if (!lat || !lng) return;
   setLatLng(shiftKey ? 'Object location' : 'Location', lat, lng);
 }
 
-function markerMoveend($event: L.LeafletMouseEvent, target: LatLng): void {
-  const {lat, lng} = ($event.target as L.Marker).getLatLng();
+function markerDragend(marker: maplibregl.Marker, target: LatLng): void {
+  const {lat, lng} = marker.getLngLat();
   if (!lat || !lng) return;
   setLatLng(target.type, lat, lng);
 }

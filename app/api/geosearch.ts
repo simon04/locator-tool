@@ -1,4 +1,4 @@
-import type {LatLngBounds} from 'leaflet';
+import type {LngLatBounds} from 'maplibre-gl';
 
 import {type CommonsFile, LatLng} from '../model';
 import {type ApiResponse} from './ApiResponse';
@@ -16,7 +16,7 @@ export interface Geosearch {
   name: null;
 }
 
-export async function geosearch(bounds: LatLngBounds): Promise<CommonsFile[]> {
+export async function geosearch(bounds: LngLatBounds): Promise<CommonsFile[]> {
   const params = {
     list: 'geosearch',
     gsnamespace: NS_FILE,

@@ -21,8 +21,39 @@ label {
   font-weight: bold;
 }
 
-.leaflet-control-geocoder-form input {
-  color: var(--bs-black);
+.lt-layers .lt-layers-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 29px;
+  height: 29px;
+  cursor: pointer;
+}
+.lt-layers .lt-layers-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+.lt-layers .lt-layers-list {
+  display: none;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+.lt-layers:hover .lt-layers-toggle {
+  display: none;
+}
+.lt-layers:hover .lt-layers-list {
+  display: block;
+}
+.lt-layers .lt-layers-list label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: normal;
+  margin: 0;
+}
+.lt-layers .lt-layers-list svg {
+  width: 1em;
+  height: 1em;
 }
 
 .flex-grow-1 {
