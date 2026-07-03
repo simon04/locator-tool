@@ -54,9 +54,9 @@ import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
 import {ref} from 'vue';
-import {useRouter} from 'vue-router';
 
 import * as getUsersForPrefix from '../api/usersForPrefix';
+import {useRouter} from '../router';
 import ltSpinner from './ltSpinner.vue';
 import {tryParse} from './tryParse';
 import {t} from './useI18n';

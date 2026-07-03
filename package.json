@@ -36,7 +36,6 @@
     "leaflet": "1.9.4",
     "leaflet-control-geocoder": "3.3.1",
     "vue": "3.5.38",
-    "vue-router": "4.6.4",
     "wikimedia-commons-file-path": "2.1.1"
   },
   "devDependencies": {
