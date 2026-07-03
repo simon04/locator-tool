@@ -1,3 +1,4 @@
+import {toReactive, useBrowserLocation} from '@vueuse/core';
 import {
   type App,
   type Component,
@@ -5,13 +6,12 @@ import {
   defineAsyncComponent,
   defineComponent,
   h,
-  type PropType,
-  reactive
+  type PropType
 } from 'vue';
 
 // A tiny hash-history router covering just the subset of vue-router this app uses.
 // Hash links (`<a href="#/…">`) navigate natively, so no click handlers are needed.
-// Parsing and serialising is delegated to the URL / URLSearchParams web APIs.
+// The reactive location comes from VueUse; URL / URLSearchParams do the parsing.
 
 type Loader = () => Promise<Component | {default: Component}>;
 
@@ -62,17 +62,17 @@ export function createRouter(options: {linkActiveClass?: string; routes: RouteRe
     return {name: record?.name, path: url.pathname, href: `#${url.pathname}${url.search}`};
   };
 
-  const currentRoute = reactive<RouteLocation>({path: '/', query: {}});
-  const sync = () => {
-    const url = new URL(location.hash.slice(1) || '/', location.origin);
-    Object.assign(currentRoute, {
-      name: routes.find(r => r.path === url.pathname)?.name,
-      path: url.pathname,
-      query: Object.fromEntries(url.searchParams)
-    });
-  };
-  window.addEventListener('hashchange', sync);
-  sync();
+  const browser = useBrowserLocation();
+  const currentRoute = toReactive(
+    computed<RouteLocation>(() => {
+      const url = new URL(browser.value.hash?.slice(1) || '/', location.origin);
+      return {
+        name: routes.find(r => r.path === url.pathname)?.name,
+        path: url.pathname,
+        query: Object.fromEntries(url.searchParams)
+      };
+    })
+  );
 
   return (router = {
     currentRoute,
