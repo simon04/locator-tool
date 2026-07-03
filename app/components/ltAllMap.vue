@@ -5,13 +5,13 @@
 <script setup lang="ts">
 import * as L from 'leaflet';
 import {type App, createApp, onMounted, reactive, ref} from 'vue';
-import {useRouter} from 'vue-router';
 
 import * as getCoordinates from '../api/coordinates';
 import * as getFiles from '../api/files';
 import {geosearch as runGeosearch} from '../api/geosearch';
 import {getFileDetails} from '../api/imageinfo';
 import type {CommonsFile} from '../model';
+import {useRouter} from '../router';
 import LtGalleryCard from './ltGalleryCard.vue';
 import {useAppTitle, routeTitlePart} from './useAppTitle';
 import {t} from './useI18n';
