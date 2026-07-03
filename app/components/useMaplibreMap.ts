@@ -2,7 +2,7 @@ import {useLocalStorage} from '@vueuse/core';
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?raw';
 import Stack from 'bootstrap-icons/icons/stack.svg?raw';
 import maplibregl from 'maplibre-gl';
-import {type Ref} from 'vue';
+import {onMounted, type Ref} from 'vue';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -150,30 +150,40 @@ export function useMaplibreMap(mapRef: Ref<HTMLElement | null>) {
     zoom: 13
   });
 
-  const activeLayer = baseLayers.some(l => l.name === mapLayer.value) ? mapLayer.value : osm;
+  let map!: maplibregl.Map;
 
-  const map = new maplibregl.Map({
-    container: mapRef.value!,
-    style: buildStyle(activeLayer),
-    center: [mapView.value.lng, mapView.value.lat],
-    zoom: mapView.value.zoom,
-    maxZoom,
-    attributionControl: false
+  onMounted(() => {
+    const activeLayer = baseLayers.some(l => l.name === mapLayer.value) ? mapLayer.value : osm;
+
+    map = new maplibregl.Map({
+      container: mapRef.value!,
+      style: buildStyle(activeLayer),
+      center: [mapView.value.lng, mapView.value.lat],
+      zoom: mapView.value.zoom,
+      maxZoom,
+      attributionControl: false
+    });
+
+    map.addControl(
+      new maplibregl.AttributionControl({
+        customAttribution: `<a href="https://github.com/simon04/locator-tool/" target="_blank" rel="external noopener">@simon04/locator-tool</a>
+        (<a href="https://github.com/simon04/locator-tool/blob/master/LICENSE" target="_blank" rel="external noopener">GPL v3</a>)`
+      })
+    );
+    map.addControl(new maplibregl.NavigationControl(), 'top-left');
+    map.addControl(new BaseLayerControl(mapLayer, osm), 'top-right');
+
+    map.on('moveend', () => {
+      const {lat, lng} = map.getCenter();
+      mapView.value = {lat, lng, zoom: map.getZoom()};
+    });
   });
 
-  map.addControl(
-    new maplibregl.AttributionControl({
-      customAttribution: `<a href="https://github.com/simon04/locator-tool/" target="_blank" rel="external noopener">@simon04/locator-tool</a>
-      (<a href="https://github.com/simon04/locator-tool/blob/master/LICENSE" target="_blank" rel="external noopener">GPL v3</a>)`
-    })
-  );
-  map.addControl(new maplibregl.NavigationControl(), 'top-left');
-  map.addControl(new BaseLayerControl(mapLayer, osm), 'top-right');
-
-  map.on('moveend', () => {
-    const {lat, lng} = map.getCenter();
-    mapView.value = {lat, lng, zoom: map.getZoom()};
-  });
-
-  return {map, mapLayer, mapView};
+  return {
+    get map() {
+      return map;
+    },
+    mapLayer,
+    mapView
+  };
 }

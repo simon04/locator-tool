@@ -21,13 +21,14 @@ import {useMaplibreMap} from './useMaplibreMap';
 const {$query, hasFilesUserCategory} = useLtRoute();
 const $router = useRouter();
 const mapRef = ref<HTMLElement | null>(null);
+const mapState = useMaplibreMap(mapRef);
 
 let markers: maplibregl.Marker[] = [];
 
 useAppTitle(routeTitlePart(), t('Map'));
 
 onMounted(async () => {
-  const {map} = useMaplibreMap(mapRef);
+  const {map} = mapState;
   if (hasFilesUserCategory.value) {
     const titles = await getFiles.getFiles($query.value);
     const files = await getCoordinates.getCoordinates(titles);

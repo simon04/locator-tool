@@ -14,9 +14,10 @@ const coordinates = defineModel<LatLng>('coordinates', {required: true});
 const objectLocation = defineModel<LatLng>('objectLocation', {required: true});
 
 const mapRef = ref<HTMLElement | null>(null);
+const mapState = useMaplibreMap(mapRef);
 
 onMounted(() => {
-  const {map} = useMaplibreMap(mapRef);
+  const {map} = mapState;
 
   map.on('click', $event => mapClick($event));
 
