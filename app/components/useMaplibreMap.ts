@@ -1,4 +1,4 @@
-import {useDebounceFn, useLocalStorage} from '@vueuse/core';
+import {useLocalStorage} from '@vueuse/core';
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?raw';
 import Search from 'bootstrap-icons/icons/search.svg?raw';
 import Stack from 'bootstrap-icons/icons/stack.svg?raw';
@@ -148,12 +148,16 @@ class BaseLayerControl implements maplibregl.IControl {
   }
 }
 
+// https://operations.osmfoundation.org/policies/nominatim/ forbids autocomplete
+// (searching on every keystroke) and caps requests at 1/second.
+const nominatimMinIntervalMs = 1000;
+
 /** Custom control to search for a place or address, backed by Nominatim. */
 class GeocoderControl implements maplibregl.IControl {
   private map?: maplibregl.Map;
   private results?: HTMLElement;
   private requestId = 0;
-  private readonly search = useDebounceFn((query: string) => this.runSearch(query), 300);
+  private lastRequestAt = 0;
 
   onAdd(map: maplibregl.Map): HTMLElement {
     this.map = map;
@@ -166,12 +170,17 @@ class GeocoderControl implements maplibregl.IControl {
     icon.innerHTML = Search;
     container.append(icon);
 
+    const form = document.createElement('form');
     const input = document.createElement('input');
     input.type = 'search';
     input.placeholder = '…';
     input.setAttribute('aria-label', 'Search for a place or address');
-    input.addEventListener('input', () => this.search(input.value));
-    container.append(input);
+    form.append(input);
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      void this.runSearch(input.value);
+    });
+    container.append(form);
 
     const results = document.createElement('ul');
     results.className = 'lt-geocoder-results';
@@ -182,11 +191,13 @@ class GeocoderControl implements maplibregl.IControl {
   }
 
   private async runSearch(query: string): Promise<void> {
-    const requestId = ++this.requestId;
     const results = this.results;
     if (!results) return;
     results.replaceChildren();
     if (!query.trim()) return;
+    if (Date.now() - this.lastRequestAt < nominatimMinIntervalMs) return;
+    this.lastRequestAt = Date.now();
+    const requestId = ++this.requestId;
     const places = await nominatimSearch(query);
     if (requestId !== this.requestId) return;
     for (const place of places) {

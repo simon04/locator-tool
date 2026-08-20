@@ -78,6 +78,10 @@ label {
   width: 14px;
   height: 14px;
 }
+.lt-geocoder form {
+  display: flex;
+  flex: 1;
+}
 .lt-geocoder input {
   width: 180px;
   border: none;
