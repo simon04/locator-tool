@@ -2,7 +2,7 @@ import {useLocalStorage} from '@vueuse/core';
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?raw';
 import Stack from 'bootstrap-icons/icons/stack.svg?raw';
 import maplibregl from 'maplibre-gl';
-import {onMounted, type Ref} from 'vue';
+import {onMounted, onUnmounted, type Ref} from 'vue';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -178,6 +178,8 @@ export function useMaplibreMap(mapRef: Ref<HTMLElement | null>) {
       mapView.value = {lat, lng, zoom: map.getZoom()};
     });
   });
+
+  onUnmounted(() => map?.remove());
 
   return {
     get map() {
