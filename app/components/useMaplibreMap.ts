@@ -100,8 +100,11 @@ class BaseLayerControl implements maplibregl.IControl {
     const container = document.createElement('div');
     container.className = 'maplibregl-ctrl maplibregl-ctrl-group lt-layers';
 
-    const toggle = document.createElement('div');
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
     toggle.className = 'lt-layers-toggle';
+    toggle.setAttribute('aria-label', 'Base layer');
+    toggle.setAttribute('aria-haspopup', 'true');
     toggle.innerHTML = Stack;
     container.append(toggle);
 

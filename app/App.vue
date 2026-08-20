@@ -27,6 +27,9 @@ label {
   justify-content: center;
   width: 29px;
   height: 29px;
+  padding: 0;
+  border: none;
+  background: none;
   cursor: pointer;
 }
 .lt-layers .lt-layers-toggle svg {
@@ -41,7 +44,8 @@ label {
 .lt-layers:hover .lt-layers-toggle {
   display: none;
 }
-.lt-layers:hover .lt-layers-list {
+.lt-layers:hover .lt-layers-list,
+.lt-layers:focus-within .lt-layers-list {
   display: block;
 }
 .lt-layers .lt-layers-list label {
