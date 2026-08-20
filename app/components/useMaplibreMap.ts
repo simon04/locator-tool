@@ -1,8 +1,11 @@
-import {useLocalStorage} from '@vueuse/core';
+import {useDebounceFn, useLocalStorage} from '@vueuse/core';
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?raw';
+import Search from 'bootstrap-icons/icons/search.svg?raw';
 import Stack from 'bootstrap-icons/icons/stack.svg?raw';
 import maplibregl from 'maplibre-gl';
 import {onMounted, onUnmounted, type Ref} from 'vue';
+
+import {search as nominatimSearch, type NominatimResult} from '../api/nominatim';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -145,6 +148,73 @@ class BaseLayerControl implements maplibregl.IControl {
   }
 }
 
+/** Custom control to search for a place or address, backed by Nominatim. */
+class GeocoderControl implements maplibregl.IControl {
+  private map?: maplibregl.Map;
+  private results?: HTMLElement;
+  private requestId = 0;
+  private readonly search = useDebounceFn((query: string) => this.runSearch(query), 300);
+
+  onAdd(map: maplibregl.Map): HTMLElement {
+    this.map = map;
+    const container = document.createElement('div');
+    container.className = 'maplibregl-ctrl maplibregl-ctrl-group lt-geocoder';
+
+    const icon = document.createElement('span');
+    icon.className = 'lt-geocoder-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.innerHTML = Search;
+    container.append(icon);
+
+    const input = document.createElement('input');
+    input.type = 'search';
+    input.placeholder = '…';
+    input.setAttribute('aria-label', 'Search for a place or address');
+    input.addEventListener('input', () => this.search(input.value));
+    container.append(input);
+
+    const results = document.createElement('ul');
+    results.className = 'lt-geocoder-results';
+    container.append(results);
+    this.results = results;
+
+    return container;
+  }
+
+  private async runSearch(query: string): Promise<void> {
+    const requestId = ++this.requestId;
+    const results = this.results;
+    if (!results) return;
+    results.replaceChildren();
+    if (!query.trim()) return;
+    const places = await nominatimSearch(query);
+    if (requestId !== this.requestId) return;
+    for (const place of places) {
+      const li = document.createElement('li');
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = place.display_name;
+      button.addEventListener('click', () => this.select(place));
+      li.append(button);
+      results.append(li);
+    }
+  }
+
+  private select(place: NominatimResult): void {
+    const [south, north, west, east] = place.boundingbox.map(Number);
+    this.map?.fitBounds([
+      [west, south],
+      [east, north]
+    ]);
+    this.results?.replaceChildren();
+  }
+
+  onRemove(): void {
+    this.map = undefined;
+    this.results = undefined;
+  }
+}
+
 export function useMaplibreMap(mapRef: Ref<HTMLElement | null>) {
   const mapLayer = useLocalStorage('mapLayer', '');
   const mapView = useLocalStorage<MapView>('mapView', {
@@ -174,6 +244,7 @@ export function useMaplibreMap(mapRef: Ref<HTMLElement | null>) {
       })
     );
     map.addControl(new maplibregl.NavigationControl(), 'top-left');
+    map.addControl(new GeocoderControl(), 'top-left');
     map.addControl(new BaseLayerControl(mapLayer, osm), 'top-right');
 
     map.on('moveend', () => {

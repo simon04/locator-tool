@@ -60,6 +60,61 @@ label {
   height: 1em;
 }
 
+.lt-geocoder {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: var(--bs-body-bg);
+}
+.lt-geocoder-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 29px;
+  height: 29px;
+  flex: none;
+}
+.lt-geocoder-icon svg {
+  width: 14px;
+  height: 14px;
+}
+.lt-geocoder input {
+  width: 180px;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0 8px 0 0;
+}
+.lt-geocoder-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 280px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  background: var(--bs-body-bg);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  max-height: 200px;
+  overflow-y: auto;
+}
+.lt-geocoder-results:empty {
+  display: none;
+}
+.lt-geocoder-results button {
+  display: block;
+  width: 100%;
+  border: none;
+  background: none;
+  text-align: left;
+  padding: 6px 10px;
+  white-space: normal;
+}
+.lt-geocoder-results button:hover,
+.lt-geocoder-results button:focus {
+  background: rgba(0, 0, 0, 0.08);
+}
+
 .flex-grow-1 {
   /* https://stackoverflow.com/a/36247448 */
   min-height: 0;
