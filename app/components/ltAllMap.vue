@@ -94,7 +94,7 @@ function buildPopup(title: CommonsFile): maplibregl.Popup {
   margin-left: calc(var(--bs-gutter-x) * -0.5);
   margin-right: calc(var(--bs-gutter-x) * -0.5);
 }
-.lt-circle-marker {
+:deep(.lt-circle-marker) {
   width: 14px;
   height: 14px;
   border-radius: 50%;
