@@ -148,16 +148,11 @@ class BaseLayerControl implements maplibregl.IControl {
   }
 }
 
-// https://operations.osmfoundation.org/policies/nominatim/ forbids autocomplete
-// (searching on every keystroke) and caps requests at 1/second.
-const nominatimMinIntervalMs = 1000;
-
 /** Custom control to search for a place or address, backed by Nominatim. */
 class GeocoderControl implements maplibregl.IControl {
   private map?: maplibregl.Map;
   private results?: HTMLElement;
   private requestId = 0;
-  private lastRequestAt = 0;
 
   onAdd(map: maplibregl.Map): HTMLElement {
     this.map = map;
@@ -177,6 +172,8 @@ class GeocoderControl implements maplibregl.IControl {
     input.setAttribute('aria-label', 'Search for a place or address');
     form.append(input);
     form.addEventListener('submit', event => {
+      // https://operations.osmfoundation.org/policies/nominatim/ forbids autocomplete,
+      // hence Nominatim is queried on explicit submit only
       event.preventDefault();
       void this.runSearch(input.value);
     });
@@ -195,8 +192,6 @@ class GeocoderControl implements maplibregl.IControl {
     if (!results) return;
     results.replaceChildren();
     if (!query.trim()) return;
-    if (Date.now() - this.lastRequestAt < nominatimMinIntervalMs) return;
-    this.lastRequestAt = Date.now();
     const requestId = ++this.requestId;
     const places = await nominatimSearch(query);
     if (requestId !== this.requestId) return;
