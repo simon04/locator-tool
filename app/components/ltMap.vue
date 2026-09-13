@@ -42,10 +42,10 @@ function mapMarkerUpdater(map: maplibregl.Map): (mapMarker: LatLng) => void {
         element.innerHTML = HouseFill;
         options.element = element;
       }
-      marker = new maplibregl.Marker(options)
-        .setLngLat([lng!, lat!])
-        .addTo(map)
-        .on('dragend', () => markerDragend(marker!, mapMarker));
+      const newMarker = new maplibregl.Marker(options).setLngLat([lng!, lat!]).addTo(map);
+      // Evented.on returns a Subscription, hence it must not be chained onto the marker
+      newMarker.on('dragend', () => markerDragend(newMarker, mapMarker));
+      marker = newMarker;
     } else if (marker) {
       marker.remove();
       marker = undefined;
