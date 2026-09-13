@@ -193,7 +193,14 @@ class GeocoderControl implements maplibregl.IControl {
     results.replaceChildren();
     if (!query.trim()) return;
     const requestId = ++this.requestId;
-    const places = await nominatimSearch(query);
+    let places: NominatimResult[];
+    try {
+      places = await nominatimSearch(query);
+    } catch (error) {
+      console.error('Nominatim search failed', error);
+      if (requestId === this.requestId) this.showMessage('Search failed');
+      return;
+    }
     if (requestId !== this.requestId) return;
     for (const place of places) {
       const li = document.createElement('li');
@@ -204,6 +211,13 @@ class GeocoderControl implements maplibregl.IControl {
       li.append(button);
       results.append(li);
     }
+  }
+
+  private showMessage(message: string): void {
+    const li = document.createElement('li');
+    li.className = 'lt-geocoder-message';
+    li.textContent = message;
+    this.results?.append(li);
   }
 
   private select(place: NominatimResult): void {

@@ -115,6 +115,9 @@ label {
 .lt-geocoder-results:empty {
   display: none;
 }
+.lt-geocoder-message {
+  padding: 6px 10px;
+}
 /* .maplibregl-ctrl-group button sizes every button to 29x29 without padding */
 .lt-geocoder .lt-geocoder-results button {
   display: block;
