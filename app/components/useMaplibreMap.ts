@@ -257,8 +257,12 @@ export function useMaplibreMap(mapRef: Ref<HTMLElement | null>) {
       // Shift+drag box zoom swallows the subsequent click (BoxZoomHandler calls
       // suppressClick), which the map uses for the Object location
       boxZoom: false,
+      // A rotated or pitched map only makes placing a marker by clicking harder
+      dragRotate: false,
+      pitchWithRotate: false,
       attributionControl: false
     });
+    map.touchZoomRotate.disableRotation();
 
     map.addControl(
       new maplibregl.AttributionControl({
