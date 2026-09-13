@@ -45,6 +45,9 @@ function mapMarkerUpdater(map: maplibregl.Map): (mapMarker: LatLng) => void {
       const newMarker = new maplibregl.Marker(options).setLngLat([lng!, lat!]).addTo(map);
       // Evented.on returns a Subscription, hence it must not be chained onto the marker
       newMarker.on('dragend', () => markerDragend(newMarker, mapMarker));
+      // Markers live inside the canvas container, hence a click on the marker would
+      // bubble up to the map and move the Location to the position under the cursor
+      newMarker.getElement().addEventListener('click', $event => $event.stopPropagation());
       marker = newMarker;
     } else if (marker) {
       marker.remove();
