@@ -31,6 +31,8 @@ label {
   border: none;
   background: none;
   cursor: pointer;
+  /* .maplibregl-ctrl-group paints the control white in either color mode */
+  color: var(--bs-black);
 }
 .lt-layers .lt-layers-toggle svg {
   width: 18px;
@@ -40,6 +42,8 @@ label {
   display: none;
   padding: 6px 10px;
   white-space: nowrap;
+  /* .maplibregl-ctrl-group paints the control white in either color mode */
+  color: var(--bs-black);
 }
 .lt-layers:hover .lt-layers-toggle {
   display: none;
@@ -60,11 +64,14 @@ label {
   height: 1em;
 }
 
+/* maplibre-gl.css ships in the lazily loaded map chunk and is therefore applied
+   after this stylesheet: rules competing with .maplibregl-ctrl-group need to
+   beat it on specificity, not on order. */
 .lt-geocoder {
   display: flex;
   align-items: center;
   position: relative;
-  background: var(--bs-body-bg);
+  color: var(--bs-black);
 }
 .lt-geocoder-icon {
   display: flex;
@@ -88,6 +95,8 @@ label {
   outline: none;
   background: none;
   padding: 0 8px 0 0;
+  /* color-scheme: dark would render the value light on the white control */
+  color: var(--bs-black);
 }
 .lt-geocoder-results {
   position: absolute;
@@ -97,7 +106,8 @@ label {
   margin: 4px 0 0;
   padding: 0;
   list-style: none;
-  background: var(--bs-body-bg);
+  background: var(--bs-white);
+  color: var(--bs-black);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   max-height: 200px;
   overflow-y: auto;
@@ -105,17 +115,20 @@ label {
 .lt-geocoder-results:empty {
   display: none;
 }
-.lt-geocoder-results button {
+/* .maplibregl-ctrl-group button sizes every button to 29x29 without padding */
+.lt-geocoder .lt-geocoder-results button {
   display: block;
   width: 100%;
+  height: auto;
   border: none;
   background: none;
+  color: inherit;
   text-align: left;
   padding: 6px 10px;
   white-space: normal;
 }
-.lt-geocoder-results button:hover,
-.lt-geocoder-results button:focus {
+.lt-geocoder .lt-geocoder-results button:hover,
+.lt-geocoder .lt-geocoder-results button:focus {
   background: rgba(0, 0, 0, 0.08);
 }
 
