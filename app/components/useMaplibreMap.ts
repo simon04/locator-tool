@@ -245,6 +245,9 @@ export function useMaplibreMap(mapRef: Ref<HTMLElement | null>) {
       center: [mapView.value.lng, mapView.value.lat],
       zoom: mapView.value.zoom,
       maxZoom,
+      // Shift+drag box zoom swallows the subsequent click (BoxZoomHandler calls
+      // suppressClick), which the map uses for the Object location
+      boxZoom: false,
       attributionControl: false
     });
 
