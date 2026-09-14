@@ -12,6 +12,10 @@ const config = {
 
 const NEXT_KEY = 'oauth2_next';
 
+// Refresh early: a token that expires while the request is in flight is of no use,
+// and an edit may well be the first thing to notice.
+const EXPIRY_MARGIN = 60_000;
+
 export async function startAuthorization(next?: string): Promise<void> {
   // The authorization server redirects back to the registered URI, so remember
   // where the user was in order to return them there afterwards.
@@ -82,7 +86,7 @@ let refreshing: Promise<LoginToken> | undefined;
 
 async function getOrRefreshAccessToken(): Promise<LoginToken> {
   const tokens = LoginToken.load();
-  if (Date.now() <= tokens.access_token_expires_at) {
+  if (Date.now() + EXPIRY_MARGIN <= tokens.access_token_expires_at) {
     return Promise.resolve(tokens);
   }
   // A refresh token can only be redeemed once, so parallel edits share one refresh
