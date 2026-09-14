@@ -92,6 +92,9 @@ function buildStyle(activeLayer: string): maplibregl.StyleSpecification {
 /** Custom control switching the visible base (raster) layer. */
 class BaseLayerControl implements maplibregl.IControl {
   private map?: maplibregl.Map;
+  private container?: HTMLElement;
+  private toggle?: HTMLButtonElement;
+  private open = false;
 
   constructor(
     private readonly active: Ref<string>,
@@ -102,14 +105,31 @@ class BaseLayerControl implements maplibregl.IControl {
     this.map = map;
     const container = document.createElement('div');
     container.className = 'maplibregl-ctrl maplibregl-ctrl-group lt-layers';
+    this.container = container;
 
     const toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'lt-layers-toggle';
     toggle.setAttribute('aria-label', 'Base layer');
-    toggle.setAttribute('aria-haspopup', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
     toggle.innerHTML = Stack;
+    toggle.addEventListener('click', () => this.setOpen(!this.open));
     container.append(toggle);
+    this.toggle = toggle;
+
+    // The disclosure is driven from here rather than from :hover/:focus-within, so that
+    // aria-expanded cannot drift out of sync with what is actually on screen
+    container.addEventListener('mouseenter', () => this.setOpen(true, true));
+    container.addEventListener('mouseleave', () => this.setOpen(false));
+    container.addEventListener('focusin', () => this.setOpen(true));
+    container.addEventListener('focusout', event => {
+      if (!container.contains(event.relatedTarget as Node | null)) this.setOpen(false);
+    });
+    container.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || !this.open) return;
+      this.setOpen(false);
+      toggle.focus();
+    });
 
     const list = document.createElement('div');
     list.className = 'lt-layers-list';
@@ -132,6 +152,15 @@ class BaseLayerControl implements maplibregl.IControl {
     return container;
   }
 
+  private setOpen(open: boolean, byPointer = false): void {
+    this.open = open;
+    this.toggle?.setAttribute('aria-expanded', String(open));
+    this.container?.classList.toggle('lt-layers-open', open);
+    // The list takes the place of the toggle when opened by hovering, but a keyboard user
+    // needs the button to stay put in order to press it again to close the list
+    this.container?.classList.toggle('lt-layers-open-by-pointer', open && byPointer);
+  }
+
   private select(name: string): void {
     for (const [index, layer] of baseLayers.entries()) {
       this.map?.setLayoutProperty(
@@ -145,6 +174,8 @@ class BaseLayerControl implements maplibregl.IControl {
 
   onRemove(): void {
     this.map = undefined;
+    this.container = undefined;
+    this.toggle = undefined;
   }
 }
 

@@ -45,11 +45,10 @@ label {
   /* .maplibregl-ctrl-group paints the control white in either color mode */
   color: var(--bs-black);
 }
-.lt-layers:hover .lt-layers-toggle {
+.lt-layers.lt-layers-open-by-pointer .lt-layers-toggle {
   display: none;
 }
-.lt-layers:hover .lt-layers-list,
-.lt-layers:focus-within .lt-layers-list {
+.lt-layers.lt-layers-open .lt-layers-list {
   display: block;
 }
 .lt-layers .lt-layers-list label {
