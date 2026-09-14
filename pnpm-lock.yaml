@@ -21,7 +21,7 @@ importers:
         specifier: 1.45.1
         version: 1.45.1
       maplibre-gl:
-        specifier: ^5.24.0
+        specifier: 5.24.0
         version: 5.24.0
       vue:
         specifier: 3.5.38
