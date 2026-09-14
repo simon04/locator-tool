@@ -34,6 +34,7 @@ export async function editLocation(title: CommonsFile, coordinates: LatLng[]): P
   const headers = {...(await getAuthorizationHeader()), 'Content-Type': 'application/json'};
   const response = await fetch(pageUrl, {
     method: 'PUT',
+    credentials: 'omit',
     headers,
     body: JSON.stringify({
       source: wikitext,

@@ -20,6 +20,18 @@ The wiki and the OAuth 2.0 client are configured in `.env`:
 
 `.env.beta` points at the beta cluster: `$ pnpm dev --mode beta`, `$ pnpm build --mode beta`.
 
+## Cross-origin requests
+
+The app talks to Commons from whatever origin it is served from, which constrains how each
+request is made ([API:Cross-site requests](https://www.mediawiki.org/wiki/API:Cross-site_requests)):
+
+- reads via `api.php` pass `origin=*` and are anonymous
+- writes to the wikitext use the REST API, which allows `Authorization` from any origin
+- writes to the structured data use `api.php` with `crossorigin=` next to the bearer token
+  (MediaWiki 1.44+), and must not send cookies — hence `credentials: 'omit'`
+
+The Wikibase REST API is not an option for the latter: it rejects MediaInfo entity ids.
+
 ## To build the application
 
 1. `$ pnpm install`

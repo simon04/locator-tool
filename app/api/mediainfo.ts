@@ -7,7 +7,8 @@ import {$query} from './query';
 import {toSearchParams} from './toSearchParams';
 
 // Authenticated cross-origin requests to api.php require `crossorigin=` next to the
-// bearer token: https://www.mediawiki.org/wiki/API:Cross-site_requests
+// bearer token, and are refused when cookies are sent along:
+// https://www.mediawiki.org/wiki/API:Cross-site_requests
 const CROSS_ORIGIN = {crossorigin: ''};
 
 interface MediaInfoPage {
@@ -76,6 +77,7 @@ async function post(
 ): Promise<void> {
   const response = await fetch(`${API_PHP_URL}?${toSearchParams(CROSS_ORIGIN)}`, {
     method: 'POST',
+    credentials: 'omit',
     headers: {...headers, 'Content-Type': 'application/x-www-form-urlencoded'},
     body: toSearchParams({format: 'json', formatversion: 2, ...params, token})
   });
@@ -94,7 +96,11 @@ async function getCsrfToken(headers: {Authorization: string}): Promise<string> {
     formatversion: 2,
     ...CROSS_ORIGIN
   });
-  const response = await fetch(`${API_PHP_URL}?${params}`, {cache: 'no-cache', headers});
+  const response = await fetch(`${API_PHP_URL}?${params}`, {
+    cache: 'no-cache',
+    credentials: 'omit',
+    headers
+  });
   if (!response.ok) throw response;
   const data = await response.json();
   const token = data?.query?.tokens?.csrftoken;
