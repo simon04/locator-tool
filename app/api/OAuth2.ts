@@ -1,42 +1,64 @@
-import {OAUTH_CLIENT_ID, OAUTH_REDIRECT_URI, REST_PHP_URL} from './commons';
-import {LoginToken} from './LoginToken';
-import {PKCE} from './PKCE';
+import {useLocalStorage} from '@vueuse/core';
+import * as oauth from 'oauth4webapi';
+import {computed} from 'vue';
 
-const config = {
-  client_id: OAUTH_CLIENT_ID,
-  redirect_uri: OAUTH_REDIRECT_URI,
+import {COMMONS_URL, OAUTH_CLIENT_ID, OAUTH_REDIRECT_URI, REST_PHP_URL} from './commons';
+
+// MediaWiki publishes no authorization server metadata, hence the endpoints by hand
+const server = {
+  issuer: COMMONS_URL,
   authorization_endpoint: `${REST_PHP_URL}/oauth2/authorize`,
-  token_endpoint: `${REST_PHP_URL}/oauth2/access_token`,
-  profile_endpoint: `${REST_PHP_URL}/oauth2/resource/profile`
-};
+  token_endpoint: `${REST_PHP_URL}/oauth2/access_token`
+} satisfies oauth.AuthorizationServer;
+const client: oauth.Client = {client_id: OAUTH_CLIENT_ID};
+// A public (non-confidential) client has no secret to authenticate with
+const clientAuth = oauth.None();
+const profile_endpoint = `${REST_PHP_URL}/oauth2/resource/profile`;
 
-const NEXT_KEY = 'oauth2_next';
+interface Session {
+  access_token?: string;
+  refresh_token?: string;
+  /** when the access token expires, in milliseconds since the epoch */
+  expires_at?: number;
+  /** guards the callback against forgery, see RFC 6749 §4.1.1 */
+  state?: string;
+  /** redeemed for the tokens, see RFC 7636 §4.1 and §4.5 */
+  code_verifier?: string;
+  /** where the user was when the login started */
+  next?: string;
+}
+
+/** The login in progress and its tokens, kept across the redirect and across reloads. */
+const session = useLocalStorage<Session>('oauth2', {});
+
+export const isLoggedIn = computed(() => !!session.value.refresh_token);
 
 // Refresh early: a token that expires while the request is in flight is of no use,
 // and an edit may well be the first thing to notice.
 const EXPIRY_MARGIN = 60_000;
 
 export async function startAuthorization(next?: string): Promise<void> {
-  // The authorization server redirects back to the registered URI, so remember
-  // where the user was in order to return them there afterwards.
-  if (!config.client_id) {
+  if (!client.client_id) {
     throw Error(
-      'Missing VITE_OAUTH_CLIENT_ID: register an OAuth 2.0 client for ' + config.token_endpoint
+      'Missing VITE_OAUTH_CLIENT_ID: register an OAuth 2.0 client for ' + server.token_endpoint
     );
   }
-  localStorage.setItem(NEXT_KEY, next ?? '');
-  const pkce = PKCE.generate().save();
-  const url =
-    config.authorization_endpoint +
-    '?' +
+  const state = oauth.generateRandomState();
+  const code_verifier = oauth.generateRandomCodeVerifier();
+  // The authorization server redirects back to the registered URI, so remember
+  // where the user was in order to return them there afterwards.
+  session.value = {...session.value, state, code_verifier, next};
+  const url = new URL(server.authorization_endpoint);
+  url.search = String(
     new URLSearchParams({
       response_type: 'code',
-      client_id: config.client_id,
-      redirect_uri: config.redirect_uri,
-      state: pkce.state,
-      code_challenge: await pkce.code_challenge,
-      code_challenge_method: pkce.code_challenge_method
-    });
+      client_id: client.client_id,
+      redirect_uri: OAUTH_REDIRECT_URI,
+      state,
+      code_challenge: await oauth.calculatePKCECodeChallenge(code_verifier),
+      code_challenge_method: 'S256'
+    })
+  );
   window.location.replace(url);
 }
 
@@ -46,80 +68,73 @@ export async function startAuthorization(next?: string): Promise<void> {
  */
 export async function handleAuthorizationCallback(): Promise<void> {
   const query = new URLSearchParams(location.search);
-  const code = query.get('code');
-  const state = query.get('state');
-  if (!code || !state) return;
+  if (!query.has('code') || !query.has('state')) return;
+  // Read before the exchange: a successful one spends the session it is stored in
+  const next = session.value.next || '#/';
   try {
-    await finishAuthorization(code, state);
+    await finishAuthorization(query);
   } catch (error) {
     console.error('Authorization failed', error);
   }
-  const next = localStorage.getItem(NEXT_KEY) || '#/';
-  localStorage.removeItem(NEXT_KEY);
   history.replaceState(null, '', location.pathname + next);
 }
 
-export async function finishAuthorization(code: string, state: string): Promise<void> {
-  const pkce = PKCE.load();
-  if (pkce.state !== state) {
-    console.warn('Invalid state', {pkce, state});
-    throw Error('Invalid state');
+async function finishAuthorization(callbackParameters: URLSearchParams): Promise<void> {
+  const {state, code_verifier} = session.value;
+  if (!state || !code_verifier) {
+    throw Error('No authorization in progress');
   }
-  const response = await fetch(config.token_endpoint, {
-    method: 'POST',
-    body: new URLSearchParams({
-      grant_type: 'authorization_code',
-      client_id: config.client_id,
-      redirect_uri: config.redirect_uri,
-      code,
-      code_verifier: pkce.code_verifier
-    })
-  });
-  await extractTokens(response);
+  const params = oauth.validateAuthResponse(server, client, callbackParameters, state);
+  const response = await oauth.authorizationCodeGrantRequest(
+    server,
+    client,
+    clientAuth,
+    params,
+    OAUTH_REDIRECT_URI,
+    code_verifier
+  );
+  saveTokens(await oauth.processAuthorizationCodeResponse(server, client, response));
 }
 
-export function isLoggedIn(): boolean {
-  return !!LoginToken.load().access_token;
-}
+let refreshing: Promise<string> | undefined;
 
-let refreshing: Promise<LoginToken> | undefined;
-
-async function getOrRefreshAccessToken(): Promise<LoginToken> {
-  const tokens = LoginToken.load();
-  if (Date.now() + EXPIRY_MARGIN <= tokens.access_token_expires_at) {
-    return Promise.resolve(tokens);
+export async function getAuthorizationHeader(): Promise<{Authorization: string}> {
+  const {access_token, refresh_token, expires_at = 0} = session.value;
+  if (access_token && Date.now() + EXPIRY_MARGIN <= expires_at) {
+    return {Authorization: `Bearer ${access_token}`};
   }
-  if (!tokens.refresh_token) {
+  if (!refresh_token) {
     throw Error('Not logged in');
   }
   // A refresh token can only be redeemed once, so parallel edits share one refresh
   // instead of invalidating each other's token.
-  refreshing ??= refreshAccessToken(tokens).finally(() => (refreshing = undefined));
-  return await refreshing;
+  refreshing ??= refreshAccessToken(refresh_token).finally(() => (refreshing = undefined));
+  return {Authorization: `Bearer ${await refreshing}`};
 }
 
-async function refreshAccessToken(tokens: LoginToken): Promise<LoginToken> {
+async function refreshAccessToken(refresh_token: string): Promise<string> {
   try {
-    const response = await fetch(config.token_endpoint, {
-      method: 'POST',
-      body: new URLSearchParams({
-        grant_type: 'refresh_token',
-        client_id: config.client_id,
-        refresh_token: tokens.refresh_token
-      })
-    });
-    return await extractTokens(response);
+    const response = await oauth.refreshTokenGrantRequest(
+      server,
+      client,
+      clientAuth,
+      refresh_token
+    );
+    const result = await oauth.processRefreshTokenResponse(server, client, response);
+    saveTokens(result);
+    return result.access_token;
   } catch (error) {
     // Expired, revoked or already redeemed: the tokens are spent, ask for a new login
-    LoginToken.clear();
+    session.value = {};
     throw error;
   }
 }
 
-export async function getAuthorizationHeader(): Promise<{Authorization: string}> {
-  const tokens = await getOrRefreshAccessToken();
-  return {
-    Authorization: `Bearer ${tokens.access_token}`
+function saveTokens(result: oauth.TokenEndpointResponse): void {
+  session.value = {
+    access_token: result.access_token,
+    refresh_token: result.refresh_token,
+    expires_at: Date.now() + (result.expires_in ?? 0) * 1000.0
   };
 }
 
@@ -137,22 +152,11 @@ export interface Profile {
 
 export async function getProfile(): Promise<Profile> {
   const headers = await getAuthorizationHeader();
-  const response = await fetch(config.profile_endpoint, {headers});
+  const response = await fetch(profile_endpoint, {headers});
   return response.json();
 }
 
-async function extractTokens(response: Response): Promise<LoginToken> {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  const {access_token, refresh_token, expires_in} = await response.json();
-  const access_token_expires_at = Date.now() + expires_in * 1000.0;
-  return new LoginToken(access_token, refresh_token, access_token_expires_at).save();
-}
-
 export function logout(): void {
-  PKCE.clear();
-  LoginToken.clear();
-  localStorage.removeItem(NEXT_KEY);
+  session.value = {};
   window.location.replace('/');
 }
