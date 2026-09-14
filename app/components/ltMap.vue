@@ -30,10 +30,10 @@ function mapMarkerUpdater(map: maplibregl.Map): (mapMarker: LatLng) => void {
   return mapMarker => {
     const {lat, lng} = mapMarker;
     if (mapMarker.isDefined && marker) {
-      map.setCenter([lng!, lat!]);
+      recenter(map, [lng!, lat!]);
       marker.setLngLat([lng!, lat!]);
     } else if (mapMarker.isDefined) {
-      map.setCenter([lng!, lat!]);
+      recenter(map, [lng!, lat!]);
       const options: maplibregl.MarkerOptions = {draggable: true};
       if (mapMarker.type !== 'Location') {
         const element = document.createElement('div');
@@ -54,6 +54,13 @@ function mapMarkerUpdater(map: maplibregl.Map): (mapMarker: LatLng) => void {
       marker = undefined;
     }
   };
+}
+
+function recenter(map: maplibregl.Map, center: maplibregl.LngLatLike): void {
+  // A position within the current viewport was typically picked interactively (by clicking
+  // the map or dragging a marker) and is plainly visible, hence leave the view alone
+  if (map.getBounds().contains(center)) return;
+  map.flyTo({center});
 }
 
 function mapClick($event: maplibregl.MapMouseEvent): void {
