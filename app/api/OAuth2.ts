@@ -89,6 +89,9 @@ async function getOrRefreshAccessToken(): Promise<LoginToken> {
   if (Date.now() + EXPIRY_MARGIN <= tokens.access_token_expires_at) {
     return Promise.resolve(tokens);
   }
+  if (!tokens.refresh_token) {
+    throw Error('Not logged in');
+  }
   // A refresh token can only be redeemed once, so parallel edits share one refresh
   // instead of invalidating each other's token.
   refreshing ??= refreshAccessToken(tokens).finally(() => (refreshing = undefined));
