@@ -145,8 +145,8 @@ async function editLocation(cc?: LatLng[]) {
   error.value = undefined;
   statusCode.value = 0;
   try {
+    await ltDataAuth.editLocation(props.file, cc);
     for (const c of cc) {
-      await ltDataAuth.editLocation(props.file, c);
       if (c.type === 'Location') {
         coordinates.value = c.commit();
       } else if (c.type === 'Object location') {

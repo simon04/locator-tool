@@ -19,38 +19,39 @@ interface MediaInfoPage {
 type FileMediaInfo = Pick<MediaInfo, 'id' | 'statements'>;
 
 /**
- * Adds the location to the structured data of the file, as
- * coordinates of the point of view (P1259) or of the depicted place (P9149).
+ * Adds the locations to the structured data of the file, as
+ * coordinates of the point of view (P1259) and of the depicted place (P9149).
  *
  * Files without structured data are left alone, as is the wikitext-only case.
  */
-export async function editMediaInfo(file: CommonsFile, ll: LatLng): Promise<void> {
-  if (ll.lat === undefined || ll.lng === undefined) return;
+export async function editMediaInfo(file: CommonsFile, locations: LatLng[]): Promise<void> {
+  const defined = locations.filter(ll => ll.lat !== undefined && ll.lng !== undefined);
+  if (!defined.length) return;
   const mediainfo = await getMediaInfo(file.pageid);
   if (!mediainfo) return;
 
-  const property = WikidataProperty[ll.type];
-  const claim = mediainfo.statements?.[property]?.[0];
-  const value = JSON.stringify({
-    latitude: ll.lat,
-    longitude: ll.lng,
-    globe: 'http://www.wikidata.org/entity/Q2',
-    precision: 0.000001
-  });
+  const headers = await getAuthorizationHeader();
+  const token = await getCsrfToken(headers);
+  for (const ll of defined) {
+    const property = WikidataProperty[ll.type];
+    const claim = mediainfo.statements?.[property]?.[0];
+    const value = JSON.stringify({
+      latitude: ll.lat,
+      longitude: ll.lng,
+      globe: 'http://www.wikidata.org/entity/Q2',
+      precision: 0.000001
+    });
 
-  // https://www.wikidata.org/w/api.php?action=help&modules=wbsetclaimvalue
-  // https://www.wikidata.org/w/api.php?action=help&modules=wbcreateclaim
-  await post(
-    claim
-      ? {action: 'wbsetclaimvalue', claim: claim.id, snaktype: 'value', value}
-      : {
-          action: 'wbcreateclaim',
-          entity: mediainfo.id,
-          property,
-          snaktype: 'value',
-          value
-        }
-  );
+    // https://www.wikidata.org/w/api.php?action=help&modules=wbsetclaimvalue
+    // https://www.wikidata.org/w/api.php?action=help&modules=wbcreateclaim
+    await post(headers, token, {
+      ...(claim
+        ? {action: 'wbsetclaimvalue', claim: claim.id}
+        : {action: 'wbcreateclaim', entity: mediainfo.id, property}),
+      snaktype: 'value',
+      value
+    });
+  }
 }
 
 async function getMediaInfo(pageid: number): Promise<FileMediaInfo | undefined> {
@@ -68,9 +69,11 @@ async function getMediaInfo(pageid: number): Promise<FileMediaInfo | undefined> 
   return id ? {id, statements: {}} : undefined;
 }
 
-async function post(params: Record<string, string>): Promise<void> {
-  const headers = await getAuthorizationHeader();
-  const token = await getCsrfToken(headers);
+async function post(
+  headers: {Authorization: string},
+  token: string,
+  params: Record<string, string>
+): Promise<void> {
   const response = await fetch(`${API_PHP_URL}?${toSearchParams(CROSS_ORIGIN)}`, {
     method: 'POST',
     headers: {...headers, 'Content-Type': 'application/x-www-form-urlencoded'},

@@ -18,7 +18,8 @@ export interface Page {
   source: string;
 }
 
-export async function editLocation(title: CommonsFile, coordinates: LatLng): Promise<void> {
+export async function editLocation(title: CommonsFile, coordinates: LatLng[]): Promise<void> {
+  if (!coordinates.length) return;
   await editMediaInfo(title, coordinates);
 
   // Reference: https://www.mediawiki.org/wiki/API:REST_API/Reference
@@ -27,7 +28,7 @@ export async function editLocation(title: CommonsFile, coordinates: LatLng): Pro
   if (!pageResponse.ok) throw pageResponse;
   const page: Page = await pageResponse.json();
 
-  const wikitext = addLocationToWikiText(coordinates, page.source);
+  const wikitext = coordinates.reduce((text, ll) => addLocationToWikiText(ll, text), page.source);
 
   const headers = {...(await getAuthorizationHeader()), 'Content-Type': 'application/json'};
   const response = await fetch(pageUrl, {
@@ -35,7 +36,7 @@ export async function editLocation(title: CommonsFile, coordinates: LatLng): Pro
     headers,
     body: JSON.stringify({
       source: wikitext,
-      comment: `{{${coordinates.type}}}`,
+      comment: coordinates.map(({type}) => `{{${type}}}`).join(', '),
       latest: page.latest
     })
   });
