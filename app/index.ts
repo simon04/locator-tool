@@ -13,6 +13,16 @@ const router = createRouter({
       component: () => import('./components/ltAbout.vue')
     },
     {
+      name: 'login',
+      path: '/login',
+      component: () => import('./components/ltAuthLogin.vue')
+    },
+    {
+      name: 'logout',
+      path: '/logout',
+      component: () => import('./components/ltAuthLogout.vue')
+    },
+    {
       name: 'select',
       path: '/',
       component: () => import('./components/ltFilesSelector.vue')

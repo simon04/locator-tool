@@ -1,4 +1,6 @@
-import {addLocationToWikiText, LatLng, LocationType} from '.';
+import {expect, test} from 'vite-plus/test';
+
+import {addLocationToWikiText, LatLng, type LocationType} from '.';
 
 function testLocation({
   type,
@@ -13,7 +15,7 @@ function testLocation({
   text: string;
   expected: string;
 }) {
-  const ll = new LatLng(type, {lat, lng});
+  const ll = new LatLng(type, lat, lng);
   const actual = addLocationToWikiText(ll, text);
   expect(actual).toBe(expected);
 }
@@ -95,8 +97,7 @@ test('', () =>
     type: 'Object location',
     lat: 12.3,
     lng: 45.6,
-    text:
-      '{{Information}}{{Location|9.99|9.99|region:XY-Z}}{{Object location|87.65|-43.21|region:XY-Z}}',
+    text: '{{Information}}{{Location|9.99|9.99|region:XY-Z}}{{Object location|87.65|-43.21|region:XY-Z}}',
     expected:
       '{{Information}}{{Location|9.99|9.99|region:XY-Z}}{{Object location|12.3|45.6|region:XY-Z}}'
   }));

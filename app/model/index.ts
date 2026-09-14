@@ -2,7 +2,7 @@ import getFilePath from 'wikimedia-commons-file-path';
 
 import {LatLng} from './LatLng';
 
-export {LatLng} from './LatLng';
+export {LatLng, type LocationType} from './LatLng';
 
 export * from './WikiText';
 

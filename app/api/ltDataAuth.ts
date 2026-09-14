@@ -26,8 +26,7 @@ export async function editLocation(title: CommonsFile, coordinates: LatLng): Pro
 
   const wikitext = addLocationToWikiText(coordinates, page.source);
 
-  const headers = await getAuthorizationHeader();
-  headers['Content-Type'] = 'application/json';
+  const headers = {...(await getAuthorizationHeader()), 'Content-Type': 'application/json'};
   const response = await fetch(pageUrl, {
     method: 'PUT',
     headers,

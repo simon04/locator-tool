@@ -5,7 +5,10 @@
  * https://tools.ietf.org/html/rfc7636
  */
 export class PKCE {
-  constructor(public state: string, public code_verifier: string) {}
+  constructor(
+    public state: string,
+    public code_verifier: string
+  ) {}
 
   get code_challenge(): Promise<string> {
     return pkceChallengeFromVerifier(this.code_verifier);
@@ -20,7 +23,10 @@ export class PKCE {
   }
 
   static load(): PKCE {
-    return new PKCE(localStorage.getItem('pkce_state'), localStorage.getItem('pkce_code_verifier'));
+    return new PKCE(
+      localStorage.getItem('pkce_state') ?? '',
+      localStorage.getItem('pkce_code_verifier') ?? ''
+    );
   }
 
   save(): this {
@@ -62,7 +68,7 @@ function base64urlencode(str: ArrayBuffer) {
   // btoa accepts chars only within ascii 0-255 and base64 encodes them.
   // Then convert the base64 encoded to base64url encoded
   //   (replace + with -, replace / with _, trim trailing =)
-  return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
+  return btoa(String.fromCharCode(...new Uint8Array(str)))
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '');

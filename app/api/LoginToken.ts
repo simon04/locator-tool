@@ -7,16 +7,16 @@ export class LoginToken {
 
   static load(): LoginToken {
     return new LoginToken(
-      localStorage.getItem('access_token'),
-      localStorage.getItem('refresh_token'),
-      +localStorage.getItem('access_token_expires_at')
+      localStorage.getItem('access_token') ?? '',
+      localStorage.getItem('refresh_token') ?? '',
+      Number(localStorage.getItem('access_token_expires_at'))
     );
   }
 
   save(): this {
     localStorage.setItem('access_token', this.access_token);
     localStorage.setItem('refresh_token', this.refresh_token);
-    +localStorage.setItem('access_token_expires_at', String(this.access_token_expires_at));
+    localStorage.setItem('access_token_expires_at', String(this.access_token_expires_at));
     return this;
   }
 
