@@ -56,10 +56,21 @@ function mapMarkerUpdater(map: maplibregl.Map): (mapMarker: LatLng) => void {
   };
 }
 
+// The default pin is 27x41px and anchored at its tip, hence a marker whose position is
+// just inside the viewport can still be drawn (partly) outside of it
+const markerPadding = 45;
+
 function recenter(map: maplibregl.Map, center: maplibregl.LngLatLike): void {
   // A position within the current viewport was typically picked interactively (by clicking
   // the map or dragging a marker) and is plainly visible, hence leave the view alone
-  if (map.getBounds().contains(center)) return;
+  const {x, y} = map.project(center);
+  const {clientWidth, clientHeight} = map.getCanvas();
+  const visible =
+    x >= markerPadding &&
+    y >= markerPadding &&
+    x <= clientWidth - markerPadding &&
+    y <= clientHeight - markerPadding;
+  if (visible) return;
   map.flyTo({center});
 }
 
