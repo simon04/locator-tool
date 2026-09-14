@@ -117,12 +117,14 @@ const msgObjectLocation = computed(() =>
     'Object location via\n<a href="https://commons.wikimedia.org/wiki/Template:Object_location" target="_blank"><code class="mediawiki-template">Object location</code></a>'
   )
 );
-const msgErrorStatusText = computed(() =>
-  t('Failed to save: {{$ctrl.error.statusText}}').replace(
+const msgErrorStatusText = computed(() => {
+  const e = error.value;
+  const message = typeof e === 'string' ? e : e instanceof Error ? e.message : JSON.stringify(e);
+  return t('Failed to save: {{$ctrl.error.statusText}}').replace(
     '{{$ctrl.error.statusText}}',
-    statusCode.value + ' ' + JSON.stringify(error.value)
-  )
-);
+    [statusCode.value, message].filter(Boolean).join(' ')
+  );
+});
 
 const isMacOS = computed(() => navigator.platform.toUpperCase().includes('MAC'));
 
@@ -140,19 +142,11 @@ whenever(keys['Meta+S'], () => editLocation());
 
 async function editLocation(cc?: LatLng[]) {
   cc ??= [coordinates.value, objectLocation.value].filter(c => c.isChanged);
+  error.value = undefined;
+  statusCode.value = 0;
   try {
-    error.value = undefined;
-    const {
-      data,
-      error: error0,
-      statusCode: statusCode0
-    } = await ltDataAuth.editLocation(props.file, cc);
-    statusCode.value = statusCode0.value;
-    if (data.value?.result?.edit?.result !== 'Success') {
-      error.value = error0.value || data.value;
-      return;
-    }
-    for (const c of cc!) {
+    await ltDataAuth.editLocation(props.file, cc);
+    for (const c of cc) {
       if (c.type === 'Location') {
         coordinates.value = c.commit();
       } else if (c.type === 'Object location') {
@@ -160,7 +154,8 @@ async function editLocation(cc?: LatLng[]) {
       }
     }
   } catch (e) {
-    error.value = e;
+    error.value = e instanceof Response ? await e.text().catch(() => e.statusText) : e;
+    statusCode.value = e instanceof Response ? e.status : null;
   }
 }
 </script>

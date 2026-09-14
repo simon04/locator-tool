@@ -1,15 +1,15 @@
 <template>
-  <h2 v-if="!userInfo?.user" class="mt-4">{{ t('Sign in') }}</h2>
-  <p v-if="!userInfo?.user">
+  <h2 v-if="!profile?.username" class="mt-4">{{ t('Sign in') }}</h2>
+  <p v-if="!profile?.username">
     <span>
       {{ t('In order to allow locator-tool to modify file description pages, sign in first:') }}
     </span>
-    <a class="btn btn-success icon-link ms-2" :href="loginURL()">
+    <a class="btn btn-success icon-link ms-2" :href="loginURL">
       <DoorOpen />
       <span>{{ t('Log in') }}</span>
     </a>
   </p>
-  <p v-if="userInfo?.user" class="mt-4">{{ msgLoggedIn }}</p>
+  <p v-if="profile?.username" class="mt-4">{{ msgLoggedIn }}</p>
   <h2>{{ t('Select files to geolocate') }}</h2>
   <ul class="nav nav-pills my-3">
     <li class="nav-item">
@@ -42,12 +42,13 @@
 import DoorOpen from 'bootstrap-icons/icons/door-open.svg?component';
 import {computed, ref} from 'vue';
 
-import {getUserInfo, loginURL} from '../api/ltDataAuth';
 import LtFilesSelectorForCategory from './ltFilesSelectorForCategory.vue';
 import LtFilesSelectorForFiles from './ltFilesSelectorForFiles.vue';
 import LtFilesSelectorForUser from './ltFilesSelectorForUser.vue';
+import {useAuthLinks} from './useAuthLinks';
 import {t} from './useI18n';
 import {useLtRoute} from './useLtRoute';
+import {useProfile} from './useProfile';
 
 enum Tab {
   CATEGORY = 1,
@@ -59,9 +60,10 @@ const {$query} = useLtRoute();
 
 const $tab = ref<Tab>($query.value.user ? Tab.USER : Tab.CATEGORY);
 
-const {data: userInfo} = getUserInfo();
+const {loginURL} = useAuthLinks();
+const profile = useProfile();
 
 const msgLoggedIn = computed(() =>
-  t('Hello {{$ctrl.userInfo}}!').replace('{{$ctrl.userInfo}}', userInfo.value?.user)
+  t('Hello {{$ctrl.userInfo}}!').replace('{{$ctrl.userInfo}}', profile.value?.username ?? '')
 );
 </script>

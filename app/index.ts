@@ -1,6 +1,7 @@
 import {createApp} from 'vue';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import {handleAuthorizationCallback} from './api/OAuth2';
 import App from './App.vue';
 import {createRouter} from './router';
 
@@ -11,6 +12,16 @@ const router = createRouter({
       name: 'about',
       path: '/about',
       component: () => import('./components/ltAbout.vue')
+    },
+    {
+      name: 'login',
+      path: '/login',
+      component: () => import('./components/ltAuthLogin.vue')
+    },
+    {
+      name: 'logout',
+      path: '/logout',
+      component: () => import('./components/ltAuthLogout.vue')
     },
     {
       name: 'select',
@@ -35,4 +46,4 @@ const router = createRouter({
   ]
 });
 
-createApp(App).use(router).mount('#app');
+void handleAuthorizationCallback().then(() => createApp(App).use(router).mount('#app'));
