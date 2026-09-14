@@ -119,3 +119,31 @@ test('', () =>
     text: '{{Location |1=47.27 |2=11.426944444444 }}',
     expected: '{{Location|12.3|45.6}}'
   }));
+
+test('removes {{Location possible}}', () =>
+  testLocation({
+    type: 'Location',
+    lat: 12.3,
+    lng: 45.6,
+    text: '{{Information}}{{Location|87.65|-43.21|region:XY-Z}}{{Location possible}}',
+    expected: '{{Information}}{{Location|12.3|45.6|region:XY-Z}}'
+  }));
+
+test('inserts after {{Artwork}}', () =>
+  testLocation({
+    type: 'Location',
+    lat: 12.3,
+    lng: 45.6,
+    text: '{{Artwork|title = {{fr|1=Place de la gare de Rennes}}}}{{PD-Art}}',
+    expected:
+      '{{Artwork|title = {{fr|1=Place de la gare de Rennes}}}}\n{{Location|12.3|45.6}}\n{{PD-Art}}'
+  }));
+
+test('replaces {{Object location dec}}', () =>
+  testLocation({
+    type: 'Object location',
+    lat: 12.3,
+    lng: 45.6,
+    text: '{{Object location dec|87.65|-43.21}}',
+    expected: '{{Object location|12.3|45.6}}'
+  }));

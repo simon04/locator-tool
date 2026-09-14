@@ -2,12 +2,14 @@ import {LatLng} from '.';
 
 /**
  * Adds a {{Location}} template containing `lat`, `lng` to the `wikitext`.
- * Replaces previously specified `{{Location}}`, `{{Location dec}}` templates.
+ * Replaces previously specified `{{Location}}`, `{{Location dec}}` templates,
+ * and drops `{{Location possible}}`.
  */
 export function addLocationToWikiText(ll: LatLng, text: string): string {
+  text = text.replace(/\{\{\s*Location possible\s*\}\}/gi, '');
   const location = `{{${ll.type}|${ll.lat}|${ll.lng}`;
   const type =
-    ll.type === 'Location' ? /\{\{\s*Location( dec)?\s*/ : /\{\{\s*Object location(dec )?\s*/;
+    ll.type === 'Location' ? /\{\{\s*Location( dec)?\s*/ : /\{\{\s*Object location( dec)?\s*/;
   const numeric = /(\|\s*([1-9]\s*=\s*)?[-+.0-9]+\s*)/;
   let pattern = new RegExp(`${type.source}(${numeric.source}{3}\\|\\s*[NESW]\\s*){2}`, 'i');
   if (pattern.exec(text)) {
@@ -17,7 +19,7 @@ export function addLocationToWikiText(ll: LatLng, text: string): string {
   if (pattern.exec(text)) {
     return text.replace(pattern, location);
   }
-  pattern = /\{\{\s*Information.*/is;
+  pattern = /\{\{\s*(Information|Artwork|Photograph).*/is;
   if (pattern.exec(text)) {
     return text.replace(pattern, information => {
       let braceCount = 2;
