@@ -2,7 +2,7 @@ import {useLocalStorage} from '@vueuse/core';
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?raw';
 import Search from 'bootstrap-icons/icons/search.svg?raw';
 import Stack from 'bootstrap-icons/icons/stack.svg?raw';
-import maplibregl from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
 import {onMounted, onUnmounted, type Ref} from 'vue';
 
 import {search as nominatimSearch, type NominatimResult} from '../api/nominatim';

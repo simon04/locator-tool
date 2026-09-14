@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import maplibregl from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
 import {type App, createApp, onMounted, onUnmounted, reactive, ref} from 'vue';
 
 import * as getCoordinates from '../api/coordinates';

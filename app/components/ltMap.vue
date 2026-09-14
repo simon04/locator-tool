@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?raw';
-import maplibregl from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
 import {onMounted, ref, watch} from 'vue';
 
 import {LatLng} from '../model';
