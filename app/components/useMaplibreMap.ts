@@ -202,6 +202,10 @@ class GeocoderControl implements maplibregl.IControl {
       return;
     }
     if (requestId !== this.requestId) return;
+    if (!places.length) {
+      this.showMessage('No results');
+      return;
+    }
     for (const place of places) {
       const li = document.createElement('li');
       const button = document.createElement('button');
