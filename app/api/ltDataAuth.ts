@@ -36,5 +36,5 @@ export async function editLocation(title: CommonsFile, coordinates: LatLng): Pro
       latest: page.latest
     })
   });
-  if (!response.ok) throw Error(response.statusText);
+  if (!response.ok) throw response;
 }
