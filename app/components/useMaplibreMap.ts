@@ -191,8 +191,10 @@ class GeocoderControl implements maplibregl.IControl {
     const results = this.results;
     if (!results) return;
     results.replaceChildren();
-    if (!query.trim()) return;
+    // Bump the id before the empty-query guard, so that clearing the field
+    // invalidates an in-flight request instead of letting it repopulate the list
     const requestId = ++this.requestId;
+    if (!query.trim()) return;
     let places: NominatimResult[];
     try {
       places = await nominatimSearch(query);
