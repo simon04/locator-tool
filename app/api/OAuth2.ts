@@ -45,6 +45,10 @@ export async function finishAuthorization(code: string, state: string): Promise<
   await extractTokens(response);
 }
 
+export function isLoggedIn(): boolean {
+  return !!LoginToken.load().access_token;
+}
+
 async function getOrRefreshAccessToken(): Promise<LoginToken> {
   const tokens = LoginToken.load();
   if (Date.now() <= tokens.access_token_expires_at) {
