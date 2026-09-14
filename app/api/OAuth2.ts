@@ -100,16 +100,22 @@ async function getOrRefreshAccessToken(): Promise<LoginToken> {
 
 async function refreshAccessToken(tokens: LoginToken): Promise<LoginToken> {
   const pkce = PKCE.load();
-  const response = await fetch(config.token_endpoint, {
-    method: 'POST',
-    body: new URLSearchParams({
-      grant_type: 'refresh_token',
-      client_id: config.client_id,
-      refresh_token: tokens.refresh_token,
-      code_verifier: pkce.code_verifier
-    })
-  });
-  return await extractTokens(response);
+  try {
+    const response = await fetch(config.token_endpoint, {
+      method: 'POST',
+      body: new URLSearchParams({
+        grant_type: 'refresh_token',
+        client_id: config.client_id,
+        refresh_token: tokens.refresh_token,
+        code_verifier: pkce.code_verifier
+      })
+    });
+    return await extractTokens(response);
+  } catch (error) {
+    // Expired, revoked or already redeemed: the tokens are spent, ask for a new login
+    LoginToken.clear();
+    throw error;
+  }
 }
 
 export async function getAuthorizationHeader(): Promise<{Authorization: string}> {
