@@ -1,6 +1,7 @@
 import {createApp} from 'vue';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import {handleAuthorizationCallback} from './api/OAuth2';
 import App from './App.vue';
 import {createRouter} from './router';
 
@@ -45,4 +46,4 @@ const router = createRouter({
   ]
 });
 
-createApp(App).use(router).mount('#app');
+void handleAuthorizationCallback().then(() => createApp(App).use(router).mount('#app'));

@@ -10,7 +10,12 @@ const config = {
   profile_endpoint: `${API_URL}/oauth2/resource/profile`
 };
 
-export async function startAuthorization(): Promise<void> {
+const NEXT_KEY = 'oauth2_next';
+
+export async function startAuthorization(next?: string): Promise<void> {
+  // The authorization server redirects back to the registered URI, so remember
+  // where the user was in order to return them there afterwards.
+  localStorage.setItem(NEXT_KEY, next ?? '');
   const pkce = PKCE.generate().save();
   const url =
     config.authorization_endpoint +
@@ -24,6 +29,25 @@ export async function startAuthorization(): Promise<void> {
       code_challenge_method: pkce.code_challenge_method
     });
   window.location.replace(url);
+}
+
+/**
+ * Completes the login when the authorization server redirects back with `?code=…&state=…`,
+ * and restores the location the user started from. A no-op on any other page load.
+ */
+export async function handleAuthorizationCallback(): Promise<void> {
+  const query = new URLSearchParams(location.search);
+  const code = query.get('code');
+  const state = query.get('state');
+  if (!code || !state) return;
+  try {
+    await finishAuthorization(code, state);
+  } catch (error) {
+    console.error('Authorization failed', error);
+  }
+  const next = localStorage.getItem(NEXT_KEY) || '#/';
+  localStorage.removeItem(NEXT_KEY);
+  history.replaceState(null, '', location.pathname + next);
 }
 
 export async function finishAuthorization(code: string, state: string): Promise<void> {
@@ -105,5 +129,6 @@ async function extractTokens(response: Response): Promise<LoginToken> {
 export function logout(): void {
   PKCE.clear();
   LoginToken.clear();
+  localStorage.removeItem(NEXT_KEY);
   window.location.replace('/');
 }

@@ -4,7 +4,7 @@
     <span>
       {{ t('In order to allow locator-tool to modify file description pages, sign in first:') }}
     </span>
-    <a class="btn btn-success icon-link ms-2" :href="loginURL()">
+    <a class="btn btn-success icon-link ms-2" :href="loginURL">
       <DoorOpen />
       <span>{{ t('Log in') }}</span>
     </a>
@@ -42,10 +42,10 @@
 import DoorOpen from 'bootstrap-icons/icons/door-open.svg?component';
 import {computed, ref} from 'vue';
 
-import {loginURL} from '../api/ltDataAuth';
 import LtFilesSelectorForCategory from './ltFilesSelectorForCategory.vue';
 import LtFilesSelectorForFiles from './ltFilesSelectorForFiles.vue';
 import LtFilesSelectorForUser from './ltFilesSelectorForUser.vue';
+import {useAuthLinks} from './useAuthLinks';
 import {t} from './useI18n';
 import {useLtRoute} from './useLtRoute';
 import {useProfile} from './useProfile';
@@ -60,6 +60,7 @@ const {$query} = useLtRoute();
 
 const $tab = ref<Tab>($query.value.user ? Tab.USER : Tab.CATEGORY);
 
+const {loginURL} = useAuthLinks();
 const profile = useProfile();
 
 const msgLoggedIn = computed(() =>
