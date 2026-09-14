@@ -99,15 +99,13 @@ async function getOrRefreshAccessToken(): Promise<LoginToken> {
 }
 
 async function refreshAccessToken(tokens: LoginToken): Promise<LoginToken> {
-  const pkce = PKCE.load();
   try {
     const response = await fetch(config.token_endpoint, {
       method: 'POST',
       body: new URLSearchParams({
         grant_type: 'refresh_token',
         client_id: config.client_id,
-        refresh_token: tokens.refresh_token,
-        code_verifier: pkce.code_verifier
+        refresh_token: tokens.refresh_token
       })
     });
     return await extractTokens(response);
