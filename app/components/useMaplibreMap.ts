@@ -270,7 +270,9 @@ export function useMaplibreMap(mapRef: Ref<HTMLElement | null>) {
         (<a href="https://github.com/simon04/locator-tool/blob/master/LICENSE" target="_blank" rel="external noopener">GPL v3</a>)`
       })
     );
-    map.addControl(new maplibregl.NavigationControl(), 'top-left');
+    // The compass' MouseRotateWrapper calls setBearing/setPitch directly, i.e. it rotates
+    // the map irrespective of dragRotate — and it is pointless on a north-up map anyway
+    map.addControl(new maplibregl.NavigationControl({showCompass: false}), 'top-left');
     map.addControl(new GeocoderControl(), 'top-left');
     map.addControl(new BaseLayerControl(mapLayer, osm), 'top-right');
 
