@@ -1,4 +1,4 @@
-import type {LatLngBounds} from 'leaflet';
+import type {LngLatBounds} from 'maplibre-gl';
 
 import {type CommonsFile, LatLng} from '../model';
 import {type ApiResponse} from './ApiResponse';
@@ -16,7 +16,7 @@ export interface Geosearch {
   name: null;
 }
 
-export async function geosearch(bounds: LatLngBounds): Promise<CommonsFile[]> {
+export async function geosearch(bounds: LngLatBounds): Promise<CommonsFile[]> {
   const params = {
     list: 'geosearch',
     gsnamespace: NS_FILE,
@@ -25,14 +25,12 @@ export async function geosearch(bounds: LatLngBounds): Promise<CommonsFile[]> {
     gsbbox: [bounds.getNorth(), bounds.getWest(), bounds.getSouth(), bounds.getEast()].join('|')
   };
   const data = await $query<ApiResponse<Geosearch>>(params, {});
-  return (data.query?.geosearch || []).map(
-    (gs): CommonsFile => ({
-      pageid: gs.pageid,
-      file: gs.title,
-      url: `https://commons.wikimedia.org/wiki/${gs.title}`,
+  return (data.query?.geosearch || []).map((gs): CommonsFile => ({
+    pageid: gs.pageid,
+    file: gs.title,
+    url: `https://commons.wikimedia.org/wiki/${gs.title}`,
 
-      coordinates: new LatLng('Location', gs.lat, gs.lon),
-      objectLocation: new LatLng('Object location', undefined, undefined)
-    })
-  );
+    coordinates: new LatLng('Location', gs.lat, gs.lon),
+    objectLocation: new LatLng('Object location', undefined, undefined)
+  }));
 }
