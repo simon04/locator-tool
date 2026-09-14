@@ -38,18 +38,14 @@
     "wikimedia-commons-file-path": "2.1.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "6.0.7",
+    "@vitejs/plugin-vue": "6.0.8",
     "@vue/compiler-sfc": "3.5.38",
     "@vue/tsconfig": "0.9.1",
     "angular-gettext-cli": "1.2.0",
     "angular-gettext-tools": "2.5.3",
     "typescript": "5.9.3",
-    "vite": "npm:@voidzero-dev/vite-plus-core@latest",
-    "vite-plus": "latest"
-  },
-  "overrides": {
-    "vite": "npm:@voidzero-dev/vite-plus-core@latest",
-    "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
   },
   "packageManager": "pnpm@11.6.0"
 }

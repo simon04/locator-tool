@@ -25,14 +25,12 @@ export async function geosearch(bounds: LngLatBounds): Promise<CommonsFile[]> {
     gsbbox: [bounds.getNorth(), bounds.getWest(), bounds.getSouth(), bounds.getEast()].join('|')
   };
   const data = await $query<ApiResponse<Geosearch>>(params, {});
-  return (data.query?.geosearch || []).map(
-    (gs): CommonsFile => ({
-      pageid: gs.pageid,
-      file: gs.title,
-      url: `https://commons.wikimedia.org/wiki/${gs.title}`,
+  return (data.query?.geosearch || []).map((gs): CommonsFile => ({
+    pageid: gs.pageid,
+    file: gs.title,
+    url: `https://commons.wikimedia.org/wiki/${gs.title}`,
 
-      coordinates: new LatLng('Location', gs.lat, gs.lon),
-      objectLocation: new LatLng('Object location', undefined, undefined)
-    })
-  );
+    coordinates: new LatLng('Location', gs.lat, gs.lon),
+    objectLocation: new LatLng('Object location', undefined, undefined)
+  }));
 }
