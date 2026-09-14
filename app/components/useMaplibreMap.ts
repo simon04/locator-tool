@@ -263,6 +263,8 @@ export function useMaplibreMap(mapRef: Ref<HTMLElement | null>) {
       attributionControl: false
     });
     map.touchZoomRotate.disableRotation();
+    // Shift+Arrow rotates and pitches the map, which dragRotate/pitchWithRotate do not cover
+    map.keyboard.disableRotation();
 
     map.addControl(
       new maplibregl.AttributionControl({
