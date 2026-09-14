@@ -1,6 +1,7 @@
 import {addLocationToWikiText, type CommonsFile, LatLng} from '../model';
+import {REST_PHP_URL} from './commons';
 import {editMediaInfo} from './mediainfo';
-import {API_URL, getAuthorizationHeader} from './OAuth2';
+import {getAuthorizationHeader} from './OAuth2';
 
 export interface Page {
   id: number;
@@ -23,7 +24,7 @@ export async function editLocation(title: CommonsFile, coordinates: LatLng[]): P
   await editMediaInfo(title, coordinates);
 
   // Reference: https://www.mediawiki.org/wiki/API:REST_API/Reference
-  const pageUrl = `${API_URL}/v1/page/${title.file}`;
+  const pageUrl = `${REST_PHP_URL}/v1/page/${title.file}`;
   const pageResponse = await fetch(pageUrl, {cache: 'no-cache'});
   if (!pageResponse.ok) throw pageResponse;
   const page: Page = await pageResponse.json();

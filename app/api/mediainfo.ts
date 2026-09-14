@@ -1,7 +1,7 @@
 import {type CommonsFile, LatLng, WikidataProperty} from '../model';
 import type {MediaInfo} from '../model/mediainfo';
 import type {ApiResponse} from './ApiResponse';
-import {API_PHP_URL} from './buildQuery';
+import {API_PHP_URL} from './commons';
 import {getAuthorizationHeader} from './OAuth2';
 import {$query} from './query';
 import {toSearchParams} from './toSearchParams';

@@ -1,13 +1,13 @@
+import {OAUTH_CLIENT_ID, OAUTH_REDIRECT_URI, REST_PHP_URL} from './commons';
 import {LoginToken} from './LoginToken';
 import {PKCE} from './PKCE';
 
-export const API_URL = 'https://commons.wikimedia.beta.wmflabs.org/w/rest.php';
 const config = {
-  client_id: '19fa35277a8db0be5742d1b32c5f7083',
-  // redirect_uri: 'http://localhost:8184/callback',
-  authorization_endpoint: `${API_URL}/oauth2/authorize`,
-  token_endpoint: `${API_URL}/oauth2/access_token`,
-  profile_endpoint: `${API_URL}/oauth2/resource/profile`
+  client_id: OAUTH_CLIENT_ID,
+  redirect_uri: OAUTH_REDIRECT_URI,
+  authorization_endpoint: `${REST_PHP_URL}/oauth2/authorize`,
+  token_endpoint: `${REST_PHP_URL}/oauth2/access_token`,
+  profile_endpoint: `${REST_PHP_URL}/oauth2/resource/profile`
 };
 
 const NEXT_KEY = 'oauth2_next';
@@ -15,6 +15,11 @@ const NEXT_KEY = 'oauth2_next';
 export async function startAuthorization(next?: string): Promise<void> {
   // The authorization server redirects back to the registered URI, so remember
   // where the user was in order to return them there afterwards.
+  if (!config.client_id) {
+    throw Error(
+      'Missing VITE_OAUTH_CLIENT_ID: register an OAuth 2.0 client for ' + config.token_endpoint
+    );
+  }
   localStorage.setItem(NEXT_KEY, next ?? '');
   const pkce = PKCE.generate().save();
   const url =
@@ -23,7 +28,7 @@ export async function startAuthorization(next?: string): Promise<void> {
     new URLSearchParams({
       response_type: 'code',
       client_id: config.client_id,
-      // redirect_uri: config.redirect_uri,
+      redirect_uri: config.redirect_uri,
       state: pkce.state,
       code_challenge: await pkce.code_challenge,
       code_challenge_method: pkce.code_challenge_method
@@ -61,7 +66,7 @@ export async function finishAuthorization(code: string, state: string): Promise<
     body: new URLSearchParams({
       grant_type: 'authorization_code',
       client_id: config.client_id,
-      // redirect_uri: config.redirect_uri,
+      redirect_uri: config.redirect_uri,
       code,
       code_verifier: pkce.code_verifier
     })
@@ -84,7 +89,6 @@ async function getOrRefreshAccessToken(): Promise<LoginToken> {
     body: new URLSearchParams({
       grant_type: 'refresh_token',
       client_id: config.client_id,
-      // redirect_uri: config.redirect_uri,
       refresh_token: tokens.refresh_token,
       code_verifier: pkce.code_verifier
     })
