@@ -83,6 +83,9 @@ function buildPopup(title: CommonsFile): maplibregl.Popup {
       Object.assign(title, fileDetails);
     });
     app.mount(div);
+    // Popup.addTo computes the anchor (and focuses the first element) before firing `open`,
+    // i.e. while the content is still empty — measure it again now that the card is mounted
+    popup.setDOMContent(div);
   });
   popup.on('close', () => app?.unmount());
   return popup;
