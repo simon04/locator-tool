@@ -78,11 +78,20 @@ export function isLoggedIn(): boolean {
   return !!LoginToken.load().access_token;
 }
 
+let refreshing: Promise<LoginToken> | undefined;
+
 async function getOrRefreshAccessToken(): Promise<LoginToken> {
   const tokens = LoginToken.load();
   if (Date.now() <= tokens.access_token_expires_at) {
     return Promise.resolve(tokens);
   }
+  // A refresh token can only be redeemed once, so parallel edits share one refresh
+  // instead of invalidating each other's token.
+  refreshing ??= refreshAccessToken(tokens).finally(() => (refreshing = undefined));
+  return await refreshing;
+}
+
+async function refreshAccessToken(tokens: LoginToken): Promise<LoginToken> {
   const pkce = PKCE.load();
   const response = await fetch(config.token_endpoint, {
     method: 'POST',
