@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import maplibregl from 'maplibre-gl';
-import {type App, createApp, onMounted, reactive, ref} from 'vue';
+import {type App, createApp, onMounted, onUnmounted, reactive, ref} from 'vue';
 
 import * as getCoordinates from '../api/coordinates';
 import * as getFiles from '../api/files';
@@ -24,6 +24,9 @@ const mapRef = ref<HTMLElement | null>(null);
 const mapState = useMaplibreMap(mapRef);
 
 let markers: maplibregl.Marker[] = [];
+// useMaplibreMap removes the map on unmount, hence pending requests must not touch it anymore
+let unmounted = false;
+onUnmounted(() => (unmounted = true));
 
 useAppTitle(routeTitlePart(), t('Map'));
 
@@ -32,6 +35,7 @@ onMounted(async () => {
   if (hasFilesUserCategory.value) {
     const titles = await getFiles.getFiles($query.value);
     const files = await getCoordinates.getCoordinates(titles);
+    if (unmounted) return;
     const bounds = new maplibregl.LngLatBounds();
     files.forEach(title => {
       const marker = addMarker(map, title);
@@ -46,6 +50,7 @@ onMounted(async () => {
 
 async function geosearch(map: maplibregl.Map) {
   const files = await runGeosearch(map.getBounds());
+  if (unmounted) return;
   markers = markers.filter(marker => {
     if (marker.getPopup()?.isOpen()) return true;
     marker.remove();
