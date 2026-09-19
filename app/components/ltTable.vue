@@ -129,7 +129,7 @@
 </template>
 
 <script setup lang="ts">
-import {onClickOutside, useAsyncState, useSorted} from '@vueuse/core';
+import {onClickOutside, useAsyncState, useLocalStorage, useSorted} from '@vueuse/core';
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?component';
 import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
 import CameraFill from 'bootstrap-icons/icons/camera-fill.svg?component';
@@ -208,7 +208,7 @@ const columns = computed(() => [
 ]);
 // structured data uses far too many properties to show them all: exposure time, ISO speed
 // and f-number are displayed by default, the remaining ones are offered by the dropdown
-const visibleColumns = ref<string[]>([
+const visibleColumns = useLocalStorage<string[]>('tableColumns', [
   ...baseColumns.map(column => column.key),
   'P6757',
   'P6789',
