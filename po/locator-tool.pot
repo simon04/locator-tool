@@ -276,3 +276,15 @@ msgstr ""
 #: ./app/components/ltNavbar.vue
 msgid "Table"
 msgstr ""
+
+#: ./app/components/ltTable.vue
+msgid "Columns"
+msgstr ""
+
+#: ./app/components/ltTable.vue
+msgid "Image"
+msgstr ""
+
+#: ./app/components/ltTable.vue
+msgid "Coordinates"
+msgstr ""

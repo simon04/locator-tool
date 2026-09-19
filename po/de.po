@@ -299,3 +299,15 @@ msgstr "Datum"
 #: ./app/components/ltNavbar.vue
 msgid "Table"
 msgstr "Tabelle"
+
+#: ./app/components/ltTable.vue
+msgid "Columns"
+msgstr "Spalten"
+
+#: ./app/components/ltTable.vue
+msgid "Image"
+msgstr "Bild"
+
+#: ./app/components/ltTable.vue
+msgid "Coordinates"
+msgstr "Koordinaten"
