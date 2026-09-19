@@ -40,6 +40,14 @@
         <FileImage />
         <span>{{ msgShowGallery }}</span>
       </button>
+      <button
+        class="btn btn-secondary icon-link me-2"
+        :disabled="!titleList.length"
+        @click="next('table')"
+      >
+        <TableIcon />
+        <span>{{ msgShowTable }}</span>
+      </button>
     </div>
   </form>
 </template>
@@ -48,6 +56,7 @@
 import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
+import TableIcon from 'bootstrap-icons/icons/table.svg?component';
 import {computed, ref} from 'vue';
 
 import {useRouter} from '../router';
@@ -57,7 +66,7 @@ const $routes = useRouter();
 
 const titles = ref<string>('');
 
-function next(name: 'geolocate' | 'map' | 'gallery' = 'geolocate') {
+function next(name: 'geolocate' | 'map' | 'gallery' | 'table' = 'geolocate') {
   const files = titleList.value.join('|');
   $routes.push({name, query: {files}});
 }
@@ -106,6 +115,12 @@ const msgShowMap = computed(() =>
 );
 const msgShowGallery = computed(() =>
   t('Show {{$ctrl.titleList.length}} files as gallery').replace(
+    '{{$ctrl.titleList.length}}',
+    titleList.value.length
+  )
+);
+const msgShowTable = computed(() =>
+  t('Show {{$ctrl.titleList.length}} files as table').replace(
     '{{$ctrl.titleList.length}}',
     titleList.value.length
   )

@@ -39,6 +39,10 @@
         <FileImage />
         <span>{{ t('Show User files as gallery') }}</span>
       </button>
+      <button class="btn btn-secondary icon-link me-2" :disabled="!user" @click="next('table')">
+        <TableIcon />
+        <span>{{ t('Show User files as table') }}</span>
+      </button>
       <input class="invisible" type="submit" :disabled="!user" />
       <lt-spinner v-if="isLoading" />
       <datalist id="datalistUser">
@@ -53,6 +57,7 @@ import {useAsyncState, watchDebounced} from '@vueuse/core';
 import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
+import TableIcon from 'bootstrap-icons/icons/table.svg?component';
 import {ref} from 'vue';
 
 import * as getUsersForPrefix from '../api/usersForPrefix';
@@ -84,7 +89,7 @@ const {
 
 watchDebounced(user, () => execute(), {debounce: 500});
 
-function next(name: 'geolocate' | 'map' | 'gallery' = 'geolocate') {
+function next(name: 'geolocate' | 'map' | 'gallery' | 'table' = 'geolocate') {
   $routes.push({
     name,
     query: {

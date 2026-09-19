@@ -39,6 +39,10 @@
         <FileImage />
         <span>{{ t('Show Category as gallery') }}</span>
       </button>
+      <button class="btn btn-secondary icon-link me-2" :disabled="!category" @click="next('table')">
+        <TableIcon />
+        <span>{{ t('Show Category as table') }}</span>
+      </button>
       <input class="invisible" type="submit" :disabled="!category" />
     </div>
     <lt-spinner v-if="isLoading" />
@@ -53,6 +57,7 @@ import {useAsyncState, watchDebounced} from '@vueuse/core';
 import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
+import TableIcon from 'bootstrap-icons/icons/table.svg?component';
 import {ref} from 'vue';
 
 import {getCategoriesForPrefix} from '../api/categoriesForPrefix';
@@ -80,7 +85,7 @@ const {
 
 watchDebounced(category, () => execute(), {debounce: 500});
 
-function next(name: 'geolocate' | 'map' | 'gallery' = 'geolocate') {
+function next(name: 'geolocate' | 'map' | 'gallery' | 'table' = 'geolocate') {
   $routes.push({
     name,
     query: {
