@@ -206,13 +206,16 @@ const columns = computed(() => [
     icon: undefined
   }))
 ]);
+const EXPOSURE_TIME = 'P6757';
+const ISO_SPEED = 'P6789';
+const F_NUMBER = 'P6790';
 // structured data uses far too many properties to show them all: exposure time, ISO speed
 // and f-number are displayed by default, the remaining ones are offered by the dropdown
 const visibleColumns = useLocalStorage<string[]>('tableColumns', [
   ...baseColumns.map(column => column.key),
-  'P6757',
-  'P6789',
-  'P6790'
+  EXPOSURE_TIME,
+  ISO_SPEED,
+  F_NUMBER
 ]);
 const visibleColumnsInOrder = computed(() => columns.value.filter(c => isVisible(c.key)));
 const visibleProperties = computed(() => properties.value.filter(isVisible));
@@ -259,8 +262,13 @@ function formatStatement(statement: Statement): string {
       return labels.value[datavalue.value.id] ?? datavalue.value.id;
     case 'time':
       return datavalue.value.time.replace(/^\+/, '').replace(/T.*/, '');
-    case 'quantity':
-      return datavalue.value.amount.replace(/^\+/, '');
+    case 'quantity': {
+      const amount = +datavalue.value.amount;
+      // exposure times are stored as a decimal, but are commonly written as 1/60 s
+      return statement.mainsnak.property === EXPOSURE_TIME && amount > 0 && amount < 1
+        ? `1/${Math.round(1 / amount)}`
+        : datavalue.value.amount.replace(/^\+/, '');
+    }
     case 'globecoordinate':
       return `${datavalue.value.latitude}, ${datavalue.value.longitude}`;
     default:
