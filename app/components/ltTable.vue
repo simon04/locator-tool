@@ -114,9 +114,9 @@
                   :href="`https://www.wikidata.org/wiki/${entityId(statement)}`"
                   target="_blank"
                 >
-                  {{ formatStatement(statement) }}
+                  {{ formatStatement(statement, labels) }}
                 </a>
-                <span v-else>{{ formatStatement(statement) }}</span>
+                <span v-else>{{ formatStatement(statement, labels) }}</span>
               </div>
             </td>
           </tr>
@@ -147,7 +147,14 @@ import {type FileDetails, getFileDetails} from '../api/imageinfo';
 import {getStatements, type Statements} from '../api/statements';
 import {getLabels} from '../api/wikidataLabels';
 import type {CommonsFile} from '../model';
-import type {Statement} from '../model/mediainfo';
+import {
+  entityId,
+  EXPOSURE_TIME,
+  F_NUMBER,
+  formatStatement,
+  ISO_SPEED,
+  type Statement
+} from '../model/mediainfo';
 import ltFileMetadataGlobalUsage from './ltFileMetadataGlobalUsage.vue';
 import ltFileModalDialog from './ltFileModalDialog.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';
@@ -206,9 +213,6 @@ const columns = computed(() => [
     icon: undefined
   }))
 ]);
-const EXPOSURE_TIME = 'P6757';
-const ISO_SPEED = 'P6789';
-const F_NUMBER = 'P6790';
 // structured data uses far too many properties to show them all: exposure time, ISO speed
 // and f-number are displayed by default, the remaining ones are offered by the dropdown
 const visibleColumns = useLocalStorage<string[]>('tableColumns', [
@@ -240,40 +244,9 @@ function isFileDetail(column: string): column is SortColumn {
 function sortValue(title: CommonsFile & FileDetails, column: string): string {
   return isFileDetail(column)
     ? (title[column] ?? '')
-    : (statements.value[title.pageid]?.[column] ?? []).map(formatStatement).join(', ');
-}
-
-function entityId(statement: Statement): string | undefined {
-  const datavalue = statement.mainsnak.datavalue;
-  return datavalue?.type === 'wikibase-entityid' ? datavalue.value.id : undefined;
-}
-
-function formatStatement(statement: Statement): string {
-  // a `somevalue` statement carries its value as a qualifier, e.g. the name of the creator
-  const datavalue =
-    statement.mainsnak.datavalue ??
-    Object.values(statement.qualifiers ?? {})
-      .flat()
-      .find(snak => snak.datavalue?.type === 'string')?.datavalue;
-  switch (datavalue?.type) {
-    case 'string':
-      return datavalue.value;
-    case 'wikibase-entityid':
-      return labels.value[datavalue.value.id] ?? datavalue.value.id;
-    case 'time':
-      return datavalue.value.time.replace(/^\+/, '').replace(/T.*/, '');
-    case 'quantity': {
-      const amount = +datavalue.value.amount;
-      // exposure times are stored as a decimal, but are commonly written as 1/60 s
-      return statement.mainsnak.property === EXPOSURE_TIME && amount > 0 && amount < 1
-        ? `1/${Math.round(1 / amount)}`
-        : datavalue.value.amount.replace(/^\+/, '');
-    }
-    case 'globecoordinate':
-      return `${datavalue.value.latitude}, ${datavalue.value.longitude}`;
-    default:
-      return '';
-  }
+    : (statements.value[title.pageid]?.[column] ?? [])
+        .map(statement => formatStatement(statement, labels.value))
+        .join(', ');
 }
 
 const sortColumn = useLocalStorage<string>('tableSortColumn', 'file');
