@@ -295,3 +295,31 @@ msgstr "Author"
 #: ./app/components/ltGallery.vue
 msgid "Date"
 msgstr "Datum"
+
+#: ./app/components/ltNavbar.vue
+msgid "Table"
+msgstr "Tabelle"
+
+#: ./app/components/ltTable.vue
+msgid "Columns"
+msgstr "Spalten"
+
+#: ./app/components/ltTable.vue
+msgid "Image"
+msgstr "Bild"
+
+#: ./app/components/ltTable.vue
+msgid "Coordinates"
+msgstr "Koordinaten"
+
+#: ./app/components/ltFilesSelectorForCategory.vue
+msgid "Show Category as table"
+msgstr "Kategorie als Tabelle anzeigen"
+
+#: ./app/components/ltFilesSelectorForUser.vue
+msgid "Show User files as table"
+msgstr "Dateien des Benutzers als Tabelle anzeigen"
+
+#: ./app/components/ltFilesSelectorForFiles.vue
+msgid "Show {{$ctrl.titleList.length}} files as table"
+msgstr "{{$ctrl.titleList.length}} Dateien als Tabelle anzeigen"
