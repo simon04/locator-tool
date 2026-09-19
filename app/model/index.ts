@@ -2,7 +2,9 @@ import getFilePath from 'wikimedia-commons-file-path';
 
 import {LatLng} from './LatLng';
 
-export {LatLng} from './LatLng';
+export {LatLng, type LocationType} from './LatLng';
+
+export * from './WikiText';
 
 export interface CommonsFile {
   pageid: number;
@@ -26,8 +28,6 @@ export function imageUrls(f: CommonsFile): string {
 }
 
 export type CommonsTitle = string;
-
-export type User = string;
 
 export const WikidataProperty = {
   // coordinate location (P625)
