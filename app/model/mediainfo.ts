@@ -11,7 +11,7 @@ export interface Statement {
   mainsnak: Mainsnak;
   id: string;
   rank: string;
-  qualifiers: Record<string, Mainsnak[]>;
+  qualifiers?: Record<string, Mainsnak[]>;
 }
 
 export interface Mainsnak {

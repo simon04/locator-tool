@@ -107,6 +107,18 @@
                 <HouseFill /> {{ title.objectLocation.csv }}
               </div>
             </td>
+            <td v-for="property in visibleProperties" :key="property">
+              <div v-for="statement in statements[title.pageid]?.[property]" :key="statement.id">
+                <a
+                  v-if="entityId(statement)"
+                  :href="`https://www.wikidata.org/wiki/${entityId(statement)}`"
+                  target="_blank"
+                >
+                  {{ formatStatement(statement) }}
+                </a>
+                <span v-else>{{ formatStatement(statement) }}</span>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -132,13 +144,16 @@ import {type Component, computed, onMounted, ref} from 'vue';
 import {getCoordinates} from '../api/coordinates';
 import {getFiles} from '../api/files';
 import {type FileDetails, getFileDetails} from '../api/imageinfo';
+import {getStatements, type Statements} from '../api/statements';
+import {getLabels} from '../api/wikidataLabels';
 import type {CommonsFile} from '../model';
+import type {Statement} from '../model/mediainfo';
 import ltFileMetadataGlobalUsage from './ltFileMetadataGlobalUsage.vue';
 import ltFileModalDialog from './ltFileModalDialog.vue';
 import ltFileThumbnail from './ltFileThumbnail.vue';
 import ltSpinner from './ltSpinner.vue';
 import {useAppTitle, routeTitlePart} from './useAppTitle';
-import {t} from './useI18n';
+import {language, t} from './useI18n';
 import {useLtRoute} from './useLtRoute';
 import {useModalDialog} from './useModalDialog';
 
@@ -161,12 +176,14 @@ const {
 
 const {prevImage, nextImage} = useModalDialog();
 
+const statements = ref<Record<number, Statements>>({});
+const labels = ref<Record<string, string>>({});
+
 type SortColumn = keyof Pick<
   CommonsFile & FileDetails,
   'file' | 'description' | 'author' | 'timestamp'
 >;
-type Column = 'image' | SortColumn | 'categories' | 'coordinates';
-const columns: {key: Column; label: string; icon?: Component}[] = [
+const baseColumns: {key: string; label: string; icon?: Component}[] = [
   {key: 'image', label: t('Image'), icon: undefined},
   {key: 'file', label: t('Title'), icon: undefined},
   {key: 'description', label: t('Description'), icon: undefined},
@@ -175,28 +192,95 @@ const columns: {key: Column; label: string; icon?: Component}[] = [
   {key: 'categories', label: t('Category'), icon: undefined},
   {key: 'coordinates', label: t('Coordinates'), icon: undefined}
 ];
-const visibleColumns = ref<Column[]>(columns.map(column => column.key));
-const visibleColumnsInOrder = computed(() => columns.filter(column => isVisible(column.key)));
+// every property used by the structured data of the loaded files becomes a column of its own
+const properties = computed(() =>
+  [...new Set(Object.values(statements.value).flatMap(s => Object.keys(s)))].sort(
+    (p1, p2) => +p1.slice(1) - +p2.slice(1)
+  )
+);
+const columns = computed(() => [
+  ...baseColumns,
+  ...properties.value.map(property => ({
+    key: property,
+    label: labels.value[property] ?? property,
+    icon: undefined
+  }))
+]);
+// structured data uses far too many properties to show them all: exposure time, ISO speed
+// and f-number are displayed by default, the remaining ones are offered by the dropdown
+const visibleColumns = ref<string[]>([
+  ...baseColumns.map(column => column.key),
+  'P6757',
+  'P6789',
+  'P6790'
+]);
+const visibleColumnsInOrder = computed(() => columns.value.filter(c => isVisible(c.key)));
+const visibleProperties = computed(() => properties.value.filter(isVisible));
 const columnsElement = ref<HTMLElement | null>(null);
 const columnsOpen = ref(false);
 onClickOutside(columnsElement, () => (columnsOpen.value = false));
 
-function isVisible(column: Column): boolean {
+function isVisible(column: string): boolean {
   return visibleColumns.value.includes(column);
 }
 
-function isSortable(column: Column): column is SortColumn {
+function isSortable(column: string): boolean {
   return column !== 'image' && column !== 'categories' && column !== 'coordinates';
 }
 
-const sortColumn = ref<SortColumn>('file');
+function isFileDetail(column: string): column is SortColumn {
+  return (
+    column === 'file' || column === 'description' || column === 'author' || column === 'timestamp'
+  );
+}
+
+function sortValue(title: CommonsFile & FileDetails, column: string): string {
+  return isFileDetail(column)
+    ? (title[column] ?? '')
+    : (statements.value[title.pageid]?.[column] ?? []).map(formatStatement).join(', ');
+}
+
+function entityId(statement: Statement): string | undefined {
+  const datavalue = statement.mainsnak.datavalue;
+  return datavalue?.type === 'wikibase-entityid' ? datavalue.value.id : undefined;
+}
+
+function formatStatement(statement: Statement): string {
+  // a `somevalue` statement carries its value as a qualifier, e.g. the name of the creator
+  const datavalue =
+    statement.mainsnak.datavalue ??
+    Object.values(statement.qualifiers ?? {})
+      .flat()
+      .find(snak => snak.datavalue?.type === 'string')?.datavalue;
+  switch (datavalue?.type) {
+    case 'string':
+      return datavalue.value;
+    case 'wikibase-entityid':
+      return labels.value[datavalue.value.id] ?? datavalue.value.id;
+    case 'time':
+      return datavalue.value.time.replace(/^\+/, '').replace(/T.*/, '');
+    case 'quantity':
+      return datavalue.value.amount.replace(/^\+/, '');
+    case 'globecoordinate':
+      return `${datavalue.value.latitude}, ${datavalue.value.longitude}`;
+    default:
+      return '';
+  }
+}
+
+const sortColumn = ref<string>('file');
 const sortDirection = ref(1);
 const sortedTitles = useSorted(
   titles,
-  (t1, t2) => sortDirection.value * (t1[sortColumn.value]?.localeCompare(t2[sortColumn.value]) ?? 0)
+  (t1, t2) =>
+    sortDirection.value *
+    // numeric, so that the quantities of the structured data (width, ISO value, …) sort by value
+    sortValue(t1, sortColumn.value).localeCompare(sortValue(t2, sortColumn.value), undefined, {
+      numeric: true
+    })
 );
 
-function sortBy(column: Column) {
+function sortBy(column: string) {
   if (!isSortable(column)) return;
   sortDirection.value = sortColumn.value === column ? -sortDirection.value : 1;
   sortColumn.value = column;
@@ -213,5 +297,18 @@ onMounted(async () => {
       ({objectLocation: _, ...fileDetails}) => Object.assign(title, fileDetails)
     );
   }
+  statements.value = await getStatements(titles.value.map(title => title.pageid));
+  const ids = new Set<string>();
+  for (const fileStatements of Object.values(statements.value)) {
+    for (const [property, propertyStatements] of Object.entries(fileStatements)) {
+      ids.add(property);
+      for (const statement of propertyStatements) {
+        const id = entityId(statement);
+        if (id) ids.add(id);
+      }
+    }
+  }
+  // 'fa_IR' and the like are no Wikidata language codes
+  labels.value = await getLabels([...ids], language.value.split('_')[0]);
 });
 </script>
