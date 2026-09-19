@@ -93,7 +93,8 @@ const {
       .then(t => getCoordinates(t))
       .then(t => t as (CommonsFile & FileDetails)[]),
   [],
-  {immediate: false}
+  // shallow: false, so that the file details assigned below are reactive
+  {immediate: false, shallow: false}
 );
 
 const {prevImage, nextImage} = useModalDialog();
