@@ -272,3 +272,7 @@ msgstr ""
 #: ./app/components/ltGallery.vue
 msgid "Date"
 msgstr ""
+
+#: ./app/components/ltNavbar.vue
+msgid "Table"
+msgstr ""

@@ -295,3 +295,7 @@ msgstr "Author"
 #: ./app/components/ltGallery.vue
 msgid "Date"
 msgstr "Datum"
+
+#: ./app/components/ltNavbar.vue
+msgid "Table"
+msgstr "Tabelle"

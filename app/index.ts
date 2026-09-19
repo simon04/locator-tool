@@ -31,6 +31,11 @@ const router = createRouter({
       name: 'gallery',
       path: '/gallery',
       component: () => import('./components/ltGallery.vue')
+    },
+    {
+      name: 'table',
+      path: '/table',
+      component: () => import('./components/ltTable.vue')
     }
   ]
 });

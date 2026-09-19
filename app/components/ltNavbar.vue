@@ -51,6 +51,16 @@
             <span>{{ t('Gallery') }}</span>
           </router-link>
         </li>
+        <li class="nav-item">
+          <router-link
+            v-show="hasFilesUserCategory"
+            class="nav-link icon-link"
+            :to="{name: 'table', query: $query}"
+          >
+            <TableIcon />
+            <span>{{ t('Table') }}</span>
+          </router-link>
+        </li>
         <li class="nav-item" :title="t('About locator-tool')">
           <router-link class="nav-link" :to="{name: 'about'}">
             <span>{{ t('About') }}</span>
@@ -74,6 +84,7 @@ import FileImage from 'bootstrap-icons/icons/file-image.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import GlobeEuropeAfrica from 'bootstrap-icons/icons/globe-europe-africa.svg?component';
 import ListTask from 'bootstrap-icons/icons/list-task.svg?component';
+import TableIcon from 'bootstrap-icons/icons/table.svg?component';
 
 import ltDarkModeToggle from './ltDarkModeToggle.vue';
 import ltLanguageSelector from './ltLanguageSelector.vue';
