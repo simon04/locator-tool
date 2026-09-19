@@ -276,8 +276,8 @@ function formatStatement(statement: Statement): string {
   }
 }
 
-const sortColumn = ref<string>('file');
-const sortDirection = ref(1);
+const sortColumn = useLocalStorage<string>('tableSortColumn', 'file');
+const sortDirection = useLocalStorage('tableSortDirection', 1);
 const sortedTitles = useSorted(
   titles,
   (t1, t2) =>
