@@ -34,6 +34,8 @@ SeaSurf(app)
 oauth = OAuth(app)
 oauth.register(
     name="mediawiki",
+    # https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits asks for a meaningful User-Agent
+    user_agent="locator-tool (https://locator-tool.toolforge.org/; https://github.com/simon04/locator-tool)",
     client_id=app.config["OAUTH_CONSUMER_KEY"],
     client_secret=app.config["OAUTH_CONSUMER_SECRET"],
     client_kwargs={
