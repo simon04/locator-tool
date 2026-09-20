@@ -1,9 +1,20 @@
 import {StorageSerializers, useSessionStorage} from '@vueuse/core';
-import {delay} from 'es-toolkit';
+import {delay, Semaphore} from 'es-toolkit';
 
 // https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits
 const RETRY_STATUS = [429, 503];
 const RETRIES = 3;
+
+// "Limit the number of concurrent requests to 3 or fewer." The files of a category are looked
+// up by racing several services, hence the requests are counted per host.
+const semaphores = new Map<string, Semaphore>();
+
+function semaphore(url: string): Semaphore {
+  const {origin} = new URL(url, globalThis.location?.href);
+  const sema = semaphores.get(origin) ?? new Semaphore(3);
+  semaphores.set(origin, sema);
+  return sema;
+}
 
 // responses are cached for the session, so that switching between the views does not query
 // the API over and over again
@@ -23,26 +34,32 @@ export async function fetchJSON<T>(url: string, options?: RequestInit): Promise<
     return cached.value;
   }
   console.log('Fetching', url);
-  for (let attempt = 0; ; attempt++) {
-    const res = await fetch(url, {
-      cache: 'no-cache',
-      headers: {
-        Accept: 'application/json',
-        'Api-User-Agent': `locator-tool/${import.meta.env.VITE_BUILD_VERSION} (https://locator-tool.toolforge.org/; https://github.com/simon04/locator-tool)`
-      },
-      ...options
-    });
-    if (res.ok) {
-      const json: T = await res.json();
-      cached.value = json;
-      return json;
-    } else if (attempt >= RETRIES || !RETRY_STATUS.includes(res.status)) {
-      // HTTP/2 has no status text
-      throw new Error(res.statusText || `HTTP ${res.status}`);
+  const sema = semaphore(url);
+  await sema.acquire();
+  try {
+    for (let attempt = 0; ; attempt++) {
+      const res = await fetch(url, {
+        cache: 'no-cache',
+        headers: {
+          Accept: 'application/json',
+          'Api-User-Agent': `locator-tool/${import.meta.env.VITE_BUILD_VERSION} (https://locator-tool.toolforge.org/; https://github.com/simon04/locator-tool)`
+        },
+        ...options
+      });
+      if (res.ok) {
+        const json: T = await res.json();
+        cached.value = json;
+        return json;
+      } else if (attempt >= RETRIES || !RETRY_STATUS.includes(res.status)) {
+        // HTTP/2 has no status text
+        throw new Error(res.statusText || `HTTP ${res.status}`);
+      }
+      const ms = retryAfter(res, attempt);
+      console.warn('Retrying', url, 'in', ms, 'ms, status', res.status);
+      await delay(ms, {signal: options?.signal ?? undefined});
     }
-    const ms = retryAfter(res, attempt);
-    console.warn('Retrying', url, 'in', ms, 'ms, status', res.status);
-    await delay(ms, {signal: options?.signal ?? undefined});
+  } finally {
+    sema.release();
   }
 }
 
