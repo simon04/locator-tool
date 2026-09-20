@@ -1,3 +1,5 @@
+import {chunk} from 'es-toolkit';
+
 import {WikidataProperty, LatLng} from '../model';
 import type {MediaInfo, Statement} from '../model/mediainfo';
 import {type ApiResponse} from './ApiResponse';
@@ -65,34 +67,50 @@ export interface MainSlot {
 }
 
 export async function getFileDetails(
-  pageid: number,
+  pageids: number[],
   prop = 'categories|imageinfo|revisions|wbentityusage',
   iiprop = 'url|extmetadata'
-): Promise<FileDetails> {
+): Promise<Record<number, FileDetails>> {
+  // the API accepts 50 pageids per request
+  if (pageids.length > 50) {
+    const details = await Promise.all(
+      chunk(pageids, 50).map(pageids0 => getFileDetails(pageids0, prop, iiprop))
+    );
+    return Object.assign({}, ...details);
+  }
   const params = {
     prop,
-    pageids: pageid,
+    pageids: pageids.join('|'),
     iiprop,
     iiextmetadatafilter: 'ImageDescription|Artist|DateTimeOriginal',
     iiextmetadatalanguage: document.body.parentElement!.lang,
-    ...(prop.includes('categories') ? {clshow: '!hidden'} : {}),
+    // cllimit applies to the request as a whole, not to each file
+    ...(prop.includes('categories') ? {clshow: '!hidden', cllimit: 'max'} : {}),
     ...(prop.includes('revisions') ? {rvslots: '*', rvprop: 'content'} : {})
   };
   const data = await $query<ApiResponse<DetailsPage>>(params);
-  const page: DetailsPage | undefined = data?.query?.pages?.[pageid];
-  const categories = (page?.categories || []).map(category =>
-    removeCommonsPrefix(category.title, 'Category:')
+  const pages: Record<string, DetailsPage> = data?.query?.pages ?? {};
+  return Object.fromEntries(
+    Object.entries(pages).map(([pageid, page]) => [pageid, toFileDetails(page)])
   );
-  const extmetadata = page?.imageinfo[0]?.extmetadata;
-  return {
-    categories,
-    description: extmetadata?.ImageDescription?.value,
-    author: extmetadata?.Artist?.value,
-    timestamp: extmetadata?.DateTimeOriginal?.value,
-    ...(iiprop.includes('url') ? {url: page?.imageinfo[0]?.descriptionurl} : {}),
-    objectLocation: extractObjectLocation(page),
-    ...extractMediaInfo(page)
-  };
+
+  function toFileDetails(page: DetailsPage): FileDetails {
+    const categories = (page?.categories || []).map(category =>
+      removeCommonsPrefix(category.title, 'Category:')
+    );
+    const extmetadata = page?.imageinfo?.[0]?.extmetadata;
+    return {
+      categories,
+      description: extmetadata?.ImageDescription?.value,
+      author: extmetadata?.Artist?.value,
+      timestamp: extmetadata?.DateTimeOriginal?.value,
+      ...(iiprop.includes('url') ? {url: page?.imageinfo?.[0]?.descriptionurl} : {}),
+      // without `revisions`, the object location is empty and would overwrite the one
+      // obtained from getCoordinates
+      ...(prop.includes('revisions') ? {objectLocation: extractObjectLocation(page)} : {}),
+      ...extractMediaInfo(page)
+    };
+  }
 
   function extractMediaInfo(page: DetailsPage | undefined): Partial<FileDetails> {
     const json = page?.revisions?.[0]?.slots?.mediainfo['*'];

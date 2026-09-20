@@ -84,8 +84,8 @@ function buildPopup(title: CommonsFile): maplibregl.Popup {
       query: {files: title.file}
     }).href;
     app = createApp(LtGalleryCard, {title});
-    getFileDetails(title.pageid, 'categories|imageinfo', 'extmetadata').then(fileDetails => {
-      Object.assign(title, fileDetails);
+    getFileDetails([title.pageid], 'categories|imageinfo', 'extmetadata').then(details => {
+      Object.assign(title, details[title.pageid]);
     });
     app.mount(div);
     // Popup.addTo computes the anchor (and focuses the first element) before firing `open`,

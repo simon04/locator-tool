@@ -271,14 +271,13 @@ useAppTitle(routeTitlePart(), t('Table'));
 
 onMounted(async () => {
   await execute();
-  for (const title of titles.value) {
-    // without `revisions`, getFileDetails reports an empty object location, which would
-    // overwrite the one obtained from getCoordinates
-    getFileDetails(title.pageid, 'categories|imageinfo', 'extmetadata').then(
-      ({objectLocation: _, ...fileDetails}) => Object.assign(title, fileDetails)
-    );
-  }
-  statements.value = await getStatements(titles.value.map(title => title.pageid));
+  const pageids = titles.value.map(title => title.pageid);
+  getFileDetails(pageids, 'categories|imageinfo', 'extmetadata').then(details => {
+    for (const title of titles.value) {
+      Object.assign(title, details[title.pageid]);
+    }
+  });
+  statements.value = await getStatements(pageids);
   const ids = new Set<string>();
   for (const fileStatements of Object.values(statements.value)) {
     for (const [property, propertyStatements] of Object.entries(fileStatements)) {

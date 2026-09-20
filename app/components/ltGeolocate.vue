@@ -201,8 +201,8 @@ function titleChanged(title: CommonsFile): void {
   //   updateMapView(title.coordinates);
   // }
   if (title?.pageid) {
-    ltImageInfo.getFileDetails(title.pageid).then(fileDetails => {
-      Object.assign(title, fileDetails);
+    ltImageInfo.getFileDetails([title.pageid]).then(details => {
+      Object.assign(title, details[title.pageid]);
       // const {lat, lng} = title.objectLocation;
       // if (!title.coordinates?.lat) {
       //   updateMapView({lat, lng});
