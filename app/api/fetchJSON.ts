@@ -11,7 +11,7 @@ export async function fetchJSON<T>(url: RequestInfo, options?: RequestInit): Pro
       cache: 'no-cache',
       headers: {
         Accept: 'application/json',
-        'Api-User-Agent': 'locator-tool (https://locator-tool.toolforge.org/)'
+        'Api-User-Agent': `locator-tool/${import.meta.env.VITE_BUILD_VERSION} (https://locator-tool.toolforge.org/; https://github.com/simon04/locator-tool)`
       },
       ...options
     });
