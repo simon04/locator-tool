@@ -92,6 +92,7 @@ import QuestionCircle from 'bootstrap-icons/icons/question-circle.svg?component'
 import Save from 'bootstrap-icons/icons/save.svg?component';
 import {computed, ref} from 'vue';
 
+import {clearCache} from '../api/fetchJSON';
 import type {FileDetails} from '../api/imageinfo';
 import * as ltDataAuth from '../api/ltDataAuth';
 import {type CommonsFile, LatLng} from '../model';
@@ -152,6 +153,8 @@ async function editLocation(cc?: LatLng[]) {
       error.value = error0.value || data.value;
       return;
     }
+    // the file has been modified, the cached API responses are stale
+    clearCache();
     for (const c of cc!) {
       if (c.type === 'Location') {
         coordinates.value = c.commit();
