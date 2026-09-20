@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
+import {useDebounceFn} from '@vueuse/core';
 import * as maplibregl from 'maplibre-gl';
 import {type App, createApp, onMounted, onUnmounted, reactive, ref} from 'vue';
 
@@ -44,9 +45,11 @@ onMounted(async () => {
     if (!bounds.isEmpty()) map.fitBounds(bounds, {padding: 40});
   } else {
     geosearch(map);
-    map.on('moveend', () => geosearch(map));
+    map.on('moveend', () => geosearchDebounced(map));
   }
 });
+
+const geosearchDebounced = useDebounceFn(geosearch, 400);
 
 async function geosearch(map: maplibregl.Map) {
   const files = await runGeosearch(map.getBounds());
