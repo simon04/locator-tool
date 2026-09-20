@@ -1,10 +1,11 @@
 <template>
   <img
+    ref="img"
     class="img-fluid img-thumbnail fade-in-image"
     loading="lazy"
     :src="thumbnailUrl"
     :lazy-srcset="thumbnailUrls"
-    sizes="auto"
+    :sizes="sizes"
     style="max-height: 100%; cursor: zoom-in; width: 100%"
     @click="modalDialogFile = file"
     @load="setLazyImg($event)"
@@ -12,7 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from 'vue';
+import {useElementSize} from '@vueuse/core';
+import {computed, useTemplateRef} from 'vue';
 
 import type {FileDetails} from '../api/imageinfo';
 import {imageUrl, imageUrls, type CommonsFile} from '../model';
@@ -27,6 +29,12 @@ const props = defineProps<{
 const thumbnailUrl = computed(() => imageUrl(props.file, 500));
 
 const thumbnailUrls = computed(() => imageUrls(props.file));
+
+// `sizes="auto"` would make the intrinsic size depend on the layout size,
+// which collapses the aspect ratio in the flexbox layout of lt-geolocate
+const img = useTemplateRef<HTMLImageElement>('img');
+const {width} = useElementSize(img);
+const sizes = computed(() => `${Math.ceil(width.value) || 500}px`);
 </script>
 
 <style scoped>
