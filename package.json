@@ -39,7 +39,7 @@
     "wikimedia-commons-file-path": "2.1.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "6.0.8",
+    "@vitejs/plugin-vue": "6.0.9",
     "@vue/compiler-sfc": "3.5.38",
     "@vue/tsconfig": "0.9.1",
     "angular-gettext-cli": "1.2.0",
