@@ -208,8 +208,8 @@ function titleChanged(title: CommonsFile): void {
       //   updateMapView({lat, lng});
       // }
     });
-    ltGlobalUsage.globalusage(title.pageid, title.file).then(globalUsage => {
-      (title as unknown as ltData.FileDetails).globalUsage = globalUsage;
+    ltGlobalUsage.globalusage([title.pageid]).then(globalUsage => {
+      (title as unknown as ltData.FileDetails).globalUsage = globalUsage[title.pageid];
     });
   }
 }

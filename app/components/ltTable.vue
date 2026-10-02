@@ -83,7 +83,6 @@
                   <GeoAlt />
                 </router-link>
               </span>
-              <lt-file-metadata-global-usage :file="title" />
             </td>
             <td v-if="isVisible('description')" style="min-width: 15rem">
               <span v-html="title.description"></span>
@@ -106,6 +105,9 @@
               <div v-if="title.objectLocation.csv">
                 <HouseFill /> {{ title.objectLocation.csv }}
               </div>
+            </td>
+            <td v-if="isVisible('globalUsage')">
+              <lt-file-metadata-global-usage :file="title" badge />
             </td>
             <td v-for="property in visibleProperties" :key="property">
               <div v-for="statement in statements[title.pageid]?.[property]" :key="statement.id">
@@ -137,12 +139,14 @@ import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
 import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
+import ShareFill from 'bootstrap-icons/icons/share-fill.svg?component';
 import SortDown from 'bootstrap-icons/icons/sort-down.svg?component';
 import SortUp from 'bootstrap-icons/icons/sort-up.svg?component';
 import {type Component, computed, onMounted, ref} from 'vue';
 
 import {getCoordinates} from '../api/coordinates';
 import {getFiles} from '../api/files';
+import {globalusage} from '../api/globalusage';
 import {type FileDetails, getFileDetails} from '../api/imageinfo';
 import {getStatements, type Statements} from '../api/statements';
 import {getLabels} from '../api/wikidataLabels';
@@ -197,7 +201,8 @@ const baseColumns: {key: string; label: string; icon?: Component}[] = [
   {key: 'author', label: t('Author'), icon: PersonFill},
   {key: 'timestamp', label: t('Date'), icon: CalendarEvent},
   {key: 'categories', label: t('Category'), icon: undefined},
-  {key: 'coordinates', label: t('Coordinates'), icon: undefined}
+  {key: 'coordinates', label: t('Coordinates'), icon: undefined},
+  {key: 'globalUsage', label: t('Global usage'), icon: ShareFill}
 ];
 // every property used by the structured data of the loaded files becomes a column of its own
 const properties = computed(() =>
@@ -242,6 +247,7 @@ function isFileDetail(column: string): column is SortColumn {
 }
 
 function sortValue(title: CommonsFile & FileDetails, column: string): string {
+  if (column === 'globalUsage') return String(title.globalUsage?.length ?? 0);
   return isFileDetail(column)
     ? (title[column] ?? '')
     : (statements.value[title.pageid]?.[column] ?? [])
@@ -275,6 +281,11 @@ onMounted(async () => {
   getFileDetails(pageids, 'categories|imageinfo', 'extmetadata').then(details => {
     for (const title of titles.value) {
       Object.assign(title, details[title.pageid]);
+    }
+  });
+  globalusage(pageids).then(usages => {
+    for (const title of titles.value) {
+      title.globalUsage = usages[title.pageid];
     }
   });
   statements.value = await getStatements(pageids);

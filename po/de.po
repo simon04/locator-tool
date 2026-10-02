@@ -312,6 +312,10 @@ msgstr "Bild"
 msgid "Coordinates"
 msgstr "Koordinaten"
 
+#: ./app/components/ltTable.vue
+msgid "Global usage"
+msgstr "Globale Verwendung"
+
 #: ./app/components/ltFilesSelectorForCategory.vue
 msgid "Show Category as table"
 msgstr "Kategorie als Tabelle anzeigen"

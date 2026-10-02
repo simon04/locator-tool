@@ -1,3 +1,5 @@
+import {chunk} from 'es-toolkit';
+
 import {type ApiResponse} from './ApiResponse';
 import {$query, NS_ARTICLE} from './query';
 
@@ -7,13 +9,22 @@ export interface GlobalUsage {
   url: string;
 }
 
-export async function globalusage(pageid: number, titles: string): Promise<GlobalUsage[]> {
-  const data = await $query<ApiResponse<{globalusage: GlobalUsage[]}>>({
+export async function globalusage(pageids: number[]): Promise<Record<number, GlobalUsage[]>> {
+  // the API accepts 50 pageids per request
+  if (pageids.length > 50) {
+    const usages = await Promise.all(chunk(pageids, 50).map(pageids0 => globalusage(pageids0)));
+    return Object.assign({}, ...usages);
+  }
+  const data = await $query<ApiResponse<{globalusage?: GlobalUsage[]}>>({
     // https://www.mediawiki.org/wiki/API:Globalusage/en
     prop: 'globalusage',
-    titles,
+    pageids: pageids.join('|'),
     gunamespace: NS_ARTICLE,
-    gulimit: 500
+    // gulimit applies to the request as a whole, not to each file
+    gulimit: 'max'
   });
-  return data?.query?.pages?.[pageid].globalusage;
+  const pages = data?.query?.pages ?? {};
+  return Object.fromEntries(
+    Object.entries(pages).map(([pageid, page]) => [pageid, page.globalusage ?? []])
+  );
 }

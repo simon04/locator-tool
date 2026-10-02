@@ -1,9 +1,20 @@
 <template>
-  <div v-if="globalUsage.count" class="small" :title="globalUsage.tooltip">
+  <a
+    v-if="badge && globalUsage.count !== undefined"
+    class="text-decoration-none"
+    :href="globalUsage.link"
+    target="_blank"
+    :title="globalUsage.tooltip"
+  >
+    <span class="badge" :class="globalUsage.count ? 'bg-danger' : 'bg-secondary'">
+      {{ globalUsage.count }}
+    </span>
+  </a>
+  <div v-else-if="!badge && globalUsage.count" class="small" :title="globalUsage.tooltip">
     <span class="icon-link">
       <ShareFill />
       <abbr>
-        <a :href="globalUsage.link">
+        <a :href="globalUsage.link" target="_blank">
           {{ globalUsage.count }}
         </a>
       </abbr>
@@ -21,6 +32,8 @@ import type {CommonsFile} from '../model';
 
 const props = defineProps<{
   file: CommonsFile & FileDetails;
+  // displays the count as badge, also when the file is unused
+  badge?: boolean;
 }>();
 
 const globalUsage = computed(() => ({

@@ -289,6 +289,10 @@ msgstr ""
 msgid "Coordinates"
 msgstr ""
 
+#: ./app/components/ltTable.vue
+msgid "Global usage"
+msgstr ""
+
 #: ./app/components/ltFilesSelectorForCategory.vue
 msgid "Show Category as table"
 msgstr ""
