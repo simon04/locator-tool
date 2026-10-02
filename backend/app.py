@@ -31,7 +31,13 @@ app.config["CSRF_HEADER_NAME"] = "X-XSRF-TOKEN"
 app.config["CSRF_COOKIE_PATH"] = "/"
 SeaSurf(app)
 
-oauth = OAuth(app)
+def update_token(name: str, token: dict, refresh_token=None, access_token=None):
+    # Persist the refreshed token, otherwise every API request refreshes it again and
+    # obtains a new access token, invalidating the CSRF token obtained with the previous one
+    session["token"] = token
+
+
+oauth = OAuth(app, update_token=update_token)
 oauth.register(
     name="mediawiki",
     # https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits asks for a meaningful User-Agent
