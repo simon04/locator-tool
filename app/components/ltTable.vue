@@ -87,7 +87,17 @@
             <td v-if="isVisible('description')" style="min-width: 15rem">
               <span v-html="title.description"></span>
             </td>
-            <td v-if="isVisible('author')"><span v-html="title.author"></span></td>
+            <td v-if="isVisible('author')">
+              <span class="icon-link">
+                <span v-html="title.author"></span>
+                <router-link
+                  v-if="authorUser(title.author)"
+                  :to="{name: 'geolocate', query: {user: authorUser(title.author), userLimit: 100}}"
+                >
+                  <GeoAlt />
+                </router-link>
+              </span>
+            </td>
             <td v-if="isVisible('timestamp')"><time v-html="title.timestamp"></time></td>
             <td v-if="isVisible('categories')" style="min-width: 10rem">
               <a
@@ -151,6 +161,7 @@ import {type FileDetails, getFileDetails} from '../api/imageinfo';
 import {getStatements, type Statements} from '../api/statements';
 import {getLabels} from '../api/wikidataLabels';
 import type {CommonsFile} from '../model';
+import {authorUser} from '../model/author';
 import {
   entityId,
   EXPOSURE_TIME,
