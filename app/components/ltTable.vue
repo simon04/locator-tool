@@ -56,7 +56,7 @@
               <button
                 v-if="isSortable(column.key)"
                 type="button"
-                class="btn btn-link icon-link p-0 text-body text-decoration-none"
+                class="btn btn-link icon-link p-0 fw-bold text-body text-decoration-none"
                 @click="sortBy(column.key)"
               >
                 <component :is="column.icon" v-if="column.icon" />
