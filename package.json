@@ -35,12 +35,13 @@
     "bootstrap-icons": "1.13.1",
     "es-toolkit": "1.45.1",
     "maplibre-gl": "6.9.0",
-    "vue": "3.5.38",
+    "vue": "3.6.0-rc.10",
     "wikimedia-commons-file-path": "2.1.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "6.0.9",
-    "@vue/compiler-sfc": "3.5.38",
+    "@vue/compiler-sfc": "3.6.0-rc.10",
+    "@vue/server-renderer": "3.6.0-rc.10",
     "@vue/test-utils": "2.5.1",
     "@vue/tsconfig": "0.9.1",
     "angular-gettext-cli": "1.2.0",
