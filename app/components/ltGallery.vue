@@ -121,7 +121,7 @@ useAppTitle(routeTitlePart(), t('Gallery'));
 onMounted(async () => {
   await execute();
   const pageids = titles.value.map(title => title.pageid);
-  const details = await getFileDetails(pageids, 'categories|imageinfo', 'extmetadata|size');
+  const details = await getFileDetails(pageids, 'categories|imageinfo', 'url|extmetadata|size');
   for (const title of titles.value) {
     Object.assign(title, details[title.pageid]);
   }

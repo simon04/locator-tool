@@ -1,5 +1,6 @@
 <template>
   <img
+    v-if="thumbnailUrl"
     ref="img"
     class="img-fluid img-thumbnail fade-in-image"
     loading="lazy"
@@ -28,7 +29,7 @@ const props = defineProps<{
   file: CommonsFile & FileDetails;
 }>();
 
-const thumbnailUrl = computed(() => imageUrl(props.file, 500));
+const thumbnailUrl = computed(() => imageUrl(props.file));
 
 const thumbnailUrls = computed(() => imageUrls(props.file));
 

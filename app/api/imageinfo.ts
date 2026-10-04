@@ -1,6 +1,6 @@
 import {chunk} from 'es-toolkit';
 
-import {WikidataProperty, LatLng} from '../model';
+import {WikidataProperty, LatLng, THUMB_WIDTH} from '../model';
 import type {MediaInfo, Statement} from '../model/mediainfo';
 import {type ApiResponse} from './ApiResponse';
 import type {GlobalUsage} from './globalusage';
@@ -13,6 +13,7 @@ export interface FileDetails {
   author?: string;
   timestamp?: string;
   url?: string;
+  thumbUrl?: string;
   width?: number;
   height?: number;
   coordinates?: LatLng;
@@ -39,6 +40,7 @@ interface ImageInfo {
   url: string;
   descriptionurl: string;
   descriptionshorturl: string;
+  thumburl?: string;
   width: number;
   height: number;
   extmetadata: ExtMetadata;
@@ -86,6 +88,7 @@ export async function getFileDetails(
     prop,
     pageids: pageids.join('|'),
     iiprop,
+    ...(iiprop.includes('url') ? {iiurlwidth: THUMB_WIDTH} : {}),
     iiextmetadatafilter: 'ImageDescription|Artist|DateTimeOriginal',
     iiextmetadatalanguage: document.body.parentElement!.lang,
     // cllimit applies to the request as a whole, not to each file
@@ -109,7 +112,9 @@ export async function getFileDetails(
       description: extmetadata?.ImageDescription?.value,
       author: extmetadata?.Artist?.value,
       timestamp: extmetadata?.DateTimeOriginal?.value,
-      ...(iiprop.includes('url') ? {url: imageinfo?.descriptionurl} : {}),
+      ...(iiprop.includes('url')
+        ? {url: imageinfo?.descriptionurl, thumbUrl: imageinfo?.thumburl}
+        : {}),
       // reserves the layout space of lazy-loaded thumbnails
       ...(iiprop.includes('size') ? {width: imageinfo?.width, height: imageinfo?.height} : {}),
       // without `revisions`, the object location is empty and would overwrite the one

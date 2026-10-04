@@ -53,7 +53,7 @@ import {useModalDialog} from './useModalDialog';
 const {modalDialogFile, setLazyImg} = useModalDialog();
 
 const thumbnailUrl = computed(() =>
-  modalDialogFile.value ? imageUrl(modalDialogFile.value, 1280) : ''
+  modalDialogFile.value ? imageUrl(modalDialogFile.value, 1280) : undefined
 );
 
 const thumbnailUrls = computed(() =>

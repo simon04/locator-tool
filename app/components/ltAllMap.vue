@@ -87,7 +87,7 @@ function buildPopup(title: CommonsFile): maplibregl.Popup {
       query: {files: title.file}
     }).href;
     app = createApp(LtGalleryCard, {title});
-    getFileDetails([title.pageid], 'categories|imageinfo', 'extmetadata|size').then(details => {
+    getFileDetails([title.pageid], 'categories|imageinfo', 'url|extmetadata|size').then(details => {
       Object.assign(title, details[title.pageid]);
     });
     app.mount(div);
