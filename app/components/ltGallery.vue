@@ -70,7 +70,7 @@ import {onMounted, ref} from 'vue';
 
 import {getCoordinates} from '../api/coordinates';
 import {getFiles} from '../api/files';
-import {type FileDetails, getFileDetails} from '../api/imageinfo';
+import type {FileDetails} from '../api/imageinfo';
 import type {CommonsFile} from '../model';
 import ltFileModalDialog from './ltFileModalDialog.vue';
 import ltGalleryCard from './ltGalleryCard.vue';
@@ -87,15 +87,9 @@ const {
   isReady,
   execute,
   state: titles
-} = useAsyncState(
-  () =>
-    getFiles($query.value)
-      .then(t => getCoordinates(t))
-      .then(t => t as (CommonsFile & FileDetails)[]),
-  [],
-  // shallow: false, so that the file details assigned below are reactive
-  {immediate: false, shallow: false}
-);
+} = useAsyncState(() => getFiles($query.value).then(t => getCoordinates(t)), [], {
+  immediate: false
+});
 
 const {prevImage, nextImage} = useModalDialog();
 
@@ -118,12 +112,5 @@ const sortedTitles = useSorted(
 
 useAppTitle(routeTitlePart(), t('Gallery'));
 
-onMounted(async () => {
-  await execute();
-  const pageids = titles.value.map(title => title.pageid);
-  const details = await getFileDetails(pageids, 'categories|imageinfo', 'url|extmetadata|size');
-  for (const title of titles.value) {
-    Object.assign(title, details[title.pageid]);
-  }
-});
+onMounted(() => execute());
 </script>

@@ -87,9 +87,12 @@ function buildPopup(title: CommonsFile): maplibregl.Popup {
       query: {files: title.file}
     }).href;
     app = createApp(LtGalleryCard, {title});
-    getFileDetails([title.pageid], 'categories|imageinfo', 'url|extmetadata|size').then(details => {
-      Object.assign(title, details[title.pageid]);
-    });
+    // the files of geosearch come without details, unlike those of getCoordinates
+    if (!('categories' in title)) {
+      getFileDetails([title.pageid], 'categories|imageinfo').then(details => {
+        Object.assign(title, details[title.pageid]);
+      });
+    }
     app.mount(div);
     // Popup.addTo computes the anchor (and focuses the first element) before firing `open`,
     // i.e. while the content is still empty — measure it again now that the card is mounted

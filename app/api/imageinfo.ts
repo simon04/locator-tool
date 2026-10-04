@@ -85,8 +85,19 @@ export async function getFileDetails(
     return Object.assign({}, ...details);
   }
   const params = {
+    ...fileDetailsParams(prop, iiprop),
+    pageids: pageids.join('|')
+  };
+  const data = await $query<ApiResponse<DetailsPage>>(params);
+  const pages: Record<string, DetailsPage> = data?.query?.pages ?? {};
+  return Object.fromEntries(
+    Object.entries(pages).map(([pageid, page]) => [pageid, toFileDetails(page, prop, iiprop)])
+  );
+}
+
+export function fileDetailsParams(prop: string, iiprop: string): Record<string, unknown> {
+  return {
     prop,
-    pageids: pageids.join('|'),
     iiprop,
     ...(iiprop.includes('url') ? {iiurlwidth: THUMB_WIDTH} : {}),
     iiextmetadatafilter: 'ImageDescription|Artist|DateTimeOriginal',
@@ -95,88 +106,83 @@ export async function getFileDetails(
     ...(prop.includes('categories') ? {clshow: '!hidden', cllimit: 'max'} : {}),
     ...(prop.includes('revisions') ? {rvslots: '*', rvprop: 'content'} : {})
   };
-  const data = await $query<ApiResponse<DetailsPage>>(params);
-  const pages: Record<string, DetailsPage> = data?.query?.pages ?? {};
-  return Object.fromEntries(
-    Object.entries(pages).map(([pageid, page]) => [pageid, toFileDetails(page)])
+}
+
+export function toFileDetails(page: DetailsPage, prop: string, iiprop: string): FileDetails {
+  const categories = (page?.categories || []).map(category =>
+    removeCommonsPrefix(category.title, 'Category:')
   );
+  const imageinfo = page?.imageinfo?.[0];
+  const extmetadata = imageinfo?.extmetadata;
+  return {
+    categories,
+    description: extmetadata?.ImageDescription?.value,
+    author: extmetadata?.Artist?.value,
+    timestamp: extmetadata?.DateTimeOriginal?.value,
+    ...(iiprop.includes('url')
+      ? {url: imageinfo?.descriptionurl, thumbUrl: imageinfo?.thumburl}
+      : {}),
+    // reserves the layout space of lazy-loaded thumbnails
+    ...(iiprop.includes('size') ? {width: imageinfo?.width, height: imageinfo?.height} : {}),
+    // without `revisions`, the object location is empty and would overwrite the one
+    // obtained from getCoordinates
+    ...(prop.includes('revisions') ? {objectLocation: extractObjectLocation(page)} : {}),
+    ...extractMediaInfo(page)
+  };
+}
 
-  function toFileDetails(page: DetailsPage): FileDetails {
-    const categories = (page?.categories || []).map(category =>
-      removeCommonsPrefix(category.title, 'Category:')
-    );
-    const imageinfo = page?.imageinfo?.[0];
-    const extmetadata = imageinfo?.extmetadata;
-    return {
-      categories,
-      description: extmetadata?.ImageDescription?.value,
-      author: extmetadata?.Artist?.value,
-      timestamp: extmetadata?.DateTimeOriginal?.value,
-      ...(iiprop.includes('url')
-        ? {url: imageinfo?.descriptionurl, thumbUrl: imageinfo?.thumburl}
-        : {}),
-      // reserves the layout space of lazy-loaded thumbnails
-      ...(iiprop.includes('size') ? {width: imageinfo?.width, height: imageinfo?.height} : {}),
-      // without `revisions`, the object location is empty and would overwrite the one
-      // obtained from getCoordinates
-      ...(prop.includes('revisions') ? {objectLocation: extractObjectLocation(page)} : {}),
-      ...extractMediaInfo(page)
-    };
+function extractMediaInfo(page: DetailsPage | undefined): Partial<FileDetails> {
+  const json = page?.revisions?.[0]?.slots?.mediainfo['*'];
+  if (!json) return {};
+  const mediainfo: MediaInfo = JSON.parse(json);
+  const coordinates = extractMediaInfoLocation(
+    'Location',
+    mediainfo.statements[WikidataProperty['Location']]?.[0]
+  );
+  const objectLocation = extractMediaInfoLocation(
+    'Object location',
+    mediainfo.statements[WikidataProperty['Object location']]?.[0]
+  );
+  return {
+    ...(coordinates ? {coordinates} : {}),
+    ...(objectLocation ? {objectLocation} : {})
+  };
+}
+
+function extractMediaInfoLocation(
+  type: LatLng['type'],
+  statement: Statement | undefined
+): LatLng | undefined {
+  if (statement?.mainsnak.datavalue?.type !== 'globecoordinate') {
+    return;
   }
+  return new LatLng(
+    type,
+    statement?.mainsnak.datavalue.value.latitude,
+    statement?.mainsnak.datavalue.value.longitude
+  );
+}
 
-  function extractMediaInfo(page: DetailsPage | undefined): Partial<FileDetails> {
-    const json = page?.revisions?.[0]?.slots?.mediainfo['*'];
-    if (!json) return {};
-    const mediainfo: MediaInfo = JSON.parse(json);
-    const coordinates = extractMediaInfoLocation(
-      'Location',
-      mediainfo.statements[WikidataProperty['Location']]?.[0]
+function extractObjectLocation(page: DetailsPage | undefined) {
+  try {
+    const wikitext: string = page?.revisions?.[0]?.slots?.main['*'] || '';
+    const locDeg = wikitext.match(
+      /\{\{Object location( dec)?\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([NS])\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([WE])/i
     );
-    const objectLocation = extractMediaInfoLocation(
-      'Object location',
-      mediainfo.statements[WikidataProperty['Object location']]?.[0]
-    );
-    return {
-      ...(coordinates ? {coordinates} : {}),
-      ...(objectLocation ? {objectLocation} : {})
-    };
-  }
-
-  function extractMediaInfoLocation(
-    type: LatLng['type'],
-    statement: Statement | undefined
-  ): LatLng | undefined {
-    if (statement?.mainsnak.datavalue?.type !== 'globecoordinate') {
-      return;
+    const loc = wikitext.match(/\{\{Object location( dec)?\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)/i);
+    let lat;
+    let lng;
+    if (locDeg && locDeg[2] && locDeg[3] && locDeg[4] && locDeg[6] && locDeg[7] && locDeg[8]) {
+      lat = parseInt(locDeg[2]) + parseInt(locDeg[3]) / 60 + parseFloat(locDeg[4]) / 3600;
+      lat *= locDeg[5] === 'N' ? 1 : -1;
+      lng = parseInt(locDeg[6]) + parseInt(locDeg[7]) / 60 + parseFloat(locDeg[8]) / 3600;
+      lng *= locDeg[9] === 'E' ? 1 : -1;
+    } else if (loc && loc[2] && loc[3]) {
+      lat = parseFloat(loc[2]);
+      lng = parseFloat(loc[3]);
     }
-    return new LatLng(
-      type,
-      statement?.mainsnak.datavalue.value.latitude,
-      statement?.mainsnak.datavalue.value.longitude
-    );
-  }
-
-  function extractObjectLocation(page: DetailsPage | undefined) {
-    try {
-      const wikitext: string = page?.revisions?.[0]?.slots?.main['*'] || '';
-      const locDeg = wikitext.match(
-        /\{\{Object location( dec)?\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([NS])\|([0-9]+)\|([0-9]+)\|([0-9.]+)\|([WE])/i
-      );
-      const loc = wikitext.match(/\{\{Object location( dec)?\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)/i);
-      let lat;
-      let lng;
-      if (locDeg && locDeg[2] && locDeg[3] && locDeg[4] && locDeg[6] && locDeg[7] && locDeg[8]) {
-        lat = parseInt(locDeg[2]) + parseInt(locDeg[3]) / 60 + parseFloat(locDeg[4]) / 3600;
-        lat *= locDeg[5] === 'N' ? 1 : -1;
-        lng = parseInt(locDeg[6]) + parseInt(locDeg[7]) / 60 + parseFloat(locDeg[8]) / 3600;
-        lng *= locDeg[9] === 'E' ? 1 : -1;
-      } else if (loc && loc[2] && loc[3]) {
-        lat = parseFloat(loc[2]);
-        lng = parseFloat(loc[3]);
-      }
-      return new LatLng('Object location', lat, lng);
-    } catch {
-      return new LatLng('Object location', undefined, undefined);
-    }
+    return new LatLng('Object location', lat, lng);
+  } catch {
+    return new LatLng('Object location', undefined, undefined);
   }
 }

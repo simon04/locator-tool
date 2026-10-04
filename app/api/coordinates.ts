@@ -1,6 +1,7 @@
 import {type CommonsTitle, type CommonsFile, LatLng} from '../model';
 import {type ApiResponse} from './ApiResponse';
 import {buildQuery} from './buildQuery';
+import {type DetailsPage, type FileDetails, fileDetailsParams, toFileDetails} from './imageinfo';
 import {$query} from './query';
 
 export interface CoordinatePage {
@@ -17,24 +18,31 @@ export interface Coordinate {
   type: 'camera' | 'object';
 }
 
-export async function getCoordinates(titles: string | CommonsTitle[]): Promise<CommonsFile[]> {
+// all views query the same details, so that they share the cached responses
+const DETAILS_PROP = 'categories|imageinfo';
+const DETAILS_IIPROP = 'url|extmetadata|size';
+
+export async function getCoordinates(
+  titles: string | CommonsTitle[]
+): Promise<(CommonsFile & FileDetails)[]> {
   if (typeof titles === 'string') {
     titles = titles.split('|');
   }
 
   const url = new URL(
     buildQuery({
-      prop: 'coordinates',
+      ...fileDetailsParams(DETAILS_PROP, DETAILS_IIPROP),
+      prop: `coordinates|${DETAILS_PROP}`,
       colimit: 500,
       coprop: 'type|name',
       coprimary: 'all'
     })
   );
 
-  // takeWhile
+  // takeWhile: the API accepts 50 titles per request, the servers URLs of up to ~8 kB
   const titles0 = titles.reduce((acc, title, index, array) => {
-    url.searchParams.set('titles', (array as string[]).slice(0, index).join('|'));
-    return url.toString().length < 2000 ? acc.concat(title) : acc;
+    url.searchParams.set('titles', (array as string[]).slice(0, index + 1).join('|'));
+    return index < 50 && url.toString().length < 8000 ? acc.concat(title) : acc;
   }, [] as CommonsTitle[]);
 
   if (titles.length > titles0.length) {
@@ -46,7 +54,7 @@ export async function getCoordinates(titles: string | CommonsTitle[]): Promise<C
   }
 
   url.searchParams.set('titles', titles.join('|').replace(/_/g, ' '));
-  const data = await $query<ApiResponse<CoordinatePage>>(url);
+  const data = await $query<ApiResponse<CoordinatePage & DetailsPage>>(url);
   const pages = data?.query?.pages || {};
   return Object.entries(pages).map(([pageid, page]) => {
     return {
@@ -61,8 +69,9 @@ export async function getCoordinates(titles: string | CommonsTitle[]): Promise<C
       objectLocation: new LatLng(
         'Object location',
         ...toLatLng(page.coordinates?.find(c => c.type === 'object'))
-      )
-    } as CommonsFile;
+      ),
+      ...toFileDetails(page, DETAILS_PROP, DETAILS_IIPROP)
+    } as CommonsFile & FileDetails;
   });
 
   function toLatLng(c: Coordinate | undefined): [number?, number?] {

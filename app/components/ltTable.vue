@@ -157,7 +157,7 @@ import {type Component, computed, onMounted, ref} from 'vue';
 import {getCoordinates} from '../api/coordinates';
 import {getFiles} from '../api/files';
 import {globalusage} from '../api/globalusage';
-import {type FileDetails, getFileDetails} from '../api/imageinfo';
+import type {FileDetails} from '../api/imageinfo';
 import {getStatements, type Statements} from '../api/statements';
 import {getLabels} from '../api/wikidataLabels';
 import type {CommonsFile} from '../model';
@@ -187,12 +187,9 @@ const {
   execute,
   state: titles
 } = useAsyncState(
-  () =>
-    getFiles($query.value)
-      .then(t => getCoordinates(t))
-      .then(t => t as (CommonsFile & FileDetails)[]),
+  () => getFiles($query.value).then(t => getCoordinates(t)),
   [],
-  // shallow: false, so that the file details assigned below are reactive
+  // shallow: false, so that the global usage assigned below is reactive
   {immediate: false, shallow: false}
 );
 
@@ -289,11 +286,6 @@ useAppTitle(routeTitlePart(), t('Table'));
 onMounted(async () => {
   await execute();
   const pageids = titles.value.map(title => title.pageid);
-  getFileDetails(pageids, 'categories|imageinfo', 'url|extmetadata|size').then(details => {
-    for (const title of titles.value) {
-      Object.assign(title, details[title.pageid]);
-    }
-  });
   globalusage(pageids).then(usages => {
     for (const title of titles.value) {
       title.globalUsage = usages[title.pageid];
