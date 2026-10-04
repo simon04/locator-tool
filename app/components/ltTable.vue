@@ -289,7 +289,7 @@ useAppTitle(routeTitlePart(), t('Table'));
 onMounted(async () => {
   await execute();
   const pageids = titles.value.map(title => title.pageid);
-  getFileDetails(pageids, 'categories|imageinfo', 'extmetadata').then(details => {
+  getFileDetails(pageids, 'categories|imageinfo', 'extmetadata|size').then(details => {
     for (const title of titles.value) {
       Object.assign(title, details[title.pageid]);
     }

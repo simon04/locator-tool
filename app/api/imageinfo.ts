@@ -13,6 +13,8 @@ export interface FileDetails {
   author?: string;
   timestamp?: string;
   url?: string;
+  width?: number;
+  height?: number;
   coordinates?: LatLng;
   objectLocation?: LatLng;
   globalUsage?: GlobalUsage[];
@@ -37,6 +39,8 @@ interface ImageInfo {
   url: string;
   descriptionurl: string;
   descriptionshorturl: string;
+  width: number;
+  height: number;
   extmetadata: ExtMetadata;
 }
 
@@ -69,7 +73,7 @@ export interface MainSlot {
 export async function getFileDetails(
   pageids: number[],
   prop = 'categories|imageinfo|revisions|wbentityusage',
-  iiprop = 'url|extmetadata'
+  iiprop = 'url|extmetadata|size'
 ): Promise<Record<number, FileDetails>> {
   // the API accepts 50 pageids per request
   if (pageids.length > 50) {
@@ -98,13 +102,16 @@ export async function getFileDetails(
     const categories = (page?.categories || []).map(category =>
       removeCommonsPrefix(category.title, 'Category:')
     );
-    const extmetadata = page?.imageinfo?.[0]?.extmetadata;
+    const imageinfo = page?.imageinfo?.[0];
+    const extmetadata = imageinfo?.extmetadata;
     return {
       categories,
       description: extmetadata?.ImageDescription?.value,
       author: extmetadata?.Artist?.value,
       timestamp: extmetadata?.DateTimeOriginal?.value,
-      ...(iiprop.includes('url') ? {url: page?.imageinfo?.[0]?.descriptionurl} : {}),
+      ...(iiprop.includes('url') ? {url: imageinfo?.descriptionurl} : {}),
+      // reserves the layout space of lazy-loaded thumbnails
+      ...(iiprop.includes('size') ? {width: imageinfo?.width, height: imageinfo?.height} : {}),
       // without `revisions`, the object location is empty and would overwrite the one
       // obtained from getCoordinates
       ...(prop.includes('revisions') ? {objectLocation: extractObjectLocation(page)} : {}),

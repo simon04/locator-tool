@@ -6,7 +6,9 @@
     :src="thumbnailUrl"
     :lazy-srcset="thumbnailUrls"
     :sizes="sizes"
-    style="max-height: 100%; cursor: zoom-in; width: 100%"
+    :width="file.width"
+    :height="file.height"
+    style="max-height: 100%; cursor: zoom-in; width: 100%; height: auto"
     @click="modalDialogFile = file"
     @load="setLazyImg($event)"
   />
