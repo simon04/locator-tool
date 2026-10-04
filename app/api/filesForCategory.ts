@@ -8,10 +8,7 @@ import {toSearchParams} from './toSearchParams';
 export async function getFilesForCategory(cat: string, depth = 3): Promise<CommonsTitle[]> {
   cat = removeCommonsPrefix(cat, 'Category:');
   const abort = new AbortController();
-  const requests = [
-    getFilesForCategory2(cat, depth, abort.signal),
-    getFilesForCategory3(cat, depth, abort.signal)
-  ];
+  const requests = [getFilesForCategory2(cat, depth, abort.signal)];
   if (depth <= 0) {
     requests.unshift(getFilesForCategory0(cat, abort.signal));
   }
@@ -59,24 +56,4 @@ export async function getFilesForCategory2(
   const url = '/catscan?' + toSearchParams(params);
   const data = await fetchJSON<{pages: CommonsTitle[]}>(url, {signal});
   return data.pages.map(f => `File:${f}`);
-}
-
-export async function getFilesForCategory3(
-  categories: string,
-  depth: number,
-  signal?: AbortSignal
-): Promise<CommonsTitle[]> {
-  const params = {
-    language: 'commons',
-    project: 'wikimedia',
-    depth,
-    categories,
-    [`ns[${NS_FILE}]`]: 1,
-    format: 'json',
-    sparse: 1,
-    doit: 1
-  };
-  const url = 'https://petscan.wmcloud.org/?' + toSearchParams(params);
-  const data = await fetchJSON<any>(url, {signal});
-  return data['*'][0]['a']['*'] as CommonsTitle[];
 }
