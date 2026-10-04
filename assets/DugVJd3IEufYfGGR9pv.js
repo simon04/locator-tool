@@ -1,0 +1,2 @@
+import{E as e,V as t,k as n}from"./BXV9C6QsuH58aYT62du.js";import{t as r}from"./Cg2680sf1DhlyuL_HEj.js";var i={},a={class:`progress`};function o(r,i){return t(),n(`div`,a,[...i[0]||=[e(`div`,{class:`progress-bar progress-bar-info progress-bar-striped active`,style:{width:`100%`}},null,-1)]])}var s=r(i,[[`render`,o]]);export{s as t};
+//# sourceMappingURL=DugVJd3IEufYfGGR9pv.js.map
