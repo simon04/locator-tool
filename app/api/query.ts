@@ -14,22 +14,23 @@ export async function $query<T extends ApiResponse<any>>(
   signal?: AbortSignal,
   shouldContinue = (data: T) => !!data.continue
 ): Promise<T> {
-  const url = query instanceof URL ? query.toString() : buildQuery(query);
-  let data = await fetchJSON<T>(url, {
-    signal
-  });
-  data = mergeWith(previousResults, data, (x, y) => {
-    if (Array.isArray(x) && Array.isArray(y)) {
-      return [].concat(...x, ...y);
+  let result = previousResults as T;
+  let continueParams: Record<string, string> | undefined;
+  do {
+    // each request consists of the original query and the continue parameters of the previous
+    // response only, see https://www.mediawiki.org/wiki/API:Continue
+    const url = new URL(query instanceof URL ? query : buildQuery(query));
+    for (const [key, value] of Object.entries(continueParams ?? {})) {
+      url.searchParams.set(key, value);
     }
-  }) as T;
-  if (shouldContinue(data)) {
-    return $query<T>(
-      {...query, continue: undefined, ...data.continue},
-      {...data, continue: undefined},
-      signal,
-      shouldContinue
-    );
-  }
-  return data;
+    const data = await fetchJSON<T>(url.toString(), {signal});
+    result = mergeWith(result, data, (x, y) => {
+      if (Array.isArray(x) && Array.isArray(y)) {
+        return [].concat(...x, ...y);
+      }
+    }) as T;
+    // mergeWith keeps the continue parameters of a previous response
+    result.continue = continueParams = data.continue;
+  } while (shouldContinue(result));
+  return result;
 }
