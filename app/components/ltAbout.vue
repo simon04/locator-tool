@@ -59,7 +59,7 @@
     <li>
       <ul class="list-inline">
         <li class="list-inline-item">
-          <span>{{ t('Open Source Licenses:') }}</span>
+          <a href="assets/licenses.txt">{{ t('Open Source Licenses:') }}</a>
         </li>
         <li v-for="dependency in appDependencies" :key="dependency.name" class="list-inline-item">
           <a :href="dependency.homepage" target="_blank" rel="external noopener noreferrer">{{
