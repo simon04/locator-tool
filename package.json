@@ -30,7 +30,7 @@
     "pot": "angular-gettext-cli --files {,./app/**/}*.{js,html} --dest po/locator-tool.pot --no-line-numbers"
   },
   "dependencies": {
-    "@vueuse/core": "14.3.0",
+    "@vueuse/core": "15.0.0",
     "bootstrap": "5.3.8",
     "bootstrap-icons": "1.13.1",
     "es-toolkit": "1.45.1",
