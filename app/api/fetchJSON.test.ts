@@ -38,12 +38,7 @@ describe('fetchJSON', () => {
     expect(await fetchJSON(url())).toEqual({foo: 'bar'});
     expect(fetch).toHaveBeenCalledWith(url(), {
       cache: 'no-cache',
-      headers: {
-        Accept: 'application/json',
-        'Api-User-Agent': expect.stringMatching(
-          /^locator-tool\/.* \(https:\/\/locator-tool.toolforge.org\/; https:\/\/github.com\/simon04\/locator-tool\)$/
-        )
-      }
+      headers: {Accept: 'application/json'}
     });
   });
 

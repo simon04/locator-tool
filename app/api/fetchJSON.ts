@@ -40,10 +40,9 @@ export async function fetchJSON<T>(url: string, options?: RequestInit): Promise<
     for (let attempt = 0; ; attempt++) {
       const res = await fetch(url, {
         cache: 'no-cache',
-        headers: {
-          Accept: 'application/json',
-          'Api-User-Agent': `locator-tool/${import.meta.env.VITE_BUILD_VERSION} (https://locator-tool.toolforge.org/; https://github.com/simon04/locator-tool)`
-        },
+        // no custom headers such as Api-User-Agent: they turn every request into a CORS
+        // preflighted one, i.e. into an additional OPTIONS request per URL
+        headers: {Accept: 'application/json'},
         ...options
       });
       if (res.ok) {
