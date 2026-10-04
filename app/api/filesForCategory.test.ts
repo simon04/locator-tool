@@ -5,22 +5,19 @@ import {getFilesForCategory} from './filesForCategory';
 
 vi.mock('./fetchJSON', () => ({fetchJSON: vi.fn()}));
 
-type Service = 'api' | 'cats-php' | 'catscan' | 'petscan';
+type Service = 'api' | 'catscan' | 'petscan';
 
 function service(url: string): Service {
   return url.startsWith('https://commons.wikimedia.org/w/api.php')
     ? 'api'
-    : url.startsWith('https://cats-php.toolforge.org/')
-      ? 'cats-php'
-      : url.startsWith('/catscan?')
-        ? 'catscan'
-        : 'petscan';
+    : url.startsWith('/catscan?')
+      ? 'catscan'
+      : 'petscan';
 }
 
 // the responses of the services, each with the titles A.jpg and B.jpg
 const responses: Record<Service, unknown> = {
   api: {query: {categorymembers: [{title: 'File:A.jpg'}, {title: 'File:B.jpg'}]}},
-  'cats-php': ['A.jpg', 'B.jpg'],
   catscan: {pages: ['A.jpg', 'B.jpg']},
   petscan: {'*': [{a: {'*': ['File:A.jpg', 'File:B.jpg']}}]}
 };
@@ -51,26 +48,21 @@ afterEach(() => {
 });
 
 describe('getFilesForCategory', () => {
-  it('queries cats-php, catscan and petscan', async () => {
-    mockServices({'cats-php': 'resolve'});
+  it('queries catscan and petscan', async () => {
+    mockServices({catscan: 'resolve'});
     await getFilesForCategory('Category:Foo bar', 2);
-    const [catsPhp, catscan, petscan] = requestedUrls();
-    expect(catsPhp.searchParams.get('cat')).toBe('Foo bar');
-    expect(catsPhp.searchParams.get('depth')).toBe('2');
+    const [catscan, petscan] = requestedUrls();
     expect(catscan.searchParams.get('category')).toBe('Foo bar');
     expect(catscan.searchParams.get('depth')).toBe('2');
     expect(petscan.searchParams.get('categories')).toBe('Foo bar');
     expect(petscan.searchParams.get('depth')).toBe('2');
-    expect(requestedUrls()).toHaveLength(3);
+    expect(requestedUrls()).toHaveLength(2);
   });
 
-  it.each(['cats-php', 'catscan', 'petscan'] as const)(
-    'resolves the files of %s',
-    async answering => {
-      mockServices({[answering]: 'resolve'});
-      expect(await getFilesForCategory('Foo', 3)).toEqual(['File:A.jpg', 'File:B.jpg']);
-    }
-  );
+  it.each(['catscan', 'petscan'] as const)('resolves the files of %s', async answering => {
+    mockServices({[answering]: 'resolve'});
+    expect(await getFilesForCategory('Foo', 3)).toEqual(['File:A.jpg', 'File:B.jpg']);
+  });
 
   it('additionally queries the category members of the API without subcategories', async () => {
     mockServices({api: 'resolve'});
@@ -83,26 +75,25 @@ describe('getFilesForCategory', () => {
 
   it('falls back to another service when one fails', async () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
-    mockServices({'cats-php': 'reject', petscan: 'resolve'});
+    mockServices({catscan: 'reject', petscan: 'resolve'});
     expect(await getFilesForCategory('Foo', 3)).toEqual(['File:A.jpg', 'File:B.jpg']);
     expect(console.warn).toHaveBeenCalledWith(
       'Error fetching category',
       'Foo',
-      new Error('cats-php failed')
+      new Error('catscan failed')
     );
   });
 
   it('aborts the other services once one resolves', async () => {
     const signals = mockServices({catscan: 'resolve'});
     await getFilesForCategory('Foo', 3);
-    expect(signals['cats-php']?.aborted).toBe(true);
     expect(signals.petscan?.aborted).toBe(true);
   });
 
   // Promise.allSettled never rejects, hence the promise remains pending forever
   it.fails('rejects when all services fail', async () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
-    mockServices({'cats-php': 'reject', catscan: 'reject', petscan: 'reject'});
+    mockServices({catscan: 'reject', petscan: 'reject'});
     await expect(getFilesForCategory('Foo', 3)).rejects.toThrow();
   }, 200);
 });

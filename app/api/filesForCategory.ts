@@ -9,7 +9,6 @@ export async function getFilesForCategory(cat: string, depth = 3): Promise<Commo
   cat = removeCommonsPrefix(cat, 'Category:');
   const abort = new AbortController();
   const requests = [
-    getFilesForCategory1(cat, depth, abort.signal),
     getFilesForCategory2(cat, depth, abort.signal),
     getFilesForCategory3(cat, depth, abort.signal)
   ];
@@ -45,23 +44,6 @@ export async function getFilesForCategory0(
   };
   const data = await $query<ApiResponse<Page>>(params, {}, signal);
   return (data.query.categorymembers || []).map(cm => cm.title);
-}
-
-export async function getFilesForCategory1(
-  cat: string,
-  depth: number,
-  signal?: AbortSignal
-): Promise<CommonsTitle[]> {
-  const params = {
-    lang: 'commons',
-    cat: removeCommonsPrefix(cat, 'Category:'),
-    type: NS_FILE,
-    depth,
-    json: 1
-  };
-  const url = 'https://cats-php.toolforge.org/?' + toSearchParams(params);
-  const data = await fetchJSON<CommonsTitle[]>(url, {signal});
-  return data.map(f => `File:${f}`);
 }
 
 export async function getFilesForCategory2(
