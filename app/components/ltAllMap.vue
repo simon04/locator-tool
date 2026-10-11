@@ -117,23 +117,23 @@ function buildPopup(title: CommonsFile): maplibregl.Popup {
   cursor: pointer;
 }
 :deep(.maplibregl-popup-content) {
-  background-color: var(--bs-body-bg);
+  background-color: var(--bs-bg-body);
   padding: 0.5rem;
 }
 :deep(.maplibregl-popup-anchor-top .maplibregl-popup-tip),
 :deep(.maplibregl-popup-anchor-top-left .maplibregl-popup-tip),
 :deep(.maplibregl-popup-anchor-top-right .maplibregl-popup-tip) {
-  border-bottom-color: var(--bs-body-bg);
+  border-bottom-color: var(--bs-bg-body);
 }
 :deep(.maplibregl-popup-anchor-bottom .maplibregl-popup-tip),
 :deep(.maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip),
 :deep(.maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip) {
-  border-top-color: var(--bs-body-bg);
+  border-top-color: var(--bs-bg-body);
 }
 :deep(.maplibregl-popup-anchor-left .maplibregl-popup-tip) {
-  border-right-color: var(--bs-body-bg);
+  border-right-color: var(--bs-bg-body);
 }
 :deep(.maplibregl-popup-anchor-right .maplibregl-popup-tip) {
-  border-left-color: var(--bs-body-bg);
+  border-left-color: var(--bs-bg-body);
 }
 </style>

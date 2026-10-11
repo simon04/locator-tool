@@ -17,10 +17,6 @@ import ltNavbar from './components/ltNavbar.vue';
   content: '}}';
 }
 
-label {
-  font-weight: bold;
-}
-
 .lt-layers .lt-layers-toggle {
   display: flex;
   align-items: center;
@@ -55,7 +51,6 @@ label {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  font-weight: normal;
   margin: 0;
 }
 .lt-layers .lt-layers-list svg {

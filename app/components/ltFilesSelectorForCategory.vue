@@ -1,8 +1,8 @@
 <template>
   <form @submit.stop.prevent="next()">
     <div class="row">
-      <div class="mb-4 col-lg-10">
-        <label for="inputCategory">{{ t('Category') }}</label>
+      <div class="form-field mb-7 lg:col-10">
+        <label for="inputCategory" class="form-label">{{ t('Category') }}</label>
         <input
           id="inputCategory"
           v-model="category"
@@ -11,9 +11,10 @@
           placeholder="Category:…"
         />
       </div>
-      <div class="mb-4 col-lg-2">
+      <div class="form-field mb-7 lg:col-2">
         <label
           for="inputCategoryDepth"
+          class="form-label"
           translate-comment="Depth of category tree"
           translate-context="Category"
         >
@@ -22,24 +23,20 @@
         <input id="inputCategoryDepth" v-model="categoryDepth" class="form-control" type="number" />
       </div>
     </div>
-    <div class="mb-4">
-      <button class="btn btn-success icon-link me-2" :disabled="!category" @click="next()">
+    <div class="mb-7">
+      <button class="btn-solid theme-success me-3" :disabled="!category" @click="next()">
         <GeoAlt />
         <span>{{ t('Load Category to geolocate') }}</span>
       </button>
-      <button class="btn btn-secondary icon-link me-2" :disabled="!category" @click="next('map')">
+      <button class="btn-solid theme-secondary me-3" :disabled="!category" @click="next('map')">
         <GlobeEuropeAfrica />
         <span>{{ t('Show Category on map') }}</span>
       </button>
-      <button
-        class="btn btn-secondary icon-link me-2"
-        :disabled="!category"
-        @click="next('gallery')"
-      >
+      <button class="btn-solid theme-secondary me-3" :disabled="!category" @click="next('gallery')">
         <FileImage />
         <span>{{ t('Show Category as gallery') }}</span>
       </button>
-      <button class="btn btn-secondary icon-link me-2" :disabled="!category" @click="next('table')">
+      <button class="btn-solid theme-secondary me-3" :disabled="!category" @click="next('table')">
         <TableIcon />
         <span>{{ t('Show Category as table') }}</span>
       </button>

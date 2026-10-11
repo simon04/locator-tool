@@ -1,57 +1,55 @@
 <template>
-  <div v-if="isLoading" class="mt-3 row">
-    <div class="col-sm-12">
-      <div class="jumbotron">
-        <p>{{ t('Loading file details …') }}</p>
-        <lt-spinner />
-      </div>
+  <div v-if="isLoading" class="mt-5 row">
+    <div class="sm:col-12">
+      <p>{{ t('Loading file details …') }}</p>
+      <lt-spinner />
     </div>
   </div>
 
-  <div v-else-if="!isReady" class="row mt-3">
-    <div class="col-sm-12">
-      <div class="alert alert-warning">
+  <div v-else-if="!isReady" class="row mt-5">
+    <div class="sm:col-12">
+      <div class="alert theme-warning">
         <ExclamationTriangleFill class="me-1" />
         {{ error }}
       </div>
     </div>
   </div>
 
-  <div v-else class="mt-3 row">
-    <div class="col-sm-12">
-      <label class="me-3">{{ t('Sorting') }}:</label>
-      <div v-for="column in sortColumns" :key="column.key" class="form-check form-check-inline">
-        <label class="form-check-label">
-          <span class="icon-link">
-            <component :is="column.icon" v-if="column.icon" />
-            {{ column.label }}
-          </span>
-          <input
-            v-model="sortColumn"
-            class="form-check-input"
-            type="radio"
-            name="sortColumn"
-            :value="column.key"
-          />
+  <div v-else class="mt-5 row">
+    <div class="sm:col-12 d-flex flex-wrap align-items-center gap-5">
+      <label>{{ t('Sorting') }}:</label>
+      <div v-for="column in sortColumns" :key="column.key" class="form-field">
+        <input
+          :id="`sortColumn-${column.key}`"
+          v-model="sortColumn"
+          class="radio"
+          type="radio"
+          name="sortColumn"
+          :value="column.key"
+        />
+        <label :for="`sortColumn-${column.key}`" class="icon-link">
+          <component :is="column.icon" v-if="column.icon" />
+          {{ column.label }}
         </label>
       </div>
-      <div class="form-check form-check-inline">
-        <label class="form-check-label">
+      <div class="form-field">
+        <input
+          id="sortDirection"
+          v-model="sortDirection"
+          class="check"
+          type="checkbox"
+          :true-value="-1"
+          :false-value="1"
+        />
+        <label for="sortDirection">
           <SortUp />
           <span class="visually-hidden">{{ t('Inverse sorting') }}</span>
-          <input
-            v-model="sortDirection"
-            class="form-check-input"
-            type="checkbox"
-            :true-value="-1"
-            :false-value="1"
-          />
         </label>
       </div>
     </div>
   </div>
 
-  <div class="mt-3 row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+  <div class="mt-5 row row-cols-1 md:row-cols-2 lg:row-cols-3 xl:row-cols-4 g-7">
     <div v-for="title in sortedTitles" :key="title.file" class="col">
       <lt-gallery-card :title="title" />
     </div>

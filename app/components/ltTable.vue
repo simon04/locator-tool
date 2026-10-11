@@ -1,51 +1,42 @@
 <template>
-  <div v-if="isLoading" class="mt-3 row">
-    <div class="col-sm-12">
-      <div class="jumbotron">
-        <p>{{ t('Loading file details …') }}</p>
-        <lt-spinner />
-      </div>
+  <div v-if="isLoading" class="mt-5 row">
+    <div class="sm:col-12">
+      <p>{{ t('Loading file details …') }}</p>
+      <lt-spinner />
     </div>
   </div>
 
-  <div v-else-if="!isReady" class="row mt-3">
-    <div class="col-sm-12">
-      <div class="alert alert-warning">
+  <div v-else-if="!isReady" class="row mt-5">
+    <div class="sm:col-12">
+      <div class="alert theme-warning">
         <ExclamationTriangleFill class="me-1" />
         {{ error }}
       </div>
     </div>
   </div>
 
-  <div v-else class="mt-3">
-    <div ref="columnsElement" class="dropdown mb-2 text-end">
+  <div v-else class="mt-5">
+    <div ref="columnsElement" class="position-relative mb-3 text-end">
       <button
-        class="btn btn-sm btn-outline-secondary dropdown-toggle"
+        class="btn-outline btn-sm theme-secondary"
         type="button"
         :aria-expanded="columnsOpen"
         @click="columnsOpen = !columnsOpen"
       >
         {{ t('Columns') }}
+        <CaretDownFill />
       </button>
-      <!-- bootstrap.css places the menu below the toggle for popper-positioned menus only,
-           and bootstrap.js (which would set the attribute) is not loaded -->
-      <ul
-        class="dropdown-menu dropdown-menu-end"
+      <!-- bootstrap.js (whose Floating UI would position the menu) is not loaded -->
+      <div
+        class="menu top-100 end-0 mt-1"
         :class="{show: columnsOpen}"
-        data-bs-popper="static"
+        data-bs-placement="bottom-end"
       >
-        <li v-for="column in columns" :key="column.key">
-          <label class="dropdown-item">
-            <input
-              v-model="visibleColumns"
-              class="form-check-input me-2"
-              type="checkbox"
-              :value="column.key"
-            />
-            {{ column.label }}
-          </label>
-        </li>
-      </ul>
+        <label v-for="column in columns" :key="column.key" class="menu-item">
+          <input v-model="visibleColumns" class="check" type="checkbox" :value="column.key" />
+          {{ column.label }}
+        </label>
+      </div>
     </div>
 
     <div class="table-responsive">
@@ -56,7 +47,8 @@
               <button
                 v-if="isSortable(column.key)"
                 type="button"
-                class="btn btn-link icon-link p-0 fw-bold text-body text-decoration-none"
+                class="btn-link p-0 fw-bold fg-body text-decoration-none"
+                style="--bs-btn-min-height: 0; --bs-btn-border-width: 0"
                 @click="sortBy(column.key)"
               >
                 <component :is="column.icon" v-if="column.icon" />
@@ -107,7 +99,7 @@
                 :href="`https://commons.wikimedia.org/wiki/Category:${category}`"
                 target="_blank"
               >
-                <span class="badge bg-secondary me-1">{{ category }}</span>
+                <span class="badge theme-secondary me-1">{{ category }}</span>
               </a>
             </td>
             <td v-if="isVisible('coordinates')" class="small text-nowrap">
@@ -145,6 +137,7 @@ import {onClickOutside, useAsyncState, useLocalStorage, useSorted} from '@vueuse
 import BoxArrowUpRight from 'bootstrap-icons/icons/box-arrow-up-right.svg?component';
 import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
 import CameraFill from 'bootstrap-icons/icons/camera-fill.svg?component';
+import CaretDownFill from 'bootstrap-icons/icons/caret-down-fill.svg?component';
 import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
@@ -227,7 +220,7 @@ const columns = computed(() => [
   }))
 ]);
 // structured data uses far too many properties to show them all: exposure time, ISO speed
-// and f-number are displayed by default, the remaining ones are offered by the dropdown
+// and f-number are displayed by default, the remaining ones are offered by the menu
 const visibleColumns = useLocalStorage<string[]>('tableColumns', [
   ...baseColumns.map(column => column.key),
   EXPOSURE_TIME,

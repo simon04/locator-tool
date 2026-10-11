@@ -1,19 +1,17 @@
 <template>
   <button
-    class="btn btn-success form-control"
+    class="btn-solid theme-success w-100"
     type="button"
     :disabled="!(coordinates?.isChanged || objectLocation?.isChanged)"
     @click="editLocation()"
   >
-    <span class="icon-link">
-      <Save />
-      {{ t('Save') }}
-      <kbd v-if="isMacOS">⌘ + S</kbd>
-      <kbd v-else>Ctrl + S</kbd>
-    </span>
+    <Save />
+    {{ t('Save') }}
+    <kbd v-if="isMacOS">⌘ + S</kbd>
+    <kbd v-else>Ctrl + S</kbd>
   </button>
-  <div class="card mt-2">
-    <div class="card-body p-2">
+  <div class="card mt-3">
+    <div class="card-body p-3">
       <div>
         <label class="icon-link" @click="collapseCameraLocation = !collapseCameraLocation">
           <CaretRight v-if="collapseCameraLocation" />
@@ -34,8 +32,8 @@
     </div>
   </div>
 
-  <div class="card mt-2">
-    <div class="card-body p-2">
+  <div class="card mt-3">
+    <div class="card-body p-3">
       <div>
         <label class="icon-link" @click="collapseObjectLocation = !collapseObjectLocation">
           <CaretRight v-if="collapseObjectLocation" />
@@ -59,13 +57,13 @@
     </div>
   </div>
 
-  <div v-if="error" class="alert alert-danger mt-2">
+  <div v-if="error" class="alert theme-danger mt-3">
     <ExclamationTriangleFill class="me-1" />
     <span>{{ msgErrorStatusText }}</span>
   </div>
 
-  <div class="card mt-2">
-    <h5 class="card-header p-2">
+  <div class="card mt-3">
+    <h5 class="card-header d-block p-3">
       <strong>{{ file.file }}</strong>
       {{ ' ' }}
       <small v-if="file.url">
@@ -74,7 +72,7 @@
         </a>
       </small>
     </h5>
-    <div class="card-body p-2">
+    <div class="card-body p-3 gap-1">
       <lt-file-metadata :file="file" />
     </div>
   </div>

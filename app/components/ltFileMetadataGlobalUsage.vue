@@ -6,7 +6,7 @@
     target="_blank"
     :title="globalUsage.tooltip"
   >
-    <span class="badge" :class="globalUsage.count ? 'bg-danger' : 'bg-secondary'">
+    <span class="badge" :class="globalUsage.count ? 'theme-danger' : 'theme-secondary'">
       {{ globalUsage.count }}
     </span>
   </a>

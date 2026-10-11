@@ -1,17 +1,17 @@
 <template>
-  <h2 v-if="!userInfo?.user" class="mt-4">{{ t('Sign in') }}</h2>
+  <h2 v-if="!userInfo?.user" class="mt-7">{{ t('Sign in') }}</h2>
   <p v-if="!userInfo?.user">
     <span>
       {{ t('In order to allow locator-tool to modify file description pages, sign in first:') }}
     </span>
-    <a class="btn btn-success icon-link ms-2" :href="loginURL()">
+    <a class="btn-solid theme-success ms-3" :href="loginURL()">
       <DoorOpen />
       <span>{{ t('Log in') }}</span>
     </a>
   </p>
-  <p v-if="userInfo?.user" class="mt-4">{{ msgLoggedIn }}</p>
+  <p v-if="userInfo?.user" class="mt-7">{{ msgLoggedIn }}</p>
   <h2>{{ t('Select files to geolocate') }}</h2>
-  <ul class="nav nav-pills my-3">
+  <ul class="nav nav-pills my-5">
     <li class="nav-item">
       <button
         class="nav-link"
