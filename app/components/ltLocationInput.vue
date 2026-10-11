@@ -12,7 +12,7 @@
       "
     />
     <button
-      class="btn btn-outline-secondary"
+      class="btn-outline btn-icon theme-secondary"
       type="button"
       :title="t('Discard')"
       @click="rollback()"
@@ -20,7 +20,7 @@
       <XSquare />
     </button>
     <button
-      class="btn btn-outline-success"
+      class="btn-outline btn-icon theme-success"
       type="button"
       :title="t('Save')"
       :disabled="!modelValue?.isChanged"

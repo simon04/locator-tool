@@ -1,5 +1,5 @@
 <template>
-  <h2 class="mt-4 icon-link">
+  <h2 class="mt-7 icon-link">
     <GeoAlt />
     <span>{{ t('locator-tool') }}</span>
   </h2>
@@ -57,7 +57,8 @@
       </a>
     </li>
     <li>
-      <ul class="list-inline">
+      <!-- bootstrap 6.0.0-alpha.1 falls back to the invalid `var(--bs-spacer)/2` (lacking calc) -->
+      <ul class="list-inline" style="--bs-list-inline-padding: var(--bs-spacer-3)">
         <li class="list-inline-item">
           <a href="assets/licenses.txt">{{ t('Open Source Licenses:') }}</a>
         </li>

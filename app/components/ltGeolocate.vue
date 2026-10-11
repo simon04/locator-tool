@@ -1,16 +1,14 @@
 <template>
-  <div v-if="isLoading" class="row mt-3">
-    <div class="col-sm-12">
-      <div class="jumbotron">
-        <p>{{ t('Loading file details …') }}</p>
-        <lt-spinner />
-      </div>
+  <div v-if="isLoading" class="row mt-5">
+    <div class="sm:col-12">
+      <p>{{ t('Loading file details …') }}</p>
+      <lt-spinner />
     </div>
   </div>
 
-  <div v-else-if="!isReady" class="row mt-3">
-    <div class="col-sm-12">
-      <div class="alert alert-warning">
+  <div v-else-if="!isReady" class="row mt-5">
+    <div class="sm:col-12">
+      <div class="alert theme-warning">
         <ExclamationTriangleFill class="me-1" />
         <span v-if="category" v-html="msgNoFilesForCategory"></span>
         <span v-if="user" v-html="msgNoFilesForUser"></span>
@@ -19,27 +17,26 @@
     </div>
   </div>
 
-  <div v-else class="row flex-grow-1 mt-3" style="--bs-gutter-x: 0.5rem">
+  <div v-else class="row gx-3 flex-grow-1 mt-5">
     <div
-      class="col-lg-3 col-xl-2 mt-3 mt-lg-0 h-100 col-lg-h40"
+      class="lg:col-3 xl:col-2 mt-5 lg:mt-0 h-100 lt-h40"
       style="overflow-y: scroll; overflow-x: hidden"
     >
-      <div class="progress">
-        <div
-          class="progress-bar"
-          role="progressbar"
-          :style="{width: titlesDefinedAndSavedPercent + '%'}"
-        >
+      <div
+        class="progress"
+        role="progressbar"
+        :aria-label="t('Geolocated files')"
+        :aria-valuenow="titlesDefinedAndSaved.length"
+        aria-valuemin="0"
+        :aria-valuemax="$titles?.length"
+      >
+        <div class="progress-bar" :style="{width: titlesDefinedAndSavedPercent + '%'}">
           {{ titlesDefinedAndSaved.length }} / {{ $titles?.length }}
         </div>
       </div>
-      <div class="form-group">
-        <div class="checkbox">
-          <label>
-            <input v-model="$showGeolocated" type="checkbox" />
-            <span>{{ t('Also show geolocated files') }}</span>
-          </label>
-        </div>
+      <div class="form-field my-3">
+        <input id="showGeolocated" v-model="$showGeolocated" class="check" type="checkbox" />
+        <label for="showGeolocated">{{ t('Also show geolocated files') }}</label>
       </div>
       <div class="input-group">
         <div class="input-group-text">
@@ -52,8 +49,8 @@
           <li
             v-for="title in filteredTitles"
             :key="title.file"
-            class="list-group-item py-1 px-2 text-truncate"
-            :class="{'list-group-item-info': $title === title}"
+            class="list-group-item py-1 px-3 text-truncate"
+            :class="{'theme-info': $title === title}"
             role="button"
             @click="$title = title"
           >
@@ -73,24 +70,24 @@
 
     <div
       v-if="$title"
-      class="col-lg-9 col-xl-3 mt-3 mt-lg-0 h-100 col-lg-h40"
+      class="lg:col-9 xl:col-3 mt-5 lg:mt-0 h-100 lt-h40"
       style="overflow-y: scroll; overflow-x: hidden"
     >
       <div class="row">
-        <div class="col-lg-5 col-xl-12">
+        <div class="lg:col-5 xl:col-12">
           <lt-file-details
             v-model:coordinates="$title.coordinates"
             v-model:object-location="$title.objectLocation"
             :file="$title"
           />
         </div>
-        <div class="col-lg-7 col-xl-12 mt-2">
+        <div class="lg:col-7 xl:col-12 mt-3">
           <lt-file-thumbnail :file="$title" />
         </div>
       </div>
     </div>
 
-    <div v-if="$title" class="col-lg-12 col-xl-7 mt-3 mt-lg-0 h-100 col-lg-h60">
+    <div v-if="$title" class="lg:col-12 xl:col-7 mt-5 lg:mt-0 h-100 lt-h60">
       <lt-map
         v-model:coordinates="$title.coordinates"
         v-model:object-location="$title.objectLocation"
@@ -245,11 +242,11 @@ const msgNoFilesForUser = computed(() =>
 </script>
 
 <style scoped>
-@media (min-width: 768px) and (max-width: 1199px) {
-  .col-lg-h40 {
+@media (768px <= width < 1280px) {
+  .lt-h40 {
     height: 40%;
   }
-  .col-lg-h60 {
+  .lt-h60 {
     height: 60%;
   }
 }

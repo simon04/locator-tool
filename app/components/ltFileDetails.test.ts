@@ -83,7 +83,7 @@ describe('ltFileDetails', () => {
     expect(models.coordinates).toMatchObject({lat: 47.1, lng: 11.2, isChanged: false});
     await nextTick();
     expect(saveButton.attributes('disabled')).toBeDefined();
-    expect(wrapper.find('.alert-danger').exists()).toBe(false);
+    expect(wrapper.find('.alert.theme-danger').exists()).toBe(false);
   });
 
   it('saves the changed locations on Ctrl+S', async () => {
@@ -122,8 +122,8 @@ describe('ltFileDetails', () => {
       new LatLng('Location', 47.1, 11.2).withLatLng(48.5, 12.5)
     );
     await saveButton.trigger('click');
-    await vi.waitFor(() => expect(wrapper.find('.alert-danger').exists()).toBe(true));
-    expect(wrapper.find('.alert-danger').text()).toContain(
+    await vi.waitFor(() => expect(wrapper.find('.alert.theme-danger').exists()).toBe(true));
+    expect(wrapper.find('.alert.theme-danger').text()).toContain(
       '200 {"error":{"code":"protectedpage"}}'
     );
     expect(clearCache).not.toHaveBeenCalled();
@@ -136,8 +136,8 @@ describe('ltFileDetails', () => {
       new LatLng('Location', 47.1, 11.2).withLatLng(48.5, 12.5)
     );
     await saveButton.trigger('click');
-    await vi.waitFor(() => expect(wrapper.find('.alert-danger').exists()).toBe(true));
-    expect(wrapper.find('.alert-danger').text()).toContain('403 "Forbidden"');
+    await vi.waitFor(() => expect(wrapper.find('.alert.theme-danger').exists()).toBe(true));
+    expect(wrapper.find('.alert.theme-danger').text()).toContain('403 "Forbidden"');
   });
 
   it('reports an exception', async () => {
@@ -146,7 +146,7 @@ describe('ltFileDetails', () => {
       new LatLng('Location', 47.1, 11.2).withLatLng(48.5, 12.5)
     );
     await saveButton.trigger('click');
-    await vi.waitFor(() => expect(wrapper.find('.alert-danger').exists()).toBe(true));
-    expect(wrapper.find('.alert-danger').text()).toContain('"Network error"');
+    await vi.waitFor(() => expect(wrapper.find('.alert.theme-danger').exists()).toBe(true));
+    expect(wrapper.find('.alert.theme-danger').text()).toContain('"Network error"');
   });
 });

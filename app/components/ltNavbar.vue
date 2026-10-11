@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="navbar navbar-expand-md bg-body-tertiary shadow border-bottom border-3"
+    class="navbar md:navbar-expand bg-1 shadow border-bottom border-3"
     style="--bs-border-color: #2a4b8d"
   >
     <div class="container-fluid">
@@ -73,7 +73,7 @@
           <lt-dark-mode-toggle />
         </li>
       </ul>
-      <div class="ms-2"><lt-language-selector /></div>
+      <div class="ms-3"><lt-language-selector /></div>
       <lt-user-info />
     </div>
   </nav>

@@ -1,7 +1,7 @@
 <template>
   <form @submit.stop.prevent="next()">
-    <div class="mb-4">
-      <label for="inputTitles">{{ t('File list') }}</label>
+    <div class="form-field mb-7">
+      <label for="inputTitles" class="form-label">{{ t('File list') }}</label>
       <textarea
         id="inputTitles"
         v-model="titles"
@@ -10,22 +10,22 @@
         placeholder="File:…"
         @paste="onFilesPaste($event)"
       ></textarea>
-      <p
+      <div
         class="form-text"
         v-html="
           t(
             'When a clipboard content containing HTML code (for instance a copied selection from a Commons gallery) is pasted here, locator-tool tries to extract <code>File:</code>s from the code.'
           )
         "
-      ></p>
+      ></div>
     </div>
-    <div class="mb-4">
-      <button class="btn btn-success icon-link me-2" :disabled="!titleList.length" @click="next()">
+    <div class="mb-7">
+      <button class="btn-solid theme-success me-3" :disabled="!titleList.length" @click="next()">
         <GeoAlt />
         <span>{{ msgLoadGeolocate }}</span>
       </button>
       <button
-        class="btn btn-secondary icon-link me-2"
+        class="btn-solid theme-secondary me-3"
         :disabled="!titleList.length"
         @click="next('map')"
       >
@@ -33,7 +33,7 @@
         <span>{{ msgShowMap }}</span>
       </button>
       <button
-        class="btn btn-secondary icon-link me-2"
+        class="btn-solid theme-secondary me-3"
         :disabled="!titleList.length"
         @click="next('gallery')"
       >
@@ -41,7 +41,7 @@
         <span>{{ msgShowGallery }}</span>
       </button>
       <button
-        class="btn btn-secondary icon-link me-2"
+        class="btn-solid theme-secondary me-3"
         :disabled="!titleList.length"
         @click="next('table')"
       >

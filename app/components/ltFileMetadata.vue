@@ -13,17 +13,20 @@
     </span>
   </div>
   <ltFileMetadataGlobalUsage :file="file" />
-  <a
-    v-for="category in file.categories"
-    :key="category"
-    class="text-decoration-none"
-    :href="`https://commons.wikimedia.org/wiki/Category:${category}`"
-    target="_blank"
-  >
-    <span class="badge bg-secondary me-1 text-truncate" style="max-width: 100%">
-      {{ category }}
-    </span>
-  </a>
+  <!-- a single child of the flex column .card-body, so that the badges flow inline -->
+  <div v-if="file.categories?.length">
+    <a
+      v-for="category in file.categories"
+      :key="category"
+      class="text-decoration-none"
+      :href="`https://commons.wikimedia.org/wiki/Category:${category}`"
+      target="_blank"
+    >
+      <span class="badge theme-secondary me-1 text-truncate" style="max-width: 100%">
+        {{ category }}
+      </span>
+    </a>
+  </div>
 </template>
 
 <script setup lang="ts">

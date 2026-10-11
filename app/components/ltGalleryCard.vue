@@ -4,7 +4,7 @@
       <lt-file-thumbnail :file="title" />
     </div>
     <div class="card-body">
-      <h5 class="card-title">
+      <h5>
         {{ title.file }}
         {{ ' ' }}
         <a :href="title.url" target="_blank">
@@ -18,7 +18,7 @@
           <GeoAlt />
         </router-link>
       </h5>
-      <div class="card-text">
+      <div>
         <lt-file-metadata :file="title" :description="false" />
       </div>
     </div>

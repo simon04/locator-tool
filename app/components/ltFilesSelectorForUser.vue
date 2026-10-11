@@ -1,7 +1,7 @@
 <template>
   <form @submit.stop.prevent="next()">
-    <div class="mb-4">
-      <label for="inputUser">{{ t('User') }}</label>
+    <div class="form-field mb-7">
+      <label for="inputUser" class="form-label">{{ t('User') }}</label>
       <input
         id="inputUser"
         v-model="user"
@@ -11,35 +11,35 @@
       />
     </div>
     <div class="row">
-      <div class="mb-4 col-sm-4">
-        <label for="inputUserLimit" translate-comment="maximum number of files">
+      <div class="form-field mb-7 sm:col-4">
+        <label for="inputUserLimit" class="form-label" translate-comment="maximum number of files">
           {{ t('Limit') }}
         </label>
         <input id="inputUserLimit" v-model="userLimit" class="form-control" type="number" />
       </div>
-      <div class="mb-4 col-sm-4">
-        <label for="inputUserStart">{{ t('Start timestamp') }}</label>
+      <div class="form-field mb-7 sm:col-4">
+        <label for="inputUserStart" class="form-label">{{ t('Start timestamp') }}</label>
         <input id="inputUserStart" v-model="userStart" class="form-control" type="date" />
       </div>
-      <div class="mb-4 col-sm-4">
-        <label for="inputUserEnd">{{ t('End timestamp') }}</label>
+      <div class="form-field mb-7 sm:col-4">
+        <label for="inputUserEnd" class="form-label">{{ t('End timestamp') }}</label>
         <input id="inputUserEnd" v-model="userEnd" class="form-control" type="date" />
       </div>
     </div>
-    <div class="mb-4">
-      <button class="btn btn-success icon-link me-2" :disabled="!user" @click="next()">
+    <div class="mb-7">
+      <button class="btn-solid theme-success me-3" :disabled="!user" @click="next()">
         <GeoAlt />
         <span>{{ t('Load User files to geolocate') }}</span>
       </button>
-      <button class="btn btn-secondary icon-link me-2" :disabled="!user" @click="next('map')">
+      <button class="btn-solid theme-secondary me-3" :disabled="!user" @click="next('map')">
         <GlobeEuropeAfrica />
         <span>{{ t('Show User files on map') }}</span>
       </button>
-      <button class="btn btn-secondary icon-link me-2" :disabled="!user" @click="next('gallery')">
+      <button class="btn-solid theme-secondary me-3" :disabled="!user" @click="next('gallery')">
         <FileImage />
         <span>{{ t('Show User files as gallery') }}</span>
       </button>
-      <button class="btn btn-secondary icon-link me-2" :disabled="!user" @click="next('table')">
+      <button class="btn-solid theme-secondary me-3" :disabled="!user" @click="next('table')">
         <TableIcon />
         <span>{{ t('Show User files as table') }}</span>
       </button>

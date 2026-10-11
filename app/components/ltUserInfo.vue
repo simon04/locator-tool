@@ -1,12 +1,12 @@
 <template>
-  <a v-if="!userInfo?.user" class="btn btn-success icon-link ms-2" :href="loginURL()">
+  <a v-if="!userInfo?.user" class="btn-solid theme-success ms-3" :href="loginURL()">
     <DoorOpen />
     <span>{{ t('Log in') }}</span>
   </a>
-  <span v-if="userInfo?.user" class="navbar-text ms-2">
+  <span v-if="userInfo?.user" class="navbar-text ms-3">
     {{ msgLoggedIn }}
   </span>
-  <a v-if="userInfo?.user" class="btn btn-secondary icon-link ms-2" :href="logoutURL()">
+  <a v-if="userInfo?.user" class="btn-solid theme-secondary ms-3" :href="logoutURL()">
     <DoorClosed />
     <span>{{ t('Log out') }}</span>
   </a>
