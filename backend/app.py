@@ -5,7 +5,7 @@ import pathlib
 import typing
 
 from authlib.integrations.flask_client import FlaskOAuth2App, OAuth, OAuthError
-from flask import Flask, abort, jsonify, redirect, request, session
+from flask import Flask, abort, g, jsonify, redirect, request, session
 from flask_seasurf import SeaSurf
 from location_to_wikitext import add_location_to_wikitext
 from requests import Response
@@ -198,8 +198,8 @@ def edit():
             ),
         )
         r1: QueryResult = response.json()
-        token = r1["query"]["tokens"]["csrftoken"]
-        app.logger.info("Obtained token=%s for pageid=%d", token, pageid)
+        g.csrftoken = r1["query"]["tokens"]["csrftoken"]
+        app.logger.info("Obtained token=%s for pageid=%d", g.csrftoken, pageid)
     except OAuthError as e:
         logging.warning('Failed to obtain csrftoken', exc_info=e)
         abort(401, e)
@@ -225,25 +225,52 @@ def edit():
             lat=float(location["lat"]),
             lng=float(location["lng"]),
             page=page,
-            token=token,
         )
 
-    response = oauth_client.request(
-        "POST",
-        "api.php",
-        token=session["token"],
-        data=dict(
+    r2 = post_with_csrftoken(
+        dict(
             format="json",
             action="edit",
             pageid=str(pageid),
             summary=", ".join("{{%s}}" % d["type"] for d in locations),
             text=wikitext,
-            token=token,
-        ),
+        )
     )
-    r2 = response.json()
 
     return jsonify(result=r2)
+
+
+def fetch_csrftoken() -> str:
+    response: Response = oauth_client.request(
+        "POST",
+        "api.php",
+        token=session["token"],
+        data=dict(format="json", formatversion="2", action="query", meta="tokens"),
+    )
+    response.raise_for_status()
+    return response.json()["query"]["tokens"]["csrftoken"]
+
+
+def post_with_csrftoken(data: dict) -> dict:
+    # MediaWiki may reject a freshly obtained CSRF token (badtoken), for instance when
+    # the OAuth access token has been refreshed or the API session is not yet persisted.
+    # Then, obtain a new CSRF token and retry once.
+    for attempt in range(2):
+        response: Response = oauth_client.request(
+            "POST",
+            "api.php",
+            token=session["token"],
+            data=dict(data, token=g.csrftoken),
+        )
+        response.raise_for_status()
+        result = response.json()
+        if result.get("error", {}).get("code") != "badtoken" or attempt:
+            break
+        app.logger.warning("Obtained badtoken for action=%s, retrying", data["action"])
+        g.csrftoken = fetch_csrftoken()
+    if "error" in result:
+        app.logger.warning("Failed action=%s: %s", data["action"], result["error"])
+    return result
 
 
 def get_mediainfo(page: Page) -> Mediainfo:
@@ -257,7 +284,7 @@ def get_mediainfo(page: Page) -> Mediainfo:
     return None
 
 
-def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token: str):
+def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page):
     mediainfo = get_mediainfo(page)
     if not mediainfo:
         return None
@@ -285,21 +312,15 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             property,
             claim["id"],
         )
-        response: Response = oauth_client.request(
-            "POST",
-            "api.php",
-            token=session["token"],
-            data=dict(
+        return post_with_csrftoken(
+            dict(
                 format="json",
                 action="wbsetclaimvalue",
                 claim=claim["id"],
                 snaktype="value",
                 value=json.dumps(coordinates),
-                token=token,
-            ),
+            )
         )
-        response.raise_for_status()
-        return response.json()
     else:
         # https://www.wikidata.org/w/api.php?action=help&modules=wbcreateclaim
         app.logger.info(
@@ -307,19 +328,15 @@ def edit_mediainfo(type: LocationType, lat: float, lng: float, page: Page, token
             mediainfo["id"],
             property,
         )
-        response: Response = oauth_client.request(
-            "POST",
-            "api.php",
-            token=session["token"],
-            data=dict(
+        return post_with_csrftoken(
+            dict(
                 format="json",
                 action="wbcreateclaim",
                 entity=mediainfo["id"],
                 property=property,
                 snaktype="value",
                 value=json.dumps(coordinates),
-                token=token,
-            ),
+            )
         )
 
 
