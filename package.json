@@ -34,7 +34,7 @@
     "bootstrap": "6.0.0-alpha.1",
     "bootstrap-icons": "1.13.1",
     "es-toolkit": "1.45.1",
-    "maplibre-gl": "6.11.2",
+    "maplibre-gl": "6.13.0",
     "vue": "3.6.0-rc.10"
   },
   "devDependencies": {
