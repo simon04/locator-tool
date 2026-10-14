@@ -1,0 +1,2 @@
+import{E as e,V as t,k as n}from"./DcyZjiVXc9U8nGbih2e.js";import{t as r}from"./VKQTPZOEtyDQGY7kjQn.js";var i={},a={class:`progress`,role:`progressbar`,"aria-label":`Loading`,"aria-busy":`true`};function o(r,i){return t(),n(`div`,a,[...i[0]||=[e(`div`,{class:`progress-bar progress-bar-striped progress-bar-animated`,style:{width:`100%`}},null,-1)]])}var s=r(i,[[`render`,o]]);export{s as t};
+//# sourceMappingURL=BFU5Qq9Ms4OKt75a2g1.js.map
