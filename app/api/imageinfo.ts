@@ -13,12 +13,14 @@ export interface FileDetails {
   author?: string;
   timestamp?: string;
   url?: string;
+  fileUrl?: string;
   thumbUrl?: string;
   width?: number;
   height?: number;
   coordinates?: LatLng;
   objectLocation?: LatLng;
   globalUsage?: GlobalUsage[];
+  mediaViews?: number;
 }
 
 export interface DetailsPage {
@@ -120,7 +122,11 @@ export function toFileDetails(page: DetailsPage, prop: string, iiprop: string): 
     author: extmetadata?.Artist?.value,
     timestamp: extmetadata?.DateTimeOriginal?.value,
     ...(iiprop.includes('url')
-      ? {url: imageinfo?.descriptionurl, thumbUrl: imageinfo?.thumburl}
+      ? {
+          url: imageinfo?.descriptionurl,
+          fileUrl: imageinfo?.url,
+          thumbUrl: imageinfo?.thumburl
+        }
       : {}),
     // reserves the layout space of lazy-loaded thumbnails
     ...(iiprop.includes('size') ? {width: imageinfo?.width, height: imageinfo?.height} : {}),

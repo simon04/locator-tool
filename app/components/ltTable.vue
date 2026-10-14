@@ -111,6 +111,16 @@
             <td v-if="isVisible('globalUsage')">
               <lt-file-metadata-global-usage :file="title" badge />
             </td>
+            <td v-if="isVisible('mediaViews')" class="text-end">
+              <a
+                v-if="title.mediaViews !== undefined"
+                :href="mediaViewsUrl(title)"
+                target="_blank"
+                class="text-decoration-none"
+              >
+                {{ title.mediaViews.toLocaleString(language.replace('_', '-')) }}
+              </a>
+            </td>
             <td v-for="property in visibleProperties" :key="property">
               <div v-for="statement in statements[title.pageid]?.[property]" :key="statement.id">
                 <a
@@ -139,18 +149,20 @@ import CalendarEvent from 'bootstrap-icons/icons/calendar-event.svg?component';
 import CameraFill from 'bootstrap-icons/icons/camera-fill.svg?component';
 import CaretDownFill from 'bootstrap-icons/icons/caret-down-fill.svg?component';
 import ExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg?component';
+import EyeFill from 'bootstrap-icons/icons/eye-fill.svg?component';
 import GeoAlt from 'bootstrap-icons/icons/geo-alt.svg?component';
 import HouseFill from 'bootstrap-icons/icons/house-fill.svg?component';
 import PersonFill from 'bootstrap-icons/icons/person-fill.svg?component';
 import ShareFill from 'bootstrap-icons/icons/share-fill.svg?component';
 import SortDown from 'bootstrap-icons/icons/sort-down.svg?component';
 import SortUp from 'bootstrap-icons/icons/sort-up.svg?component';
-import {type Component, computed, onMounted, ref} from 'vue';
+import {type Component, computed, onMounted, ref, watch} from 'vue';
 
 import {getCoordinates} from '../api/coordinates';
 import {getFiles} from '../api/files';
 import {globalusage} from '../api/globalusage';
 import type {FileDetails} from '../api/imageinfo';
+import {mediaviews, MEDIAVIEWS_DAYS} from '../api/mediaviews';
 import {getStatements, type Statements} from '../api/statements';
 import {getLabels} from '../api/wikidataLabels';
 import type {CommonsFile} from '../model';
@@ -203,7 +215,8 @@ const baseColumns: {key: string; label: string; icon?: Component}[] = [
   {key: 'timestamp', label: t('Date'), icon: CalendarEvent},
   {key: 'categories', label: t('Category'), icon: undefined},
   {key: 'coordinates', label: t('Coordinates'), icon: undefined},
-  {key: 'globalUsage', label: t('Global usage'), icon: ShareFill}
+  {key: 'globalUsage', label: t('Global usage'), icon: ShareFill},
+  {key: 'mediaViews', label: t('Media views (30 days)'), icon: EyeFill}
 ];
 // every property used by the structured data of the loaded files becomes a column of its own
 const properties = computed(() =>
@@ -220,9 +233,10 @@ const columns = computed(() => [
   }))
 ]);
 // structured data uses far too many properties to show them all: exposure time, ISO speed
-// and f-number are displayed by default, the remaining ones are offered by the menu
+// and f-number are displayed by default, the remaining ones are offered by the menu;
+// the media views require one request per file, hence they are offered by the menu, too
 const visibleColumns = useLocalStorage<string[]>('tableColumns', [
-  ...baseColumns.map(column => column.key),
+  ...baseColumns.map(column => column.key).filter(key => key !== 'mediaViews'),
   EXPOSURE_TIME,
   ISO_SPEED,
   F_NUMBER
@@ -249,6 +263,7 @@ function isFileDetail(column: string): column is SortColumn {
 
 function sortValue(title: CommonsFile & FileDetails, column: string): string {
   if (column === 'globalUsage') return String(title.globalUsage?.length ?? 0);
+  if (column === 'mediaViews') return String(title.mediaViews ?? 0);
   return isFileDetail(column)
     ? (title[column] ?? '')
     : (statements.value[title.pageid]?.[column] ?? [])
@@ -276,6 +291,34 @@ function sortBy(column: string) {
 
 useAppTitle(routeTitlePart(), t('Table'));
 
+function mediaViewsUrl(title: CommonsFile & FileDetails): string {
+  const end = new Date();
+  end.setUTCDate(end.getUTCDate() - 1);
+  const start = new Date(end);
+  start.setUTCDate(start.getUTCDate() - MEDIAVIEWS_DAYS + 1);
+  const params = new URLSearchParams({
+    project: 'commons.wikimedia.org',
+    referer: 'all-referers',
+    start: start.toISOString().slice(0, 10),
+    end: end.toISOString().slice(0, 10),
+    files: title.file.replace(/^File:/, '')
+  });
+  return `https://pageviews.wmcloud.org/mediaviews?${params}`;
+}
+
+// one request per file, hence only queried when the column is shown
+function loadMediaViews() {
+  if (!isReady.value || !isVisible('mediaViews')) return;
+  for (const title of titles.value) {
+    if (!title.fileUrl || title.mediaViews !== undefined) continue;
+    mediaviews(title.fileUrl).then(
+      views => (title.mediaViews = views),
+      e => console.warn('Failed to obtain media views', title.file, e)
+    );
+  }
+}
+watch(() => isVisible('mediaViews'), loadMediaViews);
+
 onMounted(async () => {
   await execute();
   const pageids = titles.value.map(title => title.pageid);
@@ -284,6 +327,7 @@ onMounted(async () => {
       title.globalUsage = usages[title.pageid];
     }
   });
+  loadMediaViews();
   statements.value = await getStatements(pageids);
   const ids = new Set<string>();
   for (const fileStatements of Object.values(statements.value)) {
