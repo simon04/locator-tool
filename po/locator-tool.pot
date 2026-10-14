@@ -293,6 +293,10 @@ msgstr ""
 msgid "Global usage"
 msgstr ""
 
+#: ./app/components/ltTable.vue
+msgid "Media views (30 days)"
+msgstr ""
+
 #: ./app/components/ltFilesSelectorForCategory.vue
 msgid "Show Category as table"
 msgstr ""
