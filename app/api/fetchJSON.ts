@@ -1,5 +1,6 @@
 import {StorageSerializers, useSessionStorage} from '@vueuse/core';
 import {delay, Semaphore} from 'es-toolkit';
+import {shallowRef} from 'vue';
 
 // https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits
 const RETRY_STATUS = [429, 503];
@@ -22,6 +23,9 @@ export function clearCache(): void {
   sessionStorage.clear();
 }
 
+// the URL of the latest request, to show some progress while loading
+export const lastFetchedUrl = shallowRef('');
+
 export async function fetchJSON<T>(url: string, options?: RequestInit): Promise<T> {
   const cached = useSessionStorage<T | null>(url, null, {
     listenToStorageChanges: false,
@@ -37,6 +41,7 @@ export async function fetchJSON<T>(url: string, options?: RequestInit): Promise<
   const sema = semaphore(url);
   await sema.acquire();
   try {
+    lastFetchedUrl.value = url;
     for (let attempt = 0; ; attempt++) {
       const res = await fetch(url, {
         cache: 'no-cache',

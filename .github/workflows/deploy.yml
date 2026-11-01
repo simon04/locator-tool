@@ -1,0 +1,48 @@
+name: Deploy to Toolforge
+
+on:
+  workflow_run:
+    workflows: [Node CI]
+    branches: [master]
+    types: [completed]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
+    env:
+      API: https://api.svc.toolforge.org/components/v1/tool/locator-tool
+      TOOLS_DEPLOY_TOKEN: ${{ secrets.TOOLS_DEPLOY_TOKEN }}
+      DESCRIPTION: ${{ github.event.workflow_run.head_commit.message || github.sha }}
+      SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      # Node CI tested the frontend; test the backend of the same commit too
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.SHA }}
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - run: go test ./...
+      - name: Create deployment
+        run: |
+          set -Eeuo pipefail
+          deployment=$(jq --null-input --arg description "${SHA::7}: ${DESCRIPTION%%$'\n'*}" '{$description}' |
+            curl -sS --fail-with-body -X POST --json @- "$API/deployment?token=$TOOLS_DEPLOY_TOKEN")
+          echo "$deployment"
+          deployment_id=$(jq -r '.data.deploy_id' <<<"$deployment")
+          while sleep 10; do
+            deployment=$(curl -sS --fail-with-body "$API/deployment/$deployment_id?token=$TOOLS_DEPLOY_TOKEN")
+            status=$(jq -r '.data.status' <<<"$deployment")
+            echo "Deployment $deployment_id: $status"
+            case "$status" in
+              running | pending) ;;
+              successful) exit 0 ;;
+              *) echo "$deployment"; exit 1 ;;
+            esac
+          done

@@ -8,7 +8,7 @@ git clone https://github.com/simon04/locator-tool.git
 
 ## Code style
 
-Please make your code comply with [PEP 8](https://www.python.org/dev/peps/pep-0008/), the `.eslint` and `.editorconfig` files.
+Please run `pnpm fix:style` for the frontend and `gofmt -w backend` for the backend, and comply with the `.editorconfig` file.
 
 ## Running a development instance
 
@@ -18,25 +18,18 @@ The locator-tool relies on OAuth for editing files on Wikimedia Commons, which i
 
 For improving the frontend of the web application without requiring save operations (i.e., "Add {{Location}}"), a very simple setup suffices. Follow the instructions from [src/](https://github.com/simon04/locator-tool/tree/master/app#readme)
 
-### Read-write frontend development
+### Backend development
 
-When also want to test/improve the interaction with the Python backend, you can run a local webserver for https://locator-tool.toolforge.org/ which serves the local frontend code and proxies all requests to the actual server:
+The backend in [`backend/`](backend/) is written in Go. It serves the built frontend from `dist/` and the API:
 
 ```sh
-cd dev/
-
-# generate TLS keys for CN=locator-tool.toolforge.org
-openssl req -new -x509 -nodes -newkey rsa:4096 -keyout server.key -out server.crt
-
-# add locator-tool.toolforge.org entry to hosts file
-echo 127.0.0.1 locator-tool.toolforge.org | sudo tee -a /etc/hosts
-
-# run server for locator-tool.toolforge.org on port 443
-sudo caddy
+go test ./...
+pnpm build
+go run ./backend
 ```
 
-Afterwards, open https://locator-tool.toolforge.org/ in the browser.
+Afterwards, open http://localhost:8000/. Logging in only works on https://locator-tool.toolforge.org/, since the OAuth consumer's callback URL is fixed, see [`INSTALLING.md`](INSTALLING.md). For `/catscan`, open an SSH tunnel to the replica and set `TOOL_REPLICA_USER`, `TOOL_REPLICA_PASSWORD` and `REPLICA_ADDR=127.0.0.1:3306`:
 
-### Local backend development
-
-See `INSTALLING.md` and figure something out …
+```sh
+ssh -N -L 3306:links.commonswiki.web.db.svc.wikimedia.cloud:3306 login.toolforge.org
+```
