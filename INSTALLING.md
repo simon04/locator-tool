@@ -4,15 +4,13 @@ locator-tool runs on [Toolforge](https://wikitech.wikimedia.org/wiki/Help:Toolfo
 
 ## OAuth client
 
-locator-tool uses the existing OAuth 2.0 consumer [locator-tool 4.0](https://meta.wikimedia.org/wiki/Special:OAuthListConsumers/view/d61b2b3ceda1f5faf12a8d965d531334): callback URL https://locator-tool.toolforge.org/oauth-callback, not confidential, grants "Interact with pages" and "Edit existing pages". Its key is `OAUTH_CONSUMER_KEY`; `OAUTH_CONSUMER_SECRET` is optional.
+locator-tool uses the existing OAuth 2.0 consumer [locator-tool 4.0](https://meta.wikimedia.org/wiki/Special:OAuthListConsumers/view/d61b2b3ceda1f5faf12a8d965d531334): callback URL https://locator-tool.toolforge.org/oauth-callback, not confidential, grants "Interact with pages" and "Edit existing pages". Its key is built in; no OAuth configuration is needed.
 
 ## Deploy
 
 ```sh
 ssh login.toolforge.org
 become locator-tool
-toolforge envvars create OAUTH_CONSUMER_KEY
-toolforge envvars create OAUTH_CONSUMER_SECRET  # optional
 curl -O https://raw.githubusercontent.com/simon04/locator-tool/master/toolforge.yaml
 toolforge components config create toolforge.yaml  # once, afterwards fetched from source_url
 toolforge components deployment create
@@ -24,7 +22,7 @@ Further deployments run from GitHub Actions ([`deploy.yml`](.github/workflows/de
 
 | Variable                                     | Default                                             | Meaning                                              |
 | -------------------------------------------- | --------------------------------------------------- | ---------------------------------------------------- |
-| `OAUTH_CONSUMER_KEY`                         |                                                     | OAuth 2.0 client, required                           |
+| `OAUTH_CONSUMER_KEY`                         | `d61b2b3ceda1f5faf12a8d965d531334`                  | OAuth 2.0 client                                     |
 | `OAUTH_CONSUMER_SECRET`                      |                                                     | OAuth 2.0 client secret, optional                    |
 | `TOOL_REPLICA_USER`, `TOOL_REPLICA_PASSWORD` |                                                     | replica credentials for `/catscan`; set by Toolforge |
 | `REPLICA_ADDR`                               | `links.commonswiki.web.db.svc.wikimedia.cloud:3306` | Commons replica holding the category tables          |

@@ -32,5 +32,5 @@ Deployment uniformity with [bldrwnsch](https://github.com/simon04/bldrwnsch) and
 ## Before switching
 
 - Keep the existing OAuth 2.0 consumer (locator-tool 4.0, callback `https://locator-tool.toolforge.org/oauth-callback`, not confidential); no new consumer needed.
-- Set `OAUTH_CONSUMER_KEY` (and optionally `OAUTH_CONSUMER_SECRET`) via `toolforge envvars`, create the deploy token, stop the old `webservice python`.
+- Create the deploy token, stop the old `webservice python`.
 - Test login and a real edit end to end, as the callback URL only allows logging in on Toolforge.

@@ -30,13 +30,10 @@ func main() {
 }
 
 func run() error {
-	key := os.Getenv("OAUTH_CONSUMER_KEY")
-	if key == "" {
-		return errors.New("OAUTH_CONSUMER_KEY required")
-	}
 	s := &server.Server{
 		OAuth: &oauth2.Config{
-			ClientID: key,
+			// https://meta.wikimedia.org/wiki/Special:OAuthListConsumers/view/d61b2b3ceda1f5faf12a8d965d531334
+			ClientID: getenv("OAUTH_CONSUMER_KEY", "d61b2b3ceda1f5faf12a8d965d531334"),
 			// the consumer is not confidential, PKCE protects the code exchange
 			ClientSecret: os.Getenv("OAUTH_CONSUMER_SECRET"),
 			Endpoint: oauth2.Endpoint{

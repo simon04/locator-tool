@@ -25,7 +25,7 @@ The backend in [`backend/`](backend/) is written in Go. It serves the built fron
 ```sh
 go test ./...
 pnpm build
-OAUTH_CONSUMER_KEY=… go run ./backend
+go run ./backend
 ```
 
 Afterwards, open http://localhost:8000/. Logging in only works on https://locator-tool.toolforge.org/, since the OAuth consumer's callback URL is fixed, see [`INSTALLING.md`](INSTALLING.md). For `/catscan`, open an SSH tunnel to the replica and set `TOOL_REPLICA_USER`, `TOOL_REPLICA_PASSWORD` and `REPLICA_ADDR=127.0.0.1:3306`:
