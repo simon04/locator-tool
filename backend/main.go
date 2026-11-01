@@ -30,14 +30,15 @@ func main() {
 }
 
 func run() error {
-	key, secret := os.Getenv("OAUTH_CONSUMER_KEY"), os.Getenv("OAUTH_CONSUMER_SECRET")
-	if key == "" || secret == "" {
-		return errors.New("OAUTH_CONSUMER_KEY and OAUTH_CONSUMER_SECRET required")
+	key := os.Getenv("OAUTH_CONSUMER_KEY")
+	if key == "" {
+		return errors.New("OAUTH_CONSUMER_KEY required")
 	}
 	s := &server.Server{
 		OAuth: &oauth2.Config{
-			ClientID:     key,
-			ClientSecret: secret,
+			ClientID: key,
+			// the consumer is not confidential, PKCE protects the code exchange
+			ClientSecret: os.Getenv("OAUTH_CONSUMER_SECRET"),
 			Endpoint: oauth2.Endpoint{
 				AuthURL:  server.CommonsURL + "rest.php/oauth2/authorize",
 				TokenURL: server.CommonsURL + "rest.php/oauth2/access_token",

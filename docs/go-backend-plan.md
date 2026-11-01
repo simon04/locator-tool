@@ -8,7 +8,7 @@ Deployment uniformity with [bldrwnsch](https://github.com/simon04/bldrwnsch) and
 
 ## Decisions
 
-- **No cookies.** The frontend keeps the OAuth access token in `localStorage` and sends `Authorization: Bearer …`. PKCE `state`/verifier live in `sessionStorage`; `/token` adds the client secret to the code exchange. No server-side state, no session secret, no CSRF tokens. See `INSTALLING.md`.
+- **No cookies.** The frontend keeps the OAuth access token in `localStorage` and sends `Authorization: Bearer …`. PKCE `state`/verifier live in `sessionStorage`; `/token` exchanges the code. No server-side state, no session secret, no CSRF tokens. See `INSTALLING.md`.
 - **CSRF:** `http.NewCrossOriginProtection().Handler(mux)`; bearer tokens are not sent cross-site anyway.
 - **Headers:** `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`. HSTS comes from the Toolforge front proxy.
 - **No token refresh.** When the access token expires, log in again.
@@ -31,6 +31,6 @@ Deployment uniformity with [bldrwnsch](https://github.com/simon04/bldrwnsch) and
 
 ## Before switching
 
-- The OAuth consumer must be OAuth 2.0, confidential, callback `https://locator-tool.toolforge.org/oauth-callback`, grants "Basic rights" and "Edit existing pages".
-- Set `OAUTH_CONSUMER_KEY`, `OAUTH_CONSUMER_SECRET` via `toolforge envvars`, create the deploy token, stop the old `webservice python`.
-- Test login and a real edit end to end, as they can't be tested locally without an own consumer.
+- Keep the existing OAuth 2.0 consumer (locator-tool 4.0, callback `https://locator-tool.toolforge.org/oauth-callback`, not confidential); no new consumer needed.
+- Set `OAUTH_CONSUMER_KEY` (and optionally `OAUTH_CONSUMER_SECRET`) via `toolforge envvars`, create the deploy token, stop the old `webservice python`.
+- Test login and a real edit end to end, as the callback URL only allows logging in on Toolforge.

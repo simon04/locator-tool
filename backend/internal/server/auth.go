@@ -27,8 +27,8 @@ func (s *Server) handleLogin(w http.ResponseWriter, req *http.Request) {
 	http.Redirect(w, req, u, http.StatusFound)
 }
 
-// handleToken exchanges an authorization code for an access token, adding
-// the client secret, which the frontend does not know.
+// handleToken exchanges an authorization code for an access token, keeping
+// the OAuth client configuration in the backend.
 func (s *Server) handleToken(w http.ResponseWriter, req *http.Request) {
 	var body struct {
 		Code     string `json:"code"`
