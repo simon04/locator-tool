@@ -4,10 +4,10 @@
     <span>
       {{ t('In order to allow locator-tool to modify file description pages, sign in first:') }}
     </span>
-    <a class="btn-solid theme-success ms-3" :href="loginURL()">
+    <button type="button" class="btn-solid theme-success ms-3" @click="login()">
       <DoorOpen />
       <span>{{ t('Log in') }}</span>
-    </a>
+    </button>
   </p>
   <p v-if="userInfo?.user" class="mt-7">{{ msgLoggedIn }}</p>
   <h2>{{ t('Select files to geolocate') }}</h2>
@@ -42,7 +42,7 @@
 import DoorOpen from 'bootstrap-icons/icons/door-open.svg?component';
 import {computed, ref} from 'vue';
 
-import {getUserInfo, loginURL} from '../api/ltDataAuth';
+import {getUserInfo, login} from '../api/ltDataAuth';
 import LtFilesSelectorForCategory from './ltFilesSelectorForCategory.vue';
 import LtFilesSelectorForFiles from './ltFilesSelectorForFiles.vue';
 import LtFilesSelectorForUser from './ltFilesSelectorForUser.vue';

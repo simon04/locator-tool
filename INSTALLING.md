@@ -1,33 +1,39 @@
 # Installing locator-tool
 
-Install [uv](https://docs.astral.sh/uv/getting-started/installation/) first.
-
-```sh
-$ git clone https://github.com/simon04/locator-tool.git $HOME/locator-tool
-$ mkdir -p $HOME/www/python
-
-$ cd $HOME/www/python
-$ ln -s $HOME/locator-tool/backend src
-
-$ cd $HOME/www/python/src/
-$ git clone --branch=gh-pages https://github.com/simon04/locator-tool.git static
-$ uv sync
-$ cp config-example.py config.py
-# generate random string for SECRET_KEY
-# for OAUTH_CONSUMER_KEY and OAUTH_CONSUMER_SECRET see below
-
-# specific to locator-tool.toolforge.org, see https://github.com/wikimedia/operations-software-tools-webservice/blob/master/toollabs/webservice/services/pythonwebservice.py
-$ webservice --backend=kubernetes python start
-```
+locator-tool runs on [Toolforge](https://wikitech.wikimedia.org/wiki/Help:Toolforge/Deploy_your_tool) using the build service: the Node.js buildpack builds the frontend into `dist/`, the Go buildpack builds `./backend`, and [`Procfile`](Procfile) runs it. See [`toolforge.yaml`](toolforge.yaml).
 
 ## Register OAuth client
 
-Register tool at https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose with "OAuth callback URL" = https://locator-tool.toolforge.org/oauth-callback and "Edit existing pages" grant. Insert the displayed strings as `OAUTH_CONSUMER_KEY` and `OAUTH_CONSUMER_SECRET` into the `config.ini` file.
+Propose an OAuth 2.0 consumer at https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth2 with
 
-## Further information
+- "OAuth callback URL" = https://locator-tool.toolforge.org/oauth-callback
+- "Client is confidential"
+- grants "Basic rights" and "Edit existing pages"
 
-For more details, see:
+## Deploy
 
-- https://wikitech.wikimedia.org/wiki/Help:Tool_Labs/Python_application_stub
-- https://www.mediawiki.org/wiki/Extension:OAuth
-- https://www.github.com/valhallasw/flask-mwoauth
+```sh
+ssh login.toolforge.org
+become locator-tool
+toolforge envvars create OAUTH_CONSUMER_KEY
+toolforge envvars create OAUTH_CONSUMER_SECRET
+curl -O https://raw.githubusercontent.com/simon04/locator-tool/master/toolforge.yaml
+toolforge components config create toolforge.yaml  # once, afterwards fetched from source_url
+toolforge components deployment create
+```
+
+Further deployments run from GitHub Actions ([`deploy.yml`](.github/workflows/deploy.yml)) on each push to `master`, once Node CI passed. They need a deploy token (`toolforge components deploy-token create`) in the repository secret `TOOLS_DEPLOY_TOKEN`.
+
+## Configuration
+
+| Variable                                      | Default                                             | Meaning                                              |
+| --------------------------------------------- | --------------------------------------------------- | ---------------------------------------------------- |
+| `OAUTH_CONSUMER_KEY`, `OAUTH_CONSUMER_SECRET` |                                                     | OAuth 2.0 client, required                           |
+| `TOOL_REPLICA_USER`, `TOOL_REPLICA_PASSWORD`  |                                                     | replica credentials for `/catscan`; set by Toolforge |
+| `REPLICA_ADDR`                                | `links.commonswiki.web.db.svc.wikimedia.cloud:3306` | Commons replica holding the category tables          |
+| `PORT`                                        | `8000`                                              | HTTP port                                            |
+| `DIST_DIR`                                    | `dist`                                              | built frontend                                       |
+
+## Authentication
+
+There are no cookies. The frontend generates the OAuth `state` and PKCE code verifier, keeps them in `sessionStorage` and starts the login at `/login`. Commons redirects back to `/oauth-callback` (served by the frontend), which posts the code and verifier to `/token`; the backend adds the client secret and returns the access token. The frontend keeps it in `localStorage` and sends it as `Authorization: Bearer …` to `/user` and `/edit`, which pass it on to Commons. Logging out forgets the token. When the access token expires, log in again.

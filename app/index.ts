@@ -1,8 +1,12 @@
 import {createApp} from 'vue';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import {handleOAuthCallback} from './api/ltDataAuth';
 import App from './App.vue';
 import {createRouter} from './router';
+
+// before the router reads the location
+await handleOAuthCallback();
 
 const router = createRouter({
   linkActiveClass: 'active',

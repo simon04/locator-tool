@@ -1,8 +1,0 @@
-https://locator-tool.toolforge.org/ {
-    tls self_signed
-    proxy /locator-tool http://localhost:5000/ {
-        transparent
-        without /locator-tool
-    }
-    proxy / 208.80.155.131
-}
