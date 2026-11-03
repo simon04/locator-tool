@@ -42,7 +42,7 @@ onMounted(async () => {
       const marker = addMarker(map, title);
       if (marker) bounds.extend(marker.getLngLat());
     });
-    if (!bounds.isEmpty()) map.fitBounds(bounds, {padding: 40});
+    if (!bounds.isEmpty()) map.fitBounds(bounds, {padding: 40, animate: false});
   } else {
     geosearch(map);
     map.on('moveend', () => geosearchDebounced(map));

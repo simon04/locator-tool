@@ -60,6 +60,9 @@ function mapMarkerUpdater(map: maplibregl.Map): (mapMarker: LatLng) => void {
 // just inside the viewport can still be drawn (partly) outside of it
 const markerPadding = 45;
 
+// The first positioning jumps to the marker instead of flying there from the last view
+let positioned = false;
+
 function recenter(map: maplibregl.Map, center: maplibregl.LngLatLike): void {
   // A position within the current viewport was typically picked interactively (by clicking
   // the map or dragging a marker) and is plainly visible, hence leave the view alone
@@ -70,8 +73,14 @@ function recenter(map: maplibregl.Map, center: maplibregl.LngLatLike): void {
     y >= markerPadding &&
     x <= clientWidth - markerPadding &&
     y <= clientHeight - markerPadding;
+  const animate = positioned;
+  positioned = true;
   if (visible) return;
-  map.flyTo({center});
+  if (animate) {
+    map.flyTo({center});
+  } else {
+    map.jumpTo({center});
+  }
 }
 
 function mapClick($event: maplibregl.MapMouseEvent): void {
