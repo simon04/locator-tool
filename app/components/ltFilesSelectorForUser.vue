@@ -1,7 +1,7 @@
 <template>
   <form @submit.stop.prevent="next()">
-    <div class="form-field mb-7">
-      <label for="inputUser" class="form-label">{{ t('User') }}</label>
+    <div class="form-floating mb-7">
+      <label for="inputUser">{{ t('User') }}</label>
       <input
         id="inputUser"
         v-model="user"
@@ -11,19 +11,31 @@
       />
     </div>
     <div class="row">
-      <div class="form-field mb-7 sm:col-4">
-        <label for="inputUserLimit" class="form-label" translate-comment="maximum number of files">
-          {{ t('Limit') }}
-        </label>
-        <input id="inputUserLimit" v-model="userLimit" class="form-control" type="number" />
+      <div class="mb-7 sm:col-4">
+        <div class="form-floating">
+          <label for="inputUserLimit" translate-comment="maximum number of files">
+            {{ t('Limit') }}
+          </label>
+          <input
+            id="inputUserLimit"
+            v-model="userLimit"
+            class="form-control"
+            type="number"
+            placeholder="∞"
+          />
+        </div>
       </div>
-      <div class="form-field mb-7 sm:col-4">
-        <label for="inputUserStart" class="form-label">{{ t('Start timestamp') }}</label>
-        <input id="inputUserStart" v-model="userStart" class="form-control" type="date" />
+      <div class="mb-7 sm:col-4">
+        <div class="form-floating">
+          <label for="inputUserStart">{{ t('Start timestamp') }}</label>
+          <input id="inputUserStart" v-model="userStart" class="form-control" type="date" />
+        </div>
       </div>
-      <div class="form-field mb-7 sm:col-4">
-        <label for="inputUserEnd" class="form-label">{{ t('End timestamp') }}</label>
-        <input id="inputUserEnd" v-model="userEnd" class="form-control" type="date" />
+      <div class="mb-7 sm:col-4">
+        <div class="form-floating">
+          <label for="inputUserEnd">{{ t('End timestamp') }}</label>
+          <input id="inputUserEnd" v-model="userEnd" class="form-control" type="date" />
+        </div>
       </div>
     </div>
     <div class="mb-7">

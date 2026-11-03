@@ -1,26 +1,35 @@
 <template>
   <form @submit.stop.prevent="next()">
     <div class="row">
-      <div class="form-field mb-7 lg:col-10">
-        <label for="inputCategory" class="form-label">{{ t('Category') }}</label>
-        <input
-          id="inputCategory"
-          v-model="category"
-          class="form-control"
-          list="datalistCategory"
-          placeholder="Category:…"
-        />
+      <div class="mb-7 lg:col-10">
+        <div class="form-floating">
+          <label for="inputCategory">{{ t('Category') }}</label>
+          <input
+            id="inputCategory"
+            v-model="category"
+            class="form-control"
+            list="datalistCategory"
+            placeholder="Category:…"
+          />
+        </div>
       </div>
-      <div class="form-field mb-7 lg:col-2">
-        <label
-          for="inputCategoryDepth"
-          class="form-label"
-          translate-comment="Depth of category tree"
-          translate-context="Category"
-        >
-          {{ t('Depth') }}
-        </label>
-        <input id="inputCategoryDepth" v-model="categoryDepth" class="form-control" type="number" />
+      <div class="mb-7 lg:col-2">
+        <div class="form-floating">
+          <label
+            for="inputCategoryDepth"
+            translate-comment="Depth of category tree"
+            translate-context="Category"
+          >
+            {{ t('Depth') }}
+          </label>
+          <input
+            id="inputCategoryDepth"
+            v-model="categoryDepth"
+            class="form-control"
+            type="number"
+            placeholder="3"
+          />
+        </div>
       </div>
     </div>
     <div class="mb-7">

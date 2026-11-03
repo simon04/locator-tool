@@ -1,15 +1,16 @@
 <template>
   <form @submit.stop.prevent="next()">
     <div class="form-field mb-7">
-      <label for="inputTitles" class="form-label">{{ t('File list') }}</label>
-      <textarea
-        id="inputTitles"
-        v-model="titles"
-        class="form-control"
-        rows="10"
-        placeholder="File:…"
-        @paste="onFilesPaste($event)"
-      ></textarea>
+      <div class="form-floating" style="--bs-form-floating-height: 15rem">
+        <label for="inputTitles">{{ t('File list') }}</label>
+        <textarea
+          id="inputTitles"
+          v-model="titles"
+          class="form-control"
+          placeholder="File:…"
+          @paste="onFilesPaste($event)"
+        ></textarea>
+      </div>
       <div
         class="form-text"
         v-html="
