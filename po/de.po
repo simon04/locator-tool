@@ -331,3 +331,11 @@ msgstr "Dateien des Benutzers als Tabelle anzeigen"
 #: ./app/components/ltFilesSelectorForFiles.vue
 msgid "Show {{$ctrl.titleList.length}} files as table"
 msgstr "{{$ctrl.titleList.length}} Dateien als Tabelle anzeigen"
+
+#: ./app/components/ltNavbar.vue
+msgid "Menu"
+msgstr "Menü"
+
+#: ./app/components/ltNavbar.vue
+msgid "Close"
+msgstr "Schließen"
