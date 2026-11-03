@@ -20,21 +20,17 @@
         "
       ></div>
     </div>
-    <div class="mb-7">
-      <button class="btn-solid theme-success me-3" :disabled="!titleList.length" @click="next()">
+    <div class="d-flex flex-wrap gap-3 mb-7">
+      <button class="btn-solid theme-success" :disabled="!titleList.length" @click="next()">
         <GeoAlt />
         <span>{{ msgLoadGeolocate }}</span>
       </button>
-      <button
-        class="btn-solid theme-secondary me-3"
-        :disabled="!titleList.length"
-        @click="next('map')"
-      >
+      <button class="btn-solid theme-secondary" :disabled="!titleList.length" @click="next('map')">
         <GlobeEuropeAfrica />
         <span>{{ msgShowMap }}</span>
       </button>
       <button
-        class="btn-solid theme-secondary me-3"
+        class="btn-solid theme-secondary"
         :disabled="!titleList.length"
         @click="next('gallery')"
       >
@@ -42,7 +38,7 @@
         <span>{{ msgShowGallery }}</span>
       </button>
       <button
-        class="btn-solid theme-secondary me-3"
+        class="btn-solid theme-secondary"
         :disabled="!titleList.length"
         @click="next('table')"
       >

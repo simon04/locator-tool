@@ -32,24 +32,23 @@
         </div>
       </div>
     </div>
-    <div class="mb-7">
-      <button class="btn-solid theme-success me-3" :disabled="!category" @click="next()">
+    <div class="d-flex flex-wrap gap-3 mb-7">
+      <button class="btn-solid theme-success" :disabled="!category" @click="next()">
         <GeoAlt />
         <span>{{ t('Load Category to geolocate') }}</span>
       </button>
-      <button class="btn-solid theme-secondary me-3" :disabled="!category" @click="next('map')">
+      <button class="btn-solid theme-secondary" :disabled="!category" @click="next('map')">
         <GlobeEuropeAfrica />
         <span>{{ t('Show Category on map') }}</span>
       </button>
-      <button class="btn-solid theme-secondary me-3" :disabled="!category" @click="next('gallery')">
+      <button class="btn-solid theme-secondary" :disabled="!category" @click="next('gallery')">
         <FileImage />
         <span>{{ t('Show Category as gallery') }}</span>
       </button>
-      <button class="btn-solid theme-secondary me-3" :disabled="!category" @click="next('table')">
+      <button class="btn-solid theme-secondary" :disabled="!category" @click="next('table')">
         <TableIcon />
         <span>{{ t('Show Category as table') }}</span>
       </button>
-      <input class="invisible" type="submit" :disabled="!category" />
     </div>
     <lt-spinner v-if="isLoading" />
     <datalist id="datalistCategory">

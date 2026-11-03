@@ -38,29 +38,28 @@
         </div>
       </div>
     </div>
-    <div class="mb-7">
-      <button class="btn-solid theme-success me-3" :disabled="!user" @click="next()">
+    <div class="d-flex flex-wrap gap-3 mb-7">
+      <button class="btn-solid theme-success" :disabled="!user" @click="next()">
         <GeoAlt />
         <span>{{ t('Load User files to geolocate') }}</span>
       </button>
-      <button class="btn-solid theme-secondary me-3" :disabled="!user" @click="next('map')">
+      <button class="btn-solid theme-secondary" :disabled="!user" @click="next('map')">
         <GlobeEuropeAfrica />
         <span>{{ t('Show User files on map') }}</span>
       </button>
-      <button class="btn-solid theme-secondary me-3" :disabled="!user" @click="next('gallery')">
+      <button class="btn-solid theme-secondary" :disabled="!user" @click="next('gallery')">
         <FileImage />
         <span>{{ t('Show User files as gallery') }}</span>
       </button>
-      <button class="btn-solid theme-secondary me-3" :disabled="!user" @click="next('table')">
+      <button class="btn-solid theme-secondary" :disabled="!user" @click="next('table')">
         <TableIcon />
         <span>{{ t('Show User files as table') }}</span>
       </button>
-      <input class="invisible" type="submit" :disabled="!user" />
-      <lt-spinner v-if="isLoading" />
-      <datalist id="datalistUser">
-        <option v-for="i in userSuggestions" :key="i" :value="i"></option>
-      </datalist>
     </div>
+    <lt-spinner v-if="isLoading" />
+    <datalist id="datalistUser">
+      <option v-for="i in userSuggestions" :key="i" :value="i"></option>
+    </datalist>
   </form>
 </template>
 
